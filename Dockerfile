@@ -1,5 +1,5 @@
 #Build app
-FROM node:10-alpine as build-step
+FROM node:alpine3.14 as build-step
 
 RUN mkdir -p /app
 
