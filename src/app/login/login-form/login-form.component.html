@@ -2,23 +2,24 @@
 margin: 0; overflow-x: hidden; ">
   <div class="row">
     <div class="col-6 div-1">
+      <img class="img-logo" src="../assets/Logo_solo.jpg" alt="">
         <h3 class="title-1">CarMind</h3>
         <p class="title-2">Ingrese a su cuenta</p>
         <form>
           <label class="input-1 label" for="email">E-mail</label>
           <br>
-          <input class="input-1 input" name="email" type="email">
+          <input class="input-1 input" maxlength="50" name="email" type="email" required>
           <br>
           <label class="input-1 label-2" for="password">Contraseña</label>
           <br>
-          <input class="input-1 input" name="password" type="password">
+          <input class="input-1 input" maxlength="50" name="password" type="password" required>
           <br>
           <label class="input-1 label-3" for="checkbox">Recordarme</label>
           <br>
           <input class="input-2" type="checkbox" name="checkbox">
           <a href="*" class="p-contraseña"><p>Olvide mi contraseña</p></a>
           <br>
-          <button class="btn btn-success w-50 button">Iniciar Sesion</button>
+          <button type="submit" class="btn btn-success w-50 button">Iniciar Sesion</button>
         </form>
     </div>
     <div class="col-6 autos">
