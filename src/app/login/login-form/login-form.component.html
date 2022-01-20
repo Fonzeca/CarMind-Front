@@ -1,7 +1,8 @@
-<div class="container">
+<div class="container-fluid" style="padding: 0;
+margin: 0; overflow-x: hidden; ">
   <div class="row">
     <div class="col-6 div-1">
-        <h1 class="title-1">CarMind</h1>
+        <h3 class="title-1">CarMind</h3>
         <p class="title-2">Ingrese a su cuenta</p>
         <form>
           <label class="input-1 label" for="email">E-mail</label>
@@ -11,6 +12,10 @@
           <label class="input-1 label-2" for="password">Contraseña</label>
           <br>
           <input class="input-1 input" name="password" type="password">
+          <br>
+          <label for="checkbox">Recordarme</label>
+          <br>
+          <input class="input-1" type="checkbox" name="checkbox">
         </form>
     </div>
     <div class="col-6 autos">
@@ -21,13 +26,13 @@
           <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
         </div>
         <div class="carousel-inner">
-          <div class="carousel-item active auto-1">
+          <div class="carousel-item active auto-1" data-bs-interval="3000">
 
           </div>
-         <div class="carousel-item auto-2">
+         <div class="carousel-item auto-2" data-bs-interval="3000">
 
           </div>
-          <div class="carousel-item auto-3">
+          <div class="carousel-item auto-3" data-bs-interval="3000">
 
           </div>
         </div>
