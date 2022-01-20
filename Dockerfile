@@ -14,6 +14,6 @@ COPY . /app
 RUN npm run build --prod
 
 #Deploy app
-FROM nginx:1.17.1-alpine
+FROM nginx:alpine
 
 COPY --from=build-step /app/dist/app-vehiculo /usr/share/nginx/html
