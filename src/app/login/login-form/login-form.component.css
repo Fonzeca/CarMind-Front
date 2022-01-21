@@ -3,22 +3,22 @@
 }
 
 .title-1{
-  padding-left: 430px;
+
 }
 
 .title-2{
-  padding-left: 400px;
+
   padding-top: 10px;
   font-size: 20px;
 
 }
 
 .input-1{
-  margin-left: 250px;
+
 }
 
 .input{
-  width: 50%;
+  width: 100%;
   padding: 7px;
 }
 
@@ -66,24 +66,40 @@
 .input-2{
   position: relative;
   bottom: 23px;
-  margin-left: 250px;
+
 }
 
 .p-contrasenia{
   text-decoration: none;
   position: relative;
-  left: 575px;
-  bottom: 47px;
+  bottom: 0px;
+
+
+
 }
 
 .button{
-  margin-left: 250px;
-  margin-top: -100px;
+  width: 100%;
+  margin-top: -20px;
+  margin-bottom: 130px;
 }
 
 .img-logo{
   width: 100px;
   margin-top: 130px;
-  margin-left: 440px;
 }
 
+@media screen and (max-width: 576px){
+  .autos{
+    display: none;
+  }
+
+  .div-1{
+     display: flex;
+     margin: auto;
+  }
+
+  .title-2{
+    text-align: center;
+  }
+}
