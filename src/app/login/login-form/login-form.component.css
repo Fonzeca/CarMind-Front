@@ -56,6 +56,15 @@
   margin: auto;
 }
 
+@media screen and (max-width: 1200px){
+  .autos{
+    display: none;
+  }
+  .div-1{
+    margin-top: 150px;
+  }
+ }
+
 @media screen and (max-width: 576px){
   .autos{
     display: none;
@@ -64,6 +73,7 @@
   .div-1{
      display: flex;
      margin: auto;
+     margin-top: 150px;
   }
 
   .p{
@@ -75,15 +85,6 @@
   .centrar{
     width: 100%;
   }
-}
-
-@media screen and (max-width: 1200px){
- .autos{
-   display: none;
- }
- .div-1{
-   margin-top: 200px;
- }
 }
 
 
