@@ -63,6 +63,8 @@
   .div-1{
     margin-top: 150px;
   }
+
+
  }
 
 @media screen and (max-width: 576px){
@@ -87,6 +89,12 @@
   }
 }
 
+@media screen and (max-width: 339px) {
+    .button{
+      padding: 6px ;
+    }
+}
+
 
 .button{
   display: block;
@@ -96,6 +104,7 @@
   height: 55px;
   background: #398038;
   margin-top: -50px;
+  font-size: 20px;
 }
 
 
@@ -104,12 +113,13 @@
   margin-top: 10px;
   margin-bottom: 10px;
 
-  height: 55px;
+  height: 45px;
   width: 100%;
 }
 
 .c{
   margin-top: 50px;
+  font-size: 20px;
 }
 
 .class-2{
@@ -141,6 +151,7 @@
 
 .e{
   margin-top: 60px;
+  font-size: 20px;
 
 }
 
