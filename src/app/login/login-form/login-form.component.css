@@ -135,7 +135,7 @@ padding-left: 18px;
   position: relative;
   bottom: 30.5px;
   border: 2px solid #656565;
-
+  z-index: 1;
 }
 
 .p{

@@ -6,14 +6,14 @@
         <h1 class="title-1">CarMind</h1>
         <h3 class="title-2">Ingrese a su cuenta</h3>
 
-        <form>
+        <form [formGroup]="myForm" (ngSubmit)="verLogin(myForm.value)">
           <label class="class e" for="email">E-mail</label>
           <br>
-          <input class="input-1 otro" maxlength="50" name="email" type="email" required>
+          <input formControlName="usuario" pattern="\b[\w.-]+@[\w.-]+.\w{2,4}\b" class="input-1 otro" maxlength="50" name="email" type="email" required>
           <br>
           <label class="class c"  for="password">Contraseña</label>
           <br>
-          <input class="input-1" maxlength="50" name="password" type="password" required>
+          <input formControlName="contraseña" class="input-1" maxlength="50" name="password" type="password" required>
           <br>
           <label class="class class-2" for="checkbox">Recordarme</label>
           <br>
