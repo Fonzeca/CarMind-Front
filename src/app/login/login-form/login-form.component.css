@@ -42,6 +42,7 @@
   width: 50%;
   justify-content: center;
   align-self: center;
+  margin-top: 41px;
 }
 
 
@@ -149,7 +150,7 @@ padding-left: 18px;
 
 .label-final{
   text-align: center;
-  margin-top: 80px;
+  padding-top: 80px;
 
 }
 
