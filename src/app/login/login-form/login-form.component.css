@@ -147,7 +147,15 @@ padding-left: 18px;
 
 }
 
+.label-final{
+  text-align: center;
+  margin-top: 80px;
 
+}
+
+.label-final, .r{
+  padding-left: 3px;
+}
 
 .e{
   margin-top: 60px;
