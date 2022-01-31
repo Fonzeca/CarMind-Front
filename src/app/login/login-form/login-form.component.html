@@ -9,12 +9,21 @@
         <form [formGroup]="myForm" (ngSubmit)="verLogin(myForm.value)">
           <label class="class e" for="email">E-mail</label>
           <br>
-          <input formControlName="usuario" pattern="\b[\w.-]+@[\w.-]+.\w{2,4}\b" class="input-1 otro" maxlength="50" name="email" type="email" required>
+          <input formControlName="usuario" class="input-1 otro"  name="email" type="email" >
+
           <br>
+          <div class="result-2">
+            {{loginService.errorUsuario()}}
+          </div>
+
           <label class="class c"  for="password">Contraseña</label>
           <br>
-          <input formControlName="contraseña" class="input-1" maxlength="50" name="password" type="password" required>
+          <input formControlName="contraseña" class="input-1"  name="password" type="password" >
           <br>
+
+          <div class="result">
+            {{loginService.errorContrasenia()}}
+          </div>
           <label class="class class-2" for="checkbox">Recordarme</label>
           <br>
           <input class="input-2" type="checkbox" name="checkbox">
@@ -22,6 +31,7 @@
           <br>
           <button type="submit" class="btn btn-success button">Iniciar Sesion</button>
           <p class="label-final">¿Aún no tenés cuenta?<a class="r">Registrate</a></p>
+
         </form>
       </div>
     </div>

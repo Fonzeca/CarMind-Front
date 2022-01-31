@@ -1,10 +1,10 @@
-.title-1{
- text-align: center;
- font-size: 30px;
- font-weight: bold;
+.title-1 {
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
 }
 
-.title-2{
+.title-2 {
   padding-top: 0px;
   font-size: 22px;
   text-align: center;
@@ -12,7 +12,7 @@
   padding-bottom: 13px;
 }
 
-.auto-1{
+.auto-1 {
   background-image: url("/assets/auto1.jpg");
   width: 100%;
   height: 100vh;
@@ -20,7 +20,7 @@
   background-repeat: no-repeat;
 }
 
-.auto-2{
+.auto-2 {
   background-image: url("/assets/auto2.png");
   width: 100%;
   height: 100vh;
@@ -28,7 +28,7 @@
   background-repeat: no-repeat;
 }
 
-.auto-3{
+.auto-3 {
   background-image: url("/assets/auto3.jpg");
   width: 100%;
   height: 100vh;
@@ -36,7 +36,7 @@
   background-repeat: no-repeat;
 }
 
-.centrar{
+.centrar {
   display: flex;
   flex-direction: column;
   width: 50%;
@@ -44,60 +44,55 @@
   align-self: center;
 }
 
-
 .carousel-control-next,
 .carousel-control-prev /*, .carousel-indicators */ {
-    filter: invert(150%);
+  filter: invert(150%);
 }
 
-.img-logo{
+.img-logo {
   width: 100px;
   display: block;
   margin: auto;
 }
 
-@media screen and (max-width: 1200px){
-  .autos{
+@media screen and (max-width: 1200px) {
+  .autos {
     display: none;
   }
-  .div-1{
+  .div-1 {
+    margin-top: 150px;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .autos {
+    display: none;
+  }
+
+  .div-1 {
+    display: flex;
+    margin: auto;
     margin-top: 150px;
   }
 
-
- }
-
-@media screen and (max-width: 575px){
-  .autos{
-    display: none;
-    
-  }
-
-  .div-1{
-     display: flex;
-     margin: auto;
-     margin-top: 150px;
-  }
-
-  .p{
+  .p {
     position: relative;
     top: -25px;
     text-align: left !important;
   }
 
-  .centrar{
+  .centrar {
     width: 100%;
   }
 }
 
 @media screen and (max-width: 339px) {
-    .button{
-      padding: 6px ;
-    }
+  .button {
+    padding: 6px;
+  }
 }
 
-
-.button{
+.button {
   display: block;
   margin: auto;
   width: 100%;
@@ -108,72 +103,82 @@
   font-size: 20px;
 }
 
-
-
-.input-1{
+.input-1 {
   margin-top: 10px;
   margin-bottom: 10px;
-padding-left: 18px;
+  padding-left: 18px;
   height: 45px;
   width: 100%;
 }
 
-.c{
+.c {
   margin-top: 50px;
   font-size: 20px;
 }
 
-.class-2{
+.class-2 {
   position: relative;
   left: 20px;
   font-size: 16px !important;
   bottom: 1.5px;
-
-
 }
 
-.input-2{
+.input-2 {
   position: relative;
-  bottom: 30.5px;
+  bottom: 24px;
   border: 2px solid #656565;
   z-index: 1;
 }
 
-.p{
+.p {
   text-align: right;
   position: relative;
   bottom: 55px;
   text-decoration: none;
-
-
 }
 
-.label-final{
+.label-final {
   text-align: center;
   padding-top: 80px;
-
 }
 
-.label-final, .r{
+.label-final,
+.r {
   padding-left: 3px;
 }
 
-.e{
+.e {
   margin-top: 60px;
   font-size: 20px;
-
 }
 
-.class{
+.class {
   font-size: 20px;
 }
 
-.e, .c{
+.e,
+.c {
   position: relative;
   top: 13px;
-
 }
 
-.otro{
+.otro {
   margin-bottom: -40px;
 }
+
+.result{
+  text-align: left;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.result-2{
+  text-align: left;
+  margin-top: 20px;
+}
+
+
+
+
+
+
