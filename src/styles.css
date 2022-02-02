@@ -4,7 +4,21 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  
+
 }
 
+:root{
+  /* ===== Colors ===== */
+  --body-color: #FFF;
+  --sidebar-color: #212121;
+  --primary-color: #212121;
+  --primary-color-light: #212121;
+  --toggle-color: #DDD;
+  --text-color: #FFF;
 
+  /* ====== Transition ====== */
+  --tran-03: all 0.2s ease;
+  --tran-03: all 0.3s ease;
+  --tran-04: all 0.3s ease;
+  --tran-05: all 0.3s ease;
+}

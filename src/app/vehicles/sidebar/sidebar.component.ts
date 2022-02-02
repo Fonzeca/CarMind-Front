@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Directive, ElementRef, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
+
+
 
 @Component({
   selector: 'app-sidebar',
@@ -7,9 +9,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
 
-  constructor() { }
+@ViewChild('asToggle') toggle!: ElementRef;
+
+toggleChange!: boolean
+
+  constructor(private renderer2: Renderer2) { }
+
+onClick(){
+    const asToggle = this.toggle.nativeElement;
+
+if(this.toggleChange){
+     this.renderer2.setStyle(asToggle, 'width', '88px')
+
+}
+
+   else{
+    this.renderer2.setStyle(asToggle, 'width', '250px')
+   }
+
+   this.toggleChange = !this.toggleChange;
+}
+
+
 
   ngOnInit(): void {
   }
+
+
 
 }
