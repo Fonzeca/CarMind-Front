@@ -6,7 +6,7 @@
 
 .section-sidebar{
   margin-top: 300px;
-  min-height: 0vh;
+  height: 0vh;
   background-color: var(--body-color);
   transition: var(--tran-05);
 }
@@ -33,15 +33,17 @@ section.dark{
     top: 0;
     left: 0;
     bottom: 0;
-    height: 100%;
+    height: auto;
     width: 250px;
     padding: 10px 14px;
     background-color: var(--sidebar-color);
     transition: var(--tran-05);
-    z-index: 10;
+
+
 }
 .sidebar.close{
     width: 88px;
+
 
 
 }
@@ -313,7 +315,7 @@ body.dark .home .text{
 }
 
 .card-padre-1{
- margin-top: -200px;
+ margin-top: -100px;
 
 }
 
@@ -323,11 +325,52 @@ body.dark .home .text{
 
 .card-img, .card-img-bottom, .card-img-top{
   width: 100%;
-  min-width: 174px;
+  min-width: 141px;
   position: relative;
   right: 12px;
 }
 
+.buton{
+
+display: flex;
+align-items: center;
+justify-content:center;
+margin-right: 280px;
+margin-top: -250px;
+}
+
+.button{
+  width: 228px;
+  height: 56px;
+  border-radius: 10px;
+}
+
+.input-search{
+  display: flex;
+align-items: center;
+justify-content:center;
+margin-left: 310px;
+margin-top: -250px;
+
+}
+
+input{
+  padding-left: 10px;
+  border: none;
+  background-color: #C4C4C4;
+  height: 56px;
+  border-radius: 5px;
+
+}
+
+.img-search{
+  position: relative;
+  right: 30px;
+}
+
+input::placeholder{
+  color: black;
+}
 
 @media screen  and (max-width: 812px){
 
@@ -342,6 +385,8 @@ body.dark .home .text{
   .card-3{
     margin-top: 30px;
   }
+
+
 
 }
 

@@ -10,6 +10,7 @@ import { Component, Directive, ElementRef, Input, OnInit, Renderer2, ViewChild }
 export class SidebarComponent implements OnInit {
 
 @ViewChild('asToggle') toggle!: ElementRef;
+@ViewChild('asText') text!: ElementRef;
 
 toggleChange!: boolean
 
@@ -17,14 +18,18 @@ toggleChange!: boolean
 
 onClick(){
     const asToggle = this.toggle.nativeElement;
+    
 
 if(this.toggleChange){
      this.renderer2.setStyle(asToggle, 'width', '88px')
+
 
 }
 
    else{
     this.renderer2.setStyle(asToggle, 'width', '250px')
+
+
    }
 
    this.toggleChange = !this.toggleChange;
