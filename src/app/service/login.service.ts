@@ -1,16 +1,15 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import {
   BehaviorSubject,
   catchError,
   map,
   Observable,
-  of,
-  throwError,
+  of
 } from 'rxjs';
 import { Login } from '../Interface/login';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Router } from '@angular/router';
-import { FormControl, Validators } from '@angular/forms';
 @Injectable({
   providedIn: 'root',
 })
@@ -24,7 +23,7 @@ export class LoginService {
   currentUser!: Observable<Login>;
   constructor(private http: HttpClient, private router: Router) {
     this.currentUserSubject = new BehaviorSubject<Login>(
-      JSON.parse(sessionStorage.getItem('token') || '{}')
+      JSON.parse(localStorage.getItem('token') || '{}')
     );
     this.currentUser = this.currentUserSubject.asObservable();
   }
@@ -34,7 +33,7 @@ export class LoginService {
 
     return this.http.post<any>(this.url + path, usuario).pipe(
       map((data) => {
-        sessionStorage.setItem('token', data.token);
+        localStorage.setItem('token', data.token);
 
         this.currentUserSubject.next(data);
 
@@ -54,7 +53,7 @@ export class LoginService {
   }
 
   logout(): void {
-    sessionStorage.removeItem('Usuario');
+    localStorage.removeItem('Usuario');
     this.logged.next(false);
   }
 
