@@ -21,11 +21,12 @@ export class LoginService {
   logged = new BehaviorSubject<boolean>(false);
   currentUserSubject!: BehaviorSubject<Login>;
   currentUser!: Observable<Login>;
+
   constructor(private http: HttpClient, private router: Router) {
-    this.currentUserSubject = new BehaviorSubject<Login>(
-      JSON.parse(localStorage.getItem('token') || '{}')
-    );
-    this.currentUser = this.currentUserSubject.asObservable();
+    // this.currentUserSubject = new BehaviorSubject<Login>(
+    //   JSON.parse(localStorage.getItem('token') || '{}')
+    // );
+    // this.currentUser = this.currentUserSubject.asObservable();
   }
 
   login(usuario: Login): Observable<any> {
@@ -35,7 +36,7 @@ export class LoginService {
       map((data) => {
         localStorage.setItem('token', data.token);
 
-        this.currentUserSubject.next(data);
+        //this.currentUserSubject.next(data);
 
         this.logged.next(true);
 
@@ -53,8 +54,14 @@ export class LoginService {
   }
 
   logout(): void {
-    localStorage.removeItem('Usuario');
+    localStorage.removeItem('token');
     this.logged.next(false);
+  }
+
+  verSiEstaLogeado() : void{
+    if(localStorage.getItem("token")){
+      this.router.navigate(['/home']);
+    }
   }
 
   errorUsuario(){

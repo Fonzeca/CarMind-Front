@@ -1,16 +1,10 @@
-import { LoginService } from './../../service/login.service';
 import {
-  Component,
-  ElementRef,
-  Input,
-  OnInit,
-  Renderer2,
-  ViewChild,
+  Component, OnInit
 } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
+import { catchError, of } from 'rxjs';
 import { Login } from 'src/app/Interface/login';
-import { Router } from '@angular/router';
-import { catchError, Observable, of } from 'rxjs';
+import { LoginService } from './../../service/login.service';
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
@@ -21,7 +15,9 @@ export class LoginFormComponent implements OnInit {
     public formBuilder: FormBuilder,
     public loginService: LoginService,
 
-  ) {}
+  ) {
+    this.loginService.verSiEstaLogeado();
+  }
 
   email!: string
 
@@ -31,7 +27,9 @@ export class LoginFormComponent implements OnInit {
     contraseña: this.loginService.contraseña
   });
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    
+  }
 
   verLogin(form: Login): any {
     this.loginService.login(form).subscribe(catchError(this.handlerError));
