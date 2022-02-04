@@ -1,52 +1,58 @@
-.class{
-  background-color:  #000853 !important;
+.class {
+    background-color: #000853 !important;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
 }
 
-.a{
-  padding-left: 3px;
+.a {
+    padding-left: 3px;
 }
 
-.i{
-  padding-right: 12px;
-  margin-left: 60px;
+.i {
+    padding-right: 12px;
+    margin-left: 60px;
 }
 
-.item-solo{
-  padding-right: 150px;
+.item-solo {
+    padding-right: 150px;
 }
 
-.item-solo-1{
-  position: relative;
-  right: 130px;
+.item-solo-1 {
+    position: relative;
+    right: 130px;
 }
 
-.item-solo-2{
-  position: relative;
-  right: 110px;
+.item-solo-2 {
+    position: relative;
+    right: 110px;
 }
 
-.item-solo-3, .item-solo-4{
-  position: relative;
-  right: 110px;
+.item-solo-3,
+.item-solo-4 {
+    position: relative;
+    right: 110px;
 }
-
 
 @media screen and (max-width: 650px) {
-  .i{
-    margin-left: auto;
-  }
-
-  .item-solo{
-    padding-right: 0px;
-  }
-  .item-solo-1, .item-solo-2, .item-solo-3, .item-solo-4{
-    right: 0px;
-  }
-}
-
-@media screen and (max-width: 480px) {
-    .a{
-      display: none;
+    .i {
+        margin-left: auto;
+    }
+    .item-solo {
+        padding-right: 0px;
+    }
+    .item-solo-1,
+    .item-solo-2,
+    .item-solo-3,
+    .item-solo-4 {
+        right: 0px;
     }
 }
 
+@media screen and (max-width: 480px) {
+    .a {
+        display: none;
+    }
+}

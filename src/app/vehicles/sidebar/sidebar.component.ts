@@ -1,4 +1,4 @@
-import { Component, Directive, ElementRef, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 
 
 
@@ -9,33 +9,27 @@ import { Component, Directive, ElementRef, Input, OnInit, Renderer2, ViewChild }
 })
 export class SidebarComponent implements OnInit {
 
-@ViewChild('asToggle') toggle!: ElementRef;
-@ViewChild('asText') text!: ElementRef;
+  @ViewChild('asToggle') toggle!: ElementRef;
 
-toggleChange!: boolean
+  toggleChange!: boolean
 
   constructor(private renderer2: Renderer2) { }
 
-onClick(){
-    const asToggle = this.toggle.nativeElement;
+  
+
+  onClick() {
     
 
-if(this.toggleChange){
-     this.renderer2.setStyle(asToggle, 'width', '88px')
+  }
 
-
-}
-
-   else{
+  entraMouse(){
+    const asToggle = this.toggle.nativeElement;
     this.renderer2.setStyle(asToggle, 'width', '250px')
-
-
-   }
-
-   this.toggleChange = !this.toggleChange;
-}
-
-
+  }
+  saleMouse(){
+    const asToggle = this.toggle.nativeElement;
+    this.renderer2.setStyle(asToggle, 'width', '88px')
+  }
 
   ngOnInit(): void {
   }
