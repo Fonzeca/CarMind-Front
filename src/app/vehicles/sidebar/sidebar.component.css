@@ -135,6 +135,10 @@ header .image-text .profession{
     border-radius: 6px;
 }
 
+.image{
+  cursor: pointer;
+}
+
 .sidebar header .toggle{
     position: absolute;
     top: 50%;
