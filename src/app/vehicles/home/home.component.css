@@ -1,23 +1,31 @@
+
+
+
 .class{
   background-color:  #000853 !important;
+
+
 }
 
 .a{
   padding-left: 3px;
+ font-weight: 700;
 }
 
 .i{
   padding-right: 12px;
-  margin-left: 60px;
+  margin-left: 90px;
+  padding-top: 5px;
+
 }
 
 .item-solo{
-  padding-right: 150px;
+  padding-right: 130px;
 }
 
 .item-solo-1{
   position: relative;
-  right: 130px;
+  right: 120px;
 }
 
 .item-solo-2{
@@ -31,6 +39,11 @@
 }
 
 
+.item-solo-3{
+  font-weight: 700;
+
+}
+
 @media screen and (max-width: 650px) {
   .i{
     margin-left: auto;
@@ -39,9 +52,14 @@
   .item-solo{
     padding-right: 0px;
   }
-  .item-solo-1, .item-solo-2, .item-solo-3, .item-solo-4{
+  .item-solo-1, .item-solo-2, .item-solo-4{
     right: 0px;
   }
+
+  .item-solo-3{
+    display: none;
+  }
+
 }
 
 @media screen and (max-width: 480px) {

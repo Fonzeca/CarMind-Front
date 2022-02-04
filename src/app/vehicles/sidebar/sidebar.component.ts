@@ -18,7 +18,7 @@ toggleChange!: boolean
 
 onClick(){
     const asToggle = this.toggle.nativeElement;
-    
+
 
 if(this.toggleChange){
      this.renderer2.setStyle(asToggle, 'width', '88px')
@@ -27,7 +27,7 @@ if(this.toggleChange){
 }
 
    else{
-    this.renderer2.setStyle(asToggle, 'width', '250px')
+    this.renderer2.setStyle(asToggle, 'width', '21.3%')
 
 
    }
