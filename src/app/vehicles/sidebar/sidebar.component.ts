@@ -15,22 +15,14 @@ export class SidebarComponent implements OnInit {
 
   constructor(private renderer2: Renderer2) { }
 
-onClick(){
+  abrirSidebar(){
     const asToggle = this.toggle.nativeElement;
-
-
-if(this.toggleChange){
-     this.renderer2.setStyle(asToggle, 'width', '88px')
-
-}
-   else{
     this.renderer2.setStyle(asToggle, 'width', '21.3%')
-
-
-   }
-
-   this.toggleChange = !this.toggleChange;
-}
+  }
+  cerrarSidebar(){
+    const asToggle = this.toggle.nativeElement;
+    this.renderer2.setStyle(asToggle, 'width', '88px')
+  }
 
 
 

@@ -30,8 +30,6 @@ section.dark {
     top: 0;
     left: 0;
     bottom: 0;
-
-
     width: 250px;
     padding: 10px 14px;
     background-color: var(--sidebar-color);
@@ -56,7 +54,6 @@ section.dark {
 .sidebar header .image,
 .sidebar .icon {
     min-width: 60px;
-    border-radius: 6px;
 }
 
 .sidebar .icon {
@@ -121,12 +118,6 @@ header .image-text .profession {
 
 .sidebar header .image img {
     width: 40px;
-    border-radius: 6px;
-}
-
-.image{
-  cursor: pointer;
-
 }
 
 .sidebar header .toggle {
@@ -336,9 +327,9 @@ body.dark .home .text {
     right: 12px;
 }
 
-.img-search{
-  position: relative;
-  right: 30px;
+.img-search {
+    position: relative;
+    right: 30px;
 }
 
 .buton {
@@ -354,7 +345,6 @@ body.dark .home .text {
     height: 56px;
     border-radius: 10px;
     z-index: 1;
-
 }
 
 .input-search {
@@ -384,22 +374,21 @@ input {
     display: none;
 }
 
-.text{
-  font-size: 25px;
+.text {
+    font-size: 25px;
 }
 
-.text-1{
-  font-size: 30px;
+.text-1 {
+    font-size: 30px;
+    overflow-x: hidden;
 }
 
-.a{
-  color: #fff;
+.a {
+    color: #fff;
 }
-
 
 .clase-padre {
     margin-top: 30px;
-
 }
 
 input::placeholder {
@@ -407,23 +396,19 @@ input::placeholder {
 }
 
 @media screen and (max-width: 1070px) {
- .clase-padre{
-   margin-left: 150px;
- }
+    .clase-padre {
+        margin-left: 150px;
+    }
 }
 
 @media screen and (max-width: 858px) {
-
-     .text{
-       font-size: 15px;
-     }
-
-     .text-1{
-       font-size: 20px;
-     }
-
- }
-
+    .text {
+        font-size: 15px;
+    }
+    .text-1 {
+        font-size: 20px;
+    }
+}
 
 @media screen and (max-width: 812px) {
     .row {
@@ -431,28 +416,20 @@ input::placeholder {
     }
 }
 
-
 @media screen and (max-width: 691px) {
     .card-3 {
         margin-top: 30px;
     }
 }
 
+@media screen and(max-width: 650px) {}
 
-@media screen and(max-width: 650px){
-
-
-}
-
-@media screen and(max-width: 569px){
-
-  .buton{
-       margin-left: 0;
-       margin-right: 0;
-      flex-direction: column;
-
-  }
-
+@media screen and(max-width: 569px) {
+    .buton {
+        margin-left: 0;
+        margin-right: 0;
+        flex-direction: column;
+    }
 }
 
 @media screen and (max-width: 483px) {
@@ -463,4 +440,3 @@ input::placeholder {
         margin-bottom: 30px;
     }
 }
-
