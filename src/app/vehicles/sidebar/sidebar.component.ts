@@ -10,6 +10,7 @@ import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/co
 export class SidebarComponent implements OnInit {
 
   @ViewChild('asToggle') toggle!: ElementRef;
+  @ViewChild('indicator') indicator!: ElementRef;
 
   toggleChange!: boolean
 
@@ -22,6 +23,10 @@ export class SidebarComponent implements OnInit {
   cerrarSidebar(){
     const asToggle = this.toggle.nativeElement;
     this.renderer2.setStyle(asToggle, 'width', '88px')
+  }
+
+  cambiarIndicator(ele : HTMLElement){
+    
   }
 
 

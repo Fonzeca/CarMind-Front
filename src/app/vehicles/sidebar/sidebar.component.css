@@ -395,6 +395,16 @@ input::placeholder {
     color: black;
 }
 
+.icon-auto,
+.icon-check {
+    fill: white;
+}
+
+.icon-profile {
+    stroke: white;
+    fill: none;
+}
+
 @media screen and (max-width: 1070px) {
     .clase-padre {
         margin-left: 150px;
@@ -439,4 +449,33 @@ input::placeholder {
     .card-6 {
         margin-bottom: 30px;
     }
+}
+
+
+/* Css del side bar */
+
+.item-active-menu,
+.item-active-menu-no-fill {
+    --active-item-color: #8ED8F8;
+}
+
+.item-active-menu span,
+.item-active-menu svg {
+    color: var(--active-item-color) !important;
+    fill: var(--active-item-color);
+}
+
+.item-active-menu-no-fill svg,
+.item-active-menu-no-fill span {
+    color: var(--active-item-color) !important;
+    stroke: var(--active-item-color);
+}
+
+#indication-mark-wrap {
+    position: absolute;
+    left: 35px;
+    top: 56px;
+    height: 20px;
+    width: 20px;
+    background: red;
 }
