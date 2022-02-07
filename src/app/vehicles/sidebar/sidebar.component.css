@@ -32,7 +32,7 @@ section.dark {
     bottom: 0;
 
 
-    width: 250px;
+
     padding: 10px 14px;
     background-color: var(--sidebar-color);
     transition: var(--tran-05);
@@ -330,22 +330,33 @@ body.dark .home .text {
 .card-img,
 .card-img-bottom,
 .card-img-top {
-    width: 100%;
+    width: 232px;
     min-width: 141px;
     position: relative;
     right: 12px;
+    height: 225px;
+}
+
+.card-text{
+  font-weight: bold;
+  font-size: 22px;
+}
+
+.p{
+  font-weight: 500;
+  font-size: 18px;
 }
 
 .img-search{
   position: relative;
-  right: 30px;
+  right: -280px;
 }
 
 .buton {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 280px;
+
     margin-top: -150px;
 }
 
@@ -353,16 +364,24 @@ body.dark .home .text {
     width: 228px;
     height: 56px;
     border-radius: 10px;
-    z-index: 1;
 
+    margin-right: 0px;
+    position: relative;
+    right: 290px;
 }
 
-.input-search {
+/* .input-search {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: 310px;
+    margin-left: 850px;
     margin-top: -150px;
+} */
+
+.input-search{
+  margin-right: 0px;
+  position: relative;
+    left: 310px;
 }
 
 input {
@@ -406,31 +425,81 @@ input::placeholder {
     color: black;
 }
 
-@media screen and (max-width: 1070px) {
- .clase-padre{
-   margin-left: 150px;
- }
+@media screen and (max-width: 1368px) {
+  .naruto{
+    right: 160px !important;
+  }
+
+  .sasuke{
+    left: 180px !important;
+  }
+
+  .search-movie{
+    right: -150px;
+  }
+
 }
 
-@media screen and (max-width: 858px) {
+@media screen and (max-width: 1167px) {
+     .pepito{
+       right: 25px !important;
+     }
+
+     .susano{
+       left: 50px !important;
+     }
+
+     .search-movie{
+       right: -20px;
+     }
 
      .text{
-       font-size: 15px;
+      font-size: 15px;
+    }
+
+    .text-1{
+      font-size: 20px;
+    }
+}
+
+
+
+@media screen and (max-width: 905px) {
+
+     .clase-cualquiera{
+       margin-left: 150px !important;
      }
 
-     .text-1{
-       font-size: 20px;
-     }
+    .buton{
+       flex-direction: column;
+
+    }
+
+    .buton .button{
+      margin-bottom: 10px;
+    }
+
+    .pepito{
+        right: 0px !important;
+    }
+
+    .susano{
+      left: 0px !important;
+    }
+
+    .search-movie{
+      right: -70px !important;
+      bottom: 40px !important;
+    }
 
  }
 
-
-@media screen and (max-width: 812px) {
+/* @media screen and (max-width: 812px) {
     .row {
         margin-left: 80px;
     }
 }
-
+ */
 
 @media screen and (max-width: 691px) {
     .card-3 {
@@ -439,19 +508,18 @@ input::placeholder {
 }
 
 
-@media screen and(max-width: 650px){
-
-
-}
-
 @media screen and(max-width: 569px){
 
   .buton{
-       margin-left: 0;
-       margin-right: 0;
-      flex-direction: column;
+    margin-right: 0px !important;
+    margin-top: -150px;
 
   }
+
+ .otra-clase{
+    left: 300px !important;
+ }
+
 
 }
 
