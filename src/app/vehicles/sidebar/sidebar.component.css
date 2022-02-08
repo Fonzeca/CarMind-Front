@@ -417,30 +417,34 @@ input::placeholder {
 
 @media screen and (max-width: 1368px) {
   .naruto{
-    right: 160px !important;
+    right: 290px !important;
   }
 
   .sasuke{
-    left: 180px !important;
+    left: 310px !important;
   }
 
   .search-movie{
-    right: -150px;
+    right: -280px;
+  }
+
+  .clase-padre{
+    /* margin-left: 100px; */
   }
 
 }
 
-@media screen and (max-width: 1167px) {
+@media screen and (max-width: 1331px) {
      .pepito{
-       right: 25px !important;
+       right: 160px !important;
      }
 
      .susano{
-       left: 50px !important;
+       left: 180px !important;
      }
 
      .search-movie{
-       right: -20px;
+       right: -150px;
      }
 
      .text{
@@ -463,9 +467,24 @@ input::placeholder {
 }
 
 @media screen and (max-width: 1070px) {
-    .clase-padre {
-        margin-left: 150px;
-    }
+  .clase-padre {
+      margin-left: 150px;
+  }
+}
+
+
+@media screen and (max-width: 1067px) {
+  .pepito{
+    right: 25px !important;
+  }
+
+  .susano{
+    left: 50px !important;
+  }
+
+  .search-movie{
+    right: -20px;
+  }
 }
 
 @media screen and (max-width: 858px) {
@@ -474,6 +493,10 @@ input::placeholder {
     }
     .text-1 {
         font-size: 20px;
+    }
+
+    .button{
+         margin-top: 40px;
     }
 }
 
