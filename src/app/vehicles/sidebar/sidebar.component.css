@@ -409,6 +409,9 @@ input {
 
 .clase-padre {
     margin-top: 30px;
+
+      margin-left: 100px;
+
 }
 
 input::placeholder {
@@ -428,9 +431,7 @@ input::placeholder {
     right: -280px;
   }
 
-  .clase-padre{
-    /* margin-left: 100px; */
-  }
+
 
 }
 
@@ -466,6 +467,20 @@ input::placeholder {
     fill: none;
 }
 
+@media screen and (max-width: 1131px) {
+  .class-nueva, .button{
+    right: 160px !important;
+  }
+
+  .class-nueva-2, .input-search{
+    left: 180px !important;
+  }
+
+  .class-nueva-3, .img-search{
+    right: -150px;
+  }
+}
+
 @media screen and (max-width: 1070px) {
   .clase-padre {
       margin-left: 150px;
@@ -487,6 +502,8 @@ input::placeholder {
   }
 }
 
+
+
 @media screen and (max-width: 858px) {
     .text {
         font-size: 15px;
@@ -501,6 +518,19 @@ input::placeholder {
 }
 
 @media screen and (max-width: 905px) {
+
+  .class-nueva, .button{
+    right: 0px !important;
+  }
+
+  .class-nueva-2, .input-search{
+    left: 0px !important;
+  }
+
+  .class-nueva-3, .img-search{
+    right: -70px !important;
+    top: -40px !important;
+  }
 
      .clase-cualquiera{
        margin-left: 150px !important;

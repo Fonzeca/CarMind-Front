@@ -75,6 +75,9 @@ export class SidebarComponent implements OnInit {
     this.renderer2.addClass(asImgMovie, 'search-movie');
     this.renderer2.addClass(asRigth, 'clase-cualquiera');
     this.renderer2.addClass(asRigth, 'otra-clase');
+    this.renderer2.removeClass(asButtonLeft, 'class-nueva')
+    this.renderer2.removeClass(asButtonRigth, 'class-nueva-2')
+    this.renderer2.removeClass(asImgMovie, 'class-nueva-3');
 
 
   }
@@ -95,6 +98,12 @@ export class SidebarComponent implements OnInit {
       this.renderer2.removeClass(asButtonLeft, 'naruto');
       this.renderer2.removeClass(asButtonRigth, 'sasuke');
       this.renderer2.removeClass(asImgMovie, 'search-movie');
+      this.renderer2.addClass(asButtonLeft, 'class-nueva');
+      this.renderer2.addClass(asButtonRigth, 'class-nueva-2');
+      this.renderer2.addClass(asImgMovie, 'class-nueva-3');
+
+
+
   }
 
   cambiarIndicator(ele: HTMLElement) {}
