@@ -310,6 +310,11 @@ body.dark .home .text {
     margin-top: 68px;
 }
 
+.card{
+  width: 232px;
+  height: 314px;
+}
+
 .card-padre-1 {
     margin-top: -100px;
 }
@@ -361,13 +366,7 @@ body.dark .home .text {
     right: 290px;
 }
 
-/* .input-search {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 850px;
-    margin-top: -150px;
-} */
+
 
 .input-search{
   margin-right: 0px;
@@ -411,7 +410,8 @@ input {
     margin-top: 30px;
 
       margin-left: 100px;
-
+      transition-property: margin-left;
+      transition-duration: 1s;
 }
 
 input::placeholder {
@@ -479,6 +479,10 @@ input::placeholder {
   .class-nueva-3, .img-search{
     right: -150px;
   }
+
+  .card-3{
+    margin-top: 30px;
+  }
 }
 
 @media screen and (max-width: 1070px) {
@@ -517,10 +521,11 @@ input::placeholder {
     }
 }
 
-@media screen and (max-width: 905px) {
+@media screen and (max-width: 917px) {
 
   .class-nueva, .button{
     right: 0px !important;
+    margin-top: 40px !important;
   }
 
   .class-nueva-2, .input-search{
@@ -558,24 +563,27 @@ input::placeholder {
       bottom: 40px !important;
     }
 
+    .card{
+      margin-top: 30px;
+    }
  }
 
-/* @media screen and (max-width: 812px) {
-    .row {
-        margin-left: 80px;
-    }
-}
- */
+
 
 @media screen and (max-width: 691px) {
-    .card-3 {
+    .card-3, .card-2 {
         margin-top: 30px;
     }
 }
 
-@media screen and(max-width: 650px) {}
+
 
 @media screen and(max-width: 569px){
+
+.card{
+  width: 152px !important;
+  height: 234px !important;
+}
 
   .buton{
     margin-right: 0px !important;
