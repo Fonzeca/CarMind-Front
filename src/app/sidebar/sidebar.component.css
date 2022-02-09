@@ -74,13 +74,11 @@
     }
 }
 
-@media screen and (max-width: 1331px) {
+@media screen and (max-width: 1047px) {
     .text {
-        font-size: 15px;
-    }
-    .text-1 {
         font-size: 20px;
     }
+
 }
 
 .icon-auto,

@@ -5,6 +5,8 @@
 
 }
 
+
+
 .title-vehiculo{
   position: relative;
   bottom: 80px;
@@ -97,6 +99,8 @@ input {
     transition-duration: 1s;
 }
 
+
+
 .a-icon-lista {
   position: relative;
   top: 70px;
@@ -127,6 +131,51 @@ input {
   }
 
 }
+
+@media screen and (max-width: 1283px) {
+     .asButtonLeft{
+       position: relative;
+       right: 110px !important;
+       transition-property: right;
+       transition-duration: 1s;
+     }
+
+     .asTextLeft{
+      position: relative;
+      right: -20px !important;
+      transition-property: right;
+       transition-duration: 1s;
+     }
+
+     .asButtonRigth{
+       position: relative;
+       left: 200px !important;
+       transition-property: left;
+       transition-duration: 1s;
+     }
+
+     .asImgMovie{
+       position: relative;
+       right: -170px;
+       transition-property: right;
+       transition-duration: 1s;
+     }
+
+     .asIconLeft{
+       position: relative;
+       left: -10px;
+       transition-property: left;
+       transition-duration: 1s;
+     }
+
+     .asIconRigth{
+       position: relative;
+       left: 0px;
+       transition-property: left;
+       transition-duration: 1s;
+     }
+}
+
 
 @media screen and (max-width: 1192px) {
 
@@ -170,6 +219,51 @@ input {
     }
 }
 
+@media screen and (max-width: 1031px) {
+
+  .asButtonLeft{
+
+    right: -10px !important;
+    transition-property: right;
+       transition-duration: 1s;
+  }
+
+  .asTextLeft{
+
+   right: -130px !important;
+   transition-property: right;
+       transition-duration: 1s;
+  }
+
+  .asButtonRigth{
+
+    left: 80px !important;
+    transition-property: left;
+       transition-duration: 1s;
+  }
+
+  .asImgMovie{
+
+    left: 50px !important;
+    transition-property: left;
+       transition-duration: 1s;
+  }
+
+  .asIconLeft{
+
+    left: -330px;
+    transition-property: left;
+       transition-duration: 1s;
+  }
+
+  .asIconRigth{
+
+    left: -130px;
+    transition-property: left;
+       transition-duration: 1s;
+  }
+
+}
 
 @media screen and (max-width: 831px) {
 

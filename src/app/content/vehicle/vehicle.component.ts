@@ -9,6 +9,10 @@ export class VehicleComponent implements OnInit {
 
   constructor() { }
 
+   formatList(){
+     const list = document.querySelector(".")
+   }
+
 
   ngOnInit(): void {
   }
