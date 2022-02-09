@@ -1,73 +1,7 @@
 <section class="section-sidebar" >
-<div class="clase-padre" #asRigth >
-<div class=" row justify-content-center card-padre-1">
-<div class="buton">
-    <button type="button" class="btn btn-success button" #asButtonLeft>Agregar Vehiculo</button>
-    <input type="text" class="input-search" placeholder="Buscar Vehiculo..." #asButtonRigth><img class="img-search" src="../assets/icon-search.svg" #asImgMovie>
-</div>
-  <div class="card  col-2 col-xl-2 col-sm-12 col-md-12 col-lg-12 col-xs-12 d-flex flex-column ms-3 me-3 " >
-    <img src="../assets/auto1.jpg" class="card-img-top" alt="..."  >
-    <div class="card-body">
-      <h6 class="card-text">Vehiculo</h6>
-      <p class="p">Activo</p>
-    </div>
-  </div>
-  <div class="card  col-2 col-xl-2 col-sm-12 col-md-12 col-lg-12 col-xs-12 d-flex flex-column ms-3 me-3 " >
-    <img src="../assets/auto1.jpg" class="card-img-top" alt="..."  >
-    <div class="card-body">
-      <h6 class="card-text">Vehiculo</h6>
-      <p class="p">Activo</p>
-    </div>
-  </div>
-  <div class="card card-2 col-2 col-xl-2 col-sm-12 col-md-12 col-lg-12 col-xs-12 d-flex flex-column ms-3 me-3  ">
-    <img src="../assets/auto1.jpg" class="card-img-top" alt="...">
-    <div class="card-body">
-      <h6 class="card-text">Vehiculo</h6>
-      <p class="p">Activo</p>
-    </div>
-  </div>
-  <div class="card card-3 col-2 col-xl-2 col-sm-12 col-md-12 col-lg-12 col-xs-12 d-flex flex-column ms-3 me-3 " >
-    <img src="../assets/auto1.jpg" class="card-img-top" alt="...">
-    <div class="card-body">
-      <h6 class="card-text">Vehiculo</h6>
-      <p class="p">Activo</p>
-    </div>
-  </div>
-</div>
-<div class="row justify-content-center card-padre-2">
-  <div class="card col-2 col-xl-2 col-sm-12 col-md-12 col-lg-12 col-xs-12 d-flex flex-column ms-3 me-3   " >
-    <img src="../assets/auto1.jpg" class="card-img-top" alt="...">
-    <div class="card-body">
-      <h6 class="card-text">Vehiculo</h6>
-      <p class="p">Inactivo</p>
-    </div>
-  </div>
-  <div class="card  col-2 col-xl-2 col-sm-12 col-md-12 col-lg-12 col-xs-12 d-flex flex-column ms-3 me-3 " >
-    <img src="../assets/auto1.jpg" class="card-img-top" alt="..."  >
-    <div class="card-body">
-      <h6 class="card-text">Vehiculo</h6>
-      <p class="p">Activo</p>
-    </div>
-  </div>
-  <div class="card card-2  col-2 col-xl-2 col-sm-12 col-md-12 col-lg-12 col-xs-12 d-flex flex-column ms-3 me-3 " >
-    <img src="../assets/auto1.jpg" class="card-img-top" alt="...">
-    <div class="card-body">
-      <h6 class="card-text">Vehiculo</h6>
-      <p class="p">Inactivo</p>
-    </div>
-  </div>
-  <div class="card card-3 card-6 col-2 col-xl-2 col-sm-12 col-md-12 col-lg-12 col-xs-12 d-flex flex-column ms-3 me-3 " >
-    <img src="../assets/auto1.jpg" class="card-img-top" alt="...">
-    <div class="card-body">
-      <h6 class="card-text">Vehiculo</h6>
-      <p class="p">Inactivo</p>
-    </div>
-  </div>
-</div>
-</div>
 
 
-        <nav class="sidebar close" #asToggle (mouseenter)="abrirSidebar()" (mouseleave)="cerrarSidebar()">
+        <nav class="sidebar close"  (mouseenter)="abrirSidebar()" (mouseleave)="cerrarSidebar()" #asToggle>
             <header>
 
                 <div class="image-text">
@@ -83,9 +17,7 @@
 
             <div class="menu-bar">
                 <div class="menu">
-                    <!-- <div id="indication-mark-wrap" #indicator>
 
-                    </div> -->
                     <div hover-class="item-active-menu" [routerLinkActive]="['item-active-menu']" [routerLink]="['/home']" (mousemove)="cambiarIndicator(itemAuto)" #itemAuto>
 
                         <svg class="icon-auto" width="40" height="26" viewBox="0 0 40 26" style="stroke-width: 0%;" xmlns="http://www.w3.org/2000/svg">
@@ -95,7 +27,7 @@
 
                         <br>
 
-                        <span class="text nav-text dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" #asText>Vehiculos</span>
+                        <span class="text nav-text dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" #asText>Vehículos</span>
 
 
                         <br>
@@ -138,17 +70,7 @@
 
                 </div>
 
-                <!-- <div class="bottom-content">
-          <li class="">
-              <a href="#">
 
-                  <span class="text nav-text">Logout</span>
-              </a>
-          </li>
-
-
-
-      </div> -->
             </div>
 
         </nav>

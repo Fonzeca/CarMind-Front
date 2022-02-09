@@ -1,11 +1,13 @@
 /* Google Font Import - Poppins */
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700,300&display=swap');
+
 .section-sidebar {
     margin-top: 300px;
     height: 0vh;
     background-color: var(--body-color);
     transition: var(--tran-05);
+    font-family: 'Roboto';
 }
 
 ::selection {
@@ -30,10 +32,10 @@ section.dark {
     top: 0;
     left: 0;
     bottom: 0;
-    width: 250px;
     padding: 10px 14px;
     background-color: var(--sidebar-color);
     transition: var(--tran-05);
+
 }
 
 .sidebar.close {
@@ -96,6 +98,7 @@ section.dark {
     display: flex;
     align-items: center;
     margin-top: 50px;
+    cursor: pointer;
 }
 
 header .image-text .name {
@@ -310,78 +313,6 @@ body.dark .home .text {
     margin-top: 68px;
 }
 
-.card{
-  width: 232px;
-  height: 314px;
-}
-
-.card-padre-1 {
-    margin-top: -100px;
-}
-
-.card-padre-2 {
-    margin-top: 50px;
-}
-
-.card-img,
-.card-img-bottom,
-.card-img-top {
-    width: 232px;
-    min-width: 141px;
-    position: relative;
-    right: 12px;
-    height: 225px;
-}
-
-.card-text{
-  font-weight: bold;
-  font-size: 22px;
-}
-
-.p{
-  font-weight: 500;
-  font-size: 18px;
-}
-
-.img-search{
-  position: relative;
-  right: -280px;
-}
-
-.buton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    margin-top: -150px;
-}
-
-.button {
-    width: 228px;
-    height: 56px;
-    border-radius: 10px;
-
-    margin-right: 0px;
-    position: relative;
-    right: 290px;
-}
-
-
-
-.input-search{
-  margin-right: 0px;
-  position: relative;
-    left: 310px;
-}
-
-input {
-    padding-left: 10px;
-    border: none;
-    background-color: #C4C4C4;
-    height: 56px;
-    border-radius: 5px;
-}
-
 .sidebar header .logo-text {
     display: flex;
     flex-direction: column;
@@ -406,17 +337,8 @@ input {
     color: #fff;
 }
 
-.clase-padre {
-    margin-top: 30px;
 
-      margin-left: 100px;
-      transition-property: margin-left;
-      transition-duration: 1s;
-}
 
-input::placeholder {
-    color: black;
-}
 
 @media screen and (max-width: 1368px) {
   .naruto{
@@ -436,17 +358,6 @@ input::placeholder {
 }
 
 @media screen and (max-width: 1331px) {
-     .pepito{
-       right: 160px !important;
-     }
-
-     .susano{
-       left: 180px !important;
-     }
-
-     .search-movie{
-       right: -150px;
-     }
 
      .text{
       font-size: 15px;
@@ -485,15 +396,10 @@ input::placeholder {
   }
 }
 
-@media screen and (max-width: 1070px) {
-  .clase-padre {
-      margin-left: 150px;
-  }
-}
 
 
 @media screen and (max-width: 1067px) {
-  .pepito{
+  .button-left{
     right: 25px !important;
   }
 
@@ -509,12 +415,6 @@ input::placeholder {
 
 
 @media screen and (max-width: 858px) {
-    .text {
-        font-size: 15px;
-    }
-    .text-1 {
-        font-size: 20px;
-    }
 
     .button{
          margin-top: 40px;
@@ -550,7 +450,7 @@ input::placeholder {
       margin-bottom: 10px;
     }
 
-    .pepito{
+    .button-left{
         right: 0px !important;
     }
 
@@ -563,27 +463,16 @@ input::placeholder {
       bottom: 40px !important;
     }
 
-    .card{
-      margin-top: 30px;
-    }
+
  }
 
 
 
-@media screen and (max-width: 691px) {
-    .card-3, .card-2 {
-        margin-top: 30px;
-    }
-}
+
 
 
 
 @media screen and(max-width: 569px){
-
-.card{
-  width: 152px !important;
-  height: 234px !important;
-}
 
   .buton{
     margin-right: 0px !important;
