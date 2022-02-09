@@ -110,7 +110,7 @@ input {
   top: 70px;
   left: 130px;
   text-decoration: none;
-  color: black;
+  color: #000853;
 }
 
 @media screen and (max-width: 1331px) {
