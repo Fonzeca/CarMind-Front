@@ -25,6 +25,9 @@ export class SidebarComponent implements OnInit {
   constructor(private renderer2: Renderer2) {}
 
   abrirSidebar() {
+    if(window.outerWidth < 1000){
+      return;
+    }
 
     const asRigth = document.querySelector(".clase-padre")
     const asToggle = this.toggle.nativeElement;
