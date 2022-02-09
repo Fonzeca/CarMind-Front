@@ -84,7 +84,7 @@ input {
 .clase-padre {
   margin-top: 30px;
 
-    margin-left: 100px;
+    margin-left:100px;
     transition-property: margin-left;
     transition-duration: 1s;
 }
@@ -105,25 +105,51 @@ input {
 
 }
 
-@media screen and (max-width: 1131px) {
+@media screen and (max-width: 1192px) {
 
-  .card-3{
- 
+  .card-padre{
+    margin-left: -80px ;
   }
+
 }
 
-@media screen and (max-width: 1070px) {
-  .clase-padre {
-      margin-left: 150px;
-  }
-}
+@media screen and (max-width: 1083px) {
+    .button{
+        right: 140px ;
+    }
 
+    .input-search{
+      left: 175px;
+    }
 
-@media screen and (max-width: 917px) {
+    .img-search{
+      left: 140px;
+    }
 
-    .card{
+    .card-3{
       margin-top: 30px;
     }
+}
+
+
+@media screen and (max-width: 831px) {
+
+     .button{
+       right: 15px;
+     }
+
+     .input-search{
+      left: 50px;
+    }
+
+    .img-search{
+      left: 20px;
+    }
+
+    .card-2{
+      margin-top: 30px;
+    }
+
  }
 
  @media screen and (max-width: 691px) {
