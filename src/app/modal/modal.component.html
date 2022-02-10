@@ -1,0 +1,46 @@
+
+<mat-dialog-content>
+
+ <h3 style="font-size: 22px; font-weight: 700;">Nuevo Vehiculo</h3>
+ <span class="span-cerrar"><img src="../assets/icon-cerrarModal.svg" alt="" style="margin-left: 600px; position: relative; bottom: 40px; z-index: 1;"></span>
+ <hr style="position: relative; bottom: 20px; opacity: 0.1;">
+
+ <label for="nombre">Nombre</label>
+
+ <input name="nombre" class="nombre" type="text" style="width: 398px; height: 48px; margin-left: 100px; background-color: #EBEBEB; border: none;" placeholder="Escribe el Nombre del Vehiculo...">
+ <br>
+ <br>
+ <label for="opciones">Estado</label>
+ <select name="opciones" style="width: 398px; height: 48px; margin-left: 107px; background-color: #EBEBEB; border: none;">
+   <option class="activo" value="Activo">Activo</option>
+   <option value="Inactivo">Inactivo</option>
+
+ </select>
+
+ <br>
+ <br>
+ <label for="opciones">Tipo</label>
+ <select name="opciones" style="width: 398px; height: 48px; margin-left: 127px; background-color: #EBEBEB; border: none;">
+   <option value="Auto">Auto</option>
+   <option value="Camion">Camion</option>
+   <option value="Camioneta">Camioneta</option>
+   <option value="Maquinaria Pesada">Maquinaria Pesada</option>
+ </select>
+ <br>
+ <br>
+ <input
+        type="file"
+        name="mi-archivo"
+        id="mi-archivo"
+        (change)="capturarFile($event)"
+        required
+      />
+<label for="">Imagen</label>
+    <label for="mi-archivo" class="adjuntar-img">
+      <span>Adjuntar Imagen</span>
+    </label>
+    <div *ngIf="previsualizacion">
+      <img width="150px" [src]="previsualizacion" alt="" class="img-default" />
+    </div>
+</mat-dialog-content>
+

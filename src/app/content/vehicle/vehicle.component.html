@@ -3,10 +3,10 @@
 
   <div class="buton">
     <h3 class="title-vehiculo" #asTextLeft>Vehículos</h3>
-      <button type="button" class="btn button" #asButtonLeft>Agregar Vehículo</button>
+      <button mat-button (click)="openDialog()" type="button" class="btn button" #asButtonLeft>Agregar Vehículo</button>
       <input type="text" class="input-search" placeholder="Buscar Vehiculo..." #asButtonRigth><img class="img-search" src="../assets/icon-search.svg" #asImgMovie>
-      <a href="*" class="a-icon-lista"><img class="icon-lista" src="assets/icon-lista.svg" alt="">Lista</a>
-      <a href="*" class="a-icon-cuadricula"><img class="icon-cuadricula" src="assets/icon-cuadricula.svg" alt="">Cuadricula</a>
+      <!-- a href="*" class="a-icon-lista"><img class="icon-lista" src="assets/icon-lista.svg" alt="">Lista</a>
+      <a href="*" class="a-icon-cuadricula"><img class="icon-cuadricula" src="assets/icon-cuadricula.svg" alt="">Cuadricula</a> -->
   </div>
     <div class="card  col-2 col-xl-2 col-sm-12 col-md-12 col-lg-12 col-xs-12 d-flex flex-column ms-3 me-1 " >
       <img src="../assets/auto1.jpg" class="card-img-top" alt="..."  >

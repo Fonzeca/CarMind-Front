@@ -1,0 +1,31 @@
+input[type="file"]#mi-archivo {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+  }
+
+  .adjuntar-img{
+    position: relative;
+    left: 108px;
+    cursor: pointer;
+    color: #000853;
+  }
+
+  input::placeholder{
+    padding-left: 12px;
+  }
+
+input{
+  outline: none;
+}
+
+.img-default{
+  position: relative;
+  left: 250px;
+ padding-top: 40px;
+}
+
+

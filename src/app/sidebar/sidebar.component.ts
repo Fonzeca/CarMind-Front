@@ -36,11 +36,14 @@ export class SidebarComponent implements OnInit {
     const asButtonLeft = document.querySelector(".button")
     const asButtonRigth = document.querySelector(".input-search")
     const asToggle = this.toggle.nativeElement;
+    const asCard3 = document.querySelector(".card-3")
+    const asCard2 = document.querySelector(".card-2")
     const asTextLeft = document.querySelector(".title-vehiculo")
     const asImgMovie = document.querySelector(".img-search")
     const asIconLeft = document.querySelector(".a-icon-lista")
     const asIconRigth = document.querySelector(".a-icon-cuadricula")
     this.renderer2.setStyle(asToggle, 'width', '21.3%',  RendererStyleFlags2.Important + RendererStyleFlags2.DashCase);
+
     this.renderer2.setStyle(asRigth, 'margin-left', '300px');
     this.renderer2.addClass(asButtonLeft, 'asButtonLeft');
     this.renderer2.addClass(asTextLeft, 'asTextLeft');

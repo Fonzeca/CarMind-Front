@@ -9,6 +9,9 @@ import { HoverClassDirective } from './sidebar/hover-class.directive';
 import { ResetSelectionDirective } from './sidebar/reset-selection.directive';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { TopbarComponent } from './topbar/topbar.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule} from '@angular/material/dialog';
+import { ModalComponent } from './modal/modal.component'
 
 @NgModule({
   declarations: [
@@ -17,15 +20,19 @@ import { TopbarComponent } from './topbar/topbar.component';
     HoverClassDirective,
     VehicleComponent,
     TopbarComponent,
-    ResetSelectionDirective
+    ResetSelectionDirective,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     LoginModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatDialogModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ModalComponent]
 })
 export class AppModule { }
