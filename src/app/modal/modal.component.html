@@ -2,7 +2,7 @@
 <mat-dialog-content>
 
  <h3 style="font-size: 22px; font-weight: 700;">Nuevo Vehiculo</h3>
- <span class="span-cerrar"><img src="../assets/icon-cerrarModal.svg" alt="" style="margin-left: 600px; position: relative; bottom: 40px; z-index: 1;"></span>
+ <span mat-dialog-close class="span-cerrar"><img src="../assets/icon-cerrarModal.svg" alt="" style="margin-left: 600px; position: relative; bottom: 40px; z-index: 1;"></span>
  <hr style="position: relative; bottom: 20px; opacity: 0.1;">
 
  <label for="nombre">Nombre</label>
@@ -13,7 +13,7 @@
  <label for="opciones">Estado</label>
  <select name="opciones" style="width: 398px; height: 48px; margin-left: 107px; background-color: #EBEBEB; border: none;">
    <option class="activo" value="Activo">Activo</option>
-   <option value="Inactivo">Inactivo</option>
+   <option class="inactivo"value="Inactivo">Inactivo</option>
 
  </select>
 
