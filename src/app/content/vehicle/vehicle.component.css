@@ -181,6 +181,8 @@ input {
 
   .card-padre{
     margin-left: -80px ;
+    transition-property: margin-left;
+       transition-duration: 1s;
   }
 
 }
@@ -190,14 +192,20 @@ input {
 
     .button{
         right:200px ;
+        transition-property: right;
+       transition-duration: 1s;
     }
 
     .input-search{
       left: 115px;
+      transition-property: left;
+       transition-duration: 1s;
     }
 
     .img-search{
       left: 80px;
+      transition-property: left;
+       transition-duration: 1s;
     }
 
     .card-3{
@@ -206,14 +214,20 @@ input {
 
     .a-icon-lista{
       left: -10px;
+      transition-property: left;
+       transition-duration: 1s;
     }
 
     .a-icon-cuadricula{
       left: 0;
+      transition-property: left;
+       transition-duration: 1s;
     }
 
     .title-vehiculo{
       right:70px;
+      transition-property: right;
+       transition-duration: 1s;
     }
 }
 
@@ -269,18 +283,26 @@ input {
 
      .title-vehiculo{
        right: -50px;
+       transition-property: right;
+       transition-duration: 1s;
      }
 
      .button{
        right: 70px;
+       transition-property: right;
+       transition-duration: 1s;
      }
 
      .input-search{
       left: -10px;
+      transition-property: left;
+       transition-duration: 1s;
     }
 
     .img-search{
       left: -50px;
+      transition-property: left;
+       transition-duration: 1s;
     }
 
     .card-2{
@@ -289,10 +311,14 @@ input {
 
     .a-icon-lista{
       left: -330px;
+      transition-property: left;
+       transition-duration: 1s;
     }
 
     .a-icon-cuadricula{
       left: -150px;
+      transition-property: left;
+       transition-duration: 1s;
     }
 
  }

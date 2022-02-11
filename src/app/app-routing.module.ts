@@ -1,3 +1,4 @@
+import { DetalleVehiculeComponent } from './content/detalle-vehicule/detalle-vehicule.component';
 import { VehicleComponent } from './content/vehicle/vehicle.component';
 
 
@@ -19,6 +20,11 @@ const routes: Routes = [
     path: 'home',
     component: VehicleComponent
   },
+
+  {
+    path: 'vehicle',
+    component: DetalleVehiculeComponent
+  }
 
 ];
 

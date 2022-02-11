@@ -11,7 +11,8 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { TopbarComponent } from './topbar/topbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule} from '@angular/material/dialog';
-import { ModalComponent } from './modal/modal.component'
+import { ModalComponent } from './modal/modal.component';
+import { DetalleVehiculeComponent } from './content/detalle-vehicule/detalle-vehicule.component'
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ModalComponent } from './modal/modal.component'
     VehicleComponent,
     TopbarComponent,
     ResetSelectionDirective,
-    ModalComponent
+    ModalComponent,
+    DetalleVehiculeComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,50 @@
+.detalle-vehiculo-padre{
+  margin-top: -130px ;
+  margin-left: 400px;
+
+}
+
+.detalle-vehiculo-padre h3{
+  font-weight: 700;
+  font-size: 30px;
+  position: relative;
+  left: 14px;
+}
+
+.card{
+  width: 232px;
+  height: 314px;
+   margin-top: 0px;
+
+}
+
+.card-img,
+.card-img-bottom,
+.card-img-top {
+    width: 232px;
+    min-width: 141px;
+    position: relative;
+    right: 0px;
+    height: 225px;
+
+}
+
+.button{
+  background-color: #B6E802;
+  width: 228px;
+  height: 56px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  margin-left: 14px;
+  font-weight: 700;
+}
+
+.button-2{
+  width: 183px;
+  height: 56px;
+  background-color: #8ED8F8;
+  border-radius: 10px;
+  margin-left: 18px;
+  font-weight: 700;
+}
