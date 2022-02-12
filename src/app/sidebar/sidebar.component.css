@@ -78,7 +78,6 @@
     .text {
         font-size: 20px;
     }
-
 }
 
 .icon-auto,
@@ -195,6 +194,10 @@
     color: var(--active-item-color) !important;
     fill: var(--active-item-color);
     stroke: var(--active-item-color);
+}
+
+.active {
+    overflow: inherit;
 }
 
 .no-fill svg,
