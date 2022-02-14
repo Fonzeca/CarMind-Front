@@ -13,7 +13,11 @@ import { HoverClassDirective } from './sidebar/hover-class.directive';
 import { ResetSelectionDirective } from './sidebar/reset-selection.directive';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { TopbarComponent } from './topbar/topbar.component';
-
+import { PerfilComponent } from './content/perfil/perfil.component';
+import {MatTableModule} from '@angular/material/table';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PersonalComponent } from './content/personal/personal.component';
+import {MatCardModule} from '@angular/material/card'
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +27,9 @@ import { TopbarComponent } from './topbar/topbar.component';
     TopbarComponent,
     ResetSelectionDirective,
     ModalComponent,
-    DetalleVehiculeComponent
+    DetalleVehiculeComponent,
+    PerfilComponent,
+    PersonalComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +37,13 @@ import { TopbarComponent } from './topbar/topbar.component';
     LoginModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatDialogModule
+    MatDialogModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatTableModule,
+    MatCardModule,
+
+
   ],
   providers: [],
   bootstrap: [AppComponent],

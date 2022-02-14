@@ -1,3 +1,5 @@
+import { PerfilComponent } from './content/perfil/perfil.component';
+import { PersonalComponent } from './content/personal/personal.component';
 import { DetalleVehiculeComponent } from './content/detalle-vehicule/detalle-vehicule.component';
 import { VehicleComponent } from './content/vehicle/vehicle.component';
 
@@ -24,6 +26,14 @@ const routes: Routes = [
   {
     path: 'vehicle',
     component: DetalleVehiculeComponent
+  },
+  {
+    path: 'personal',
+    component: PersonalComponent
+  },
+  {
+    path: 'perfil',
+    component: PerfilComponent
   }
 
 ];
