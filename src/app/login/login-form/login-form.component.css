@@ -177,7 +177,10 @@
   margin-top: 20px;
 }
 
-
+.carousel-control-next,
+.carousel-control-prev /*, .carousel-indicators */ {
+  filter: invert(200%);
+}
 
 
 

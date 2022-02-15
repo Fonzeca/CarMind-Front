@@ -1,6 +1,8 @@
 .personal-padre{
   margin-top: -130px ;
-  margin-left: 400px;
+  margin-left: 300px;
+  transition-property: margin-left;
+  transition-duration: 1s;
 }
 
 .img-search{
@@ -52,3 +54,23 @@ table {
   width: 80%;
   margin-top: 50px;
 }
+
+
+@media screen and (max-width: 1065px) {
+      .input-search{
+        left: 110px;
+      }
+
+      .img-search{
+        right: -80px;
+      }
+}
+
+
+
+@media screen and (max-width: 938px) {
+  .personal-padre{
+    margin-left: 200px;
+  }
+}
+

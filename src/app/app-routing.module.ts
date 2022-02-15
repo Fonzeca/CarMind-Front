@@ -1,3 +1,4 @@
+import { FormsComponent } from './content/forms/forms.component';
 import { PerfilComponent } from './content/perfil/perfil.component';
 import { PersonalComponent } from './content/personal/personal.component';
 import { DetalleVehiculeComponent } from './content/detalle-vehicule/detalle-vehicule.component';
@@ -34,6 +35,10 @@ const routes: Routes = [
   {
     path: 'perfil',
     component: PerfilComponent
+  },
+  {
+    path: 'formularios',
+    component: FormsComponent
   }
 
 ];
