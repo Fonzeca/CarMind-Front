@@ -1,3 +1,4 @@
+import { FormsComponent } from './content/forms/forms.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -29,7 +30,8 @@ import {MatCardModule} from '@angular/material/card'
     ModalComponent,
     DetalleVehiculeComponent,
     PerfilComponent,
-    PersonalComponent
+    PersonalComponent,
+    FormsComponent
   ],
   imports: [
     BrowserModule,
