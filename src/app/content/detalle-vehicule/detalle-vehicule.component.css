@@ -18,6 +18,19 @@
 
 }
 
+
+.card-text{
+  font-weight: 700;
+}
+
+.img-qr{
+  margin-left: 150px;
+  position: relative;
+bottom: 67px;
+}
+
+
+
 .card-img,
 .card-img-bottom,
 .card-img-top {
@@ -47,4 +60,116 @@
   border-radius: 10px;
   margin-left: 18px;
   font-weight: 700;
+}
+
+.caja-vehiculo{
+  width: 613px;
+  height: 314px;
+  background-color: #EEEEEE;
+  border-radius: 5.15556px;
+  margin-left: 270px;
+  position: relative;
+  bottom: 313px;
+}
+
+.caja-vehiculo .contenido-1{
+  font-size: 22px;
+  margin-top: 30px;
+
+}
+
+
+.caja-vehiculo .contenido-2{
+  font-size: 22px;
+  font-weight: 400;
+margin-top: 27px;
+margin-left: 150px;
+  
+}
+
+
+.caja-vehiculo .contenido-3{
+  font-size: 22px;
+  position: relative;
+  top: 70px;
+  left: -290px;
+
+}
+
+
+.caja-vehiculo .contenido-4{
+  font-size: 22px;
+  font-weight: 400;
+  position: relative;
+ top: 70px;
+ left: -155px;
+
+}
+
+.caja-vehiculo .contenido-5{
+  font-size: 22px;
+  position: relative;
+  top: 110px;
+  left: -445px;
+
+}
+
+.caja-vehiculo .contenido-6{
+  font-size: 22px;
+  font-weight: 400;
+  position: relative;
+ top: 110px;
+ left: -310px;
+
+}
+
+.caja-vehiculo .contenido-7{
+  font-size: 22px;
+  position: relative;
+  top: 150px;
+  left: -600px;
+
+}
+
+.caja-vehiculo .contenido-8{
+  font-size: 22px;
+  font-weight: 400;
+  position: relative;
+ top: 150px;
+ left: -465px;
+
+}
+
+.caja-vehiculo .contenido-9{
+  font-size: 22px;
+  position: relative;
+  top: 190px;
+  left: -755px;
+
+}
+
+.caja-vehiculo .contenido-10{
+  font-size: 22px;
+  font-weight: 400;
+  position: relative;
+ top: 190px;
+ left: -620px;
+
+}
+
+.caja-vehiculo .contenido-11{
+  font-size: 22px;
+  position: relative;
+  top: 230px;
+  left: -910px;
+
+}
+
+.caja-vehiculo .contenido-12{
+  font-size: 22px;
+  font-weight: 400;
+  position: relative;
+ top: 230px;
+ left: -775px;
+
 }
