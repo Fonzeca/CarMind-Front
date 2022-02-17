@@ -18,7 +18,11 @@ import { PerfilComponent } from './content/perfil/perfil.component';
 import {MatTableModule} from '@angular/material/table';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PersonalComponent } from './content/personal/personal.component';
-import {MatCardModule} from '@angular/material/card'
+import {MatCardModule} from '@angular/material/card';
+import { AsigarFormularioComponent } from './asigar-formulario/asigar-formulario.component';
+import { CardSeccionFormComponent } from './card-seccion-form/card-seccion-form.component';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { ModalAdjuntarDocumentoComponent } from './modal-adjuntar-documento/modal-adjuntar-documento.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +35,10 @@ import {MatCardModule} from '@angular/material/card'
     DetalleVehiculeComponent,
     PerfilComponent,
     PersonalComponent,
-    FormsComponent
+    FormsComponent,
+    AsigarFormularioComponent,
+    CardSeccionFormComponent,
+    ModalAdjuntarDocumentoComponent
   ],
   imports: [
     BrowserModule,
@@ -44,6 +51,7 @@ import {MatCardModule} from '@angular/material/card'
     FormsModule,
     MatTableModule,
     MatCardModule,
+    MatSlideToggleModule
 
 
   ],

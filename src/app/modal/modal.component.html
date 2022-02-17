@@ -10,12 +10,15 @@
  <input name="nombre" class="nombre" type="text" style="width: 398px; height: 48px; margin-left: 100px; background-color: #EBEBEB; border: none;" placeholder="Escribe el Nombre del Vehiculo...">
  <br>
  <br>
- <label for="opciones">Estado</label>
- <select name="opciones" style="width: 398px; height: 48px; margin-left: 107px; background-color: #EBEBEB; border: none;">
-   <option class="activo" value="Activo">Activo</option>
-   <option class="inactivo"value="Inactivo">Inactivo</option>
+ <label for="nombre">N° interno</label>
 
- </select>
+ <input name="nombre" class="nombre" type="text" style="width: 398px; height: 48px; margin-left: 88px; background-color: #EBEBEB; border: none;" placeholder="Escribe el Nombre del Vehiculo...">
+ <br>
+ <br>
+ <label for="nombre">Patente</label>
+
+
+ <input name="nombre" class="nombre" type="text" style="width: 398px; height: 48px; margin-left: 105px; background-color: #EBEBEB; border: none;" placeholder="Escribe el Nombre del Vehiculo...">
 
  <br>
  <br>
@@ -28,19 +31,8 @@
  </select>
  <br>
  <br>
- <input
-        type="file"
-        name="mi-archivo"
-        id="mi-archivo"
-        (change)="capturarFile($event)"
-        required
-      />
-<label for="">Imagen</label>
-    <label for="mi-archivo" class="adjuntar-img">
-      <span>Adjuntar Imagen</span>
-    </label>
-    <div *ngIf="previsualizacion">
-      <img width="150px" [src]="previsualizacion" alt="" class="img-default" />
-    </div>
+ <button mat-button type="button" class="btn button">Agregar</button>
+ <button mat-dialog-close mat-button type="button" class="btn button-2">Cancelar</button>
+
 </mat-dialog-content>
 

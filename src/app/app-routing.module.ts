@@ -1,3 +1,4 @@
+import { AsigarFormularioComponent } from './asigar-formulario/asigar-formulario.component';
 import { FormsComponent } from './content/forms/forms.component';
 import { PerfilComponent } from './content/perfil/perfil.component';
 import { PersonalComponent } from './content/personal/personal.component';
@@ -39,6 +40,10 @@ const routes: Routes = [
   {
     path: 'formularios',
     component: FormsComponent
+  },
+  {
+    path: 'agregar-formulario',
+    component: AsigarFormularioComponent
   }
 
 ];

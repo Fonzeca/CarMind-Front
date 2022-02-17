@@ -1,7 +1,7 @@
 <div class="formulario-padre">
   <div class="buton">
     <h3 class="title-formularios" #asTextLeft>Formularios</h3>
-      <button mat-button type="button" class="btn button" #asButtonLeft>Agregar Formulario</button>
+      <button mat-button type="button" class="btn button" #asButtonLeft routerLink="/agregar-formulario">Agregar Formulario</button>
       <input type="text" class="input-search" placeholder="Buscar Vehiculo..." #asButtonRigth><img class="img-search" src="../assets/icon-search.svg" #asImgMovie>
       <!-- a href="*" class="a-icon-lista"><img class="icon-lista" src="assets/icon-lista.svg" alt="">Lista</a>
       <a href="*" class="a-icon-cuadricula"><img class="icon-cuadricula" src="assets/icon-cuadricula.svg" alt="">Cuadricula</a> -->
@@ -61,7 +61,7 @@
   <span class="carousel-control-prev-icon" aria-hidden="true"></span>
   <span class="visually-hidden">Previous</span>
 </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next" style="z-index: 1;">
   <span class="carousel-control-next-icon" aria-hidden="true"></span>
   <span class="visually-hidden">Next</span>
 </button>

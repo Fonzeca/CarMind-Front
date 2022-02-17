@@ -1,0 +1,25 @@
+.asignar-formulario{
+   margin-left: 200px;
+}
+
+h3{
+  position: relative !important;
+  bottom: 200px !important;
+}
+
+.icono-lapiz{
+  position: relative;
+  top:-2px;
+  left: 25px;
+}
+
+.button{
+  background-color: #B6E802;
+  width: 150px;
+  height: 56px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  margin-top: 120px;
+  margin-left: 530px;
+  font-weight: 700;
+}

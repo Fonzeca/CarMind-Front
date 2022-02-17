@@ -2,8 +2,8 @@
 
   <div class="buton">
     <h3>Vehiculo</h3>
-      <button mat-button type="button" class="btn button" #asButtonLeft>Asignar Formulario</button>
-       <button mat-button type="button" class="btn button-2">Cambiar QR</button>
+      <button mat-button type="button" class="btn button" #asButtonLeft  >Asignar Formulario</button>
+       <button mat-button type="button" class="btn button-2" (click)="openDialog()" >Adjuntar Documento</button>
       <!-- a href="*" class="a-icon-lista"><img class="icon-lista" src="assets/icon-lista.svg" alt="">Lista</a>
       <a href="*" class="a-icon-cuadricula"><img class="icon-cuadricula" src="assets/icon-cuadricula.svg" alt="">Cuadricula</a> -->
   </div>
@@ -18,7 +18,7 @@
   <div class="caja-vehiculo d-flex">
         <h3 class="contenido-1">Marca</h3>
         <p class="contenido-2">Chevrolet</p>
-        
+
         <h3 class="contenido-3">Marca</h3>
         <p class="contenido-4">Chevrolet</p>
 

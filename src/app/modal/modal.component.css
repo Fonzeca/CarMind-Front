@@ -32,4 +32,26 @@ input{
  padding-top: 40px;
 }
 
+.button{
+  background-color: #B6E802;
+  width: 150px;
+  height: 56px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  margin-top: 10px;
+  margin-left: 250px;
+  font-weight: 700;
+}
+
+.button-2{
+  background-color: #949494;
+  width: 150px;
+  height: 56px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  margin-top: 10px;
+  margin-left: 10px;
+  font-weight: 700;
+}
+
 
