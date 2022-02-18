@@ -23,3 +23,8 @@ h3{
   margin-left: 530px;
   font-weight: 700;
 }
+
+.img-agregar{
+  position: relative;
+  left: -30px;
+}

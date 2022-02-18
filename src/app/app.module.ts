@@ -24,6 +24,8 @@ import { CardSeccionFormComponent } from './card-seccion-form/card-seccion-form.
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { ModalAdjuntarDocumentoComponent } from './modal-adjuntar-documento/modal-adjuntar-documento.component';
 import { DatePipe } from '@angular/common';
+import { AgregarPreguntaComponent } from './agregar-pregunta/agregar-pregunta.component';
+import { FormatoRespuestaComponent } from './formato-respuesta/formato-respuesta.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +41,9 @@ import { DatePipe } from '@angular/common';
     FormsComponent,
     AsigarFormularioComponent,
     CardSeccionFormComponent,
-    ModalAdjuntarDocumentoComponent
+    ModalAdjuntarDocumentoComponent,
+    AgregarPreguntaComponent,
+    FormatoRespuestaComponent
   ],
   imports: [
     BrowserModule,
