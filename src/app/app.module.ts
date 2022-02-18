@@ -23,6 +23,7 @@ import { AsigarFormularioComponent } from './asigar-formulario/asigar-formulario
 import { CardSeccionFormComponent } from './card-seccion-form/card-seccion-form.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { ModalAdjuntarDocumentoComponent } from './modal-adjuntar-documento/modal-adjuntar-documento.component';
+import { DatePipe } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,11 +52,12 @@ import { ModalAdjuntarDocumentoComponent } from './modal-adjuntar-documento/moda
     FormsModule,
     MatTableModule,
     MatCardModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    FormsModule
 
 
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent],
   entryComponents: [ModalComponent]
 })
