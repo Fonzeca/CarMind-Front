@@ -55,3 +55,9 @@ input{
 }
 
 
+select{
+  outline: none;
+text-indent: 18px;
+
+}
+
