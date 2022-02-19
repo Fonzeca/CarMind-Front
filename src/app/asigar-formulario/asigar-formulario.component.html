@@ -4,24 +4,10 @@
        <h5 style="position: relative; top:15px; left: 30px;">Agregar sección</h5>
         <hr style="position: relative; top: 7px; color: #C5C5C5; width: 780px; left: 8px; z-index: 0;">
 
-        <label for="preguntaVisual" style="margin-left: 30px;">Nombre de la Seccion</label>
-
- <input class="nombre" type="text" [(ngModel)]="preguntaVisual" name="preguntaVisual" style="width: 398px; height: 48px; margin-left: 100px; background-color: #EBEBEB; border: none;" placeholder="Escribe el Nombre del Vehiculo...">
- <br>
- <br>
- <label for="asignarRespuesta" style="margin-left: 30px;">Asignar pregunta</label>
-
- <input class="nombre" type="text" [(ngModel)]="asignarRespuesta" name="asignarRespuesta" style="width: 398px; height: 48px; margin-left: 133px; margin-bottom: 30px; background-color: #EBEBEB; border: none;" placeholder="Escribe el Nombre del Vehiculo..."><a><img class="img-agregar" src="../assets/icono-agregar.svg"></a>
- <label for="formatoRespuesta" style="margin-left: 30px;" >Formato de Respuesta</label>
- <select style="width: 398px; height: 48px; margin-left: 94px; background-color: #EBEBEB; border: none; " [(ngModel)]="formatoRespuesta" name="formatoRespuesta">
-   <option class="activo" value="Casillas de selección única">Casillas de selección única</option>
-   <option class="inactivo"value="Casillas con tildes y cruces">Casillas con tildes y cruces</option>
-   <option class="activo" value="Varias opciones">Varias opciones</option>
-   <option class="inactivo"value="Foto">Foto</option>
-   <option class="inactivo"value="Respuesta escrita">Respuesta escrita</option>
-
- </select>
+ 
+ <app-formato-respuesta ></app-formato-respuesta>
  <button mat-button type="button" class="btn button" (click)="enviarDatosSeccion()">Agregar</button>
+
 
   </div>
 
