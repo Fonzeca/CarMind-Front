@@ -8,7 +8,7 @@
 
         <input class="nombre" type="text" name="asignarRespuesta" style="width: 398px; height: 48px; margin-left: 100px; margin-bottom: 30px; background-color: #EBEBEB; border: none;" placeholder="Escribe el Nombre del Vehiculo...">
  <app-formato-respuesta></app-formato-respuesta>
- <button mat-button type="button" class="btn button" (click)="enviarDatosSeccion()">Agregar</button>
+ <button mat-button class="btn button" (click)="enviarDatosSeccion()">Agregar</button>
 
   </div>
 
@@ -45,9 +45,12 @@
 </div>
 
 </div>
-<div style="height: 677px; width: 484px; background-color: #F4F4F4; margin-left: 1020px; margin-top: -1080px;" >
+<div *ngFor="let item of style; let j = index" style="height: 100%; width: 584px; background-color: #F4F4F4; margin-left: 1020px; margin-top: -1080px;" class="d-flex flex-column card"  >
+  <div>
   <h5 style="position: relative; top:15px; left: 30px;">Secciónes (0)</h5>
    <hr style="position: relative; top: 7px; color: #C5C5C5; width: 780px; left: 8px; z-index: 0;">
    <input type="text" class="input-search" placeholder="Buscar Vehiculo..." style="width:434px; height: 46px; margin-left: 25px; border: none; border-radius: 5px;"><img style="margin-left: -30px;" class="img-search" src="../assets/icon-search.svg" >
-  <app-card-seccion-form></app-card-seccion-form>
+  <app-card-seccion-form  *ngFor="let item of preguntasDos; let i = index"></app-card-seccion-form>
+  <div></div>
+</div>
 </div>

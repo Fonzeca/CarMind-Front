@@ -1,5 +1,5 @@
 import { Altaseccion } from './../service/model/altaSeccion';
-import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ApiAltaSeccionService } from '../service/api-alta-seccion.service';
 import { map } from 'rxjs';
@@ -20,27 +20,29 @@ export class AsigarFormularioComponent implements OnInit {
   character!: AsigarFormularioComponent;
   @ViewChild('asAgregar') agregarPregunta!: ElementRef;
   @ViewChild('asFormato') formatoPregunta!: ElementRef;
-
-
+  @Input('acount-id') preguntas!: any
+  preguntasDos = new Array();
+  style = new Array();
   constructor(private formBuilder: FormBuilder, private router: Router, private renderer2: Renderer2) { }
 
-agregarComponents(){
-  const asAgregar = document.querySelector(".asignar")
-  this.renderer2.addClass(asAgregar, 'agregarPregunta');
-  const asFormato = document.querySelector(".formato")
-  this.renderer2.addClass(asFormato, 'agregarFormato');
 
-}
+
 
   enviarDatosSeccion() {
-     console.log(this.asignarRespuesta)
+     /* console.log(this.asignarRespuesta)
      console.log(this.preguntaVisual)
-     console.log(this.formatoRespuesta)
+     console.log(this.formatoRespuesta) */
      this.preguntaVisual = '';
+
+     const height = document.querySelector('.card');
+     let x = this.renderer2.setStyle(height, 'height', '1050px' )
+     this.preguntasDos.push('Alan Rios');
+     this.style.push('1')
+
 
   }
 
- 
+
 
   ngOnInit(): void {
   }
