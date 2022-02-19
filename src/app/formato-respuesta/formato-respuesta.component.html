@@ -1,7 +1,7 @@
-<div class="formato" >
-  <label for="asignarRespuesta" class="nombre" style="margin-left: 30px;">Asignar pregunta</label>
+<div class="formato" *ngFor="let item of preguntas; let i = index"  >
+  <label for="asignarRespuesta" class="nombre" style="margin-left: 30px; margin-top: 30px;" >Asignar Pregunta</label>
 
- <input class="nombre" type="text" name="asignarRespuesta" style="width: 398px; height: 48px; margin-left: 133px; margin-bottom: 30px; background-color: #EBEBEB; border: none;" placeholder="Escribe el Nombre del Vehiculo..."><a class="buton"><img class="img-agregar" src="../assets/icono-agregar.svg"></a>
+ <input class="nombre" type="text" name="asignarRespuesta" style="width: 398px; height: 48px; margin-left: 133px; margin-bottom: 30px; background-color: #EBEBEB; border: none;" placeholder="Escribe el Nombre del Vehiculo..."><a class="buton" (click)="agregarPregunta()"><img class="img-agregar" src="../assets/icono-agregar.svg"></a>
 <label for="formatoRespuesta" style="margin-left: 30px;" >Formato de Respuesta</label>
  <select style="width: 398px; height: 48px; margin-left: 94px; background-color: #EBEBEB; border: none; "name="formatoRespuesta">
    <option class="activo" value="Casillas de selección única">Casillas de selección única</option>
@@ -13,4 +13,8 @@
  </select>
 </div>
 
-<!-- Ver si con un *ngFor lo resuelvo -->
+
+
+
+
+

@@ -1,3 +1,13 @@
-/* .formato{
-  display: none;
-} */
+.img-agregar{
+  position: relative;
+  left: -30px;
+}
+
+a .img-agregar{
+  cursor: pointer;
+}
+
+.formato-1{
+  margin-bottom: 50px;
+
+}

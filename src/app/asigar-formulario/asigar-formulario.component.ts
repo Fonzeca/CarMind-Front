@@ -17,6 +17,7 @@ export class AsigarFormularioComponent implements OnInit {
   preguntaVisual!:string
   asignarRespuesta!: string;
   formatoRespuesta!: string;
+  character!: AsigarFormularioComponent;
   @ViewChild('asAgregar') agregarPregunta!: ElementRef;
   @ViewChild('asFormato') formatoPregunta!: ElementRef;
 
@@ -38,6 +39,8 @@ agregarComponents(){
      this.preguntaVisual = '';
 
   }
+
+ 
 
   ngOnInit(): void {
   }
