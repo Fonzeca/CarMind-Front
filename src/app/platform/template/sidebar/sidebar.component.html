@@ -1,0 +1,41 @@
+<section class="section-sidebar">
+    <nav class="sidebar close" scroll="no" #asToggle (mouseenter)="abrirSidebar()" (mouseleave)="cerrarSidebar()">
+        <div id="indication-mark-wrap" #indicator>
+
+        </div>
+        <div id="row">
+            <div>
+                <span class="image">
+                    <img src="../assets/icon-hamburguesa.svg" alt="">
+                </span>
+            </div>
+            <div>
+                <span class="text-header nav-text" id="navbarDropdown" #asText>Menú</span>
+            </div>
+            <a id="row-content" hover-class="item-active-menu" [routerLinkActive]="['active']" [routerLink]="['/home']">
+                <div item-menu>
+                  <i class="fa fa-car" aria-hidden="true"></i>
+                </div>
+                <div item-menu>
+                    <span class="text nav-text" #asText>Vehículos</span>
+                </div>
+            </a>
+            <a id="row-content" hover-class="item-active-menu" [routerLinkActive]="['active']" [routerLink]="['/formularios']">
+                <div item-menu>
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </div>
+                <div item-menu>
+                    <span class="text nav-text" #asText>Formulario</span>
+                </div>
+            </a>
+            <a id="row-content" class="no-fill" hover-class="item-active-menu" [routerLinkActive]="['active']" [routerLink]="['/personal']">
+                <div item-menu>
+                  <i class="fa fa-users" aria-hidden="true"></i>
+                </div>
+                <div item-menu>
+                    <span class="text nav-text" #asText>Personal</span>
+                </div>
+            </a>
+        </div>
+    </nav>
+</section>
