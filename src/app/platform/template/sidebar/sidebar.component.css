@@ -228,12 +228,17 @@
     grid-auto-rows: 80px;
 }
 
+#row a {
+  /* justify-content: center;
+  text-align: center;
+  justify-items: center; */
+}
 #row div {
     display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    padding-left: 25px;
+    justify-items: center;
 }
 
 #row-content {

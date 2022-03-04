@@ -1,0 +1,66 @@
+<form [formGroup]="form" #ngForm="ngForm" (ngSubmit)="action()">
+  <div class="mb-3 row">
+    <label for="staticEmail" class="col-sm-2 col-form-label">Nombre</label>
+    <div class="col-sm-10">
+      <div class="input-group has-validation">
+        <input type="text" formControlName="nombre" class="form-control" [ngClass]="{'is-invalid': getControl('nombre')?.invalid && (getControl('nombre').touched || ngForm.submitted) }" value="">
+        <div class="invalid-feedback">
+          Este campo es requerido
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label for="staticEmail" class="col-sm-2 col-form-label">Marca</label>
+    <div class="col-sm-10  has-validation">
+      <input type="text" formControlName="marca" [ngClass]="{'is-invalid': getControl('marca')?.invalid && (getControl('marca').touched  || ngForm.submitted) }" class="form-control" value="">
+      <div class="invalid-feedback">
+        Este campo es requerido
+      </div>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label for="staticEmail" class="col-sm-2 col-form-label">Modelo</label>
+    <div class="col-sm-10  has-validation">
+      <input type="text" formControlName="modelo" [ngClass]="{'is-invalid': getControl('modelo')?.invalid && (getControl('modelo').touched  || ngForm.submitted) }" class="form-control" value="">
+      <div class="invalid-feedback">
+        Este campo es requerido
+      </div>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label for="staticEmail" class="col-sm-2 col-form-label">Año</label>
+    <div class="col-sm-10  has-validation">
+      <input type="text" formControlName="linea" [ngClass]="{'is-invalid': getControl('linea')?.invalid && (getControl('linea').touched  || ngForm.submitted) }" class="form-control" value="">
+      <div class="invalid-feedback">
+        Este campo es requerido
+      </div>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label for="staticEmail" class="col-sm-2 col-form-label">Patente</label>
+    <div class="col-sm-10  has-validation">
+      <input type="text" formControlName="patente" [ngClass]="{'is-invalid': getControl('patente')?.invalid && ((getControl('linea').touched  || ngForm.submitted) )  }" class="form-control" value="">
+      <div class="invalid-feedback">
+        Este campo es requerido
+     </div>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label for="staticEmail" class="col-sm-2 col-form-label">Tipo</label>
+    <div class="col-sm-10  has-validation">
+      <select class="form-select" name="tipo" [ngClass]="{'is-invalid': getControl('tipo')?.invalid && (getControl('tipo').touched || ngForm.submitted)   }" formControlName="tipo" aria-label="Default select example">
+        <option *ngFor="let o of type.tipo_vehiculo" [value]="o">{{o}}</option>
+      </select>
+      <div class="invalid-feedback">
+        Es requerido
+     </div>
+    </div>
+  </div>
+  <div class="row justify-content-end">
+    <div class="col-sm-3">
+      <button type="submit" class="btn btn-success m-btn-success m-btn w-100">{{ data?.id ? "Editar" : "Agregar" }}</button>
+    </div>
+  </div>
+
+</form>

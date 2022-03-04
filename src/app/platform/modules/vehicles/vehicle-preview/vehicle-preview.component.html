@@ -1,0 +1,67 @@
+<div class="m-container clase-padre">
+  <div class="container">
+    <div class="row justify-content-center mt-4">
+      <div class="col-10 mt-4 mb-4">
+        <div class="mb-4"></div>
+        <h3>Vehículos</h3>
+      </div>
+    </div>
+    <div class="row justify-content-center mt-4">
+      <div class="col-lg-10">
+        <div class="row">
+          <div class=" col-lg-3 col-xs-10  mb-4">
+            <button  class="btn btn-success m-btn-success m-btn w-100 truncate">Agregar vehículo</button>
+          </div>
+          <div class=" col-lg-3 col-xs-10  mb-4">
+            <button  class="btn btn-primary m-btn-acento m-btn w-100 truncate">Asignar documento</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div *ngIf="vehicle" class="row justify-content-center mt-4">
+      <div class="col-10 mt-4 mb-4">
+        <div class="row profile-row">
+          <div class="col vehicle-col">
+            <div *ngIf="vehicle" class="card card-x">
+              <div class="contenedor">
+                <img *ngIf="vehicle?.tipo" src="assets/images/cars/{{vehicle.tipo}}.png" class="card-img-top" alt="..."  >
+              </div>
+                <div class="card-body">
+                  <h6 class="card-text">{{ vehicle.nombre}}</h6>
+                  <p *ngIf="vehicle.en_uso" class="p" >En uso <i class="fa fa-circle" aria-hidden="true"></i></p>
+                  <p *ngIf="!vehicle.en_uso" class="p disponible">Disponible <i class="fa fa-circle" aria-hidden="true"></i></p>
+                  <i class="fa fa-qrcode" aria-hidden="true"></i>
+                </div>
+            </div>
+
+          </div>
+          <div class="col">
+            <div class="card card-2">
+              <i (click)="editVehicle()" class="fa fa-pencil" aria-hidden="true"></i>
+              <div> <span class="title-card-2">Nombre:</span> {{vehicle.nombre}} </div>
+              <div> <span class="title-card-2">Marca:</span> {{vehicle.marca}} </div>
+              <div> <span class="title-card-2">Año:</span> {{vehicle.linea}} </div>
+              <div> <span class="title-card-2">Patente:</span> {{vehicle.patente}} </div>
+              <div> <span class="title-card-2">Ultimo chofer:</span> {{vehicle.usuario_en_uso}} </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col mt-3">
+            <h4>Documentación</h4>
+            <div>
+              <ul class="list-group">
+                <li class="list-group-item">An item</li>
+                <li class="list-group-item">A second item</li>
+                <li class="list-group-item">A third item</li>
+                <li class="list-group-item">A fourth item</li>
+                <li class="list-group-item">And a fifth one</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

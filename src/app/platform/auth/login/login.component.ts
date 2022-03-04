@@ -22,12 +22,7 @@ export class LoginComponent implements OnInit {
     public formBuilder: FormBuilder,
     public _auth: AuthService,
     private router: Router
-  ) {
-    //Si esta logeado lo manda al home directo.
-    // if (this.auth.isLogged()) {
-    //   this.router.navigate(['/home']);
-    // }
-  }
+  ) { }
 
   myForm = this.formBuilder.group({
     username: this.usuario,

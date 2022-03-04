@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject, map } from 'rxjs';
 import { ApiService } from './core/api.service';
 import endpoints from './core/endpoints';
@@ -9,7 +10,7 @@ import endpoints from './core/endpoints';
 })
 export class AuthService extends ApiService {
 
-  constructor(http:HttpClient){
+  constructor(http:HttpClient, public router:Router){
     super(http)
   }
 
@@ -26,6 +27,4 @@ export class AuthService extends ApiService {
   isAuthenticated(){
     return this.token;
   }
-
-
 }

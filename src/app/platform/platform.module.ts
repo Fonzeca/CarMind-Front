@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { PlatformRoutingModule } from './platform-routing.module';
 import { TemplateModule } from './template/template.module';
 import { AuthGuardService } from './guards/auth-guard.service';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -10,7 +11,8 @@ import { AuthGuardService } from './guards/auth-guard.service';
   imports: [
     CommonModule,
     PlatformRoutingModule,
-    TemplateModule
+    TemplateModule,
+    FormsModule
   ],
   providers:[AuthGuardService]
 })

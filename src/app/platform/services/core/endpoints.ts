@@ -14,6 +14,7 @@ const endpoints = {
   evaluations:{
     get_all:'/evaluacion',
     get_by_id:'/evaluacion/:id',
-  }
+  },
+  types:"/tipos"
 };
 export default endpoints;

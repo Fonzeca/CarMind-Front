@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TypeService } from '../../services/type.service';
 
 @Component({
   selector: 'template-container',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TemplateContainerComponent implements OnInit {
 
-  constructor() { }
+  constructor(private typeService:TypeService) {
+
+   }
 
   ngOnInit(): void {
   }
