@@ -3,18 +3,19 @@ import { CommonModule } from '@angular/common';
 import { ModalComponent } from './modal/modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ModalDirective } from '../directives/ad.directive';
+import { DirectivesModule } from '../directives/directives.module';
 
 
 
 @NgModule({
-  declarations: [ModalComponent, ModalDirective],
-  exports: [ModalComponent, ModalDirective],
+  declarations: [ModalComponent],
+  exports: [ModalComponent],
   imports: [
     CommonModule,
     MatDialogModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DirectivesModule
   ],
   entryComponents:[ModalComponent]
 })

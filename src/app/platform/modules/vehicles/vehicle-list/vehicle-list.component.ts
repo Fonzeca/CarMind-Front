@@ -15,6 +15,13 @@ export class VehicleListComponent implements OnInit {
   vehicles: vehicle[] = [];
   filterInput: string = '';
 
+  default:any = {
+    "nombre": "-",
+    "tipo": "Auto_default",
+    "en_uso": true
+  };
+
+
   constructor(public _vehicle: VehiclesService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
@@ -43,4 +50,13 @@ export class VehicleListComponent implements OnInit {
       },
     });
   }
+
+  filterCondition(item:any, term:string){
+    const cond = (
+      item.nombre.toUpperCase().indexOf(term.toUpperCase()) > -1  ||
+      item.en_uso === true &&  "en uso".toUpperCase().indexOf(term.toUpperCase()) > -1 ||
+      item.en_uso === false &&  "disponible".toUpperCase().indexOf(term.toUpperCase())  > -1
+    )
+    return cond;
+   }
 }

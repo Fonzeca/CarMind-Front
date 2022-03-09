@@ -7,6 +7,10 @@ import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
   declarations: [FilterPipe],
-  exports: [FilterPipe]
+  exports: [FilterPipe],
+  imports: [
+    CommonModule,
+    FormsModule,
+  ],
 })
 export class SharedModule { }

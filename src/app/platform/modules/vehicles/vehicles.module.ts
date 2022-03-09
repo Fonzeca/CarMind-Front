@@ -9,13 +9,20 @@ import { FormVehicleComponent } from './shared/form-vehicle/form-vehicle.compone
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
 import { VehiclePreviewComponent } from './vehicle-preview/vehicle-preview.component';
+import { QRCodeModule } from 'angularx-qrcode';
+import { QrModalComponent } from './shared/qr-modal/qr-modal.component';
+import { VehicleDocumentViewComponent } from './shared/vehicle-document-view/vehicle-document-view.component';
+import { AddDocumentComponent } from './shared/add-document/add-document.component';
 
 @NgModule({
   declarations: [
     VehicleListComponent,
     VehicleCardComponent,
     FormVehicleComponent,
-    VehiclePreviewComponent
+    VehiclePreviewComponent,
+    QrModalComponent,
+    VehicleDocumentViewComponent,
+    AddDocumentComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +30,8 @@ import { VehiclePreviewComponent } from './vehicle-preview/vehicle-preview.compo
     ComponentsModule,
     FormsModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    QRCodeModule
   ],
 })
 export class VehiclesModule { }

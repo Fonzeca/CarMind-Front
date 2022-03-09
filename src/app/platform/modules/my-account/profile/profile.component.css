@@ -1,0 +1,16 @@
+.list-group .list-group-item {
+  background-color: #eeeeee;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+.col-w-fixed {
+  max-width: 200px;
+  display: flex;
+  align-items: center;
+}
+
+.edit-data {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

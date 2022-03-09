@@ -3,7 +3,7 @@
     <label for="staticEmail" class="col-sm-2 col-form-label">Nombre</label>
     <div class="col-sm-10">
       <div class="input-group has-validation">
-        <input type="text" formControlName="nombre" class="form-control" [ngClass]="{'is-invalid': getControl('nombre')?.invalid && (getControl('nombre').touched || ngForm.submitted) }" value="">
+        <input [readonly]="this.data && this.data.id" type="text" formControlName="nombre" class="form-control" [ngClass]="{'is-invalid': getControl('nombre')?.invalid && (getControl('nombre').touched || ngForm.submitted) }" value="">
         <div class="invalid-feedback">
           Este campo es requerido
         </div>
@@ -31,7 +31,7 @@
   <div class="mb-3 row">
     <label for="staticEmail" class="col-sm-2 col-form-label">Año</label>
     <div class="col-sm-10  has-validation">
-      <input type="text" formControlName="linea" [ngClass]="{'is-invalid': getControl('linea')?.invalid && (getControl('linea').touched  || ngForm.submitted) }" class="form-control" value="">
+      <input type="number" formControlName="linea" [ngClass]="{'is-invalid': getControl('linea')?.invalid && (getControl('linea').touched  || ngForm.submitted) }" class="form-control" value="">
       <div class="invalid-feedback">
         Este campo es requerido
       </div>
@@ -40,7 +40,7 @@
   <div class="mb-3 row">
     <label for="staticEmail" class="col-sm-2 col-form-label">Patente</label>
     <div class="col-sm-10  has-validation">
-      <input type="text" formControlName="patente" [ngClass]="{'is-invalid': getControl('patente')?.invalid && ((getControl('linea').touched  || ngForm.submitted) )  }" class="form-control" value="">
+      <input [readonly]="this.data && this.data.id" type="text" formControlName="patente" [ngClass]="{'is-invalid': getControl('patente')?.invalid && ((getControl('patente').touched  || ngForm.submitted) )  }" class="form-control" value="">
       <div class="invalid-feedback">
         Este campo es requerido
      </div>
@@ -62,5 +62,4 @@
       <button type="submit" class="btn btn-success m-btn-success m-btn w-100">{{ data?.id ? "Editar" : "Agregar" }}</button>
     </div>
   </div>
-
 </form>

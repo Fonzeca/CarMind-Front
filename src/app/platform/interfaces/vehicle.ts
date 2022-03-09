@@ -5,6 +5,14 @@ export interface Pendiente {
   vencimiento: number;
 }
 
+export interface documents {
+  id: number;
+  vehiculo_id: number;
+  tipo_documento: string;
+  fecha_vencimiento: string;
+}
+
+
 export interface vehicle {
   id: number;
   nombre: string;
@@ -16,5 +24,6 @@ export interface vehicle {
   patente: string;
   tipo: string;
   pendientes: Pendiente[];
-  usuario_en_uso:string
+  usuario_en_uso:string,
+  documentos:documents[];
 }

@@ -1,5 +1,5 @@
-<div class="card" routerLink="/vehicle" >
-  <div class="contenedor">
+<div class="card">
+  <div class="contenedor" [style.backgroundColor]="vehicle.tipo == 'Auto_default'? 'gray' : '' " >
     <img *ngIf="vehicle?.tipo" src="assets/images/cars/{{vehicle.tipo}}.png" class="card-img-top" alt="..."  >
   </div>
     <div class="card-body">

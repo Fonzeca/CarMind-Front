@@ -1,0 +1,102 @@
+<div class="m-container clase-padre">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-10 mt-4">
+        <div class="row">
+          <div class="col p-0">
+            <h3>Perfil</h3>
+          </div>
+        </div>
+        <div class="row col mt-4">
+            <h4 class="p-0">Datos de la cuenta</h4>
+        </div>
+        <div class="row col mt-4">
+          <ul class="list-group">
+            <li class="list-group-item">
+              <div class="row">
+                <div class="col col-w-fixed" >Empresa</div>
+                <div class="col"> {{ user.nombre_empresa }}
+                </div>
+              </div>
+
+            </li>
+            <li class="list-group-item">
+              <div class="row">
+                <div class="col col-w-fixed" >Usuario</div>
+                <div class="col"> {{ user.username }}
+                </div>
+              </div>
+
+            </li>
+          </ul>
+        </div>
+        <div class="row col mt-4">
+            <h4 class="mt-4 p-0">Datos de personales</h4>
+        </div>
+        <div class="row col mt-4">
+          <ul class="list-group">
+            <li class="list-group-item">
+              <div class="row">
+                <div class="col col-w-fixed" >Nombre</div>
+                <div class="col edit-data">
+                  <ng-container *ngIf="editing_id!=='nombre'">
+                    <span>{{ user.nombre }}</span>
+                    <div *ngIf="this.auth.tail.length" class="spinner-border pull-right" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <i *ngIf="!this.auth.tail.length" (click)="edit('nombre', user.nombre)" class="fa fa-pencil pull-right ml-4 pointer" aria-hidden="true"></i>
+                  </ng-container>
+                  <div *ngIf="editing_id==='nombre'" class="input-group">
+                    <input #editing autofocus (focusout)="cancel(editing)"  (keydown.enter)="cancel(editing)"  type="text" class="form-control editings" placeholder="Nombre" aria-describedby="button-addon2">
+                  </div>
+                  </div>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="row">
+                <div class="col col-w-fixed" >Apellido</div>
+                <div class="col edit-data">
+                  <ng-container *ngIf="editing_id!=='apellido'">
+                    <span>{{ user.apellido }}</span>
+                    <div *ngIf="this.auth.tail.length" class="spinner-border pull-right" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <i *ngIf="!this.auth.tail.length" (click)="edit('apellido', user.apellido)" class="fa fa-pencil pull-right ml-4 pointer" aria-hidden="true"></i>
+                  </ng-container>
+                  <div *ngIf="editing_id==='apellido'" class="input-group">
+                    <input #editing autofocus (focusout)="cancel(editing)"  (keydown.enter)="cancel(editing)"  type="text" class="form-control editings" placeholder="Apellido" aria-describedby="button-addon2">
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="row">
+                <div class="col col-w-fixed" >Documento</div>
+                <div class="col edit-data">
+                  <ng-container *ngIf="editing_id!=='dni'">
+                    <span>DNI {{ user.dni }}</span>
+                    <div *ngIf="this.auth.tail.length" class="spinner-border pull-right" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <i *ngIf="!this.auth.tail.length" (click)="edit('dni', user.dni)" class="fa fa-pencil pull-right ml-4 pointer" aria-hidden="true"></i>
+                  </ng-container>
+                  <div *ngIf="editing_id==='dni'" class="input-group">
+                    <input #editing autofocus (focusout)="cancel(editing)"  (keydown.enter)="cancel(editing)"  type="text" class="form-control editings" placeholder="DNI" aria-describedby="button-addon2">
+                  </div>
+                </div>
+              </div>
+            </li>
+            <!-- <li class="list-group-item">
+              <div class="row">
+                <div class="col col-w-fixed" >Telefono</div>
+                <div class="col"> {{ user.apellido }}
+                </div>
+              </div>
+            </li> -->
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-center mt-4"></div>
+  </div>
+</div>

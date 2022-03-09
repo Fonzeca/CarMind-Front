@@ -1,21 +1,30 @@
 import { Component, OnInit } from '@angular/core';
-// import { AuthenticationService } from '../../../../../old-views/service/authentication.service';
+import { AuthService } from '../../services/auth.service';
+import { BaseComponent } from '../../shared/components/base.component';
 
 @Component({
   selector: 'app-topbar',
   templateUrl: './topbar.component.html',
-  styleUrls: ['./topbar.component.css']
+  styleUrls: ['./topbar.component.scss']
 })
-export class TopbarComponent implements OnInit {
+export class TopbarComponent extends BaseComponent implements OnInit {
 
-  // constructor(private auth: AuthenticationService) { }
+  constructor(private auth: AuthService) {
+    super();
+   }
 
   nombre! :string
 
   ngOnInit(): void {
-    // this.auth.getLoggedUser().subscribe((data) => {
-    //   this.nombre = data.nombre;
-    // })
+    this.addSafeSubscription(
+      this.auth.getLoggedUser().subscribe((data) => {
+        this.nombre = data.nombre;
+      })
+    );
   }
 
+  logout() {
+    localStorage.clear();
+    location.reload();
+  }
 }

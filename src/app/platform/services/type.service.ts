@@ -16,12 +16,14 @@ export class TypeService extends ApiService {
   }
 
   tipo_vehiculo = [];
+  tipo_documento = [];
 
   getTypes(){
     const { types : url } = endpoints
     return this.get(url).pipe(
       map((data:any) => {
         this.tipo_vehiculo = data.tipo_vehiculo;
+        this.tipo_documento = data.tipo_documento;
       }),
       catchError((e) => {
         localStorage.clear();

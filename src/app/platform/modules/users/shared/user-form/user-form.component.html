@@ -1,0 +1,111 @@
+<form [formGroup]="form" #ngForm="ngForm" (ngSubmit)="action()">
+  <!-- input -->
+  <div class="mb-3 row">
+    <label for="staticEmail" class="col-sm-2 col-form-label">Nombre</label>
+    <div class="col-sm-10 has-validation">
+      <input
+        type="text"
+        formControlName="nombre"
+        [ngClass]="{
+          'is-invalid':
+            getControl('nombre')?.invalid &&
+            (getControl('nombre').touched || ngForm.submitted)
+        }"
+        class="form-control"
+        value=""
+      />
+      <div class="invalid-feedback">Este campo es requerido</div>
+    </div>
+  </div>
+  <!-- /input -->
+
+  <!-- input -->
+  <div class="mb-3 row">
+    <label for="staticEmail" class="col-sm-2 col-form-label">Apellido</label>
+    <div class="col-sm-10 has-validation">
+      <input
+        type="text"
+        formControlName="apellido"
+        [ngClass]="{
+          'is-invalid':
+            getControl('apellido')?.invalid &&
+            (getControl('apellido').touched || ngForm.submitted)
+        }"
+        class="form-control"
+        value=""
+      />
+      <div class="invalid-feedback">Este campo es requerido</div>
+    </div>
+  </div>
+  <!-- /input -->
+
+  <!-- input -->
+  <div class="mb-3 row">
+    <label for="staticEmail" class="col-sm-2 col-form-label">DNI</label>
+    <div class="col-sm-10 has-validation">
+      <input
+        type="text"
+        formControlName="DNI"
+        [ngClass]="{
+          'is-invalid':
+            getControl('DNI')?.invalid &&
+            (getControl('DNI').touched || ngForm.submitted)
+        }"
+        class="form-control"
+        value=""
+      />
+      <div class="invalid-feedback">Este campo es requerido</div>
+    </div>
+  </div>
+  <!-- /input -->
+
+  <!-- input -->
+  <div class="mb-3 row">
+    <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+    <div class="col-sm-10 has-validation">
+      <input
+        [readonly]="this.data && this.data.id"
+        type="email"
+        required
+        formControlName="username"
+        [ngClass]="{
+          'is-invalid':
+            getControl('username')?.invalid &&
+            (getControl('username').touched || ngForm.submitted)
+        }"
+        class="form-control"
+        value=""
+      />
+      <div class="invalid-feedback">Este campo es requerido</div>
+    </div>
+  </div>
+  <!-- /input -->
+
+  <!-- input -->
+  <div *ngIf="!this.data?.id" class="mb-3 row">
+    <label for="staticEmail" class="col-sm-2 col-form-label">Contraseña</label>
+    <div class="col-sm-10 has-validation">
+      <input
+        type="text"
+        formControlName="password"
+        [ngClass]="{
+          'is-invalid':
+            getControl('password')?.invalid &&
+            (getControl('password').touched || ngForm.submitted)
+        }"
+        class="form-control"
+        value=""
+      />
+      <div class="invalid-feedback">Este campo es requerido</div>
+    </div>
+  </div>
+  <!-- /input -->
+
+  <div class="row justify-content-end">
+    <div class="col-sm-3">
+      <button type="submit" class="btn btn-success m-btn-success m-btn w-100">
+        {{ data?.id ? "Editar" : "Agregar" }}
+      </button>
+    </div>
+  </div>
+</form>

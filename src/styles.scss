@@ -28,9 +28,11 @@ body {
   --tran-05: all 0.3s ease;
   /*  colores de la plantilla */
   --m-primary-color: #000853;
-  --m-acento-color: #8ED8F8;
-  --m-acento2-color: #0078FF;
-  --m-success-color: #B6E802;
+  --m-lightgray-color: #eeeeee;
+  --m-acento-color: #8ed8f8;
+  --m-acento-text-color: #000000;
+  --m-acento2-color: #0078ff;
+  --m-success-color: #b6e802;
   --m-success-text-color: #000000;
 }
 
@@ -42,7 +44,9 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
-
+.pointer {
+  cursor: pointer;
+}
 .m-bg-primary {
   background-color: var(--m-primary-color);
   color: var(--text-color);
@@ -59,7 +63,7 @@ body {
 
 .m-btn-acento {
   background-color: var(--m-acento-color);
-  color: var(--text-color);
+  color: var(--m-acento-text-color);
   border: none;
 }
 
@@ -69,8 +73,8 @@ body {
   border: none;
 }
 
-.m-btn{
-  padding: 15px 20px;
+.m-btn {
+  padding: 10px 20px;
   font-weight: 600;
 }
 
@@ -230,4 +234,98 @@ body {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+@keyframes placeHolderShimmer {
+  0% {
+    background-position: -800px 0;
+  }
+  100% {
+    background-position: 800px 0;
+  }
+}
+
+.animated-background {
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: placeHolderShimmer;
+  animation-timing-function: linear;
+  background-color: #d3d3d4;
+  background: linear-gradient(to right, #eeeeee 8%, #bbbbbb 18%, #eeeeee 33%);
+  background-size: 800px 104px;
+  height: 70px;
+  position: relative;
+}
+
+.static-background {
+  background-color: #f6f7f8;
+  background-size: 800px 104px;
+  height: 70px;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.shared-dom {
+  width: 800px;
+  height: 110px;
+}
+.sub-rect {
+  border-radius: 100%;
+  width: 70px;
+  height: 70px;
+  float: left;
+  margin: 20px 20px 20px 0;
+}
+.pure-background {
+  background-color: #eee;
+}
+
+.css-dom:empty {
+  width: 280px;
+  height: 220px;
+  border-radius: 6px;
+  box-shadow: 0 10px 45px rgba(0, 0, 0, 0.2);
+  background-repeat: no-repeat;
+
+  background-image: radial-gradient(circle 16px, lightgray 99%, transparent 0),
+    linear-gradient(lightgray, lightgray), linear-gradient(lightgray, lightgray),
+    linear-gradient(lightgray, lightgray), linear-gradient(lightgray, lightgray),
+    linear-gradient(#fff, #fff);
+
+  background-size: 32px 32px, 200px 32px, 180px 32px, 230px 16px, 100% 40px,
+    280px 100%;
+
+  background-position: 24px 30px, 66px 30px, 24px 90px, 24px 142px, 0 180px, 0 0;
+}
+
+.dyTableContainer {
+  width: 100%;
+  padding: 0 90px 0 90px;
+  .dyTable {
+    overflow-x: auto;
+
+    .dyItem{
+      background-color: var(--m-lightgray-color);
+      padding: 5px;
+      .dyCol{
+        min-width: 100px;
+      }
+      &:first-child {
+        border-radius: 5px 5px 0 0;
+      }
+      &:last-child {
+        border-radius: 0 0 5px 5px;
+      }
+      &:not(:last-child){
+        border-bottom: 1px solid rgb(202, 202, 202);
+      }
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  .dyTableContainer {
+    padding: 0 10px 0 10px !important;
+  }
 }

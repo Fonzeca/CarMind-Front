@@ -1,0 +1,71 @@
+<div class="m-container clase-padre">
+  <div class="container">
+    <div class="row justify-content-center mt-4">
+      <div class="col-10 mt-4 mb-4">
+        <div class="mb-4"></div>
+        <h3>Personal</h3>
+      </div>
+    </div>
+    <div class="row justify-content-center mt-4">
+      <div class="col-lg-10">
+        <div class="row justify-content-between">
+          <div class="col-lg-3 col-xs-10 mb-4">
+            <button (click)="openCreateModal()" class="btn btn-success m-btn-success m-btn w-100 truncate">
+              Ingresar personal
+            </button>
+          </div>
+          <div class="col-lg-3 col-xs-10 mb-4">
+            <div class="pull-right w-100">
+              <div class="form-group">
+                <div class="inner-addon right-addon">
+                  <i class="fa fa-search"></i>
+                  <input
+                    type="text"
+                    [(ngModel)]="filterInput"
+                    class="form-control w-100"
+                    name="filterInput"
+                    aria-describedby="emailHelp"
+                    placeholder="Buscar personal"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="this._users.getAll$ | async as users;" class="row justify-content-center mt-4">
+      <div class="dyTableContainer">
+        <div class="dyTable">
+          <div class="d-flex flex-row dyItem" [style.minWidth]="100 * columns+'px'">
+            <div [style.width.%]="100 / columns" class="text-center px-3">
+              <input class="form-check-input" type="checkbox" value=""/>
+            </div>
+            <div [style.width.%]="100 / columns" class="px-3 fw-bold dyCol">Nombre</div>
+            <div [style.width.%]="100 / columns" class="px-3 fw-bold dyCol">Empresa</div>
+            <div [style.width.%]="100 / columns" class="px-3 fw-bold dyCol">Cargo</div>
+            <div [style.width.%]="100 / columns" class="text-end px-3 dyCol"></div>
+          </div>
+
+          <ng-container *ngFor="let u of users | filterPipe : { term: this.filterInput , condition: this.filterCondition, empty: this.default  }">
+            <div  class="d-flex flex-row dyItem" [style.minWidth]="100 * columns+'px'">
+              <div [style.width.%]="100 / columns" class="text-center px-3 dyCol">
+                <input class="form-check-input" type="checkbox" [disabled]="u.id == 'empty' " value="" />
+              </div>
+              <div [style.width.%]="100 / columns" class="px-3 truncate dyCol">{{ u.id != "empty" ? u.nombre+" "+u?.apellido : "-" }}</div>
+              <div [style.width.%]="100 / columns" class="px-3 truncate dyCol">{{u.nombre_empresa}}</div>
+              <div [style.width.%]="100 / columns" class="px-3 truncate dyCol">{{ u.id != "empty" ? (u.administrador ? "Administrador" : "Usuario") : "-" }}</div>
+              <div [style.width.%]="100 / columns" class="text-end px-3 d-flex justify-content-end align-items-center dyCol">
+                <ng-container *ngIf="u.id != 'empty'">
+                  <i (click)="openEditModal(u)" class="fa fa-pencil pull-right pointer mx-2" aria-hidden="true"></i>
+                  <i (click)="deleteUser(u)" class="fa fa-trash pull-right pointer mx-2" aria-hidden="true"></i>
+                </ng-container>
+              </div>
+            </div>
+          </ng-container>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

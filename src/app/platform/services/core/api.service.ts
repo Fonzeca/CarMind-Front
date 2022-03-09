@@ -35,14 +35,22 @@ export class ApiService {
     return this.request(this.http.get(this.apiURL+url));
   }
 
+  public getBlob(url:string) :Observable<Blob> {
+    const header:any = { observe: 'response', responseType: "blob" }
+    return this.request(this.http.get<any>(this.apiURL+url, header))
+  }
+
   public post(url:string, data:any){
     return this.request(this.http.post(this.apiURL+url, data));
   }
 
   public put(url:string, data:any){
     data._method = 'put';
-    debugger
     return this.request(this.http.put(this.apiURL+url, data));
+  }
+
+  public delete(url:string){
+    return this.request(this.http.delete(this.apiURL+url));
   }
 
   private request(a:Observable<any>){

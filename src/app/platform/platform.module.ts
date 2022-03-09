@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { PlatformRoutingModule } from './platform-routing.module';
 import { TemplateModule } from './template/template.module';
 import { AuthGuardService } from './guards/auth-guard.service';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -12,7 +12,8 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     PlatformRoutingModule,
     TemplateModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers:[AuthGuardService]
 })

@@ -1,5 +1,5 @@
 .vehicle-col {
-  max-width: 220px
+  max-width: 220px;
 }
 
 @media (max-width: 991px) {
@@ -16,7 +16,7 @@
   bottom: 10px;
   right: 10px;
   font-size: 60px;
-  color: black;
+  color: black !important;
 }
 
 .card-x {
@@ -53,27 +53,53 @@
     }
   }
 }
-.card-2{
- min-height: 240px;
- background-color: #EEEEEE;
- padding: 30px 10px 10px 60px;
- justify-content: center;
- position: relative;
- div{
-   margin-bottom: 10px;
- }
- .title-card-2{
-   font-weight: 600;
- }
- .fa-pencil{
-   position: absolute;
-   color: var(--m-acento2-color);
-   right: 20px;
-   top: 17px;
-   cursor: pointer;
- }
+
+.card-2 {
+  min-height: 240px;
+  background-color: #eeeeee;
+  padding: 30px 10px 10px 60px;
+  justify-content: center;
+  position: relative;
+  div {
+    margin-bottom: 10px;
+  }
+  .title-card-2 {
+    font-weight: 600;
+  }
+  .fa-pencil {
+    position: absolute;
+    right: 20px;
+    top: 17px;
+    cursor: pointer;
+  }
 }
 
-.list-group .list-group-item{
-  background-color: #EEEEEE;
+.fa {
+  color: var(--m-acento2-color);
+}
+.fa-eye {
+  text-decoration: underline;
+}
+
+.list-group .list-group-item {
+  background-color: #eeeeee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .card-2 {
+    padding: 10px 10px 10px 30px;
+  }
+}
+
+@media (max-width: 400px) {
+  .card-2 {
+    padding: 10px 10px 10px 10px;
+  }
+}
+
+.ml-4 {
+  margin-left: 15px;
 }

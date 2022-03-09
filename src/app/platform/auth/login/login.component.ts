@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { catchError, map, of } from 'rxjs';
+import { AppRoutes } from 'src/app/routes';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -40,7 +41,7 @@ export class LoginComponent implements OnInit {
 
     this._auth.login(params).subscribe(
       success=>{
-        this.router.navigate(["./platform"])
+        this.router.navigateByUrl(AppRoutes.platform.vehicles.route);
       },
       error=>{
         console.log(error);

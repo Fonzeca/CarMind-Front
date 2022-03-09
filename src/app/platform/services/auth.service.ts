@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, map } from 'rxjs';
+import { BehaviorSubject, map, Observable, switchMap, tap } from 'rxjs';
+import { user } from '../interfaces/user';
 import { ApiService } from './core/api.service';
 import endpoints from './core/endpoints';
 
@@ -10,17 +11,39 @@ import endpoints from './core/endpoints';
 })
 export class AuthService extends ApiService {
 
+  private _getLoggedUser: BehaviorSubject<user> = new BehaviorSubject<user>((<any>{}));
+  public getLoggedUser$: Observable<user> = this._getLoggedUser.asObservable();
+
+
+
   constructor(http:HttpClient, public router:Router){
     super(http)
   }
 
   login(params:any){
-    const { login : url } = endpoints
+    const { auth : {login : url} } = endpoints
     return this.post(url, params).pipe(
       map((data:any) => {
         localStorage.setItem('token', data.token);
         return data;
       })
+    );
+  }
+
+  getLoggedUser(){
+    const { auth:{ loggedUser: url} } = endpoints
+    return this.get(url).pipe(
+      switchMap((data:any) => {
+        this._getLoggedUser.next(data);
+        return this.getLoggedUser$;
+      })
+    );
+  }
+
+  updateLoggedUser(params:any){
+    const { auth:{ put_user: url} } = endpoints
+    return this.put(url, params).pipe(
+      switchMap(()=> this.getLoggedUser())
     );
   }
 

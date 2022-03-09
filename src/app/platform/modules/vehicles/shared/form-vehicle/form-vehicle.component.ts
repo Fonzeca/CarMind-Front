@@ -33,15 +33,10 @@ export class FormVehicleComponent implements dyComponent {
         "patente" : [this.data?.patente ? this.data.patente : '',Validators.required],
         "tipo" : [ this.data?.tipo ? this.data.tipo : this.type.tipo_vehiculo[0],Validators.required]
     });
-    Object.keys(this.form.controls).forEach(key=>{
-      if(this.data.hasOwnProperty(key)){
-        this.form.controls['id'].setValue(this.data[key]);
-      }
-    });
   }
 
   action(){
-    if(this.data.id){
+    if(this.data?.id){
       this.update(this.form);
     }else{
       this.create(this.form);

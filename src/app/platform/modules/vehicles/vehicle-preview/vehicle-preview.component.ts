@@ -3,30 +3,66 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ModalComponent } from 'src/app/platform/components/modal/modal.component';
 import { vehicle } from 'src/app/platform/interfaces/vehicle';
-import { VehiclesService } from 'src/app/platform/services/vehicles.service';
+import { vehicleByIdResponse, VehiclesService } from 'src/app/platform/services/vehicles.service';
+import { BaseComponent } from 'src/app/platform/shared/components/base.component';
+import { AddDocumentComponent } from '../shared/add-document/add-document.component';
 import { FormVehicleComponent } from '../shared/form-vehicle/form-vehicle.component';
+import { QrModalComponent } from '../shared/qr-modal/qr-modal.component';
+import { VehicleDocumentViewComponent } from '../shared/vehicle-document-view/vehicle-document-view.component';
 
 @Component({
   selector: 'app-vehicle-preview',
   templateUrl: './vehicle-preview.component.html',
   styleUrls: ['./vehicle-preview.component.scss']
 })
-export class VehiclePreviewComponent implements OnInit {
+export class VehiclePreviewComponent extends BaseComponent implements OnInit {
 
   vehicle!: vehicle;
 
-  constructor(public _vehicle: VehiclesService,  public activatedRoute:ActivatedRoute, public dialog: MatDialog) {}
+  public vehicleQrCode?: string;
+
+  constructor(public _vehicle: VehiclesService,  public activatedRoute:ActivatedRoute, public dialog: MatDialog) {
+    super()
+  }
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe((param:Params)=>{
-      if(param["id"]){
-        this.getById(param["id"]);
-      }
-    });
+    this.addSafeSubscription(
+      this.activatedRoute.params.subscribe((param:Params)=>{
+        if(param["id"]){
+          this.getById(param["id"]);
+        }
+      })
+    );
   }
+
   getById(id:number){
-    this._vehicle.getById(id).subscribe((data:vehicle)=> this.vehicle = data);
+    this.addSafeSubscription(
+      this._vehicle.getById(id).subscribe((data:vehicleByIdResponse)=>{
+        this.vehicle = data.vehicle;
+        this.vehicle.documentos = data.documents;
+        this.vehicleQrCode = `CarMind-vehiculo=${this.vehicle.id}-CarMind`;
+      })
+    );
   }
+
+  qrCode() {
+    this.dialog.open(ModalComponent, {
+      width: '280px;',
+      height: 'auto',
+      panelClass: ['md:w-3/5', 'w-full'],
+      maxHeight: '85vh',
+      data: {
+        viewComponent: {
+          component: QrModalComponent,
+          data: {
+            qr: this.vehicleQrCode
+          },
+        },
+        title: 'QR del Vehículo',
+      },
+    }).afterClosed().subscribe(res=> this.getById(this.vehicle.id));
+  }
+
   editVehicle() {
     this.dialog.open(ModalComponent, {
       width: '635px;',
@@ -41,6 +77,41 @@ export class VehiclePreviewComponent implements OnInit {
         title: 'Editar Vehículo',
       },
     }).afterClosed().subscribe(res=> this.getById(this.vehicle.id));
+  }
+
+  addDocument(id:number) {
+    this.dialog.open(ModalComponent, {
+      width: '700px',
+      height: 'auto',
+      panelClass: ['md:w-5/5', 'w-full'],
+      data: {
+        viewComponent: {
+          component: AddDocumentComponent,
+          data: {
+            id
+          },
+        },
+        title: 'Adjuntar Documento',
+      },
+    });
+  }
+
+  verDocument(id:number,tipo:string) {
+    this.dialog.open(ModalComponent, {
+      width: '700px',
+      height: 'auto',
+      panelClass: ['md:w-5/5', 'w-full'],
+      data: {
+        viewComponent: {
+          component: VehicleDocumentViewComponent,
+          data: {
+            id,
+            tipo
+          },
+        },
+        title: 'Ver documento',
+      },
+    }).afterClosed().subscribe();
   }
 
 }

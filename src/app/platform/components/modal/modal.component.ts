@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ModalDirective } from '../../directives/ad.directive';
+import { ModalDirective } from '../../directives/modal.directive';
 import { Type } from '@angular/core';
 
 export class viewComponent {
