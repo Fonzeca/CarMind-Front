@@ -57,15 +57,25 @@
           <div class="col mt-3">
             <h4>Documentación</h4>
             <div>
-              <ul class="list-group">
-                <li *ngFor="let doc of vehicle?.documentos;" class="list-group-item">
-                  <span>{{doc.tipo_documento}}</span>
-                  <span>
-                    <!-- <i class="fa fa-trash pull-right ml-4 pointer" aria-hidden="true"></i> -->
-                    <i (click)="verDocument(vehicle.id, doc.tipo_documento)" class="fa fa-eye pull-right pointer" aria-hidden="true"></i>
-                  </span>
-                </li>
-              </ul>
+              <!--  -->
+              <div *ngIf="vehicle?.documentos" class="row justify-content-center mt-4">
+                <div class="dyTableContainer px-0">
+                  <div class="dyTable">
+                    <ng-container *ngFor="let doc of vehicle?.documentos;">
+                      <div  class="d-flex flex-row dyItem" [style.minWidth]="100 * columns+'px'">
+                        <div [style.width.%]="100 / columns" class="text-left px-3 dyCol">
+                            {{ doc.tipo_documento }}
+                        </div>
+                       <div [style.width.%]="100 / columns" class="text-end px-3 d-flex flex-row justify-content-end align-items-center dyCol f">
+                          <div class="mx-4">Fecha de caducidad: {{ doc.fecha_vencimiento }}</div>
+                          <i (click)="verDocument(vehicle.id, doc.tipo_documento)" class="fa fa-eye pull-right pointer" aria-hidden="true"></i>
+                        </div>
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+              <!--  -->
             </div>
           </div>
         </div>

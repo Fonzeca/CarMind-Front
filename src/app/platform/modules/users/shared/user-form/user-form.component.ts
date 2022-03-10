@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { AppService } from 'src/app/platform/services/core/app.service';
 import { TypeService } from 'src/app/platform/services/type.service';
@@ -19,8 +19,8 @@ export class UserFormComponent implements OnInit {
   constructor(
     private dialogRef: MatDialog,
     private formBuilder:FormBuilder,
-    private _user:UsersService,
-    private _app:AppService,
+    public _user:UsersService,
+    public _app:AppService,
     public type:TypeService) { }
 
   ngOnInit(): void {
@@ -28,10 +28,12 @@ export class UserFormComponent implements OnInit {
         "nombre" : [ this.data?.nombre ? this.data.nombre : '' ,Validators.required],
         "apellido" : [this.data?.apellido ? this.data.apellido : '',Validators.required],
         "username" : [this.data?.username ? this.data.username : '',Validators.required],
-        // "password" : [this.data?.password ? this.data.password : '',Validators.required],
         "DNI" : [this.data?.dni ? this.data.dni : '', this.data?.id ? null : Validators.required],
         "administrador" : [true],
     });
+    if(!this.data?.id){
+      this.form.addControl('password', new FormControl('', Validators.required));
+    }
   }
 
   action(){

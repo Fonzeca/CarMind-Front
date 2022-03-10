@@ -19,6 +19,8 @@ export class VehiclePreviewComponent extends BaseComponent implements OnInit {
 
   vehicle!: vehicle;
 
+  columns:number = 2;
+
   public vehicleQrCode?: string;
 
   constructor(public _vehicle: VehiclesService,  public activatedRoute:ActivatedRoute, public dialog: MatDialog) {

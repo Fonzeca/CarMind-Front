@@ -25,13 +25,65 @@
                     class="form-control w-100"
                     name="filterInput"
                     aria-describedby="emailHelp"
-                    placeholder="Buscar personal"
+                    placeholder="Buscar formulario"
                   />
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
+    </div>
+    <div class="row justify-content-center mt-4 noselect">
+      <div class="col-lg-10" style="overflow: auto">
+        <div class="d-flex flex-row justify-content-between">
+          <ng-container *ngIf="allForms | async as forms;">
+            <div class="arrow-div">
+              <div (click)="previousSlide(forms)" [ngClass]="{ 'arrow-disabled': this.slideIndex===0  }" class="form-arrow arrow-left pointer">
+                <i class="fa fa-angle-left"></i>
+              </div>
+            </div>
+            <m-form-card [flicker]="flicker" *ngFor="let form of getFormSlider(forms);" [name]='form.titulo' ></m-form-card>
+            <div class="arrow-div ">
+              <div (click)="nextSlide(forms)" [ngClass]="{ 'arrow-disabled': (this.slideIndex+this.slideCant) === forms.length  }" class="form-arrow arrow-right pointer">
+                <i class="fa fa-angle-right"></i>
+              </div>
+            </div>
+        </ng-container>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-center mt-4">
+      <div class="col-lg-10">
+       <h4>Formularios recientes</h4>
+        <!-- table -->
+        <div *ngIf="evaluationHistory | async as history;" class="row justify-content-center mt-4">
+          <div class="dyTableContainer px-0 mb-4">
+            <div class="dyTable">
+              <div class="d-flex flex-row dyItem" [style.minWidth]="100 * columns+'px'">
+                <div [style.width.%]="(100 / columns) * 2" class="px-3 fw-bold dyCol">Formulario</div>
+                <div [style.width.%]="100 / columns" class="px-3 fw-bold dyCol">Fecha</div>
+                <div [style.width.%]="100 / columns" class="px-3 fw-bold dyCol">Vehículo</div>
+                <div [style.width.%]="100 / columns" class="px-3 fw-bold dyCol">Conductor</div>
+                <div [style.width.%]="100 / columns" class="px-3 fw-bold dyCol">Estado</div>
+                <div [style.width.%]="100 / columns" class="text-end px-3 fw-bold dyCol"></div>
+              </div>
+              <ng-container *ngFor="let evaluation of history;">
+                <div  class="d-flex flex-row dyItem" [style.minWidth]="100 * columns+'px'">
+                  <div [style.width.%]="(100 / columns) * 2" class="px-3 dyCol">{{ evaluation.nombre_evaluacion }}</div>
+                  <div [style.width.%]="100 / columns" class="px-3 dyCol truncate">{{ evaluation.fecha }}</div>
+                  <div [style.width.%]="100 / columns" class="px-3 dyCol">{{ evaluation.nombre_vehiculo }}</div>
+                  <div [style.width.%]="100 / columns" class="px-3 dyCol">{{ evaluation.nombre_usuario }}</div>
+                  <div [style.width.%]="100 / columns" class="text-end px-3 dyCol">Completo</div>
+                 <div [style.width.%]="100 / columns" class="text-end px-3 d-flex flex-row justify-content-end align-items-center dyCol f">
+                    <i class="fa fa-eye pull-right pointer" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <!-- /table fin  -->
       </div>
     </div>
   </div>

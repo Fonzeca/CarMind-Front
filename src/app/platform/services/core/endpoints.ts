@@ -16,9 +16,11 @@ const endpoints = {
     delete:"/vehiculo/:id",
     post_assign_evaluation:"/vehiculo/:id",
   },
-  evaluations:{
+  forms:{
     get_all:'/evaluacion',
     get_by_id:'/evaluacion/:id',
+    get_all_history:'/evaluacion/historial',
+    get_history_by_logged_user:'/evaluacion/historial/loggedUser',
   },
   types:"/tipos",
   users:{
@@ -26,6 +28,9 @@ const endpoints = {
     post:"/usuario",
     put:"/usuario",
     delete:"/usuario/:id"
+  },
+  notifications:{
+    get:"/notificaciones"
   }
 };
 export default endpoints;

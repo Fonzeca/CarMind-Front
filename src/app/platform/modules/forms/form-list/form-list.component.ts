@@ -1,29 +1,77 @@
 import { Component, OnInit } from '@angular/core';
+import { forkJoin, Observable, Subject } from 'rxjs';
+import { evaluation } from 'src/app/platform/interfaces/evaluation';
+import { formInterface } from 'src/app/platform/interfaces/form';
+import { FormsService } from 'src/app/platform/services/forms.service';
 import { BaseComponent } from 'src/app/platform/shared/components/base.component';
 
 @Component({
   selector: 'app-form-list',
   templateUrl: './form-list.component.html',
-  styleUrls: ['./form-list.component.css']
+  styleUrls: ['./form-list.component.css'],
 })
 export class FormListComponent extends BaseComponent implements OnInit {
+  flicker: Subject<any> = new Subject();
 
   filterInput: string = '';
 
-  columns = 5;
+  columns = 7;
 
-  default:any = {
-    "id": "empty",
-    "nombre": "-",
-    "nombre_empresa": "-",
-    "administrador": "-"
+  default: any = {
+    nombre_evaluacion: '-',
+    nombre: '-',
+    nombre_empresa: '-',
+    administrador: '-',
   };
 
-  constructor() {
-    super()
+  evaluationHistory!: Observable<evaluation[]>;
+  allForms!: Observable<formInterface[]>;
+
+  slideIndex: number = 0;
+  slideCant: number = 4;
+
+  constructor(public _forms: FormsService) {
+    super();
   }
 
   ngOnInit(): void {
+    this.addSafeSubscription(
+      forkJoin({
+        getForms: this._forms.getAllForms(),
+        getHistory: this._forms.getHistory(),
+      }).subscribe(({ getForms, getHistory }) => {
+        this.evaluationHistory = getHistory.getHistory$;
+        this.allForms = getForms.getAllForms$;
+      })
+    );
   }
 
+  getFormSlider(forms: formInterface[]) {
+    return forms.slice(this.slideIndex, this.slideIndex + this.slideCant);
+  }
+
+  nextSlide(forms: formInterface[]) {
+    if (forms.length > this.slideIndex + this.slideCant) {
+      this.slideIndex++;
+      this.flikear();
+    }
+  }
+
+  previousSlide(forms: formInterface[]) {
+    if (this.slideIndex !== 0) {
+      this.slideIndex--;
+      this.flikear();
+    }
+  }
+
+  flikear() {
+    setTimeout(() => this.flicker.next(null), 0);
+  }
+
+  filterCondition(item:any, term:string){
+    const cond = (
+      item.nombre_evaluacion.toUpperCase().indexOf(term.toUpperCase()) > -1
+    );
+    return cond;
+  }
 }

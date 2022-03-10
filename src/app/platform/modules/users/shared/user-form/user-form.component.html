@@ -103,7 +103,7 @@
 
   <div class="row justify-content-end">
     <div class="col-sm-3">
-      <button type="submit" class="btn btn-success m-btn-success m-btn w-100">
+      <button [ngClass]="{'m-progress': this._user.tail.length }" [disabled]="this._user.tail.length" type="submit" class="btn btn-success m-btn-success m-btn w-100">
         {{ data?.id ? "Editar" : "Agregar" }}
       </button>
     </div>
