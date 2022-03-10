@@ -17,3 +17,5 @@ RUN npm run build --prod
 FROM nginx:alpine
 
 COPY --from=build-step /app/dist/app-vehiculo /usr/share/nginx/html
+
+VOLUME /root/Alexis/Proyectos/configs/carmind_front/ /etc/nginx/
