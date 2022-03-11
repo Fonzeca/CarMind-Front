@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  api:'carmind-back:2233'
+  api:'http://vps-1791261-x.dattaweb.com:2233'
 };
