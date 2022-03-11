@@ -1,0 +1,139 @@
+<div class="m-container clase-padre">
+  <div class="container">
+    <div class="row justify-content-center mt-4">
+      <div class="col-xl-10 col-lg-10">
+        <div class="row">
+          <div class="col-lg-7">
+            <div class="mb-4"></div>
+            <h3>
+              <input [(ngModel)]="form.titulo" (focusout)="editTitle=false" (keydown.enter)="editTitle=false" class="form-control" #Intitle *ngIf="editTitle" type="text">
+              <span  *ngIf="!editTitle" [ngClass]="{'text-danger': formSubmit &&  !form.titulo}" > {{form.titulo ? form.titulo : "Título del formulario"}}</span>
+              <i  *ngIf="!editTitle"  (click)="editTitleFn()" [ngClass]="{ 'fa-check':editTitle, 'fa-pencil':!editTitle, 'text-danger': formSubmit &&  !form.titulo}" class="fa  edit-title px-2 pointer"></i>
+            </h3>
+            <div class="card">
+              <h5 class="card-header px-4">Agregar sección</h5>
+              <div class="card-body px-4">
+
+                <!--  START  -->
+                <div class="mb-3 row">
+                  <label for="staticEmail" class="col-sm-4 col-form-label fw-bold">Nombre de la sección</label>
+                  <div class="col-sm-8  has-validation">
+                    <div class="position-relative">
+                      <input [(ngModel)]="addSection.nombre" [ngClass]="{'is-invalid': validInput(addSection.nombre)  }" type="text" class="form-control" value="">
+                      </div>
+                  </div>
+                </div>
+                <!--  END  -->
+
+                <ng-container *ngFor="let question of addSection.preguntas; index as i;">
+                  <div class="question-container">
+
+                    <!-- START -->
+                    <div class="mb-3 row">
+                      <label for="staticEmail" class="col-sm-4 col-form-label fw-400">Asignar pregunta</label>
+                      <div class="col-sm-8  has-validation">
+                        <div class="position-relative">
+                          <input [(ngModel)]="question.descripcion" [ngClass]="{'is-invalid': validInput(question.descripcion)  }" type="text" class="form-control" value="">
+                          <img (click)="addQuestion(i)" class="position-absolute add-icon" [ngClass]="{'me-4': addSection.preguntas.length > 1 }" src="assets/icons/fa_plus-square-o.png" alt="">
+                          <img *ngIf="addSection.preguntas.length > 1" (click)="removeQuestion(i)" class="position-absolute add-icon me-1" src="assets/icons/fa_times-square-o.png" style="width: 20px;padding-top: 1px;" alt="">
+                        </div>
+                      </div>
+                    </div>
+                    <!-- END -->
+
+                    <!-- START -->
+                    <div class="mb-3 row">
+                      <label for="staticEmail" class="col-sm-4 col-form-label fw-400">Formato de respuesta</label>
+                      <div class="col-sm-8  has-validation">
+                        <select [(ngModel)]="question.tipo" class="form-select" name="tipo"  aria-label="Default select example">
+                          <option *ngFor="let tipo of _type.tipo_pregunta" [value]="tipo.id">{{tipo.value}}</option>
+                        </select>
+                      </div>
+                    </div>
+                    <!-- END -->
+
+                    <!-- START -->
+                    <div *ngIf="question.tipo === 'S1' || question.tipo === 'S2'" class="mb-3 row">
+                      <label for="staticEmail" class="col-sm-6 col-form-label text-end fw-bold">Options:</label>
+                      <div class="col-sm-6  has-validation">
+                        <div *ngFor="let option of question.opciones; index as ix; trackBy: trackByFn" class="position-relative mb-2">
+                          <input type="text" class="form-control" [value]="option" [ngClass]="{'is-invalid': validInput(option)  }" (focusout)="event($event, question.opciones, ix)" id="{{i+ix}}opid" name="{{i+ix}}op"  >
+                          <img (click)="addOption(question, ix)" [ngClass]="{'me-4': question.opciones.length > 1 }"  class="position-absolute add-icon me-4" src="assets/icons/fa_plus-square-o.png" alt="">
+                          <img *ngIf="question.opciones.length > 1" (click)="removeOption(question, ix)" class="position-absolute add-icon me-1" src="assets/icons/fa_times-square-o.png" style="width: 20px;padding-top: 1px;" alt="">
+                        </div>
+                      </div>
+                    </div>
+                    <!-- END -->
+
+                  </div>
+                </ng-container>
+
+
+                <div class="row justify-content-end">
+                  <div class="col-sm-5">
+                    <button  (click)="saveSection()" type="submit" class="btn btn-success m-btn-success m-btn w-100 truncate">Guardar sección</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card mt-3">
+              <h5 class="card-header px-4">Configuración de formulario</h5>
+              <div class="card-body px-4">
+                <!-- START -->
+                <div class="mb-3 row">
+                  <label  class="col-sm-4 col-form-label fw-400">Fecha de inicio</label>
+                  <div class="col-sm-8  has-validation">
+                      <input type="date" [ngClass]="{'is-invalid': formSubmit &&  !form.fecha_inicio  }" [(ngModel)]="form.fecha_inicio" class="form-control" value="">
+                      <div class="invalid-feedback">
+                        Este campo es requerido
+                      </div>
+                  </div>
+                </div>
+                <!-- END -->
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-5 d-flex flex-column">
+            <div class="mb-4"></div>
+            <p class="fw-bold"> Vista previa</p>
+            <div class="card h-100 mb-2">
+              <h5 class="card-header px-4">Secciones ({{ this.form.secciones.length }})</h5>
+              <div class="card-body">
+                <div class="mb-3 row">
+                  <div class="col-sm-12">
+                    <div class="position-relative">
+                      <input type="text" placeholder="Buscar sección..." [(ngModel)]="filterInput" class="form-control" value="">
+                      <img class="position-absolute add-icon" src="assets/icons/ph_magnifying-glass-bold.png" alt="">
+                    </div>
+                    <div *ngFor="let seccion of this.form.secciones | filterPipe:{ term: this.filterInput , condition: this.filterCondition, empty:{}  };let i = index; " class="card mt-2 p-0" [ngClass]="{'selectedGoUpIndex':selectedGoUpIndex===i}">
+                      <div class="bg-card p-3 position-relative " >
+                        <i (click)="removeSection(i)" class="fa fa-trash position-absolute top-0 end-0 p-2 pointer"></i>
+                        <div class="position-absolute top-0 end-0 p-1 px-5">
+                          <i *ngIf="i" (click)="sectionGoUp(i)" class="fa fa-angle-up vp-up-icon pointer"></i>
+                        </div>
+                       <b>{{i+1}}.</b>  {{seccion.nombre}}
+                        <div class="px-4" *ngFor="let pregunta of seccion.preguntas;let ip = index;">
+                          <div><b>{{i+1}}.{{ this.printToLetter(ip+1).toLowerCase() }}</b>  {{pregunta.descripcion}}</div>
+                          <div class="tipo-option-text-color fw-400"> {{ getTipoName(pregunta.tipo) }}</div>
+                          <div class="d-flex d-column">
+                            <i (click)="removeQuestion(ip, seccion.preguntas)" class="fa fa-trash p-2 vp-icon"></i>
+                            <i (click)="editSection(i,seccion)" class="fa fa-pencil p-2 vp-icon"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row justify-content-end">
+              <div class="col-sm-7 mb-4">
+                <button  (click)="create()" type="submit" class="btn btn-success m-btn-success m-btn w-100 truncate mb-4">Finalizar formulario</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -8,20 +8,24 @@ import { BaseComponent } from 'src/app/platform/shared/components/base.component
 @Component({
   selector: 'app-form-list',
   templateUrl: './form-list.component.html',
-  styleUrls: ['./form-list.component.css'],
+  styleUrls: ['./form-list.component.scss'],
 })
 export class FormListComponent extends BaseComponent implements OnInit {
   flicker: Subject<any> = new Subject();
 
   filterInput: string = '';
 
-  columns = 7;
+  columns = 6;
 
   default: any = {
     nombre_evaluacion: '-',
-    nombre: '-',
-    nombre_empresa: '-',
-    administrador: '-',
+    fecha: '-',
+    nombre_vehiculo: '-',
+    nombre_usuario: '-',
+  };
+
+  formDefault: any = {
+    titulo: '-'
   };
 
   evaluationHistory!: Observable<evaluation[]>;
@@ -74,4 +78,13 @@ export class FormListComponent extends BaseComponent implements OnInit {
     );
     return cond;
   }
+
+  filterConditionForm(item:any, term:string){
+    const cond = (
+      item.titulo.toUpperCase().indexOf(term.toUpperCase()) > -1
+    );
+    return cond;
+  }
+
+
 }

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, catchError, map, throwError } from 'rxjs';
+import { tipoPregunta } from '../interfaces/tipo_pregunta';
 import { ApiService } from './core/api.service';
 import endpoints from './core/endpoints';
 
@@ -15,8 +16,9 @@ export class TypeService extends ApiService {
       this.getTypes().subscribe();
   }
 
-  tipo_vehiculo = [];
-  tipo_documento = [];
+  public tipo_vehiculo = [];
+  public tipo_documento = [];
+  public tipo_pregunta:tipoPregunta[] = [];
 
   getTypes(){
     const { types : url } = endpoints
@@ -24,6 +26,7 @@ export class TypeService extends ApiService {
       map((data:any) => {
         this.tipo_vehiculo = data.tipo_vehiculo;
         this.tipo_documento = data.tipo_documento;
+        this.tipo_pregunta = data.tipo_pregunta;
       }),
       catchError((e) => {
         localStorage.clear();

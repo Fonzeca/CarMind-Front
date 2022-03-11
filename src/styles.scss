@@ -324,6 +324,19 @@ body {
   }
 }
 
+.position-relative{
+  .add-icon {
+    width: 25px;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+}
+
 @media (max-width: 991px) {
   .dyTableContainer {
     padding: 0 10px 0 10px !important;
@@ -338,4 +351,8 @@ body {
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
+}
+
+.fw-400{
+  font-weight: 400;
 }

@@ -6,12 +6,14 @@ import { FormListComponent } from './form-list/form-list.component';
 import { SharedModule } from '../../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormCardComponent } from './shared/form-card/form-card.component';
+import { CreateFormComponent } from './create-form/create-form.component';
 
 
 @NgModule({
   declarations: [
     FormListComponent,
-    FormCardComponent
+    FormCardComponent,
+    CreateFormComponent
   ],
   imports: [
     CommonModule,
