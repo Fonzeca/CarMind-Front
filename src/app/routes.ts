@@ -10,6 +10,12 @@ export const AppRoutes = {
           return {
             route:`${this.route}/forms`,
             main:"forms",
+            get create(){
+              return {
+                route:`${this.route}/create`,
+                main:"create"
+              }
+            }
           }
         },
         get vehicles() {

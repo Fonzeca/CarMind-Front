@@ -15,7 +15,7 @@ export class FilterPipe implements PipeTransform {
   transform(value: any, args:PipeFilterParam): any {
     if(args?.term){
       const filtred = value.filter((item:any) => args.condition(item, args.term)) ;
-      return filtred.length ? filtred : [args.empty];
+      return filtred.length ? filtred : args.empty ? [args.empty] : [];
     }
     return value;
   }

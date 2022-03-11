@@ -30,7 +30,7 @@ export class TopbarComponent extends BaseComponent implements OnInit {
       this.auth.getLoggedUser().subscribe((data) => {
         this.nombre = data.nombre;
       }),
-      interval(60000).subscribe(()=>{
+      interval(120000).subscribe(()=>{
         this.getNotifications();
       })
     );

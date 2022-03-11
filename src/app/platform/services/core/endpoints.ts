@@ -21,6 +21,7 @@ const endpoints = {
     get_by_id:'/evaluacion/:id',
     get_all_history:'/evaluacion/historial',
     get_history_by_logged_user:'/evaluacion/historial/loggedUser',
+    post:'/evaluacion',
   },
   types:"/tipos",
   users:{

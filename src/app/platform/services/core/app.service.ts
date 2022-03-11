@@ -12,7 +12,7 @@ import { ApiService } from './api.service';
 })
 export class AppService extends ApiService {
 
-  constructor(public sw: SweetAlertService, http:HttpClient) {
+  constructor(public sw: SweetAlertService, public router:Router, http:HttpClient) {
     super(http)
   }
 
