@@ -21,7 +21,7 @@ export class UserListComponent extends BaseComponent implements OnInit {
   default:any = {
     "id": "empty",
     "nombre": "-",
-    "nombre_empresa": "-",
+    "dni": "-",
     "administrador": "-"
   };
 

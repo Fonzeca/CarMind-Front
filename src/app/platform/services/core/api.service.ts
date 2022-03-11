@@ -4,16 +4,19 @@ import { Observable, throwError, finalize } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import Swal from 'sweetalert2'
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  // Define API
-  private apiURL = 'http://vps-1791261-x.dattaweb.com:2233';
+
+  private apiURL:string;
 
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.apiURL =  environment.api
+  }
   /*========================================
     CRUD Methods for consuming RESTful API
   =========================================*/
@@ -55,7 +58,6 @@ export class ApiService {
 
   private request(a:Observable<any>){
     this.tail.push(a);
-    console.log(this.tail)
     return a.pipe(
       retry(1),
       catchError(this.handleError),

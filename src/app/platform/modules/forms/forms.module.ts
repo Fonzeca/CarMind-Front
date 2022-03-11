@@ -5,11 +5,13 @@ import { FormsRoutingModule } from './forms-routing.module';
 import { FormListComponent } from './form-list/form-list.component';
 import { SharedModule } from '../../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormCardComponent } from './shared/form-card/form-card.component';
 
 
 @NgModule({
   declarations: [
-    FormListComponent
+    FormListComponent,
+    FormCardComponent
   ],
   imports: [
     CommonModule,

@@ -5,12 +5,15 @@ import { retry, catchError } from 'rxjs/operators';
 import Swal from 'sweetalert2'
 import { Router } from '@angular/router';
 import { SweetAlertService } from './sweetAlert.service';
+import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AppService {
+export class AppService extends ApiService {
 
-  constructor(public sw: SweetAlertService) {}
+  constructor(public sw: SweetAlertService, http:HttpClient) {
+    super(http)
+  }
 
 }

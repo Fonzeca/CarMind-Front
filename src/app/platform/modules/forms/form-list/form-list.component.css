@@ -1,0 +1,28 @@
+.form-arrow {
+  background-color: var(--m-acento2-color);
+  border-radius: 50%;
+  color: white;
+  font-size: 25px;
+}
+
+.arrow-div {
+  align-self: center;
+  padding-bottom: 35px;
+}
+
+.arrow-disabled {
+  background-color: gray;
+  cursor: default !important;
+}
+
+
+.arrow-right{
+  padding-left: 15px;
+  padding-right: 13px;
+}
+.arrow-left{
+  padding-right: 15px;
+  padding-left: 13px;
+}
+
+

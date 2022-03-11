@@ -305,10 +305,10 @@ body {
   .dyTable {
     overflow-x: auto;
 
-    .dyItem{
+    .dyItem {
       background-color: var(--m-lightgray-color);
       padding: 5px;
-      .dyCol{
+      .dyCol {
         min-width: 100px;
       }
       &:first-child {
@@ -317,7 +317,7 @@ body {
       &:last-child {
         border-radius: 0 0 5px 5px;
       }
-      &:not(:last-child){
+      &:not(:last-child) {
         border-bottom: 1px solid rgb(202, 202, 202);
       }
     }
@@ -328,4 +328,14 @@ body {
   .dyTableContainer {
     padding: 0 10px 0 10px !important;
   }
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
 }

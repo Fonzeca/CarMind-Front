@@ -4,6 +4,9 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { TopbarComponent } from './topbar/topbar.component';
 import { TemplateContainerComponent } from './container/container.component';
 import { RouterModule } from '@angular/router';
+import { SharedModule } from '../shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ComponentsModule } from '../components/components.module';
 
 
 
@@ -12,7 +15,11 @@ import { RouterModule } from '@angular/router';
   exports: [TemplateContainerComponent],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    FormsModule,
+    ComponentsModule,
+    ReactiveFormsModule,
+    SharedModule
   ]
 })
 export class TemplateModule { }

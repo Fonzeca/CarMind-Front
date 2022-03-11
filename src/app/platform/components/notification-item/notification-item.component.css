@@ -1,0 +1,11 @@
+.notification-item{
+  border: 1px solid rgb(172, 172, 172);
+  border-radius: 5px;
+  padding: 20px;
+  min-height: 100px;
+}
+
+.notification-date{
+  top: 10px;
+  right: 20px;
+}
