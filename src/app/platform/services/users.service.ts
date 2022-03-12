@@ -2,13 +2,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import {
-  BehaviorSubject,
-  forkJoin,
-  map,
-  Observable,
-  of,
-  switchMap,
-  tap,
+  BehaviorSubject, Observable, switchMap,
+  tap
 } from 'rxjs';
 import { user } from '../interfaces/user';
 import { ApiService } from './core/api.service';
@@ -67,7 +62,7 @@ export class UsersService extends ApiService {
     const {
       users: { put: url },
     } = endpoints;
-    return this.delete(url).pipe(
+    return this.delete(url.replace(':id', id.toString())).pipe(
       tap((response) => {
         this.getAll().subscribe();
       })

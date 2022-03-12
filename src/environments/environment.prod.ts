@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  api:'66.97.43.111:2233:2233'
+  api:'https://carmind-app.com:2233'
 };
