@@ -13,6 +13,8 @@ import { QRCodeModule } from 'angularx-qrcode';
 import { QrModalComponent } from './shared/qr-modal/qr-modal.component';
 import { VehicleDocumentViewComponent } from './shared/vehicle-document-view/vehicle-document-view.component';
 import { AddDocumentComponent } from './shared/add-document/add-document.component';
+import { DropdownModule } from 'primeng/dropdown';
+import { FormAssignmentComponent } from './shared/form-assignment/form-assignment.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { AddDocumentComponent } from './shared/add-document/add-document.compone
     VehiclePreviewComponent,
     QrModalComponent,
     VehicleDocumentViewComponent,
-    AddDocumentComponent
+    AddDocumentComponent,
+    FormAssignmentComponent
   ],
   imports: [
     CommonModule,
@@ -31,7 +34,8 @@ import { AddDocumentComponent } from './shared/add-document/add-document.compone
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
-    QRCodeModule
+    QRCodeModule,
+    DropdownModule
   ],
 })
 export class VehiclesModule { }

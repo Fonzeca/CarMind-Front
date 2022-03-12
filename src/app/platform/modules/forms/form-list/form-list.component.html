@@ -55,17 +55,17 @@
     </div>
     <div class="row justify-content-center mt-4">
       <div class="col-lg-10">
-       <h4>Formularios recientes</h4>
+       <h4 class="mb-5 mt-4">Formularios recientes</h4>
         <!-- table -->
-        <div *ngIf="evaluationHistory | async as history;" class="row justify-content-center mt-4">
+        <div *ngIf="evaluationHistory | async as history;">
           <div class="dyTableContainer px-0 mb-4">
             <div class="dyTable">
               <div class="d-flex flex-row dyItem" [style.minWidth]="100 * columns+'px'">
-                <div [style.width.%]="(100 / columns) * 2" class="px-3 fw-bold dyCol">Formulario</div>
-                <div [style.width.%]="100 / columns" class="px-3 fw-bold dyCol">Fecha</div>
-                <div [style.width.%]="100 / columns" class="px-3 fw-bold dyCol">Vehículo</div>
-                <div [style.width.%]="100 / columns" class="px-3 fw-bold dyCol">Conductor</div>
-                <div [style.width.%]="100 / columns" class="text-end px-3 fw-bold dyCol">Estado</div>
+                <div [style.width.%]="(100 / columns) * 2" class="px-3 fw-300 dyCol">Formulario</div>
+                <div [style.width.%]="100 / columns" class="px-3 fw-300 dyCol">Fecha</div>
+                <div [style.width.%]="100 / columns" class="px-3 fw-300 dyCol">Vehículo</div>
+                <div [style.width.%]="100 / columns" class="px-3 fw-300 dyCol">Conductor</div>
+                <div [style.width.%]="100 / columns" class="text-end px-3 fw-300 dyCol">Estado</div>
               </div>
               <ng-container *ngFor="let evaluation of history | filterPipe : { term: this.filterInput , condition: this.filterCondition, empty: this.default  } ;">
                 <div  class="d-flex flex-row dyItem" [style.minWidth]="100 * columns+'px'">

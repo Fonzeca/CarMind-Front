@@ -10,7 +10,7 @@
       <div class="col-lg-10">
         <div class="row">
           <div class=" col-lg-3 col-xs-10  mb-4">
-            <button  class="btn btn-success m-btn-success m-btn w-100 truncate">Asignar formulario</button>
+            <button (click)="formAssignment()" class="btn btn-success m-btn-success m-btn w-100 truncate">Asignar formulario</button>
           </div>
           <div class=" col-lg-3 col-xs-10  mb-4">
             <button (click)="addDocument(vehicle.id)"  class="btn btn-primary m-btn-acento m-btn w-100 truncate">Adjuntar documento</button>
@@ -29,9 +29,9 @@
                   <img *ngIf="vehicle?.tipo" src="assets/images/cars/{{vehicle.tipo}}.png" class="card-img-top" alt="..."  >
                 </div>
                   <div class="card-body">
-                    <h6 class="card-text">{{ vehicle.nombre}}</h6>
-                    <p *ngIf="vehicle.en_uso" class="p" >En uso <i class="fa fa-circle" aria-hidden="true"></i></p>
-                    <p *ngIf="!vehicle.en_uso" class="p disponible">Disponible <i class="fa fa-circle" aria-hidden="true"></i></p>
+                    <h6 class="card-text fw-700">{{ vehicle.nombre}}</h6>
+                    <p *ngIf="vehicle.en_uso" class="p fw-400" >En uso <i class="fa fa-circle" aria-hidden="true"></i></p>
+                    <p *ngIf="!vehicle.en_uso" class="p disponible fw-400">Disponible <i class="fa fa-circle" aria-hidden="true"></i></p>
                     <i (click)="qrCode()" class="fa fa-qrcode pointer" aria-hidden="true"></i>
                   </div>
               </ng-container>
@@ -43,22 +43,22 @@
             <div class="card card-2" [ngClass]="{ 'animated-background' : !vehicle }">
               <ng-container *ngIf="vehicle">
                 <i (click)="editVehicle()" class="fa fa-pencil" aria-hidden="true"></i>
-                <div> <span class="title-card-2">Nombre:</span> {{vehicle.nombre}} </div>
-                <div> <span class="title-card-2">Marca:</span> {{vehicle.marca}} </div>
-                <div> <span class="title-card-2">Modelo:</span> {{vehicle.modelo}} </div>
-                <div> <span class="title-card-2">Año:</span> {{vehicle.linea}} </div>
-                <div> <span class="title-card-2">Patente:</span> {{vehicle.patente}} </div>
-                <div> <span class="title-card-2">Ultimo chofer:</span> {{vehicle.usuario_en_uso}} </div>
+                <div class="information-content"> <span class="title-card-2">Nombre:</span> <span>{{vehicle.nombre}}</span>  </div>
+                <div class="information-content"> <span class="title-card-2">Marca:</span> <span>{{vehicle.marca}}</span> </div>
+                <div class="information-content"> <span class="title-card-2">Modelo:</span> <span>{{vehicle.modelo}}</span> </div>
+                <div class="information-content"> <span class="title-card-2">Año:</span> <span>{{vehicle.linea}}</span> </div>
+                <div class="information-content"> <span class="title-card-2">Patente:</span> <span> {{vehicle.patente}}</span> </div>
+                <div class="information-content"> <span class="title-card-2">Chofer actual:</span> <span>{{vehicle.usuario_en_uso ? vehicle.usuario_en_uso : "N/A"  }}</span> </div>
               </ng-container>
             </div>
           </div>
         </div>
         <div class="row">
-          <div class="col mt-3">
-            <h4>Documentación</h4>
+          <div class="col mt-4">
+            <h4 class="mb-4">Documentación</h4>
             <div>
               <!--  -->
-              <div *ngIf="vehicle?.documentos" class="row justify-content-center mt-4">
+              <div *ngIf="vehicle?.documentos">
                 <div class="dyTableContainer px-0">
                   <div class="dyTable">
                     <ng-container *ngFor="let doc of vehicle?.documentos;">

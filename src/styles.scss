@@ -9,7 +9,8 @@
 }
 
 body {
-  font-family: "Roboto";
+  font-family: "Roboto" !important;
+  margin: 0;
   font-weight: 300;
 }
 
@@ -40,10 +41,7 @@ html,
 body {
   height: 100%;
 }
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-}
+
 .pointer {
   cursor: pointer;
 }
@@ -327,7 +325,7 @@ body {
 .position-relative{
   .add-icon {
     width: 25px;
-    top: 0;
+    top: 0px;
     left: 0;
     bottom: 0;
     right: 0;
@@ -339,7 +337,7 @@ body {
 
 @media (max-width: 991px) {
   .dyTableContainer {
-    padding: 0 10px 0 10px !important;
+    padding: 0 10px 0 10px;
   }
 }
 
@@ -356,3 +354,56 @@ body {
 .fw-400{
   font-weight: 400;
 }
+.fw-300{
+  font-weight: 300 !important;
+}
+.fw-600{
+  font-weight: 700 !important;
+}
+.fw-700{
+  font-weight: 700 !important;
+}
+
+
+.form-control:focus {
+  color: #212529;
+  background-color: #fff;
+  border: 0px solid rgba(182, 232, 2, 0.7) ;
+  outline: 0;
+  box-shadow: rgba(182, 232, 2, 0.7) 0px 0px 0px 3px !important;
+}
+
+.form-select:focus{
+  color: #212529;
+  background-color: #fff;
+  border: 1px solid rgba(182, 232, 2, 0.7) ;
+  outline: 0;
+  box-shadow: rgba(182, 232, 2, 0.7) 0px 0px 0px 3px !important;
+}
+
+.mat-dialog-content {
+  display: contents !important;
+}
+
+
+.select2CarMind{
+  .p-dropdown{
+    height: 40px !important;
+  }
+  &-option-item {
+    display: flex;
+    gap: 10px;
+    padding: 5px 0 5px 15px;
+      img {
+        width: 35px;
+      }
+  }
+  .tipo-item-value{
+    padding: 0px !important;
+  }
+}
+
+.form-control .form-select {
+  height: 44px;
+}
+

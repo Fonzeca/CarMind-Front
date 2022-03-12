@@ -10,11 +10,23 @@ import { VehiclesService } from 'src/app/platform/services/vehicles.service';
 @Component({
   selector: 'm-form-vehicle',
   templateUrl: './form-vehicle.component.html',
-  styleUrls: ['./form-vehicle.component.css']
+  styleUrls: ['./form-vehicle.component.scss']
 })
 export class FormVehicleComponent implements dyComponent {
 
   @Input() data:any;
+
+  _tipo:string = "Auto";
+  set tipo (value:any){
+    this._tipo = value;
+    this.form.patchValue({
+      tipo: value
+    });
+  }
+  get tipo(){
+    return this._tipo;
+  }
+
 
   form!: FormGroup;
   constructor(
@@ -77,4 +89,8 @@ export class FormVehicleComponent implements dyComponent {
       this.dialogRef.closeAll();
   }
 
+  quitarAcentos(cadena:string){
+    const acentos:any = {'á':'a','é':'e','í':'i','ó':'o','ú':'u','Á':'A','É':'E','Í':'I','Ó':'O','Ú':'U'};
+    return cadena.split('').map( letra => acentos[letra] || letra).join('').toString();
+  }
 }

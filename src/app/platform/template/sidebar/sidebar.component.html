@@ -1,5 +1,5 @@
 <section class="section-sidebar">
-    <nav class="sidebar close" scroll="no" #asToggle (mouseenter)="abrirSidebar()" (mouseleave)="cerrarSidebar()">
+    <nav class="sidebar close" scroll="no" #asToggle (mouseenter)="abrirSidebar()" (click)="cerrarSidebar()" (mouseleave)="cerrarSidebar()">
         <div id="indication-mark-wrap" #indicator>
 
         </div>
@@ -10,30 +10,30 @@
                 </span>
             </div>
             <div class="justify-left-content">
-                <span class="text-header"  id="navbarDropdown" #asText>Menú</span>
+                <span class="text-header fw-700"  id="navbarDropdown" #asText>Menú</span>
             </div>
-            <a id="row-content" hover-class="item-active-menu" [routerLinkActive]="['active']" [routerLink]="['/'+this.getAppRoutes.platform.vehicles.route]">
+            <a id="row-content" (mouseenter)="abrirSidebar()"  [routerLinkActive]="['active']" [routerLink]="['/'+this.getAppRoutes.platform.vehicles.route]">
                 <div item-menu>
                   <img src="assets/icons/la_car-side.png" width="40" alt="">
                 </div>
                 <div class="justify-left-content" item-menu>
-                    <span class="text nav-text" #asText>Vehículos</span>
+                    <span class="text nav-text fw-400" #asText>Vehículos</span>
                 </div>
             </a>
-            <a id="row-content" hover-class="item-active-menu" [routerLinkActive]="['active']" [routerLink]="['/'+this.getAppRoutes.platform.forms.route]">
+            <a id="row-content" (mouseenter)="abrirSidebar()"  [routerLinkActive]="['active']" [routerLink]="['/'+this.getAppRoutes.platform.forms.route]">
                 <div item-menu>
                   <img src="assets/icons/ant-design_form-outlined.png" width="36" alt="">
                 </div>
                 <div class="justify-left-content" item-menu>
-                    <span class="text nav-text" #asText>Formulario</span>
+                    <span class="text nav-text fw-400" #asText>Formulario</span>
                 </div>
             </a>
-            <a id="row-content" class="no-fill" hover-class="item-active-menu" [routerLinkActive]="['active']" [routerLink]="['/'+this.getAppRoutes.platform.users.route]">
+            <a id="row-content" (mouseenter)="abrirSidebar()"   [routerLinkActive]="['active']" [routerLink]="['/'+this.getAppRoutes.platform.users.route]">
                 <div item-menu>
                   <img src="assets/icons/ion_people-sharp.png" width="40" alt="">
                 </div>
                 <div class="justify-left-content" item-menu>
-                    <span class="text nav-text" #asText>Personal</span>
+                    <span class="text nav-text fw-400" #asText>Personal</span>
                 </div>
             </a>
         </div>

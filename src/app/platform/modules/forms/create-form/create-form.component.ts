@@ -26,48 +26,7 @@ export class CreateFormComponent implements OnInit {
     titulo: "",
     fecha_inicio:"",
     secciones:[
-      {
-        "nombre": "1 asd",
-        "index":0,
-        "preguntas": [
-            {
-                "tipo": "S3",
-                "index":0,
-                "descripcion": "asd",
-                "opciones": [
-                    ""
-                ]
-            }
-        ]
-      },
-      {
-        "nombre": "2 asd",
-        "index":0,
-        "preguntas": [
-            {
-                "tipo": "S3",
-                "index":0,
-                "descripcion": "asd",
-                "opciones": [
-                    ""
-                ]
-            }
-        ]
-      },
-      {
-        "nombre": "3 asd",
-        "index":0,
-        "preguntas": [
-            {
-                "tipo": "S3",
-                "index":0,
-                "descripcion": "asd",
-                "opciones": [
-                    ""
-                ]
-            }
-        ]
-      }
+
     ]
   };
 

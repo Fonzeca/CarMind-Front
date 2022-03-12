@@ -14,7 +14,7 @@ const endpoints = {
     get_document_by_vehicle:"/vehiculo/:id/documentos",
     post_upload_document:"/vehiculo/:id/:tipo/upload",
     delete:"/vehiculo/:id",
-    post_assign_evaluation:"/vehiculo/:id",
+    post_assign_evaluation:"/vehiculo/:id/asignarEvaluacion",
   },
   forms:{
     get_all:'/evaluacion',

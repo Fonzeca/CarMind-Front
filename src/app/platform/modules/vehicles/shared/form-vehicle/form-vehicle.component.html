@@ -1,6 +1,6 @@
 <form [formGroup]="form" #ngForm="ngForm" (ngSubmit)="action()">
   <div class="mb-3 row">
-    <label for="staticEmail" class="col-sm-2 col-form-label">Nombre</label>
+    <label for="staticEmail" class="col-sm-2 col-form-label fw-400">Nombre</label>
     <div class="col-sm-10">
       <div class="input-group has-validation">
         <input [readonly]="this.data && this.data.id" type="text" formControlName="nombre" class="form-control" [ngClass]="{'is-invalid': getControl('nombre')?.invalid && (getControl('nombre').touched || ngForm.submitted) }" value="">
@@ -49,9 +49,23 @@
   <div class="mb-3 row">
     <label for="staticEmail" class="col-sm-2 col-form-label">Tipo</label>
     <div class="col-sm-10  has-validation">
-      <select class="form-select" name="tipo" [ngClass]="{'is-invalid': getControl('tipo')?.invalid && (getControl('tipo').touched || ngForm.submitted)   }" formControlName="tipo" aria-label="Default select example">
+        <p-dropdown  appendTo="body" class="select2carMind" [options]="type.tipo_vehiculo" [(ngModel)]="tipo" formControlName="tipo" [style]="{'width':'100%'}">
+          <ng-template pTemplate="selectedItem">
+            <div class="select2CarMind-option-item tipo-item-value px-3 py-0"  *ngIf="tipo">
+                <img [src]="'assets/icons/'+quitarAcentos(tipo)+'.png'"/>
+                <div class="fw-400">{{tipo}}</div>
+            </div>
+          </ng-template>
+          <ng-template let-tipo pTemplate="item">
+              <div class="select2CarMind-option-item px-3 py-1">
+                  <img [src]="'assets/icons/'+quitarAcentos(tipo)+'.png'"/>
+                  <div class="fw-400">{{tipo}}</div>
+              </div>
+          </ng-template>
+        </p-dropdown>
+      <!-- <select class="form-select" name="tipo" [ngClass]="{'is-invalid': getControl('tipo')?.invalid && (getControl('tipo').touched || ngForm.submitted)   }" formControlName="tipo" aria-label="Default select example">
         <option *ngFor="let o of type.tipo_vehiculo" [value]="o">{{o}}</option>
-      </select>
+      </select> -->
       <div class="invalid-feedback">
         Es requerido
      </div>
