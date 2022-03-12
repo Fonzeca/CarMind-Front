@@ -60,7 +60,7 @@ export class UsersService extends ApiService {
 
   deleteById(id:number) {
     const {
-      users: { put: url },
+      users: { delete: url },
     } = endpoints;
     return this.delete(url.replace(':id', id.toString())).pipe(
       tap((response) => {
