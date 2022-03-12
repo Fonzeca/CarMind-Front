@@ -11,6 +11,7 @@ import { BaseComponent } from 'src/app/platform/shared/components/base.component
   styleUrls: ['./form-list.component.scss'],
 })
 export class FormListComponent extends BaseComponent implements OnInit {
+
   flicker: Subject<any> = new Subject();
 
   filterInput: string = '';

@@ -322,7 +322,7 @@ body {
   }
 }
 
-.position-relative{
+.position-relative {
   .add-icon {
     width: 25px;
     top: 0px;
@@ -351,32 +351,31 @@ body {
                                   supported by Chrome, Edge, Opera and Firefox */
 }
 
-.fw-400{
+.fw-400 {
   font-weight: 400;
 }
-.fw-300{
+.fw-300 {
   font-weight: 300 !important;
 }
-.fw-600{
+.fw-600 {
   font-weight: 700 !important;
 }
-.fw-700{
+.fw-700 {
   font-weight: 700 !important;
 }
-
 
 .form-control:focus {
   color: #212529;
   background-color: #fff;
-  border: 0px solid rgba(182, 232, 2, 0.7) ;
+  border: 0px solid rgba(182, 232, 2, 0.7);
   outline: 0;
   box-shadow: rgba(182, 232, 2, 0.7) 0px 0px 0px 3px !important;
 }
 
-.form-select:focus{
+.form-select:focus {
   color: #212529;
   background-color: #fff;
-  border: 1px solid rgba(182, 232, 2, 0.7) ;
+  border: 1px solid rgba(182, 232, 2, 0.7);
   outline: 0;
   box-shadow: rgba(182, 232, 2, 0.7) 0px 0px 0px 3px !important;
 }
@@ -385,20 +384,19 @@ body {
   display: contents !important;
 }
 
-
-.select2CarMind{
-  .p-dropdown{
+.select2CarMind {
+  .p-dropdown {
     height: 40px !important;
   }
   &-option-item {
     display: flex;
     gap: 10px;
     padding: 5px 0 5px 15px;
-      img {
-        width: 35px;
-      }
+    img {
+      width: 35px;
+    }
   }
-  .tipo-item-value{
+  .tipo-item-value {
     padding: 0px !important;
   }
 }
@@ -406,4 +404,3 @@ body {
 .form-control .form-select {
   height: 44px;
 }
-
