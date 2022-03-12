@@ -11,9 +11,9 @@ RUN npm install
 
 COPY . /app
 
-ARG PRODUCTION
+ARG SCRIPT
 
-RUN npm run build $PRODUCTION
+RUN npm run $SCRIPT
 
 #Deploy app
 FROM nginx:alpine
