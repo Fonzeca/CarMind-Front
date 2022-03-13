@@ -13,7 +13,7 @@
         <div class="form-group mb-3">
           <div class="position-relative">
             <input [type]="this.showPassword ? 'text' : 'password'" formControlName="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-            <img  (click)='showPasswordEvent()' class="position-absolute add-icon me-3" src="assets/icons/ant-design_eye-filled.png" alt="">
+            <img  (click)='showPasswordEvent()' class="position-absolute add-icon me-3" [src]="this.showPassword ? 'assets/icons/eye-slash.png' : 'assets/icons/eye.png'" alt="">
           </div>
         </div>
         <button [ngClass]="{'m-progress':this._auth.tail.length }" [disabled]="this._auth.tail.length" type="submit" class="btn btn-primary w-100 m-btn-primary mt-4 mb-5" >

@@ -1,8 +1,15 @@
 
 <mat-dialog-content>
-  <h3 style="font-size: 22px; font-weight: 700;">{{title}}</h3>
- <span mat-dialog-close class="pull-right"><img src="../assets/icon-cerrarModal.svg" alt="" style="margin-left: 600px; position: relative; bottom: 40px; z-index: 1;"></span>
- <hr style="bottom: 20px; opacity: 0.0;">
+  <div class="container-fluid px-0">
+    <div class="row">
+      <div class="col-12">
+        <h3>{{title}}</h3>
+        <span class="pull-right"><img mat-dialog-close src="../assets/icon-cerrarModal.svg" alt=""></span>
+        <hr>
+      </div>
+    </div>
+  </div>
+
  <ng-template modalHost></ng-template>
 </mat-dialog-content>
 
