@@ -5,35 +5,32 @@ input[type="file"]#mi-archivo {
   overflow: hidden;
   position: absolute;
   z-index: -1;
-  }
+}
 
-  .adjuntar-img{
-    position: relative;
-    left: 108px;
-    cursor: pointer;
-    color: #000853;
-  }
+.adjuntar-img {
+  position: relative;
+  left: 108px;
+  cursor: pointer;
+  color: #000853;
+}
 
-select option{
+select option {
   padding-right: 50px;
 }
 
-input{
+input {
   outline: none;
   text-indent: 20px;
-
 }
 
-
-
-.img-default{
+.img-default {
   position: relative;
   left: 250px;
- padding-top: 40px;
+  padding-top: 40px;
 }
 
-.button{
-  background-color: #B6E802;
+.button {
+  background-color: #b6e802;
   width: 150px;
   height: 56px;
   border-radius: 10px;
@@ -43,7 +40,7 @@ input{
   font-weight: 700;
 }
 
-.button-2{
+.button-2 {
   background-color: #949494;
   width: 150px;
   height: 56px;
@@ -54,10 +51,18 @@ input{
   font-weight: 700;
 }
 
-
-select{
+select {
   outline: none;
-text-indent: 18px;
-
+  text-indent: 18px;
 }
 
+hr{
+  bottom: 20px;
+  opacity: 0.0;
+}
+img{
+  margin-left: 600px; position: relative; bottom: 40px; z-index: 1;
+}
+h3{
+  font-size: 22px; font-weight: 700;
+}
