@@ -16,7 +16,13 @@ export class TypeService extends ApiService {
       this.getTypes().subscribe();
   }
 
-  public tipo_vehiculo = [];
+  public tipo_vehiculo = [
+    "Auto",
+    "Camión",
+    "Camioneta",
+    "Montacargas",
+    "Otros"
+];
   public tipo_documento = [];
   public tipo_pregunta:tipoPregunta[] = [];
 

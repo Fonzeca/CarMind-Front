@@ -1,17 +1,18 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-light">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">
-      <img src="assets/logo/apple-touch-icon.png" alt="">
-      CardMind
+      <img src="assets/icLogoCarMindx2.png" alt="">
+      CarMind
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-        <li class="nav-item">
+        <li class="nav-item me-2">
           <a (click)="verNotificaciones()" class="nav-link nav-link-with-icon pointer position-relative" >
-            <i class="fa fa-bell-o" aria-hidden="true"></i>
+            <img width="40px" src="assets/icons/akar-icons_bell.png" alt="">
+            <!-- <i class="fa fa-bell-o" aria-hidden="true"></i> -->
             <span class="position-absolute top-2  translate-middle badge rounded-pill bg-danger">
               {{ notifications.length }}
               <span class="visually-hidden">unread messages</span>
@@ -23,11 +24,11 @@
             <i class="fa fa-cog" aria-hidden="true"></i>
           </a>
         </li> -->
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown me-5">
           <a class="nav-link dropdown-toggle nav-link-with-icon" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <i  class="fa fa-user-o" aria-hidden="true"></i>
+            <img width="30px" src="assets/icons/user.png" alt="">
             <span>
-              {{nombre}}
+              {{full_name}}
             </span>
           </a>
           <ul class="dropdown-menu top-dropdown-menu" aria-labelledby="navbarDropdown">

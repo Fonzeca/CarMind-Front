@@ -190,18 +190,18 @@
     --active-item-color: #8ED8F8;
 }
 
-.item-active-menu span,
-.item-active-menu svg {
-    color: var(--active-item-color) !important;
-    fill: var(--active-item-color);
-    stroke: var(--active-item-color);
-}
 
 .active {
     overflow: inherit;
     div{
       &:first-child {
         border-left: 5px solid #8ED8F8;
+        img{
+          filter: opacity(0.4) drop-shadow(0 0 0 rgb(0, 132, 255));
+        }
+      }
+      .nav-text{
+        color: #8ED8F8;
       }
     }
 }

@@ -78,6 +78,13 @@ export class VehiclesService extends ApiService {
     );
   }
 
+  documentAssignment(id:number, params: HttpParams) {
+    const {
+      vehicles: { post_assign_evaluation: url },
+    } = endpoints;
+    return this.post(url.replace(':id', id.toString()), params);
+  }
+
   create(params: HttpParams) {
     const {
       vehicles: { post: url },

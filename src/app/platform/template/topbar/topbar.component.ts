@@ -22,13 +22,13 @@ export class TopbarComponent extends BaseComponent implements OnInit {
 
   notifications:notifications[] = [];
 
-  nombre! :string
+  full_name! :string
 
   ngOnInit(): void {
     this.getNotifications();
     this.addSafeSubscription(
       this.auth.getLoggedUser().subscribe((data) => {
-        this.nombre = data.nombre;
+        this.full_name = `${data.nombre} ${data.apellido}`;
       }),
       interval(120000).subscribe(()=>{
         this.getNotifications();

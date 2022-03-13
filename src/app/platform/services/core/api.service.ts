@@ -79,7 +79,7 @@ export class ApiService {
     }
     if(error.status===403){
       Swal.fire({
-        title: 'Message',
+        title: 'Mensaje',
         text: "Sesión Expirada",
         icon: 'error',
         confirmButtonText: 'Ok'
@@ -90,7 +90,7 @@ export class ApiService {
 
     }else{
       Swal.fire({
-        title: 'Message',
+        title: 'Mensaje',
         text: errorMessage,
         icon: 'error',
         confirmButtonText: 'Ok'

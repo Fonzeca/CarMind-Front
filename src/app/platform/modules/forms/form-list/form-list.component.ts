@@ -11,6 +11,7 @@ import { BaseComponent } from 'src/app/platform/shared/components/base.component
   styleUrls: ['./form-list.component.scss'],
 })
 export class FormListComponent extends BaseComponent implements OnInit {
+
   flicker: Subject<any> = new Subject();
 
   filterInput: string = '';
@@ -55,7 +56,7 @@ export class FormListComponent extends BaseComponent implements OnInit {
   }
 
   nextSlide(forms: formInterface[]) {
-    if (forms.length > this.slideIndex + this.slideCant) {
+    if ((this.slideIndex+this.slideCant) !== forms.length &&  forms.length!==1) {
       this.slideIndex++;
       this.flikear();
     }
@@ -74,12 +75,14 @@ export class FormListComponent extends BaseComponent implements OnInit {
 
   filterCondition(item:any, term:string){
     const cond = (
-      item.nombre_evaluacion.toUpperCase().indexOf(term.toUpperCase()) > -1
+      item.nombre_evaluacion.toUpperCase().indexOf(term.toUpperCase()) > -1 ||
+      item.fecha_inicio.toUpperCase().indexOf(term.toUpperCase()) > -1
     );
     return cond;
   }
 
   filterConditionForm(item:any, term:string){
+    this.slideIndex = 0;
     const cond = (
       item.titulo.toUpperCase().indexOf(term.toUpperCase()) > -1
     );

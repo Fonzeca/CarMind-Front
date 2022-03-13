@@ -1,0 +1,20 @@
+.dropD {
+  width: -webkit-fill-available !important;
+  margin-right: 24px !important;
+}
+
+.col-form-label {
+  display: flex;
+  align-items: center;
+  font-weight: 400;
+}
+
+::ng-deep{
+  .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
+    padding: 0px !important;
+    padding-left: 15px !important;
+  }
+}
+
+
+

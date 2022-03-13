@@ -6,6 +6,7 @@ import { vehicle } from 'src/app/platform/interfaces/vehicle';
 import { vehicleByIdResponse, VehiclesService } from 'src/app/platform/services/vehicles.service';
 import { BaseComponent } from 'src/app/platform/shared/components/base.component';
 import { AddDocumentComponent } from '../shared/add-document/add-document.component';
+import { FormAssignmentComponent } from '../shared/form-assignment/form-assignment.component';
 import { FormVehicleComponent } from '../shared/form-vehicle/form-vehicle.component';
 import { QrModalComponent } from '../shared/qr-modal/qr-modal.component';
 import { VehicleDocumentViewComponent } from '../shared/vehicle-document-view/vehicle-document-view.component';
@@ -113,7 +114,25 @@ export class VehiclePreviewComponent extends BaseComponent implements OnInit {
         },
         title: 'Ver documento',
       },
-    }).afterClosed().subscribe();
+    })
+  }
+
+  formAssignment() {
+    this.dialog.open(ModalComponent, {
+      width: '700px',
+      height: 'auto',
+      panelClass: ['md:w-5/5', 'w-full'],
+      data: {
+        viewComponent: {
+          component: FormAssignmentComponent,
+          data: {
+            id: this.vehicle.id,
+            close: () => this.dialog.closeAll(),
+          },
+        },
+        title: 'Asignar formulario',
+      },
+    })
   }
 
 }
