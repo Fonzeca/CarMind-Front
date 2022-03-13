@@ -2,7 +2,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 .section-sidebar {
-  margin-top: 70px;
+    margin-top: 70px;
     height: 0vh;
     background-color: var(--body-color);
     transition: var(--tran-05);
@@ -190,19 +190,18 @@
     --active-item-color: #8ED8F8;
 }
 
-
 .active {
     overflow: inherit;
-    div{
-      &:first-child {
-        border-left: 5px solid #8ED8F8;
-        img{
-          filter: opacity(0.4) drop-shadow(0 0 0 rgb(0, 132, 255));
+    div {
+        &:first-child {
+            border-left: 5px solid #8ED8F8;
+            img {
+                filter: brightness(0) saturate(100%) invert(77%) sepia(21%) saturate(657%) hue-rotate(157deg) brightness(101%) contrast(95%);
+            }
         }
-      }
-      .nav-text{
-        color: #8ED8F8;
-      }
+        .nav-text {
+            color: #8ED8F8;
+        }
     }
 }
 
@@ -234,10 +233,11 @@
 }
 
 #row a {
-  /* justify-content: center;
+    /* justify-content: center;
   text-align: center;
   justify-items: center; */
 }
+
 #row div {
     display: flex;
     align-items: center;
@@ -250,18 +250,16 @@
     display: contents !important;
 }
 
-.fa{
-  width: 70px;
-  font-size: 30px;
-  color: white;
+.fa {
+    width: 70px;
+    font-size: 30px;
+    color: white;
 }
 
-*{
-  text-decoration: none;
+* {
+    text-decoration: none;
 }
 
-.justify-left-content{
-  justify-content: left !important;
+.justify-left-content {
+    justify-content: left !important;
 }
-
-
