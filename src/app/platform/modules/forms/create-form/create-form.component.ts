@@ -182,7 +182,7 @@ export class CreateFormComponent implements OnInit {
   }
   create(){
     this.formSubmit = true;
-    if(this.form.titulo && this.form.fecha_inicio && this.form.secciones.length){
+    if(this.form.titulo && this.form.secciones.length){
       this._form.create(this.form).subscribe(
         res=>{
           this._app.sw.alertSuccess("Formulario creado").then(()=>{

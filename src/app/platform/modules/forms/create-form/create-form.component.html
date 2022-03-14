@@ -19,7 +19,7 @@
                   <label for="staticEmail" class="col-sm-4 col-form-label fw-bold">Nombre de la sección</label>
                   <div class="col-sm-8  has-validation">
                     <div class="position-relative">
-                      <input [(ngModel)]="addSection.nombre" [ngClass]="{'is-invalid': validInput(addSection.nombre)  }" type="text" class="form-control" value="">
+                      <input [(ngModel)]="addSection.nombre"  [ngClass]="{'is-invalid': validInput(addSection.nombre)  }" type="text" class="form-control" value="">
                       </div>
                   </div>
                 </div>
@@ -33,7 +33,7 @@
                       <label for="staticEmail" class="col-sm-4 col-form-label fw-400">Asignar pregunta</label>
                       <div class="col-sm-8  has-validation">
                         <div class="position-relative">
-                          <input [(ngModel)]="question.descripcion" [ngClass]="{'is-invalid': validInput(question.descripcion)  }" type="text" class="form-control" value="">
+                          <input [(ngModel)]="question.descripcion" (keydown.enter)="addQuestion(i)" [ngClass]="{'is-invalid': validInput(question.descripcion)  }" type="text" class="form-control" value="">
                           <img (click)="addQuestion(i)" class="position-absolute add-icon" [ngClass]="{'me-4': addSection.preguntas.length > 1 }" src="assets/icons/fa_plus-square-o.png" alt="">
                           <img *ngIf="addSection.preguntas.length > 1" (click)="removeQuestion(i)" class="position-absolute add-icon me-1" src="assets/icons/fa_times-square-o.png" style="width: 20px;padding-top: 1px;" alt="">
                         </div>
