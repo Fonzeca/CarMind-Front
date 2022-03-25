@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import {
   FormCreate,
+  Opciones,
   Pregunta,
   Seccion,
 } from 'src/app/platform/interfaces/form';
@@ -61,9 +62,14 @@ export class CreateFormComponent implements OnInit {
   addQuestion(i: number) {
     this.addSection.preguntas?.splice(i + 1, 0, {
       tipo: 'S3',
-      index: 0,
+      crucial: false,
       descripcion: '',
-      opciones: [''],
+      opciones: [
+        {
+          opcion:"",
+          crucial:false
+        }
+      ],
     });
 
     setTimeout(() => this.focusElement(i+1), 0);
@@ -84,15 +90,18 @@ export class CreateFormComponent implements OnInit {
   }
 
   addOption(question: Pregunta, i: number) {
-    question.opciones.splice(i + 1, 0, '');
+    question.opciones.splice(i + 1, 0,  {
+      opcion:"",
+      crucial:false
+    });
   }
 
   removeOption(question: Pregunta, i: number) {
     question.opciones.splice(i, 1);
   }
 
-  event(e: any, opciones: string[], index: number) {
-    opciones[index] = e.currentTarget.value;
+  event(e: any, opciones: Opciones[], index: number) {
+    opciones[index].opcion = e.currentTarget.value;
   }
 
   trackByFn(index: number, item: any) {
@@ -117,9 +126,14 @@ export class CreateFormComponent implements OnInit {
       preguntas: [
         {
           tipo: 'S3',
-          index: 0,
+          crucial: false,
           descripcion: '',
-          opciones: [''],
+          opciones: [
+            {
+              opcion:"",
+              crucial:false
+            }
+          ],
         },
       ],
     };

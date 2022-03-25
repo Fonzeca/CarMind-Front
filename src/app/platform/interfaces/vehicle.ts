@@ -23,6 +23,7 @@ export interface vehicle {
   linea: string;
   patente: string;
   tipo: string;
+  averiado: boolean;
   pendientes: Pendiente[];
   usuario_en_uso:string,
   documentos:documents[];

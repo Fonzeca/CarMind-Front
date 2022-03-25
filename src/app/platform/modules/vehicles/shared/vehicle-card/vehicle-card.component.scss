@@ -2,7 +2,7 @@
   width: 200px;
   height: 240px;
   border-radius: 5px;
-  background-color: #F2F2F2;
+  background-color: #f2f2f2;
   .contenedor {
     background-color: rgba(0, 8, 83, 0.95);
     text-align: center;
@@ -14,20 +14,26 @@
       padding-bottom: 50px;
     }
   }
-  .card-body{
+  .card-body {
     padding: 15px 15px 0;
-    .disponible{
-      .fa{
+    .disponible {
+      .fa {
         margin-left: 5px;
-        color: #36A900 !important;
+        color: #36a900 !important;
       }
     }
-    .p{
-      .fa{
+    .p {
+      .fa {
         margin-left: 5px;
-        color:  #DC0404;
+        color: #dc0404;
       }
+
+    }
+    .fa-wrench {
+      bottom: 15px;
+      right: 10px;
+      font-size: 30px;
+      color: #dc0404;
     }
   }
 }
-

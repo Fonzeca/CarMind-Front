@@ -8,7 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormCardComponent } from './shared/form-card/form-card.component';
 import { CreateFormComponent } from './create-form/create-form.component';
 import { DropdownModule } from 'primeng/dropdown';
-
+import {InputSwitchModule} from 'primeng/inputswitch';
 
 @NgModule({
   declarations: [
@@ -22,7 +22,8 @@ import { DropdownModule } from 'primeng/dropdown';
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
-    DropdownModule
+    DropdownModule,
+    InputSwitchModule
   ]
 })
 export class FormSModule { }

@@ -71,11 +71,28 @@
                     <div *ngIf="question.tipo === 'S1' || question.tipo === 'S2'" class="mb-3 row">
                       <label for="staticEmail" class="col-sm-6 col-form-label text-end fw-bold">Opciones:</label>
                       <div class="col-sm-6  has-validation">
-                        <div *ngFor="let option of question.opciones; index as ix; trackBy: trackByFn" class="position-relative mb-2">
-                          <input type="text" class="form-control" [value]="option" [ngClass]="{'is-invaliFd': validInput(option)  }" (focusout)="event($event, question.opciones, ix)" id="{{i+ix}}opid" name="{{i+ix}}op"  >
-                          <img (click)="addOption(question, ix)" [ngClass]="{'me-4': question.opciones.length > 1 }"  class="position-absolute add-icon me-4" src="assets/icons/fa_plus-square-o.png" alt="">
-                          <img *ngIf="question.opciones.length > 1" (click)="removeOption(question, ix)" class="position-absolute add-icon me-1" src="assets/icons/fa_times-square-o.png" style="width: 20px;padding-top: 1px;" alt="">
-                        </div>
+                        <ng-container *ngFor="let option of question.opciones; index as ix; trackBy: trackByFn">
+                          <div  class="position-relative mb-2">
+                            <input type="text" class="form-control" [value]="option.opcion" [ngClass]="{'is-invaliFd': validInput(option.opcion)  }" (focusout)="event($event, question.opciones, ix)" id="{{i+ix}}opid" name="{{i+ix}}op"  >
+                            <img (click)="addOption(question, ix)" [ngClass]="{'me-4': question.opciones.length > 1 }"  class="position-absolute add-icon me-4" src="assets/icons/fa_plus-square-o.png" alt="">
+                            <img *ngIf="question.opciones.length > 1" (click)="removeOption(question, ix)" class="position-absolute add-icon me-1" src="assets/icons/fa_times-square-o.png" style="width: 20px;padding-top: 1px;" alt="">
+                          </div>
+                          <div *ngIf="question.tipo === 'S1'" class="row">
+                            <label for="staticEmail" class="col col-form-label text-end" style="font-size: 14px;">Avisar al seleccionar esta opcion</label>
+                            <div   class="crucial has-validation pt-1">
+                              <p-inputSwitch [(ngModel)]="option.crucial"></p-inputSwitch>
+                            </div>
+                          </div>
+                        </ng-container>
+                      </div>
+                    </div>
+                    <!-- END -->
+
+                    <!-- START -->
+                    <div *ngIf="question.tipo === 'S3'" class="mb-3 row px-4">
+                      <label for="staticEmail" class="col col-form-label text-end" style="font-size: 14px;">Avisar al responder con cruz</label>
+                      <div   class="general-crucial has-validation pt-1">
+                        <p-inputSwitch [(ngModel)]="question.crucial"></p-inputSwitch>
                       </div>
                     </div>
                     <!-- END -->
