@@ -2,10 +2,11 @@
   <div class="contenedor" [style.backgroundColor]="vehicle.tipo == 'Auto_default'? 'gray' : '' " >
     <img *ngIf="vehicle?.tipo" src="assets/images/cars/{{vehicle.tipo}}.png" class="card-img-top" alt="..."  >
   </div>
-    <div class="card-body">
+    <div class="card-body position-relative">
       <h6 class="fw-700">{{ vehicle.nombre}}</h6>
       <p *ngIf="vehicle.en_uso" class="p fw-400" >En uso <i class="fa fa-circle" aria-hidden="true"></i></p>
       <p *ngIf="!vehicle.en_uso" class="p disponible fw-400">Disponible <i class="fa fa-circle" aria-hidden="true"></i></p>
+      <i *ngIf="vehicle.averiado"  class="fa fa-wrench position-absolute" aria-hidden="true"></i>
     </div>
 </div>
 

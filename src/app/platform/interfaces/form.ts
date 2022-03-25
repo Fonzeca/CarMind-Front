@@ -6,9 +6,14 @@ export interface formInterface {
 
 export interface Pregunta {
   descripcion: string;
-  index?: number;
+  crucial?: boolean;
   tipo: string;
-  opciones: string[];
+  opciones: Opciones[];
+}
+
+export interface Opciones {
+  opcion: string;
+  crucial?: boolean;
 }
 
 export interface Seccion {

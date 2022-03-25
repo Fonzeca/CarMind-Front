@@ -98,3 +98,19 @@
     padding: 0px !important;
     padding-left: 15px !important;
 }
+
+::ng-deep .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
+  background: #B6E800 !important;
+}
+::ng-deep .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider :hover {
+  background: #B6E800 !important;
+}
+
+
+.general-crucial{
+  width: 60px;
+}
+
+.crucial{
+  width: 80px;
+}
