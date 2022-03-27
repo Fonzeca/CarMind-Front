@@ -9,11 +9,11 @@ import { BaseComponent } from 'src/app/platform/shared/components/base.component
 import { QrModalComponent } from '../shared/qr-modal/qr-modal.component';
 
 @Component({
-  selector: 'app-vehicile-review',
-  templateUrl: './vehicile-review.component.html',
-  styleUrls: ['./vehicile-review.component.scss']
+  selector: 'app-vehicle-review',
+  templateUrl: './vehicle-review.component.html',
+  styleUrls: ['./vehicle-review.component.scss']
 })
-export class VehicileReviewComponent extends BaseComponent implements OnInit {
+export class VehicleReviewComponent extends BaseComponent implements OnInit {
 
   vehicle!: vehicle;
 
@@ -26,7 +26,7 @@ export class VehicileReviewComponent extends BaseComponent implements OnInit {
   public note?:string;
 
 
-  public review_id = "";
+  public review_id!:string;
 
   constructor(public _vehicle: VehiclesService,  public activatedRoute:ActivatedRoute, public dialog: MatDialog,
       public router:Router
