@@ -15,6 +15,8 @@ import { VehicleDocumentViewComponent } from './shared/vehicle-document-view/veh
 import { AddDocumentComponent } from './shared/add-document/add-document.component';
 import { DropdownModule } from 'primeng/dropdown';
 import { FormAssignmentComponent } from './shared/form-assignment/form-assignment.component';
+import { FormSModule } from '../forms/forms.module';
+import { VehicileReviewComponent } from './vehicile-review/vehicile-review.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import { FormAssignmentComponent } from './shared/form-assignment/form-assignmen
     QrModalComponent,
     VehicleDocumentViewComponent,
     AddDocumentComponent,
-    FormAssignmentComponent
+    FormAssignmentComponent,
+    VehicileReviewComponent
   ],
   imports: [
     CommonModule,
@@ -35,7 +38,8 @@ import { FormAssignmentComponent } from './shared/form-assignment/form-assignmen
     ReactiveFormsModule,
     SharedModule,
     QRCodeModule,
-    DropdownModule
+    DropdownModule,
+    FormSModule
   ],
 })
 export class VehiclesModule { }

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Params } from '@angular/router';
+import { Subject } from 'rxjs';
 import { ModalComponent } from 'src/app/platform/components/modal/modal.component';
+import { formInterface } from 'src/app/platform/interfaces/form';
 import { vehicle } from 'src/app/platform/interfaces/vehicle';
 import { vehicleByIdResponse, VehiclesService } from 'src/app/platform/services/vehicles.service';
 import { BaseComponent } from 'src/app/platform/shared/components/base.component';
@@ -18,11 +20,22 @@ import { VehicleDocumentViewComponent } from '../shared/vehicle-document-view/ve
 })
 export class VehiclePreviewComponent extends BaseComponent implements OnInit {
 
+  flicker: Subject<any> = new Subject();
+
   vehicle!: vehicle;
 
   columns:number = 2;
+  recentFormsColumns:number = 6;
+  recentReviewsColumns:number = 3;
 
   public vehicleQrCode?: string;
+
+  public forms?: any[] = []; // Formularios
+  public recentForms?: any[] = []; // Formularios Recientes
+  public recentReviews?: any[] = []; // Revisiones Recientes
+
+  slideIndex: number = 0;
+  slideCant: number = 4;
 
   constructor(public _vehicle: VehiclesService,  public activatedRoute:ActivatedRoute, public dialog: MatDialog) {
     super()
@@ -43,6 +56,9 @@ export class VehiclePreviewComponent extends BaseComponent implements OnInit {
       this._vehicle.getById(id).subscribe((data:vehicleByIdResponse)=>{
         this.vehicle = data.vehicle;
         this.vehicle.documentos = data.documents;
+        this.recentForms = data.recentForms;
+        this.forms = data.forms;
+        this.recentReviews = data.recentReviews;
         this.vehicleQrCode = `CarMind-vehiculo=${this.vehicle.id}-CarMind`;
       })
     );
@@ -135,4 +151,28 @@ export class VehiclePreviewComponent extends BaseComponent implements OnInit {
     })
   }
 
+
+
+
+  getFormSlider(forms: formInterface[]) {
+    return forms.slice(this.slideIndex, this.slideIndex + this.slideCant);
+  }
+
+  nextSlide(forms: formInterface[]) {
+    if ((this.slideIndex+this.slideCant) !== forms.length &&  forms.length!==1) {
+      this.slideIndex++;
+      this.flikear();
+    }
+  }
+
+  previousSlide(forms: formInterface[]) {
+    if (this.slideIndex !== 0) {
+      this.slideIndex--;
+      this.flikear();
+    }
+  }
+
+  flikear() {
+    setTimeout(() => this.flicker.next(null), 0);
+  }
 }
