@@ -8,10 +8,9 @@ import {
   Observable,
   of,
   switchMap,
-  tap,
-  zip,
-  zipAll,
+  tap
 } from 'rxjs';
+import { Review } from '../interfaces/review';
 import { documents, vehicle } from '../interfaces/vehicle';
 import { ApiService } from './core/api.service';
 import endpoints from './core/endpoints';
@@ -19,6 +18,10 @@ import endpoints from './core/endpoints';
 export interface vehicleByIdResponse {
   vehicle: vehicle;
   documents: documents[];
+  recentForms: any[];
+  recentReviews: any[];
+  formsPendingToReview: any[];
+  forms: any[];
 }
 
 @Injectable({
@@ -57,6 +60,10 @@ export class VehiclesService extends ApiService {
         return forkJoin({
           vehicle: of(data),
           documents: this.getDocumentsByVehicle(data.id),
+          forms: this.getFormsByVehicle(data.id),
+          recentForms: this.getRecentFormsByVehicle(data.id),
+          recentReviews: this.getRecentVehicleReviewsById(data.id),
+          formsPendingToReview: this.getFormsPedningToReviewById(data.id),
         });
       })
     );
@@ -67,6 +74,38 @@ export class VehiclesService extends ApiService {
       vehicles: { get_document_by_vehicle: url },
     } = endpoints;
     return this.get(url.replace(':id', id.toString()));
+  }
+
+  getFormsByVehicle(id: number): Observable<any[]> {
+    const {
+      vehicles: { get_forms_by_vehicle: url },
+    } = endpoints;
+    return this.get(url.replace(':id', id.toString()));
+  }
+
+  getRecentFormsByVehicle(id: number): Observable<any[]> {
+    const {
+      vehicles: { get_recent_forms_by_vehicle: url },
+    } = endpoints;
+    return this.get(url.replace(':id', id.toString()));
+  }
+
+  getRecentVehicleReviewsById(id: number): Observable<any[]> {
+    const {
+      vehicles: { get_review_history_by_vehicle: url },
+    } = endpoints;
+    return this.get(
+      url.replace(':id', id.toString())
+    );
+  }
+
+  getFormsPedningToReviewById(id: number): Observable<any[]> {
+    const {
+      vehicles: { get_forms_pending_to_review_by_vehicle: url },
+    } = endpoints;
+    return this.get(
+      url.replace(':id', id.toString())
+    );
   }
 
   getVehicleDocumentById(id: number, tipo: string): Observable<any> {
@@ -83,6 +122,17 @@ export class VehiclesService extends ApiService {
       vehicles: { post_assign_evaluation: url },
     } = endpoints;
     return this.post(url.replace(':id', id.toString()), params);
+  }
+
+  createReview(params: Review) {
+    const {
+      vehicles: { post_review: url },
+    } = endpoints;
+    return this.post(url, params).pipe(
+      tap((response) => {
+        this.getAll().subscribe();
+      })
+    );
   }
 
   create(params: HttpParams) {

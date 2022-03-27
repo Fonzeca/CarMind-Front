@@ -24,6 +24,7 @@ import {InputSwitchModule} from 'primeng/inputswitch';
     SharedModule,
     DropdownModule,
     InputSwitchModule
-  ]
+  ],
+  exports:[FormCardComponent]
 })
 export class FormSModule { }

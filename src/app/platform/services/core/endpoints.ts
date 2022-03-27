@@ -15,6 +15,11 @@ const endpoints = {
     post_upload_document:"/vehiculo/:id/:tipo/upload",
     delete:"/vehiculo/:id",
     post_assign_evaluation:"/vehiculo/:id/asignarEvaluacion",
+    get_forms_by_vehicle:"/vehiculo/:id/formularios",
+    get_recent_forms_by_vehicle:"/vehiculo/:id/formularios/historial",
+    get_review_history_by_vehicle:"/vehiculo/:id/revision",
+    get_forms_pending_to_review_by_vehicle:"/vehiculo/:id/logsParaRevisar",
+    post_review:"/revision",
   },
   forms:{
     get_all:'/evaluacion',

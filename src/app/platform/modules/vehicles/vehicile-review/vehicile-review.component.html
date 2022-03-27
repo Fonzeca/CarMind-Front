@@ -1,0 +1,95 @@
+<div class="m-container clase-padre">
+  <div class="container">
+    <div class="row justify-content-center mt-4">
+      <div class="col-lg-10 mt-4 mb-4">
+        <div class="mb-4"></div>
+        <h3>Revisión de Vehículo</h3>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="row">
+          <div class=" col-lg-3 col-xs-10">
+            <button (click)="create()" [disabled]="!this.note || this._vehicle.tail.length" [ngClass]="{'m-progress':this._vehicle.tail.length }" class="btn btn-success m-btn-success m-btn w-100 truncate">Finalizar revisión</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div  class="row justify-content-center mt-4">
+          <div class="col-lg-12 mt-4 mb-4">
+            <div class="row profile-row">
+              <div class="col vehicle-col">
+                <div  class="card card-x" [ngClass]="{ 'animated-background' : !vehicle }">
+                  <ng-container *ngIf="vehicle">
+                    <div class="contenedor">
+                      <img *ngIf="vehicle?.tipo" src="assets/images/cars/{{vehicle.tipo}}.png" class="card-img-top" alt="..."  >
+                    </div>
+                      <div class="card-body">
+                        <h6 class="card-text fw-700">{{ vehicle.nombre}}</h6>
+                        <p *ngIf="vehicle.en_uso" class="p fw-400" >En uso <i class="fa fa-circle" aria-hidden="true"></i></p>
+                        <p *ngIf="!vehicle.en_uso" class="p disponible fw-400">Disponible <i class="fa fa-circle" aria-hidden="true"></i></p>
+                        <i (click)="qrCode()" class="fa fa-qrcode pointer" aria-hidden="true"></i>
+                      </div>
+                  </ng-container>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-content" [ngClass]="{ 'animated-background' : !vehicle }">
+                  <ng-container *ngIf="vehicle">
+                    <h4 class="mb-4">Informe de Revisión</h4>
+                    <textarea [disabled]="this.review_id" [(ngModel)]="note" class="form-control" id="" cols="30" rows="7"></textarea>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col mt-4">
+                <h4 class="mb-4">Formularios a revisar</h4>
+                <div>
+                  <!--  -->
+                  <div *ngIf="pendingToReview">
+                    <div class="dyTableContainer px-0" [ngClass]="{ 'animated-background' : !vehicle }"  >
+                      <div *ngIf="vehicle" class="dyTable" >
+                        <div class="d-flex flex-row dyItem" [style.minWidth]="100 * columns+'px'">
+                          <div [style.width.%]="(100 / columns) * 2" class="px-3 fw-300 dyCol">Formulario</div>
+                          <div [style.width.%]="100 / columns" class="px-3 fw-300 dyCol">Fecha</div>
+                          <div [style.width.%]="100 / columns" class="px-3 fw-300 dyCol">Vehículo</div>
+                          <div [style.width.%]="100 / columns" class="px-3 fw-300 dyCol">Conductor</div>
+                          <div [style.width.%]="100 / columns" class="text-end px-3 fw-300 dyCol">Estado</div>
+                        </div>
+                        <ng-container *ngFor="let evaluation of pendingToReview;">
+                          <div  class="d-flex flex-row dyItem" [style.minWidth]="100 * columns+'px'">
+                            <div [style.width.%]="(100 / columns) * 2" class="px-3 dyCol">{{ evaluation.nombre_evaluacion }}</div>
+                            <div [style.width.%]="100 / columns" class="px-3 dyCol truncate">{{ evaluation.fecha }}</div>
+                            <div [style.width.%]="100 / columns" class="px-3 dyCol">{{ evaluation.nombre_vehiculo }}</div>
+                            <div [style.width.%]="100 / columns" class="px-3 dyCol">{{ evaluation.nombre_usuario }}</div>
+                            <div [style.width.%]="100 / columns" class="text-end px-3 dyCol">{{ evaluation.nombre_evaluacion!=="-"  ? "Completo":"-" }}</div>
+                          </div>
+                        </ng-container>
+                        <ng-container *ngIf="!pendingToReview.length">
+                          <div  class="d-flex flex-row dyItem" [style.minWidth]="100 * columns+'px'">
+                            <div [style.width.%]="(100 / columns) * 2" class="px-3 dyCol">-</div>
+                            <div [style.width.%]="(100 / columns)" class="px-3 dyCol">-</div>
+                            <div [style.width.%]="(100 / columns)" class="px-3 dyCol">-</div>
+                            <div [style.width.%]="(100 / columns)" class="px-3 dyCol">-</div>
+                            <div [style.width.%]="(100 / columns)" class="px-3 dyCol text-end">-</div>
+                          </div>
+                        </ng-container>
+                      </div>
+                    </div>
+                  </div>
+                  <!--  -->
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
