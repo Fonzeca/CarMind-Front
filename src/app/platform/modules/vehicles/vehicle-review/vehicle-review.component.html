@@ -6,7 +6,7 @@
         <h3>Revisión de Vehículo</h3>
       </div>
     </div>
-    <div class="row justify-content-center">
+    <div *ngIf="!this.review_id" class="row justify-content-center">
       <div class="col-lg-10">
         <div class="row">
           <div class=" col-lg-3 col-xs-10">
@@ -48,7 +48,7 @@
 
             <div class="row">
               <div class="col mt-4">
-                <h4 class="mb-4">Formularios a revisar</h4>
+                <h4 class="mb-4">Formularios revisados</h4>
                 <div>
                   <!--  -->
                   <div *ngIf="pendingToReview">

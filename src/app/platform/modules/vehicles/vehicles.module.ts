@@ -16,7 +16,7 @@ import { AddDocumentComponent } from './shared/add-document/add-document.compone
 import { DropdownModule } from 'primeng/dropdown';
 import { FormAssignmentComponent } from './shared/form-assignment/form-assignment.component';
 import { FormSModule } from '../forms/forms.module';
-import { VehicileReviewComponent } from './vehicile-review/vehicile-review.component';
+import { VehicleReviewComponent } from './vehicle-review/vehicle-review.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +28,7 @@ import { VehicileReviewComponent } from './vehicile-review/vehicile-review.compo
     VehicleDocumentViewComponent,
     AddDocumentComponent,
     FormAssignmentComponent,
-    VehicileReviewComponent
+    VehicleReviewComponent
   ],
   imports: [
     CommonModule,

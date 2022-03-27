@@ -16,7 +16,7 @@
             <button (click)="addDocument(vehicle.id)"  class="btn btn-primary m-btn-acento m-btn w-100 truncate">Adjuntar documento</button>
           </div>
           <div class=" col-lg-3 col-xs-10  mb-4">
-            <button *ngIf="vehicle?.id" [routerLink]="'/'+this.getAppRoutes.platform.vehicles.review.route(vehicle.id)"  class="btn btn-primary m-btn-acento m-btn w-100 truncate">Hacer revisión</button>
+            <button *ngIf="vehicle?.id && vehicle?.averiado" [routerLink]="'/'+this.getAppRoutes.platform.vehicles.review.route(vehicle.id)"  class="btn btn-primary m-btn-acento m-btn w-100 truncate">Hacer revisión</button>
           </div>
         </div>
       </div>
