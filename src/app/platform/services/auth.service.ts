@@ -14,8 +14,6 @@ export class AuthService extends ApiService {
   private _getLoggedUser: BehaviorSubject<user> = new BehaviorSubject<user>((<any>{}));
   public getLoggedUser$: Observable<user> = this._getLoggedUser.asObservable();
 
-
-
   constructor(http:HttpClient, public router:Router){
     super(http)
   }

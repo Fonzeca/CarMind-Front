@@ -9,12 +9,14 @@ import { FormCardComponent } from './shared/form-card/form-card.component';
 import { CreateFormComponent } from './create-form/create-form.component';
 import { DropdownModule } from 'primeng/dropdown';
 import {InputSwitchModule} from 'primeng/inputswitch';
+import { ViewFormModalComponent } from './shared/form-card/view-form-modal/view-form-modal.component';
 
 @NgModule({
   declarations: [
     FormListComponent,
     FormCardComponent,
-    CreateFormComponent
+    CreateFormComponent,
+    ViewFormModalComponent
   ],
   imports: [
     CommonModule,
@@ -25,6 +27,6 @@ import {InputSwitchModule} from 'primeng/inputswitch';
     DropdownModule,
     InputSwitchModule
   ],
-  exports:[FormCardComponent]
+  exports:[FormCardComponent, ViewFormModalComponent]
 })
 export class FormSModule { }

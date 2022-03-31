@@ -21,12 +21,15 @@ const endpoints = {
     get_forms_pending_to_review_by_vehicle:"/vehiculo/:id/logsParaRevisar",
     post_review:"/revision",
   },
-  forms:{
-    get_all:'/evaluacion',
-    get_by_id:'/evaluacion/:id',
-    get_all_history:'/evaluacion/historial',
-    get_history_by_logged_user:'/evaluacion/historial/loggedUser',
-    post:'/evaluacion',
+  get forms () {
+    return {
+      get_all:'/evaluacion',
+      get_by_id:'/evaluacion/:id',
+      get_historial_by_id:'/evaluacion/historial/:id',
+      get_all_history:'/evaluacion/historial',
+      get_history_by_logged_user:'/evaluacion/historial/loggedUser',
+      post:'/evaluacion',
+    }
   },
   types:"/tipos",
   users:{
