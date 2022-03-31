@@ -29,7 +29,7 @@ export class UserFormComponent implements OnInit {
         "apellido" : [this.data?.apellido ? this.data.apellido : '',Validators.required],
         "username" : [this.data?.username ? this.data.username : '',Validators.required],
         "DNI" : [this.data?.dni ? this.data.dni : '', this.data?.id ? null : Validators.required],
-        "administrador" : [true],
+        "administrador" : [this.data?.administrador ? true : false],
     });
     if(!this.data?.id){
       this.form.addControl('password', new FormControl('', Validators.required));

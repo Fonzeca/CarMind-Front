@@ -1,0 +1,17 @@
+.form-check-input {
+  width: 20px;
+  height: 20px;
+}
+.form-check-label {
+  height: 30px;
+  display: flex;
+  align-items: center;
+}
+
+.lbl-options {
+  font-size: 14px;
+}
+
+.max-width-options {
+  max-width: 100px;
+}

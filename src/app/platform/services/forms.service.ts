@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
+import { BehaviorSubject, map, Observable, switchMap, tap } from 'rxjs';
 import { evaluation } from '../interfaces/evaluation';
 import { FormCreate, formInterface } from '../interfaces/form';
 import { notifications } from '../interfaces/notifications';
@@ -17,6 +17,9 @@ export class FormsService extends ApiService {
 
   private _getAllForms: BehaviorSubject<formInterface[]> = new BehaviorSubject<formInterface[]>([]);
   public getAllForms$: Observable<formInterface[]> = this._getAllForms.asObservable();
+
+  private _getHistorialById: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  public getHistorialById$: Observable<any> = this._getHistorialById.asObservable();
 
   constructor(http: HttpClient) {
     super(http);
@@ -46,5 +49,18 @@ export class FormsService extends ApiService {
   create(param:FormCreate){
     const { forms: { post: url } } = endpoints;
     return this.post(url,param);
+  }
+
+  getHistorialById(id:number) {
+    const {
+      forms: { get_historial_by_id: url },
+    } = endpoints;
+    this._getHistorialById.next(null);
+    return this.get(url.replace(":id",id.toString())).pipe(
+      switchMap((data:any) => {
+        this._getHistorialById.next(data);
+        return this.getHistorialById$;
+      })
+    );
   }
 }

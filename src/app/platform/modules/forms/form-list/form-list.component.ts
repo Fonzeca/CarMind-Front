@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { forkJoin, Observable, Subject } from 'rxjs';
+import { ModalComponent } from 'src/app/platform/components/modal/modal.component';
 import { evaluation } from 'src/app/platform/interfaces/evaluation';
 import { formInterface } from 'src/app/platform/interfaces/form';
 import { FormsService } from 'src/app/platform/services/forms.service';
 import { BaseComponent } from 'src/app/platform/shared/components/base.component';
+import { ViewFormModalComponent } from '../shared/form-card/view-form-modal/view-form-modal.component';
 
 @Component({
   selector: 'app-form-list',
@@ -16,7 +20,7 @@ export class FormListComponent extends BaseComponent implements OnInit {
 
   filterInput: string = '';
 
-  columns = 6;
+  columns = 7;
 
   default: any = {
     nombre_evaluacion: '-',
@@ -35,7 +39,8 @@ export class FormListComponent extends BaseComponent implements OnInit {
   slideIndex: number = 0;
   slideCant: number = 4;
 
-  constructor(public _forms: FormsService) {
+  constructor(public _forms: FormsService, public dialog: MatDialog,
+    public router:Router) {
     super();
   }
 
@@ -87,6 +92,26 @@ export class FormListComponent extends BaseComponent implements OnInit {
       item.titulo.toUpperCase().indexOf(term.toUpperCase()) > -1
     );
     return cond;
+  }
+
+
+  viewForm(id:number|string) {
+    this.dialog.open(ModalComponent, {
+      width: '280px;',
+      height: 'auto',
+      panelClass: ['md:w-3/5', 'w-full'],
+      maxHeight: '85vh',
+      data: {
+        viewComponent: {
+          component: ViewFormModalComponent,
+          data: {
+            id,
+            close: () => this.dialog.closeAll(),
+          },
+        },
+        title: 'Formulario',
+      },
+    }).afterClosed();
   }
 
 

@@ -3,10 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   BehaviorSubject,
-  forkJoin,
-  map,
   Observable,
-  of,
   switchMap,
   tap,
 } from 'rxjs';

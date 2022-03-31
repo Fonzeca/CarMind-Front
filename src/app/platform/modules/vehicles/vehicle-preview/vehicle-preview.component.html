@@ -90,7 +90,7 @@
                   <div class="dyTable">
                     <div class="d-flex flex-row dyItem" [style.minWidth]="100 * recentReviewsColumns+'px'">
                       <div [style.width.%]="100 / recentReviewsColumns" class="px-3 fw-300 dyCol">Fecha</div>
-                      <div [style.width.%]="(100 / recentReviewsColumns) * 2" class="px-3 fw-300 dyCol">Note</div>
+                      <div [style.width.%]="(100 / recentReviewsColumns) * 2" class="px-3 fw-300 dyCol">Nota</div>
                       <div [style.width.%]="(100 / recentReviewsColumns)" class="px-3 fw-300 dyCol"></div>
                     </div>
                     <ng-container *ngFor="let review of recentReviews;">
@@ -148,18 +148,22 @@
                 <div class="dyTable">
                   <div class="d-flex flex-row dyItem" [style.minWidth]="100 * recentFormsColumns+'px'">
                     <div [style.width.%]="(100 / recentFormsColumns) * 2" class="px-3 fw-300 dyCol">Formulario</div>
-                    <div [style.width.%]="100 / recentFormsColumns" class="px-3 fw-300 dyCol">Fecha</div>
+                    <div [style.width.%]="(100 / recentFormsColumns) * 2" class="px-3 fw-300 dyCol">Fecha</div>
                     <div [style.width.%]="100 / recentFormsColumns" class="px-3 fw-300 dyCol">Vehículo</div>
                     <div [style.width.%]="100 / recentFormsColumns" class="px-3 fw-300 dyCol">Conductor</div>
                     <div [style.width.%]="100 / recentFormsColumns" class="text-end px-3 fw-300 dyCol">Estado</div>
+                    <div [style.width.%]="100 / recentFormsColumns" class="text-end px-3 fw-300 dyCol"></div>
                   </div>
                   <ng-container *ngFor="let evaluation of history;">
                     <div  class="d-flex flex-row dyItem" [style.minWidth]="100 * recentFormsColumns+'px'">
                       <div [style.width.%]="(100 / recentFormsColumns) * 2" class="px-3 dyCol">{{ evaluation.nombre_evaluacion }}</div>
-                      <div [style.width.%]="100 / recentFormsColumns" class="px-3 dyCol truncate">{{ evaluation.fecha }}</div>
+                      <div [style.width.%]="(100 / recentFormsColumns) * 2" class="px-3 dyCol truncate">{{ evaluation.fecha }}</div>
                       <div [style.width.%]="100 / recentFormsColumns" class="px-3 dyCol">{{ evaluation.nombre_vehiculo }}</div>
                       <div [style.width.%]="100 / recentFormsColumns" class="px-3 dyCol">{{ evaluation.nombre_usuario }}</div>
                       <div [style.width.%]="100 / recentFormsColumns" class="text-end px-3 dyCol">{{ evaluation.nombre_evaluacion!=="-"  ? "Completo":"-" }}</div>
+                      <div [style.width.%]="100 / recentFormsColumns" class="text-end px-3 dyCol">
+                        <i (click)="viewForm(evaluation.log_id)" class="fa fa-eye pull-right pointer mx-2" aria-hidden="true"></i>
+                      </div>
                     </div>
                   </ng-container>
                 </div>
