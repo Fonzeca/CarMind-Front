@@ -7,7 +7,7 @@ import { formInterface } from 'src/app/platform/interfaces/form';
 import { vehicle } from 'src/app/platform/interfaces/vehicle';
 import { vehicleByIdResponse, VehiclesService } from 'src/app/platform/services/vehicles.service';
 import { BaseComponent } from 'src/app/platform/shared/components/base.component';
-import { ViewFormModalComponent } from '../../forms/shared/form-card/view-form-modal/view-form-modal.component';
+import { ViewFormModalComponent } from '../../forms/shared/view-form-modal/view-form-modal.component';
 import { AddDocumentComponent } from '../shared/add-document/add-document.component';
 import { FormAssignmentComponent } from '../shared/form-assignment/form-assignment.component';
 import { FormVehicleComponent } from '../shared/form-vehicle/form-vehicle.component';

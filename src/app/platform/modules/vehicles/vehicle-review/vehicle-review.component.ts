@@ -6,6 +6,7 @@ import { Review } from 'src/app/platform/interfaces/review';
 import { vehicle } from 'src/app/platform/interfaces/vehicle';
 import { vehicleByIdResponse, VehiclesService } from 'src/app/platform/services/vehicles.service';
 import { BaseComponent } from 'src/app/platform/shared/components/base.component';
+import { ViewFormModalComponent } from '../../forms/shared/view-form-modal/view-form-modal.component';
 import { QrModalComponent } from '../shared/qr-modal/qr-modal.component';
 
 @Component({
@@ -17,7 +18,7 @@ export class VehicleReviewComponent extends BaseComponent implements OnInit {
 
   vehicle!: vehicle;
 
-  columns:number = 2;
+  columns:number = 8;
 
   public vehicleQrCode?: string;
 
@@ -96,4 +97,22 @@ export class VehicleReviewComponent extends BaseComponent implements OnInit {
     }
   }
 
+  viewForm(id:number|string) {
+    this.dialog.open(ModalComponent, {
+      width: '280px;',
+      height: 'auto',
+      panelClass: ['md:w-3/5', 'w-full'],
+      maxHeight: '85vh',
+      data: {
+        viewComponent: {
+          component: ViewFormModalComponent,
+          data: {
+            id,
+            close: () => this.dialog.closeAll(),
+          },
+        },
+        title: 'Formulario',
+      },
+    }).afterClosed();
+  }
 }

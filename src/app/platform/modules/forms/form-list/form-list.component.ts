@@ -7,7 +7,7 @@ import { evaluation } from 'src/app/platform/interfaces/evaluation';
 import { formInterface } from 'src/app/platform/interfaces/form';
 import { FormsService } from 'src/app/platform/services/forms.service';
 import { BaseComponent } from 'src/app/platform/shared/components/base.component';
-import { ViewFormModalComponent } from '../shared/form-card/view-form-modal/view-form-modal.component';
+import { ViewFormModalComponent } from '../shared/view-form-modal/view-form-modal.component';
 
 @Component({
   selector: 'app-form-list',
