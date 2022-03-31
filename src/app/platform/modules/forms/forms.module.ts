@@ -9,7 +9,7 @@ import { FormCardComponent } from './shared/form-card/form-card.component';
 import { CreateFormComponent } from './create-form/create-form.component';
 import { DropdownModule } from 'primeng/dropdown';
 import {InputSwitchModule} from 'primeng/inputswitch';
-import { ViewFormModalComponent } from './shared/form-card/view-form-modal/view-form-modal.component';
+import { ViewFormModalComponent } from './shared/view-form-modal/view-form-modal.component';
 
 @NgModule({
   declarations: [
