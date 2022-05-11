@@ -19,6 +19,8 @@ export class AddDocumentComponent extends BaseComponent implements OnInit {
   tipo: any;
   vencimiento: any;
 
+  tieneVencimiento:boolean = true;
+
   constructor(public _type: TypeService, private _vehicle:VehiclesService, public _app:AppService, private dialogRef: MatDialog) {
     super();
   }
@@ -34,12 +36,22 @@ export class AddDocumentComponent extends BaseComponent implements OnInit {
   }
 
   cargar(){
-    this._vehicle.uploadDocument(this.data.id, this.tipo, moment(this.vencimiento).format('DD/MM/YYYY'), this.file).subscribe(
+    var momentVencimiento:any;
+    if(this.tieneVencimiento){
+      momentVencimiento = moment(this.vencimiento).format('DD/MM/YYYY');
+    }else{
+      momentVencimiento = "";
+    }
+    
+    this._vehicle.uploadDocument(this.data.id, this.tipo, momentVencimiento, this.file).subscribe(
       res=>{
         this._app.sw.alertSuccess("Cargado exitoso");
         this.close();
       }
     )
+  }
+  onCheckboxChange(event : Event){
+    this.tieneVencimiento = !this.tieneVencimiento;
   }
 
   close(){

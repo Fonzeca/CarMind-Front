@@ -1,38 +1,38 @@
 <form [formGroup]="form" #ngForm="ngForm" (ngSubmit)="action()">
-  <div class="row">
-    <div class="col">
-      <label for="">Fecha de inicio *</label>
-     <input type="date" onkeydown="return false" formControlName="fecha_inicio" [ngClass]="{'is-invalid': this.validControl('fecha_inicio', ngForm.submitted) }" class="form-control">
-      <div class="invalid-feedback">
-        Es requerido
-      </div>
+    <div class="row">
+        <div class="col">
+            <label for="">Fecha de inicio *</label>
+            <input type="date" onkeydown="return false" formControlName="fecha_inicio" [ngClass]="{'is-invalid': this.validControl('fecha_inicio', ngForm.submitted) }" class="form-control">
+            <div class="invalid-feedback">
+                Es requerido
+            </div>
+        </div>
+        <div class="col">
+            <label for="">Intervalo de días *</label>
+            <input type="number" formControlName="intervalo_dias" [ngClass]="{'is-invalid': this.validControl('intervalo_dias', ngForm.submitted) }" class="form-control" id="">
+            <div class="invalid-feedback">
+                Es requerido
+            </div>
+        </div>
     </div>
-    <div class="col">
-      <label for="">Intervalo de días *</label>
-      <input type="number" formControlName="intervalo_dias" [ngClass]="{'is-invalid': this.validControl('intervalo_dias', ngForm.submitted) }" class="form-control" id="">
-      <div class="invalid-feedback">
-        Es requerido
-      </div>
-  </div>
-  </div>
-  <div class="row mt-4">
-    <div class="col">
-      <label for="">Formulario *</label>
-      <ng-container *ngIf="this._forms.getAllForms$ | async as forms;">
-        <select class="form-select" name="id_evaluacion" [ngClass]="{'is-invalid': this.validControl('id_evaluacion', ngForm.submitted) }" formControlName="id_evaluacion" aria-label="Default select example">
+    <div class="row mt-4">
+        <div class="col">
+            <label for="">Formulario *</label>
+            <ng-container *ngIf="this._forms.getAllForms$ | async as forms;">
+                <select class="form-select" name="id_evaluacion" [ngClass]="{'is-invalid': this.validControl('id_evaluacion', ngForm.submitted) }" formControlName="id_evaluacion" aria-label="Default select example">
           <option></option>
           <option *ngFor="let form of forms" [value]="form.id">{{form.titulo}}</option>
         </select>
-      </ng-container>
-      <div class="invalid-feedback">
-        Es requerido
-      </div>
+            </ng-container>
+            <div class="invalid-feedback">
+                Es requerido
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="row justify-content-end mt-4">
-    <div class="col-sm-3">
-      <button  type="submit" class="btn btn-success m-btn-success m-btn w-100">Asignar</button>
+    <div class="row justify-content-end mt-4">
+        <div class="col-sm-3">
+            <button type="submit" class="btn btn-success m-btn-success m-btn w-100">Asignar</button>
+        </div>
     </div>
-  </div>
 
 </form>

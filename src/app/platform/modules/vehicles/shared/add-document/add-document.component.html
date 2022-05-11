@@ -1,23 +1,27 @@
 <div class="row">
-  <div class="col">
-    <label for="">Tipo documento *</label>
-    <select [(ngModel)]="tipo" class="form-select" aria-label="Default select example">
+    <div class="col">
+        <label for="">Tipo documento *</label>
+        <select [(ngModel)]="tipo" class="form-select" aria-label="Default select example">
       <option value="{{o}}" *ngFor="let o of this._type.tipo_documento">{{ o }}</option>
     </select>
-  </div>
-  <div class="col">
-    <label for="">Vencimiento *</label>
-    <input type="date" onkeydown="return false" [(ngModel)]="vencimiento" name="" class="form-control" id="">
-</div>
+    </div>
+    <div class="col">
+        <label for="">Vencimiento</label>
+        <input type="date" [(ngModel)]="vencimiento" name="" class="form-control" id="" [disabled]="!tieneVencimiento">
+        <input class="form-check-input" id="checkVencimiento" type="checkbox" [checked]="tieneVencimiento" (change)="onCheckboxChange($event)">
+        <label class="form-check-label" for="checkVencimiento" style="padding-left: 7px;">
+          Tiene vencimiento
+        </label>
+    </div>
 </div>
 <div class="row mt-4">
-  <div class="col">
-    <label for="">Archivo *</label>
-    <input type="file"  class="form-control"  (change)="readFile($event)">
-  </div>
+    <div class="col">
+        <label for="">Archivo *</label>
+        <input type="file" class="form-control" (change)="readFile($event)">
+    </div>
 </div>
 <div class="row justify-content-end mt-4">
-  <div class="col-sm-3">
-    <button (click)="cargar()" [disabled]="!tipo || !vencimiento || !file" type="submit" class="btn btn-success m-btn-success m-btn w-100">Cargar</button>
-  </div>
+    <div class="col-sm-3">
+        <button (click)="cargar()" [disabled]="!tipo || (tieneVencimiento ? !vencimiento : false ) || !file" type="submit" class="btn btn-success m-btn-success m-btn w-100">Cargar</button>
+    </div>
 </div>
