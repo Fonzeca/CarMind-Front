@@ -4,13 +4,13 @@ import {
   OnInit,
   QueryList,
   ViewChild,
-  ViewChildren,
+  ViewChildren
 } from '@angular/core';
 import {
   FormCreate,
   Opciones,
   Pregunta,
-  Seccion,
+  Seccion
 } from 'src/app/platform/interfaces/form';
 import { AppService } from 'src/app/platform/services/core/app.service';
 import { FormsService } from 'src/app/platform/services/forms.service';
@@ -121,6 +121,7 @@ export class CreateFormComponent implements OnInit {
 
   clearAddSecction() {
     this.addSectionSubmit = false;
+    this.editing_index = -1;
     this.addSection = {
       nombre: '',
       preguntas: [
