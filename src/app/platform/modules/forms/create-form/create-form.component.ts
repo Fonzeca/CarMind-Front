@@ -77,7 +77,6 @@ export class CreateFormComponent implements OnInit {
 
   focusElement(index: number) {
     const input = this.inputs.find((x, i) => i == index);
-    debugger
     if (input) input.nativeElement.focus();
   }
 
@@ -169,7 +168,7 @@ export class CreateFormComponent implements OnInit {
     if (question.tipo === 'S1' || question.tipo === 'S2') {
       return (
         question.opciones.length &&
-        !question.opciones.filter((data) => !data).length
+        !question.opciones.filter((data) => !data.opcion).length
       );
     }
     return true;

@@ -48,7 +48,7 @@
                                 <div class="information-content"> <span class="title-card-2">Marca:</span> <span>{{vehicle.marca}}</span> </div>
                                 <div class="information-content"> <span class="title-card-2">Modelo:</span> <span>{{vehicle.modelo}}</span> </div>
                                 <div class="information-content"> <span class="title-card-2">Año:</span> <span>{{vehicle.linea}}</span> </div>
-                                <div class="information-content"> <span class="title-card-2">Patente:</span> <span> {{vehicle.patente}}</span> </div>
+                                <div class="information-content"> <span class="title-card-2">Patente:</span> <span>{{vehicle.patente ? vehicle.patente : "N/A"  }}</span> </div>
                                 <div class="information-content"> <span class="title-card-2">Chofer actual:</span> <span>{{vehicle.usuario_en_uso ? vehicle.usuario_en_uso : "N/A"  }}</span> </div>
                             </ng-container>
                         </div>

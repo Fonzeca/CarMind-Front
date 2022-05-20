@@ -33,7 +33,7 @@ export class FormVehicleComponent implements dyComponent {
     private dialogRef: MatDialog,
     private formBuilder:FormBuilder,
     private _vehicle:VehiclesService,
-    private _app:AppService,
+    public _app:AppService,
     public type:TypeService) { }
 
   ngOnInit(): void {
@@ -42,7 +42,7 @@ export class FormVehicleComponent implements dyComponent {
         "marca" : [this.data?.marca ? this.data.marca : '',Validators.required],
         "modelo" : [this.data?.modelo ? this.data.modelo : '',Validators.required],
         "linea" : [this.data?.linea ? this.data.linea : '',Validators.required],
-        "patente" : [this.data?.patente ? this.data.patente : '',Validators.required],
+        "patente" : [this.data?.patente ? this.data.patente : (this.data?.id ? "N/A": "") ],
         "tipo" : [ this.data?.tipo ? this.data.tipo : this.type.tipo_vehiculo[0],Validators.required]
     });
   }
