@@ -1,0 +1,13 @@
+<div class="mb-3 row">
+  <label for="staticEmail" class="col-sm-2 col-form-label">Nombre</label>
+  <div class="col-sm-10 has-validation">
+    <input #title
+      type="text"
+      class="form-control"
+      value=""
+    />
+  </div>
+  <button (click)="create(title.value)" [disabled]="!title" type="submit" class="btn btn-success m-btn-success m-btn w-100">
+    Crear
+  </button>
+</div>

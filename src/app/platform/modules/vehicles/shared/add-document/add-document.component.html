@@ -5,13 +5,18 @@
       <option value="{{o}}" *ngFor="let o of this._type.tipo_documento">{{ o }}</option>
     </select>
     </div>
-    <div class="col">
+    <div class="col d-flex flex-column">
         <label for="">Vencimiento</label>
-        <input type="date" [(ngModel)]="vencimiento" name="" class="form-control" id="" [disabled]="!tieneVencimiento">
-        <input class="form-check-input" id="checkVencimiento" type="checkbox" [checked]="tieneVencimiento" (change)="onCheckboxChange($event)">
-        <label class="form-check-label" for="checkVencimiento" style="padding-left: 7px;">
-          Tiene vencimiento
-        </label>
+        <div class="carmind-calendar">
+          <p-calendar [style]="{ 'width':'100%', 'height': '38px' }" [showIcon]="true" [touchUI]="true" [baseZIndex]="1" [readonlyInput]="true" inputId="touchui"></p-calendar>
+        </div>
+        <!-- <input type="date" [(ngModel)]="vencimiento" name="" class="form-control" id="datepicker" [disabled]="!tieneVencimiento"> -->
+        <div>
+          <input class="form-check-input" id="checkVencimiento" type="checkbox" [checked]="tieneVencimiento" (change)="onCheckboxChange($event)">
+          <label class="form-check-label" for="checkVencimiento" style="padding-left: 7px;">
+            Tiene vencimiento
+          </label>
+        </div>
     </div>
 </div>
 <div class="row mt-4">

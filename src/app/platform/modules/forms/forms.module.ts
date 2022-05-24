@@ -10,13 +10,15 @@ import { CreateFormComponent } from './create-form/create-form.component';
 import { DropdownModule } from 'primeng/dropdown';
 import {InputSwitchModule} from 'primeng/inputswitch';
 import { ViewFormModalComponent } from './shared/view-form-modal/view-form-modal.component';
+import { FormTitleComponent } from './shared/form-title/form-title.component';
 
 @NgModule({
   declarations: [
     FormListComponent,
     FormCardComponent,
     CreateFormComponent,
-    ViewFormModalComponent
+    ViewFormModalComponent,
+    FormTitleComponent
   ],
   imports: [
     CommonModule,

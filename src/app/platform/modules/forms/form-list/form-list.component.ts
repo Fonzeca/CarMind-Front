@@ -7,6 +7,7 @@ import { evaluation } from 'src/app/platform/interfaces/evaluation';
 import { formInterface } from 'src/app/platform/interfaces/form';
 import { FormsService } from 'src/app/platform/services/forms.service';
 import { BaseComponent } from 'src/app/platform/shared/components/base.component';
+import { FormTitleComponent } from '../shared/form-title/form-title.component';
 import { ViewFormModalComponent } from '../shared/view-form-modal/view-form-modal.component';
 
 @Component({
@@ -115,4 +116,24 @@ export class FormListComponent extends BaseComponent implements OnInit {
   }
 
 
+  create(){
+    this.dialog.open(ModalComponent, {
+      width: '280px;',
+      height: 'auto',
+      panelClass: ['md:w-3/5', 'w-full'],
+      maxHeight: '85vh',
+      data: {
+        viewComponent: {
+          component: FormTitleComponent,
+          data: {
+            close: (title:string) => {
+              this.router.navigateByUrl('/'.concat(this.getAppRoutes.platform.forms.createId.route.replace(":id", title)));
+              this.dialog.closeAll();
+            },
+          },
+        },
+        title: 'Formulario',
+      },
+    }).afterClosed();
+  }
 }
