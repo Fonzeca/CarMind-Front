@@ -408,3 +408,13 @@ body {
 .fa-eye{
   color: #0078ff;
 }
+
+.carmind-calendar{
+  .p-datepicker-touch-ui, .p-calendar .p-datepicker-touch-ui {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 45vw;
+    transform: translate(-50%,-50%);
+  }
+}

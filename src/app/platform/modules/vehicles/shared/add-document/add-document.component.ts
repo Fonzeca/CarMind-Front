@@ -5,7 +5,7 @@ import { AppService } from 'src/app/platform/services/core/app.service';
 import { TypeService } from 'src/app/platform/services/type.service';
 import { VehiclesService } from 'src/app/platform/services/vehicles.service';
 import { BaseComponent } from 'src/app/platform/shared/components/base.component';
-
+declare var  $:any
 @Component({
   selector: 'app-add-document',
   templateUrl: './add-document.component.html',
@@ -29,6 +29,11 @@ export class AddDocumentComponent extends BaseComponent implements OnInit {
     this.tipo = this._type.tipo_documento[0];
   }
 
+  ngAfterViewInit() {
+    $('#datepicker').datepicker({
+      uiLibrary: 'bootstrap4'
+  });
+  }
   readFile(fileEvent: any) {
     this.file = fileEvent.target.files[0];
     console.log('size', this.file.size);
@@ -42,7 +47,7 @@ export class AddDocumentComponent extends BaseComponent implements OnInit {
     }else{
       momentVencimiento = "";
     }
-    
+
     this._vehicle.uploadDocument(this.data.id, this.tipo, momentVencimiento, this.file).subscribe(
       res=>{
         this._app.sw.alertSuccess("Cargado exitoso");

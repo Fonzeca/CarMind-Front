@@ -17,7 +17,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { FormAssignmentComponent } from './shared/form-assignment/form-assignment.component';
 import { FormSModule } from '../forms/forms.module';
 import { VehicleReviewComponent } from './vehicle-review/vehicle-review.component';
-
+import { CalendarModule } from 'primeng/calendar';
 @NgModule({
   declarations: [
     VehicleListComponent,
@@ -39,7 +39,8 @@ import { VehicleReviewComponent } from './vehicle-review/vehicle-review.componen
     SharedModule,
     QRCodeModule,
     DropdownModule,
-    FormSModule
+    FormSModule,
+    CalendarModule
   ],
 })
 export class VehiclesModule { }

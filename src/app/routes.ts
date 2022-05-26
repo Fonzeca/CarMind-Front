@@ -15,6 +15,12 @@ export const AppRoutes = {
                 route:`${this.route}/create`,
                 main:"create"
               }
+            },
+            get createId(){
+              return {
+                route:`${this.route}/create/:id`,
+                main:"create/:id"
+              }
             }
           }
         },

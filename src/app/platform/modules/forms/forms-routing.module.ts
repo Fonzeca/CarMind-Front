@@ -12,7 +12,11 @@ const routes: Routes = [
   {
     path: AppRoutes.platform.forms.create.main,
     component: CreateFormComponent
-  }
+  },
+  {
+    path: AppRoutes.platform.forms.createId.main,
+    component: CreateFormComponent
+  },
 ];
 
 @NgModule({

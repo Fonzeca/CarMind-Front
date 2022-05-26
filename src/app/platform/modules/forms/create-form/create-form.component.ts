@@ -6,6 +6,7 @@ import {
   ViewChild,
   ViewChildren
 } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 import {
   FormCreate,
   Opciones,
@@ -48,11 +49,17 @@ export class CreateFormComponent implements OnInit {
   constructor(
     public _type: TypeService,
     public _form: FormsService,
-    public _app: AppService
+    public _app: AppService,
+    public _actR:ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.clearAddSecction();
+    this._actR.params.subscribe((param:Params)=>{
+      if(param["id"]){
+        this.form.titulo = param["id"];
+      }
+    });
   }
 
   get preguntas(): Pregunta[] {
