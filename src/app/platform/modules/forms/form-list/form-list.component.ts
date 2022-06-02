@@ -127,7 +127,7 @@ export class FormListComponent extends BaseComponent implements OnInit {
           component: FormTitleComponent,
           data: {
             close: (title:string) => {
-              this.router.navigateByUrl('/'.concat(this.getAppRoutes.platform.forms.createName.route.replace(":id", title)));
+              this.router.navigateByUrl('/'.concat(this.getAppRoutes.platform.forms.createName.route.replace(":name", title)));
               this.dialog.closeAll();
             },
           },
