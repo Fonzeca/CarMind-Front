@@ -21,6 +21,9 @@ export class FormsService extends ApiService {
   private _getHistorialById: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   public getHistorialById$: Observable<any> = this._getHistorialById.asObservable();
 
+  private _getEvaluationById: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  public getEvaluationById$: Observable<any> = this._getEvaluationById.asObservable();
+
   constructor(http: HttpClient) {
     super(http);
   }
@@ -51,10 +54,24 @@ export class FormsService extends ApiService {
     return this.post(url,param);
   }
 
+  getEvaluacionById(id:string){
+    const { forms: { get_evaluation: url } } = endpoints;
+    this._getHistorialById.next(null);
+    return this.get(url.replace(":id",id.toString())).pipe(
+      switchMap((data:any) => {
+        this._getHistorialById.next(data);
+        return this.getHistorialById$;
+      })
+    );
+  }
+
+  updateEvaluacion(param:FormCreate, id:string){
+    const { forms: { put: url } } = endpoints;
+    return this.put(url.replace(":id",id.toString()),param);
+  }
+
   getHistorialById(id:number) {
-    const {
-      forms: { get_historial_by_id: url },
-    } = endpoints;
+    const { forms: { get_historial_by_id: url } } = endpoints;
     this._getHistorialById.next(null);
     return this.get(url.replace(":id",id.toString())).pipe(
       switchMap((data:any) => {

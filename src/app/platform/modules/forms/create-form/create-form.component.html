@@ -33,6 +33,7 @@
                               </div>
                           </ng-template>
                         </p-dropdown>
+                        <div *ngIf="addPregunta.tipo" class="text-muted">{{ getTipoInfo(addPregunta.tipo) }}</div>
                         <!-- <select [(ngModel)]="question.tipo" class="form-select" name="tipo"  aria-label="Default select example">
                           <option *ngFor="let tipo of _type.tipo_pregunta" [value]="tipo.id">{{tipo.value}}</option>
                         </select> -->
@@ -128,7 +129,10 @@
             </div>
             <div class="row justify-content-end">
               <div class="col-sm-7 mb-4">
-                <button  (click)="create()" type="submit" class="btn btn-success m-btn-success m-btn w-100 truncate mb-4">Finalizar formulario</button>
+                <button  (click)="save()" type="submit" class="btn btn-success m-btn-success m-btn w-100 truncate mb-4">
+                  <span *ngIf="!this.form_id">Finalizar formulario</span>
+                  <span *ngIf="this.form_id">Guardar</span>
+                </button>
               </div>
             </div>
           </div>

@@ -38,13 +38,14 @@ export class CreateFormComponent implements OnInit {
 
   form: FormCreate = {
     titulo: '',
-    fecha_inicio: '',
     preguntas: [],
   };
 
   editTitle = false;
 
   editing_index: any;
+
+  form_id!:string;
 
   constructor(
     public _type: TypeService,
@@ -56,8 +57,17 @@ export class CreateFormComponent implements OnInit {
   ngOnInit(): void {
     this.clearAddPregunta();
     this._actR.params.subscribe((param:Params)=>{
+      if(param["name"]){
+        this.form.titulo = param["name"];
+      }
       if(param["id"]){
-        this.form.titulo = param["id"];
+        this._form.getEvaluacionById(param["id"]).subscribe(
+          res=>{
+            this.form_id = param["id"];
+            this.form.titulo = res.titulo;
+            this.form.preguntas = res.preguntas;
+          }
+        )
       }
     });
   }
@@ -136,7 +146,7 @@ export class CreateFormComponent implements OnInit {
     if (this.validAddPregunta()) {
       if (this.editing_index >= 0) {
         this.form.preguntas[this.editing_index] = { ...this.addPregunta };
-        // this.clearAddPregunta();
+        this.clearAddPregunta();
       } else {
         this.form.preguntas.push({ ...this.addPregunta });
         this.clearAddPregunta();
@@ -185,6 +195,10 @@ export class CreateFormComponent implements OnInit {
     return this._type.tipo_pregunta.find(({ id }) => id === idType)?.value;
   }
 
+  getTipoInfo(idType: string) {
+    return this._type.tipo_pregunta.find(({ id }) => id === idType)?.info;
+  }
+
   selectedGoUpIndex?: number;
   sectionGoUp(index: number) {
     if (index) {
@@ -201,11 +215,32 @@ export class CreateFormComponent implements OnInit {
     }
   }
 
+  save(){
+    if(this.form_id){
+      this.upadte();
+    }else{
+      this.create();
+    }
+  }
+
   create() {
     this.formSubmit = true;
     if (this.form.titulo && this.form.preguntas.length) {
       this._form.create(this.form).subscribe((res) => {
         this._app.sw.alertSuccess('Formulario creado').then(() => {
+          this._app.router.navigateByUrl(AppRoutes.platform.forms.route);
+        });
+      });
+    } else {
+      this.validErrorAlert();
+    }
+  }
+
+  upadte() {
+    this.formSubmit = true;
+    if (this.form.titulo && this.form.preguntas.length) {
+      this._form.updateEvaluacion(this.form, this.form_id).subscribe((res) => {
+        this._app.sw.alertSuccess('Formulario Actualizado').then(() => {
           this._app.router.navigateByUrl(AppRoutes.platform.forms.route);
         });
       });

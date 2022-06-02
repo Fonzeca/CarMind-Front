@@ -29,6 +29,8 @@ const endpoints = {
       get_all_history:'/evaluacion/historial',
       get_history_by_logged_user:'/evaluacion/historial/loggedUser',
       post:'/evaluacion',
+      get_evaluation:'/evaluacion/:id',
+      put:'/evaluacion/:id/modify',
     }
   },
   types:"/tipos",

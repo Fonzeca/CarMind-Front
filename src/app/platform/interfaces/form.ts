@@ -24,6 +24,6 @@ export interface Seccion {
 
 export interface FormCreate {
   titulo: string;
-  fecha_inicio: string;
+  fecha_inicio?: string;
   preguntas: Pregunta[];
 }
