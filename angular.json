@@ -3,10 +3,12 @@
     "cli": {
         "analytics": false
     },
+
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
         "app-vehiculo": {
+            "i18n": { "sourceLocale": "es-MX" },
             "projectType": "application",
             "schematics": {
                 "@schematics/angular:application": {

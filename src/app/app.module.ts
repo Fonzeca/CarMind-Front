@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule, DatePipe } from '@angular/common';
 import { AuthInterceptorService } from './platform/services/core/auth-interceptor.service';
 import { AuthGuardService } from './platform/guards/auth-guard.service';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { AuthGuardService } from './platform/guards/auth-guard.service';
     ReactiveFormsModule,
     FormsModule,
     MatDialogModule,
+    NgbModule,
   ],
   providers: [DatePipe,
     AuthGuardService,

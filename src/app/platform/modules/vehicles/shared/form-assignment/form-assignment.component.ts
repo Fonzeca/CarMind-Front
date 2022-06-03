@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 import { dyComponent } from 'src/app/platform/components/modal/modal.component';
 import { AppService } from 'src/app/platform/services/core/app.service';
@@ -16,6 +17,8 @@ export class FormAssignmentComponent implements dyComponent {
   @Input() data:any;
 
   form!:FormGroup;
+
+  model: NgbDateStruct | undefined;
   constructor(
     private _app:AppService,
     private _vehicle:VehiclesService, public _forms:FormsService, private formBuilder:FormBuilder) { }

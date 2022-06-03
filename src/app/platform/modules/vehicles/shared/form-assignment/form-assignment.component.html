@@ -2,7 +2,13 @@
     <div class="row">
         <div class="col">
             <label for="">Fecha de inicio *</label>
-            <input type="date" onkeydown="return false" formControlName="fecha_inicio" [ngClass]="{'is-invalid': this.validControl('fecha_inicio', ngForm.submitted) }" class="form-control">
+            <div class="input-group">
+                <input class="form-control" placeholder="dd/mm/yyyy" name="dp" (click)="d.toggle()" [(ngModel)]="model" [placement]="'bottom'" autocomplete="off" ngbDatepicker #d="ngbDatepicker">
+                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+            </div>
+
+            <!-- <input [(ngModel)]="vencimiento" name="" class="form-control" id="datepicker" [disabled]="!tieneVencimiento"> -->
+            <!-- <input type="date" onkeydown="return false" formControlName="fecha_inicio" [ngClass]="{'is-invalid': this.validControl('fecha_inicio', ngForm.submitted) }" class="form-control"> -->
             <div class="invalid-feedback">
                 Es requerido
             </div>

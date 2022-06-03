@@ -1,8 +1,7 @@
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, Type, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ModalDirective } from '../../directives/modal.directive';
-import { Type } from '@angular/core';
 
 export class viewComponent {
   constructor(public component: Type<any>, public data: any) {}
