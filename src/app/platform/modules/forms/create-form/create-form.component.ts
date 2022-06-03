@@ -10,8 +10,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import {
   FormCreate,
   Opciones,
-  Pregunta,
-  Seccion
+  Pregunta
 } from 'src/app/platform/interfaces/form';
 import { AppService } from 'src/app/platform/services/core/app.service';
 import { FormsService } from 'src/app/platform/services/forms.service';
@@ -75,12 +74,12 @@ export class CreateFormComponent implements OnInit {
   addQuestion() {
     this.form.preguntas?.push({
       tipo: 'S3',
-      crucial: false,
+      crucial: true,
       descripcion: '',
       opciones: [
         {
           opcion:"",
-          crucial:false
+          crucial:true
         }
       ],
     });
@@ -98,7 +97,7 @@ export class CreateFormComponent implements OnInit {
   addOption(question: Pregunta, i: number) {
     question.opciones.splice(i + 1, 0,  {
       opcion:"",
-      crucial:false
+      crucial:true
     });
   }
 
@@ -130,12 +129,12 @@ export class CreateFormComponent implements OnInit {
     this.editing_index = -1;
     this.addPregunta = {
       tipo: 'S3',
-      crucial: false,
+      crucial: true,
       descripcion: '',
       opciones: [
         {
           opcion:"",
-          crucial:false
+          crucial:true
         }
       ],
     };

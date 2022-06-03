@@ -1,144 +1,144 @@
 <div class="m-container clase-padre">
-  <div class="container">
-    <div class="row justify-content-center mt-4">
-      <div class="col-xl-10 col-lg-10">
-        <div class="row">
-          <div class="col-lg-7">
-            <div class="mb-4"></div>
-            <h3>
-              <input [(ngModel)]="form.titulo" (focusout)="editTitle=false" (keydown.enter)="editTitle=false" class="form-control" #Intitle *ngIf="editTitle" type="text">
-              <span  *ngIf="!editTitle" [ngClass]="{'text-danger': formSubmit &&  !form.titulo}" > {{form.titulo ? form.titulo : "Título del formulario"}}</span>
-              <i  *ngIf="!editTitle"  (click)="editTitleFn()" [ngClass]="{ 'fa-check':editTitle, 'fa-pencil':!editTitle, 'text-danger': formSubmit &&  !form.titulo}" class="fa  edit-title px-2 pointer"></i>
-            </h3>
-            <div class="card">
-              <h5 class="card-header px-4">Agregar pregunta</h5>
-              <div class="card-body px-4">
-                  <div class="question-container">
+    <div class="container">
+        <div class="row justify-content-center mt-4">
+            <div class="col-xl-10 col-lg-10">
+                <div class="row">
+                    <div class="col-lg-7">
+                        <div class="mb-4"></div>
+                        <h3>
+                            <input [(ngModel)]="form.titulo" (focusout)="editTitle=false" (keydown.enter)="editTitle=false" class="form-control" #Intitle *ngIf="editTitle" type="text">
+                            <span *ngIf="!editTitle" [ngClass]="{'text-danger': formSubmit &&  !form.titulo}"> {{form.titulo ? form.titulo : "Título del formulario"}}</span>
+                            <i *ngIf="!editTitle" (click)="editTitleFn()" [ngClass]="{ 'fa-check':editTitle, 'fa-pencil':!editTitle, 'text-danger': formSubmit &&  !form.titulo}" class="fa  edit-title px-2 pointer"></i>
+                        </h3>
+                        <div class="card">
+                            <h5 class="card-header px-4">Agregar pregunta</h5>
+                            <div class="card-body px-4">
+                                <div class="question-container">
 
-                    <!-- START -->
-                    <div class="mb-3 row">
-                      <label for="staticEmail" class="col-sm-4 col-form-label fw-400">Formato de respuesta</label>
-                      <div class="col-sm-8  has-validation select2CreateForm">
-                        <p-dropdown  appendTo="body" optionLabel="value" optionValue="id" class="select2carMind select2CreateForm" [options]="_type.tipo_pregunta" [(ngModel)]="addPregunta.tipo" [style]="{'width':'100%'}">
-                          <ng-template pTemplate="selectedItem">
-                            <div class="select2CarMind-option-item tipo-item-value px-3 py-0"  *ngIf="addPregunta.tipo">
-                                <img [src]="'assets/icons/form/'+addPregunta.tipo+'.png'"/>
-                                <div class="fw-400">{{ getTipoName(addPregunta.tipo) }}</div>
-                            </div>
-                          </ng-template>
-                          <ng-template let-tipo pTemplate="item">
-                              <div class="select2CarMind-option-item px-3">
-                                  <img [src]="'assets/icons/form/'+tipo.id+'.png'"/>
-                                  <div class="fw-400">{{tipo.value}}</div>
-                              </div>
-                          </ng-template>
-                        </p-dropdown>
-                        <div *ngIf="addPregunta.tipo" class="text-muted">{{ getTipoInfo(addPregunta.tipo) }}</div>
-                        <!-- <select [(ngModel)]="question.tipo" class="form-select" name="tipo"  aria-label="Default select example">
+                                    <!-- START -->
+                                    <div class="mb-3 row">
+                                        <label for="staticEmail" class="col-sm-4 col-form-label fw-400">Formato de respuesta</label>
+                                        <div class="col-sm-8  has-validation select2CreateForm">
+                                            <p-dropdown appendTo="body" optionLabel="value" optionValue="id" class="select2carMind select2CreateForm" [options]="_type.tipo_pregunta" [(ngModel)]="addPregunta.tipo" [style]="{'width':'100%'}">
+                                                <ng-template pTemplate="selectedItem">
+                                                    <div class="select2CarMind-option-item tipo-item-value px-3 py-0" *ngIf="addPregunta.tipo">
+                                                        <img [src]="'assets/icons/form/'+addPregunta.tipo+'.png'" />
+                                                        <div class="fw-400">{{ getTipoName(addPregunta.tipo) }}</div>
+                                                    </div>
+                                                </ng-template>
+                                                <ng-template let-tipo pTemplate="item">
+                                                    <div class="select2CarMind-option-item px-3">
+                                                        <img [src]="'assets/icons/form/'+tipo.id+'.png'" />
+                                                        <div class="fw-400">{{tipo.value}}</div>
+                                                    </div>
+                                                </ng-template>
+                                            </p-dropdown>
+                                            <div *ngIf="addPregunta.tipo" class="text-muted">{{ getTipoInfo(addPregunta.tipo) }}</div>
+                                            <!-- <select [(ngModel)]="question.tipo" class="form-select" name="tipo"  aria-label="Default select example">
                           <option *ngFor="let tipo of _type.tipo_pregunta" [value]="tipo.id">{{tipo.value}}</option>
                         </select> -->
-                      </div>
-                    </div>
-                    <!-- END -->
+                                        </div>
+                                    </div>
+                                    <!-- END -->
 
 
-                    <!-- START -->
-                    <div class="mb-3 row">
-                      <label for="staticEmail" class="col-sm-4 col-form-label fw-400">Titulo</label>
-                      <div class="col-sm-8  has-validation">
-                        <div class="position-relative">
-                          <input #inputFocus [(ngModel)]="addPregunta.descripcion" (keydown.enter)="addQuestion()" [ngClass]="{'is-invalid': validInput(addPregunta.descripcion)  }" type="text" class="form-control" value="">
-                          <!-- <img (click)="addQuestion()" class="position-absolute add-icon" [ngClass]="{'me-4': this.form.preguntas.length > 1 }" src="assets/icons/fa_plus-square-o.png" alt="">
+                                    <!-- START -->
+                                    <div class="mb-3 row">
+                                        <label for="staticEmail" class="col-sm-4 col-form-label fw-400">Titulo</label>
+                                        <div class="col-sm-8  has-validation">
+                                            <div class="position-relative">
+                                                <input #inputFocus [(ngModel)]="addPregunta.descripcion" (keydown.enter)="addQuestion()" [ngClass]="{'is-invalid': validInput(addPregunta.descripcion)  }" type="text" class="form-control" value="">
+                                                <!-- <img (click)="addQuestion()" class="position-absolute add-icon" [ngClass]="{'me-4': this.form.preguntas.length > 1 }" src="assets/icons/fa_plus-square-o.png" alt="">
                           <img *ngIf="this.form.preguntas.length > 1" (click)="removeQuestion(i)" class="position-absolute add-icon me-1" src="assets/icons/fa_times-square-o.png" style="width: 20px;padding-top: 1px;" alt=""> -->
-                        </div>
-                      </div>
-                    </div>
-                    <!-- END -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- END -->
 
 
 
-                    <!-- START -->
-                    <div *ngIf="addPregunta.tipo === 'S1' || addPregunta.tipo === 'S2'" class="mb-3 row">
-                      <label for="staticEmail" class="col-sm-6 col-form-label text-end fw-bold">Opciones:</label>
-                      <div class="col-sm-6  has-validation">
-                        <ng-container *ngFor="let option of addPregunta.opciones; index as ix; trackBy: trackByFn">
-                          <div  class="position-relative mb-2">
-                            <input type="text" class="form-control" [value]="option.opcion" [ngClass]="{'is-invaliFd': validInput(option.opcion)  }" (focusout)="event($event, addPregunta.opciones, ix)">
-                            <img (click)="addOption(addPregunta, ix)" [ngClass]="{'me-4': addPregunta.opciones.length > 1 }"  class="position-absolute add-icon me-4" src="assets/icons/fa_plus-square-o.png" alt="">
-                            <img *ngIf="addPregunta.opciones.length > 1" (click)="removeOption(addPregunta, ix)" class="position-absolute add-icon me-1" src="assets/icons/fa_times-square-o.png" style="width: 20px;padding-top: 1px;" alt="">
-                          </div>
-                          <div *ngIf="addPregunta.tipo === 'S1'" class="row">
-                            <label for="staticEmail" class="col col-form-label text-end" style="font-size: 14px;">Avisar al seleccionar esta opcion</label>
-                            <div   class="crucial has-validation pt-1">
-                              <input class="form-check-input" (click)="option.crucial = !option.crucial" [checked]="option.crucial" type="checkbox" value="" id="flexCheckDefault">
-                              <!-- <p-inputSwitch [(ngModel)]="option.crucial"></p-inputSwitch> -->
+                                    <!-- START -->
+                                    <div *ngIf="addPregunta.tipo === 'S1' || addPregunta.tipo === 'S2'" class="mb-3 row">
+                                        <label for="staticEmail" class="col-sm-6 col-form-label text-end fw-bold">Opciones:</label>
+                                        <div class="col-sm-6  has-validation">
+                                            <ng-container *ngFor="let option of addPregunta.opciones; index as ix; trackBy: trackByFn">
+                                                <div class="position-relative mb-2">
+                                                    <input type="text" class="form-control" [value]="option.opcion" [ngClass]="{'is-invaliFd': validInput(option.opcion)  }" (focusout)="event($event, addPregunta.opciones, ix)">
+                                                    <img (click)="addOption(addPregunta, ix)" [ngClass]="{'me-4': addPregunta.opciones.length > 1 }" class="position-absolute add-icon me-4" src="assets/icons/fa_plus-square-o.png" alt="">
+                                                    <img *ngIf="addPregunta.opciones.length > 1" (click)="removeOption(addPregunta, ix)" class="position-absolute add-icon me-1" src="assets/icons/fa_times-square-o.png" style="width: 20px;padding-top: 1px;" alt="">
+                                                </div>
+                                                <div *ngIf="addPregunta.tipo === 'S1'" class="row">
+                                                    <label for="staticEmail" class="col col-form-label text-end" style="font-size: 14px;">Avisar al seleccionar esta opcion</label>
+                                                    <div class="crucial has-validation pt-1">
+                                                        <input class="form-check-input" (change)="option.crucial = !option.crucial" [checked]="option.crucial" type="checkbox" value="" id="flexCheckDefault">
+                                                        <!-- <p-inputSwitch [(ngModel)]="option.crucial"></p-inputSwitch> -->
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+                                        </div>
+                                    </div>
+                                    <!-- END -->
+
+                                    <!-- START -->
+                                    <div *ngIf="addPregunta.tipo === 'S3'" class="mb-3 row px-4">
+                                        <label for="staticEmail" class="col col-form-label text-end" style="font-size: 14px;">Avisar al responder con cruz</label>
+                                        <div class="general-crucial has-validation pt-1">
+                                            <input class="form-check-input" (change)="addPregunta.crucial = !addPregunta.crucial" [checked]="addPregunta.crucial" type="checkbox" value="" id="flexCheckDefault">
+                                        </div>
+                                    </div>
+                                    <!-- END -->
+
+                                </div>
+
+                                <div class="row justify-content-end">
+                                    <div class="col-sm-5">
+                                        <button (click)="saveQuestion()" type="submit" class="btn btn-success m-btn-success m-btn w-100 truncate">Guardar pregunta</button>
+                                    </div>
+                                </div>
                             </div>
-                          </div>
-                        </ng-container>
-                      </div>
-                    </div>
-                    <!-- END -->
-
-                    <!-- START -->
-                    <div *ngIf="addPregunta.tipo === 'S3'" class="mb-3 row px-4">
-                      <label for="staticEmail" class="col col-form-label text-end" style="font-size: 14px;">Avisar al responder con cruz</label>
-                      <div   class="general-crucial has-validation pt-1">
-                        <input class="form-check-input" (click)="addPregunta.crucial = !addPregunta.crucial" [checked]="addPregunta.crucial" type="checkbox" value="" id="flexCheckDefault">
-                      </div>
-                    </div>
-                    <!-- END -->
-
-                  </div>
-
-                <div class="row justify-content-end">
-                  <div class="col-sm-5">
-                    <button  (click)="saveQuestion()" type="submit" class="btn btn-success m-btn-success m-btn w-100 truncate">Guardar pregunta</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-5 d-flex flex-column">
-            <div class="mb-4"></div>
-            <p class="fw-bold"> Vista previa</p>
-            <div class="card h-100 mb-2">
-              <h5 class="card-header px-4">Preguntas ({{ this.form.preguntas.length }})</h5>
-              <div class="card-body">
-                <div class="mb-3 row">
-                  <div class="col-sm-12">
-                    <div class="position-relative">
-                      <input type="text" placeholder="Buscar sección..." [(ngModel)]="filterInput" class="form-control" value="">
-                      <img class="position-absolute add-icon" src="assets/icons/ph_magnifying-glass-bold.png" alt="">
-                    </div>
-                    <div *ngFor="let pregunta of this.form.preguntas | filterPipe:{ term: this.filterInput , condition: this.filterCondition, empty:{}  };let i = index; " class="card mt-2 p-0" [ngClass]="{'selectedGoUpIndex':selectedGoUpIndex===i}">
-                      <div class="bg-card p-3 position-relative " >
-                        <i (click)="removePregunta(i)" class="fa fa-trash position-absolute top-0 end-0 p-2 pointer"></i>
-                        <div class="position-absolute top-0 end-0 p-1 px-5">
-                          <i *ngIf="i" (click)="sectionGoUp(i)" class="fa fa-angle-up vp-up-icon pointer"></i>
                         </div>
-                          <div><b>{{i+1}}.</b>  {{pregunta.descripcion}}</div>
-                          <div class="tipo-option-text-color fw-400"> {{ getTipoName(pregunta.tipo) }}</div>
-                          <div class="d-flex d-column">
-                            <i (click)="removePregunta(i, this.form.preguntas)" class="fa fa-trash p-2 vp-icon"></i>
-                            <i (click)="editPregunta(i, pregunta)" class="fa fa-pencil p-2 vp-icon"></i>
-                          </div>
-                      </div>
                     </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row justify-content-end">
-              <div class="col-sm-7 mb-4">
-                <button  (click)="save()" type="submit" class="btn btn-success m-btn-success m-btn w-100 truncate mb-4">
+                    <div class="col-lg-5 d-flex flex-column">
+                        <div class="mb-4"></div>
+                        <p class="fw-bold"> Vista previa</p>
+                        <div class="card h-100 mb-2">
+                            <h5 class="card-header px-4">Preguntas ({{ this.form.preguntas.length }})</h5>
+                            <div class="card-body">
+                                <div class="mb-3 row">
+                                    <div class="col-sm-12">
+                                        <div class="position-relative">
+                                            <input type="text" placeholder="Buscar sección..." [(ngModel)]="filterInput" class="form-control" value="">
+                                            <img class="position-absolute add-icon" src="assets/icons/ph_magnifying-glass-bold.png" alt="">
+                                        </div>
+                                        <div *ngFor="let pregunta of this.form.preguntas | filterPipe:{ term: this.filterInput , condition: this.filterCondition, empty:{}  };let i = index; " class="card mt-2 p-0" [ngClass]="{'selectedGoUpIndex':selectedGoUpIndex===i}">
+                                            <div class="bg-card p-3 position-relative ">
+                                                <i (click)="removePregunta(i)" class="fa fa-trash position-absolute top-0 end-0 p-2 pointer"></i>
+                                                <div class="position-absolute top-0 end-0 p-1 px-5">
+                                                    <i *ngIf="i" (click)="sectionGoUp(i)" class="fa fa-angle-up vp-up-icon pointer"></i>
+                                                </div>
+                                                <div><b>{{i+1}}.</b> {{pregunta.descripcion}}</div>
+                                                <div class="tipo-option-text-color fw-400"> {{ getTipoName(pregunta.tipo) }}</div>
+                                                <div class="d-flex d-column">
+                                                    <i (click)="removePregunta(i, this.form.preguntas)" class="fa fa-trash p-2 vp-icon"></i>
+                                                    <i (click)="editPregunta(i, pregunta)" class="fa fa-pencil p-2 vp-icon"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-end">
+                            <div class="col-sm-7 mb-4">
+                                <button (click)="save()" type="submit" class="btn btn-success m-btn-success m-btn w-100 truncate mb-4">
                   <span *ngIf="!this.form_id">Finalizar formulario</span>
                   <span *ngIf="this.form_id">Guardar</span>
                 </button>
-              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
