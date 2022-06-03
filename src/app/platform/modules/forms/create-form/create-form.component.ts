@@ -10,8 +10,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import {
   FormCreate,
   Opciones,
-  Pregunta,
-  Seccion
+  Pregunta
 } from 'src/app/platform/interfaces/form';
 import { AppService } from 'src/app/platform/services/core/app.service';
 import { FormsService } from 'src/app/platform/services/forms.service';
@@ -31,20 +30,21 @@ export class CreateFormComponent implements OnInit {
 
   @ViewChildren('inputFocus') inputs!: QueryList<ElementRef>;
 
-  addSection!: Seccion;
+  addPregunta!: Pregunta;
 
   addSectionSubmit = false;
   formSubmit = false;
 
   form: FormCreate = {
     titulo: '',
-    fecha_inicio: '',
-    secciones: [],
+    preguntas: [],
   };
 
   editTitle = false;
 
   editing_index: any;
+
+  form_id!:string;
 
   constructor(
     public _type: TypeService,
@@ -54,32 +54,35 @@ export class CreateFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.clearAddSecction();
+    this.clearAddPregunta();
     this._actR.params.subscribe((param:Params)=>{
+      if(param["name"]){
+        this.form.titulo = param["name"];
+      }
       if(param["id"]){
-        this.form.titulo = param["id"];
+        this._form.getEvaluacionById(param["id"]).subscribe(
+          res=>{
+            this.form_id = param["id"];
+            this.form.titulo = res.titulo;
+            this.form.preguntas = res.preguntas;
+          }
+        )
       }
     });
   }
 
-  get preguntas(): Pregunta[] {
-    return this.addSection?.preguntas ? this.addSection?.preguntas : [];
-  }
-
-  addQuestion(i: number) {
-    this.addSection.preguntas?.splice(i + 1, 0, {
+  addQuestion() {
+    this.form.preguntas?.push({
       tipo: 'S3',
-      crucial: false,
+      crucial: true,
       descripcion: '',
       opciones: [
         {
           opcion:"",
-          crucial:false
+          crucial:true
         }
       ],
     });
-
-    setTimeout(() => this.focusElement(i+1), 0);
   }
 
   focusElement(index: number) {
@@ -87,18 +90,14 @@ export class CreateFormComponent implements OnInit {
     if (input) input.nativeElement.focus();
   }
 
-  removeSection(i: number) {
-    this.form.secciones?.splice(i, 1);
-  }
-
-  removeQuestion(i: number, preguntas: Pregunta[] = this.addSection.preguntas) {
+  removePregunta(i: number, preguntas: Pregunta[] = this.form.preguntas) {
     preguntas?.splice(i, 1);
   }
 
   addOption(question: Pregunta, i: number) {
     question.opciones.splice(i + 1, 0,  {
       opcion:"",
-      crucial:false
+      crucial:true
     });
   }
 
@@ -119,56 +118,45 @@ export class CreateFormComponent implements OnInit {
     setTimeout(() => this.Intitle.nativeElement.focus(), 0);
   }
 
-  editSection(i: number, section: Seccion) {
+  editPregunta(i: number, pregunta: Pregunta) {
     this.editing_index = i;
-    const tempSection = { ...section };
-    this.addSection = { ...tempSection };
+    const tempPregunta = { ...pregunta };
+    this.addPregunta = { ...tempPregunta };
   }
 
-  clearAddSecction() {
+  clearAddPregunta() {
     this.addSectionSubmit = false;
     this.editing_index = -1;
-    this.addSection = {
-      nombre: '',
-      preguntas: [
+    this.addPregunta = {
+      tipo: 'S3',
+      crucial: true,
+      descripcion: '',
+      opciones: [
         {
-          tipo: 'S3',
-          crucial: false,
-          descripcion: '',
-          opciones: [
-            {
-              opcion:"",
-              crucial:false
-            }
-          ],
-        },
+          opcion:"",
+          crucial:true
+        }
       ],
     };
   }
 
-  saveSection() {
+  saveQuestion() {
     this.addSectionSubmit = true;
-    if (this.validAddSection()) {
+    if (this.validAddPregunta()) {
       if (this.editing_index >= 0) {
-        this.form.secciones[this.editing_index] = { ...this.addSection };
-        this.clearAddSecction();
+        this.form.preguntas[this.editing_index] = { ...this.addPregunta };
+        this.clearAddPregunta();
       } else {
-        this.form.secciones.push({ ...this.addSection });
-        this.clearAddSecction();
+        this.form.preguntas.push({ ...this.addPregunta });
+        this.clearAddPregunta();
       }
     } else {
       this.validErrorAlert();
     }
   }
 
-  validAddSection() {
-    const validQ = !this.addSection.preguntas.filter(
-      (question) =>
-        !question.tipo ||
-        !question.descripcion ||
-        !this.validQuestionOptions(question)
-    ).length;
-    return this.addSection.nombre && this.addSection.preguntas.length && validQ;
+  validAddPregunta() {
+    return this.addPregunta.descripcion && this.addPregunta && this.validQuestionOptions(this.addPregunta);
   }
 
   validQuestionOptions(question: Pregunta) {
@@ -206,26 +194,52 @@ export class CreateFormComponent implements OnInit {
     return this._type.tipo_pregunta.find(({ id }) => id === idType)?.value;
   }
 
+  getTipoInfo(idType: string) {
+    return this._type.tipo_pregunta.find(({ id }) => id === idType)?.info;
+  }
+
   selectedGoUpIndex?: number;
   sectionGoUp(index: number) {
     if (index) {
       this.selectedGoUpIndex = index;
-      const previous = { ...this.form.secciones[index - 1] };
-      const first = { ...this.form.secciones[index] };
-      this.form.secciones[index - 1] = previous;
-      this.form.secciones[index] = first;
+      const previous = { ...this.form.preguntas[index - 1] };
+      const first = { ...this.form.preguntas[index] };
+      this.form.preguntas[index - 1] = previous;
+      this.form.preguntas[index] = first;
       setTimeout(() => {
-        this.form.secciones[index - 1] = first;
-        this.form.secciones[index] = previous;
+        this.form.preguntas[index - 1] = first;
+        this.form.preguntas[index] = previous;
         this.selectedGoUpIndex = undefined;
       }, 600);
     }
   }
+
+  save(){
+    if(this.form_id){
+      this.upadte();
+    }else{
+      this.create();
+    }
+  }
+
   create() {
     this.formSubmit = true;
-    if (this.form.titulo && this.form.secciones.length) {
+    if (this.form.titulo && this.form.preguntas.length) {
       this._form.create(this.form).subscribe((res) => {
         this._app.sw.alertSuccess('Formulario creado').then(() => {
+          this._app.router.navigateByUrl(AppRoutes.platform.forms.route);
+        });
+      });
+    } else {
+      this.validErrorAlert();
+    }
+  }
+
+  upadte() {
+    this.formSubmit = true;
+    if (this.form.titulo && this.form.preguntas.length) {
+      this._form.updateEvaluacion(this.form, this.form_id).subscribe((res) => {
+        this._app.sw.alertSuccess('Formulario Actualizado').then(() => {
           this._app.router.navigateByUrl(AppRoutes.platform.forms.route);
         });
       });

@@ -14,7 +14,11 @@ const routes: Routes = [
     component: CreateFormComponent
   },
   {
-    path: AppRoutes.platform.forms.createId.main,
+    path: AppRoutes.platform.forms.createName.main,
+    component: CreateFormComponent
+  },
+  {
+    path: AppRoutes.platform.forms.update.main,
     component: CreateFormComponent
   },
 ];

@@ -1,9 +1,9 @@
-<div  *ngIf="_forms.tail.length" class="row">
-    <div class="col justify-content-center text-center">
-      <div  class="spinner-border" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
+<div *ngIf="_forms.tail.length" class="row">
+  <div class="col justify-content-center text-center">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
     </div>
+  </div>
 </div>
 
 <ng-container *ngIf="_forms.getHistorialById$ | async as form;">
@@ -15,87 +15,139 @@
     </div>
   </div>
   <div class="row">
-    <div  class="col">
-      <div *ngFor="let secction of form.secciones;" class="card mb-4 mt-4">
-        <div class="card-header fw-bold">
-         {{ secction.seccion_nombre }}
-        </div>
-        <div class="card-body">
-          <ng-container *ngFor="let p of secction.preguntas; index as i;">
-            <h6>{{p.pregunta}}</h6>
-            <div class="my-2">
-
-              <ng-container *ngIf="p.tipo=='S3'">
-                <textarea *ngIf="!p.tick_correcto" class="form-control" disabled readonly rows="4">{{ p.texto }}</textarea>
-                <div class="d-flex justify-content-between px-4 my-3">
-                  <img [src]="'assets/icons/cruz_'+( !p.tick_correcto ? 'fill' : 'empty' )+'.svg'" alt="">
-                  <img [src]="'assets/icons/tick_'+( p.tick_correcto ? 'fill' : 'empty' )+'.svg'" alt="">
-                </div>
-              </ng-container>
-
-              <ng-container *ngIf="p.tipo=='TX'">
-                <textarea class="form-control" disabled readonly rows="4">{{ p.texto }}</textarea>
-              </ng-container>
-
-              <ng-container *ngIf="p.tipo=='S1'">
-
-                <div class="my-3">
-                  <div class="row ">
-                    <div class="col d-flex justify-content-between max-width-options">
-                      <span class="px-1 lbl-options" >SI</span>
-                      <span class="lbl-options">NO</span>
-                    </div>
-                    <div class="col"> </div>
-                  </div>
-                  <ng-container *ngFor="let option of p.opciones">
-                    <div class="row mb-1">
-                      <div class="col d-flex justify-content-between max-width-options">
-                        <div>
-                          <img *ngIf="option.tick_correcto" src="assets/icons/check-checked.png" width="21px" height="20px" alt="">
-                          <img *ngIf="!option.tick_correcto" src="assets/icons/empty-checked.png" width="21px" height="20px" alt="">
-                        </div>
-                        <div>
-                          <img *ngIf="!option.tick_correcto" src="assets/icons/cruz-checked.png" width="21px" height="20px" alt="">
-                          <img *ngIf="option.tick_correcto" src="assets/icons/empty-checked.png" width="21px" height="20px" alt="">
-                        </div>
-                      </div>
-                      <div class="col">{{ option.opcion }}</div>
-                    </div>
-                  </ng-container>
-                </div>
-
-              </ng-container>
-
-              <ng-container  *ngIf="p.tipo=='F'">
-
-                <div class="my-3 d-flex justify-content-between">
-                  <img style="height: 400px;width: auto;margin: auto;" [src]="'data:image/jpeg;base64,'+p.base64_image" alt="">
-                </div>
-
-              </ng-container>
-
-              <ng-container  *ngIf="p.tipo=='S2'">
-
-                <div class="my-3">
-                  <ng-container *ngFor="let option of p.opciones;">
-                    <div class="row" >
-                      <div class="col">
-                        <div class="form-check">
-                          <input [checked]="option.tick_correcto ? true : false " class="form-check-input" type="radio">
-                          <label class="form-check-label px-2" >
-                            {{ option.opcion }}
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-                  </ng-container>
-                </div>
-              </ng-container>
-
+    <div class="col">
+      <div class="card-body">
+        <ng-container *ngFor="let p of form.preguntas; index as i;">
+          <div class="card mt-4">
+            <div class="card-header">
+              {{ p.pregunta }}
             </div>
-            <hr *ngIf="i+1!==secction.preguntas.length" class="mt-4">
-          </ng-container>
-        </div>
+            <div class="card-body">
+              <div class="my-2">
+                <ng-container *ngIf="p.tipo == 'S3'">
+                  <textarea
+                    *ngIf="!p.tick_correcto"
+                    class="form-control"
+                    disabled
+                    readonly
+                    rows="4"
+                    >{{ p.texto }}</textarea
+                  >
+                  <div class="d-flex justify-content-between px-4 my-3">
+                    <img
+                      [src]="
+                        'assets/icons/cruz_' +
+                        (!p.tick_correcto ? 'fill' : 'empty') +
+                        '.svg'
+                      "
+                      alt=""
+                    />
+                    <img
+                      [src]="
+                        'assets/icons/tick_' +
+                        (p.tick_correcto ? 'fill' : 'empty') +
+                        '.svg'
+                      "
+                      alt=""
+                    />
+                  </div>
+                </ng-container>
+
+                <ng-container *ngIf="p.tipo == 'TX'">
+                  <textarea class="form-control" disabled readonly rows="4">{{
+                    p.texto
+                  }}</textarea>
+                </ng-container>
+
+                <ng-container *ngIf="p.tipo == 'S1'">
+                  <div class="my-3">
+                    <div class="row">
+                      <div
+                        class="col d-flex justify-content-between max-width-options"
+                      >
+                        <span class="px-1 lbl-options">SI</span>
+                        <span class="lbl-options">NO</span>
+                      </div>
+                      <div class="col"></div>
+                    </div>
+                    <ng-container *ngFor="let option of p.opciones">
+                      <div class="row mb-1">
+                        <div
+                          class="col d-flex justify-content-between max-width-options"
+                        >
+                          <div>
+                            <img
+                              *ngIf="option.tick_correcto"
+                              src="assets/icons/check-checked.png"
+                              width="21px"
+                              height="20px"
+                              alt=""
+                            />
+                            <img
+                              *ngIf="!option.tick_correcto"
+                              src="assets/icons/empty-checked.png"
+                              width="21px"
+                              height="20px"
+                              alt=""
+                            />
+                          </div>
+                          <div>
+                            <img
+                              *ngIf="!option.tick_correcto"
+                              src="assets/icons/cruz-checked.png"
+                              width="21px"
+                              height="20px"
+                              alt=""
+                            />
+                            <img
+                              *ngIf="option.tick_correcto"
+                              src="assets/icons/empty-checked.png"
+                              width="21px"
+                              height="20px"
+                              alt=""
+                            />
+                          </div>
+                        </div>
+                        <div class="col">{{ option.opcion }}</div>
+                      </div>
+                    </ng-container>
+                  </div>
+                </ng-container>
+
+                <ng-container *ngIf="p.tipo == 'F'">
+                  <div class="my-3 d-flex justify-content-between">
+                    <img
+                      style="height: 400px; width: auto; margin: auto"
+                      [src]="'data:image/jpeg;base64,' + p.base64_image"
+                      alt=""
+                    />
+                  </div>
+                </ng-container>
+
+                <ng-container *ngIf="p.tipo == 'S2'">
+                  <div class="my-3">
+                    <ng-container *ngFor="let option of p.opciones">
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-check">
+                            <input
+                              [checked]="option.tick_correcto ? true : false"
+                              class="form-check-input"
+                              type="radio"
+                            />
+                            <label class="form-check-label px-2">
+                              {{ option.opcion }}
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-container>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </ng-container>
       </div>
     </div>
   </div>

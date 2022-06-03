@@ -16,10 +16,19 @@ export const AppRoutes = {
                 main:"create"
               }
             },
-            get createId(){
+            get createName(){
               return {
-                route:`${this.route}/create/:id`,
-                main:"create/:id"
+                route:`${this.route}/create/:name`,
+                main:"create/:name"
+              }
+            },
+            get update(){
+              return {
+                route(id:any){
+                  return this._route.replace(":id", id);
+                },
+                _route:`${this.route}/update/:id`,
+                main:"update/:id"
               }
             }
           }

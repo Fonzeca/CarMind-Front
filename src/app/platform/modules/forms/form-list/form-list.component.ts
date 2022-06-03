@@ -127,7 +127,7 @@ export class FormListComponent extends BaseComponent implements OnInit {
           component: FormTitleComponent,
           data: {
             close: (title:string) => {
-              this.router.navigateByUrl('/'.concat(this.getAppRoutes.platform.forms.createId.route.replace(":id", title)));
+              this.router.navigateByUrl('/'.concat(this.getAppRoutes.platform.forms.createName.route.replace(":name", title)));
               this.dialog.closeAll();
             },
           },
@@ -136,4 +136,10 @@ export class FormListComponent extends BaseComponent implements OnInit {
       },
     }).afterClosed();
   }
+
+  edit(form:any){
+      let url = '/'.concat(this.getAppRoutes.platform.forms.update.route(form.id));
+      this.router.navigateByUrl(url);
+  }
 }
+
