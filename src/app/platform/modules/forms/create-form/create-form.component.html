@@ -70,7 +70,8 @@
                           <div *ngIf="addPregunta.tipo === 'S1'" class="row">
                             <label for="staticEmail" class="col col-form-label text-end" style="font-size: 14px;">Avisar al seleccionar esta opcion</label>
                             <div   class="crucial has-validation pt-1">
-                              <p-inputSwitch [(ngModel)]="option.crucial"></p-inputSwitch>
+                              <input class="form-check-input" (click)="option.crucial = !option.crucial" [checked]="option.crucial" type="checkbox" value="" id="flexCheckDefault">
+                              <!-- <p-inputSwitch [(ngModel)]="option.crucial"></p-inputSwitch> -->
                             </div>
                           </div>
                         </ng-container>
@@ -82,7 +83,7 @@
                     <div *ngIf="addPregunta.tipo === 'S3'" class="mb-3 row px-4">
                       <label for="staticEmail" class="col col-form-label text-end" style="font-size: 14px;">Avisar al responder con cruz</label>
                       <div   class="general-crucial has-validation pt-1">
-                        <p-inputSwitch [(ngModel)]="addPregunta.crucial"></p-inputSwitch>
+                        <input class="form-check-input" (click)="addPregunta.crucial = !addPregunta.crucial" [checked]="addPregunta.crucial" type="checkbox" value="" id="flexCheckDefault">
                       </div>
                     </div>
                     <!-- END -->
