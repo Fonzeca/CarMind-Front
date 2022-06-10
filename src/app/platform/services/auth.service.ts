@@ -48,4 +48,13 @@ export class AuthService extends ApiService {
   isAuthenticated(){
     return this.token;
   }
+
+  changePasswordAtFirstLogin(params:any){
+    const { auth : {firstLogin : url} } = endpoints
+    return this.post(url, params).pipe(
+      map((data:any) => {
+        return data;
+      })
+    );
+  }
 }

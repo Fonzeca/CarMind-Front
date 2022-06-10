@@ -2,6 +2,7 @@ import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { data } from 'jquery';
 import { catchError, map, of } from 'rxjs';
 import { AppRoutes } from 'src/app/routes';
 import { AuthService } from '../../services/auth.service';
@@ -39,10 +40,13 @@ export class LoginComponent implements OnInit {
     .append('username', form.username)
     .append('password', form.password)
 
-    this._auth.login(params).subscribe(
-      success=>{
+    this._auth.login(params).pipe(map((data:any) => {
+      if(data.mustChangePassword){
+        this.router.navigateByUrl(AppRoutes.auth.change_password);
+      }else{
         this.router.navigateByUrl(AppRoutes.platform.vehicles.route);
-      },
+      }
+    })).subscribe(
       error=>{
         console.log(error);
       },

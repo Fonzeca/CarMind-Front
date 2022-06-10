@@ -28,4 +28,14 @@ export class SweetAlertService {
       confirmButtonText: 'Ok'
     });
   }
+
+  alertWarning(message:string)
+  {
+    return Swal.fire({
+      title: 'Debe cambiar su contraseña',
+      text: message,
+      icon: 'warning',
+      timer: 4000,
+    });
+  }
 }

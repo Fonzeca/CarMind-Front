@@ -2,7 +2,8 @@ const endpoints = {
   auth:{
     login: "/login",
     loggedUser:"/loggedUser",
-    put_user:"/usuario"
+    put_user:"/usuario",
+    firstLogin:"/usuario/newPassword"
   },
   vehicles:{
     post:"/vehiculo",

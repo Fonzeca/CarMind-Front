@@ -1,6 +1,7 @@
 export const AppRoutes = {
     auth: {
-      login:"login"
+      login:"login",
+      change_password: "change_password"
     },
     get platform() {
       return {
