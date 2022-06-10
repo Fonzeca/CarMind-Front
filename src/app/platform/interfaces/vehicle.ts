@@ -25,6 +25,7 @@ export interface vehicle {
   tipo: string;
   averiado: boolean;
   pendientes: Pendiente[];
-  usuario_en_uso:string,
+  usuario_en_uso:string;
   documentos:documents[];
+  kilometraje: string;
 }
