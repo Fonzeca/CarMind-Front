@@ -71,6 +71,12 @@
             </div>
         </div>
     </div>
+    <div class="mb-3 row">
+      <label for="staticEmail" class="col-sm-2 col-form-label">Kilometraje</label>
+      <div class="col-sm-10  has-validation">
+          <input type="number" formControlName="kilometraje" [ngClass]="{'is-invalid': getControl('kilometraje')?.invalid && (getControl('kilometraje').touched  || ngForm.submitted) }" class="form-control" value="">
+      </div>
+  </div>
     <div class="row justify-content-end">
         <div class="col-sm-3">
             <button type="submit" [ngClass]="{'m-progress':this._app.tail.length }" [disabled]="this._app.tail.length" class="btn btn-success m-btn-success m-btn w-100">{{ data?.id ? "Editar" : "Agregar" }}</button>

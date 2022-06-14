@@ -43,7 +43,8 @@ export class FormVehicleComponent implements dyComponent {
         "modelo" : [this.data?.modelo ? this.data.modelo : '',Validators.required],
         "linea" : [this.data?.linea ? this.data.linea : '',Validators.required],
         "patente" : [this.data?.patente ? this.data.patente : (this.data?.id ? "N/A": "") ],
-        "tipo" : [ this.data?.tipo ? this.data.tipo : this.type.tipo_vehiculo[0],Validators.required]
+        "tipo" : [ this.data?.tipo ? this.data.tipo : this.type.tipo_vehiculo[0],Validators.required],
+        "kilometraje" : [ this.data?.kilometraje ? this.data.kilometraje : '', Validators.required],
     });
   }
 
