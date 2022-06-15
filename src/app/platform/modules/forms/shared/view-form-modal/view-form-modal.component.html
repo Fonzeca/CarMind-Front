@@ -59,6 +59,12 @@
                   }}</textarea>
                 </ng-container>
 
+                <ng-container *ngIf="p.tipo == 'KM'">
+                  <textarea class="form-control" disabled readonly rows="1">{{
+                    p.texto
+                  }}</textarea>
+                </ng-container>
+
                 <ng-container *ngIf="p.tipo == 'S1'">
                   <div class="my-3">
                     <div class="row">
