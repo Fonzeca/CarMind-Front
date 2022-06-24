@@ -1,7 +1,9 @@
 import { Injectable } from "@angular/core";
 import { NgbDateParserFormatter, NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
 
-@Injectable()
+@Injectable(
+  {providedIn:'root'}
+)
 export class NgbDateFRParserFormatter extends NgbDateParserFormatter {
     private dateSeparatorChar: string = "-";
 
@@ -40,6 +42,12 @@ export class NgbDateFRParserFormatter extends NgbDateParserFormatter {
 
     format(date: NgbDateStruct): string { //receive a NgbDateStruct
         //return a string
-        return ''+date.day+'/'+date.month+'/'+date.year;
+        if(date){
+          const day = date.day.toString().padStart(2, '0');
+          const month = date.month.toString().padStart(2, '0');
+          const year = date.year.toString();
+          return ''+day+'/'+month+'/'+year;
+        }
+        return ""
     }
 }

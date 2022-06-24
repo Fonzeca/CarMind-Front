@@ -13,7 +13,7 @@
                 </div> -->
 
             <div class="input-group">
-                <input class="form-control" placeholder="dd/mm/yyyy" name="dp" (click)="d.toggle()" [(ngModel)]="model" [placement]="'bottom'" autocomplete="off" ngbDatepicker #d="ngbDatepicker">
+                <input class="form-control" placeholder="dd/mm/yyyy" name="dp" (click)="d.toggle()" [(ngModel)]="vencimiento" [placement]="'bottom'" autocomplete="off" ngbDatepicker #d="ngbDatepicker">
                 <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button" [disabled]="!tieneVencimiento"></button>
             </div>
 

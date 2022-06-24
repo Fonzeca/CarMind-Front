@@ -1,10 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError, finalize } from 'rxjs';
-import { retry, catchError } from 'rxjs/operators';
-import Swal from 'sweetalert2'
-import { Router } from '@angular/router';
+import { finalize, Observable, throwError } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root',
@@ -64,7 +63,6 @@ export class ApiService {
       finalize(() => {
         let index = this.tail.indexOf(a);
         this.tail.splice(index, 1);
-        console.log(this.tail)
       })
     );
   }

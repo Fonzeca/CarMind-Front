@@ -1,15 +1,16 @@
+import { CommonModule, DatePipe } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule, DatePipe } from '@angular/common';
-import { AuthInterceptorService } from './platform/services/core/auth-interceptor.service';
+import { NgbDateFRParserFormatter } from './platform/date-parser.service';
 import { AuthGuardService } from './platform/guards/auth-guard.service';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AuthInterceptorService } from './platform/services/core/auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
       useClass: AuthInterceptorService,
       multi: true
     },
+    NgbDateFRParserFormatter
   ],
   bootstrap: [AppComponent],
 })

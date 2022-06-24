@@ -1,9 +1,9 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AuthGuardService } from './guards/auth-guard.service';
 import { PlatformRoutingModule } from './platform-routing.module';
 import { TemplateModule } from './template/template.module';
-import { AuthGuardService } from './guards/auth-guard.service';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({

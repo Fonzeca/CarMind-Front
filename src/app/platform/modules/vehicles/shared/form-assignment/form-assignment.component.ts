@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import * as moment from 'moment';
+import { NgbDate, NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { dyComponent } from 'src/app/platform/components/modal/modal.component';
+import { NgbDateFRParserFormatter } from 'src/app/platform/date-parser.service';
 import { AppService } from 'src/app/platform/services/core/app.service';
 import { FormsService } from 'src/app/platform/services/forms.service';
 import { VehiclesService } from 'src/app/platform/services/vehicles.service';
@@ -10,7 +10,8 @@ import { VehiclesService } from 'src/app/platform/services/vehicles.service';
 @Component({
   selector: 'app-form-assignment',
   templateUrl: './form-assignment.component.html',
-  styleUrls: ['./form-assignment.component.css']
+  styleUrls: ['./form-assignment.component.css'],
+  providers: [{provide: NgbDateParserFormatter, useClass: NgbDateFRParserFormatter}]
 })
 export class FormAssignmentComponent implements dyComponent {
 
@@ -18,16 +19,16 @@ export class FormAssignmentComponent implements dyComponent {
 
   form!:FormGroup;
 
-  model: NgbDateStruct | undefined;
+  fechaInicio: NgbDateStruct | undefined;
   constructor(
     private _app:AppService,
-    private _vehicle:VehiclesService, public _forms:FormsService, private formBuilder:FormBuilder) { }
+    private _vehicle:VehiclesService, public _forms:FormsService, private formBuilder:FormBuilder, private dateParser : NgbDateFRParserFormatter) { }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       "id_evaluacion" : [undefined,Validators.required],
       "intervalo_dias" : [1,Validators.required],
-      "fecha_inicio" : [null,Validators.required],
+      "fecha_inicio" : [NgbDate,Validators.required],
     });
     this._forms.getAllForms().subscribe();
   }
@@ -36,7 +37,7 @@ export class FormAssignmentComponent implements dyComponent {
   action(){
     if(this.data.id){
       let form = {...this.form.value};
-      form.fecha_inicio = moment(form.fecha_inicio).format('DD/MM/YYYY')
+      form.fecha_inicio = this.dateParser.format(form.fecha_inicio)
       this._vehicle.documentAssignment(this.data.id,form).subscribe(res=> {
         this._app.sw.alertSuccess("Formulario asignado");
         this.data.close();

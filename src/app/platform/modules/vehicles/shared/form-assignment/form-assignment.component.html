@@ -3,7 +3,7 @@
         <div class="col">
             <label for="">Fecha de inicio *</label>
             <div class="input-group">
-                <input class="form-control" placeholder="dd/mm/yyyy" name="dp" (click)="d.toggle()" [(ngModel)]="model" [placement]="'bottom'" autocomplete="off" ngbDatepicker #d="ngbDatepicker">
+                <input class="form-control" formControlName="fecha_inicio" placeholder="dd/mm/yyyy" name="dp" (click)="d.toggle()" [(ngModel)]="fechaInicio" [placement]="'bottom'" autocomplete="off" ngbDatepicker #d="ngbDatepicker">
                 <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
             </div>
 
@@ -26,7 +26,6 @@
             <label for="">Formulario *</label>
             <ng-container *ngIf="this._forms.getAllForms$ | async as forms;">
                 <select class="form-select" name="id_evaluacion" [ngClass]="{'is-invalid': this.validControl('id_evaluacion', ngForm.submitted) }" formControlName="id_evaluacion" aria-label="Default select example">
-          <option></option>
           <option *ngFor="let form of forms" [value]="form.id">{{form.titulo}}</option>
         </select>
             </ng-container>

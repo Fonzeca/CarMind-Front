@@ -37,7 +37,6 @@ export class UserFormComponent implements OnInit {
   }
 
   action(){
-    console.log(this.form);
     if(this.data?.id){
       this.update(this.form);
     }else{

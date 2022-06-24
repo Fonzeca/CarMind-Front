@@ -1,12 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NgbDateParserFormatter, NgbDateStruct, NgbInputDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
-import * as moment from 'moment';
+import { NgbDateFRParserFormatter } from 'src/app/platform/date-parser.service';
 import { AppService } from 'src/app/platform/services/core/app.service';
 import { TypeService } from 'src/app/platform/services/type.service';
 import { VehiclesService } from 'src/app/platform/services/vehicles.service';
 import { BaseComponent } from 'src/app/platform/shared/components/base.component';
-import { NgbDateFRParserFormatter } from '../date-parser';
 declare var  $:any
 @Component({
   selector: 'app-add-document',
@@ -21,13 +20,12 @@ export class AddDocumentComponent extends BaseComponent implements OnInit {
 
   file: any;
   tipo: any;
-  vencimiento: any;
 
   tieneVencimiento:boolean = true;
 
-  model: NgbDateStruct | undefined;
+  vencimiento: NgbDateStruct | undefined;
 
-  constructor(public _type: TypeService, private _vehicle:VehiclesService, public _app:AppService, private dialogRef: MatDialog, config: NgbInputDatepickerConfig) {
+  constructor(public _type: TypeService, private _vehicle:VehiclesService, public _app:AppService, private dialogRef: MatDialog, config: NgbInputDatepickerConfig, private dateParser : NgbDateFRParserFormatter) {
     super();
   }
 
@@ -36,20 +34,15 @@ export class AddDocumentComponent extends BaseComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    $('#datepicker').datepicker({
-      uiLibrary: 'bootstrap4'
-  });
   }
   readFile(fileEvent: any) {
     this.file = fileEvent.target.files[0];
-    console.log('size', this.file.size);
-    console.log('type', this.file.type);
   }
 
   cargar(){
     var momentVencimiento:any;
-    if(this.tieneVencimiento){
-      momentVencimiento = moment(this.vencimiento).format('DD/MM/YYYY');
+    if(this.tieneVencimiento && this.vencimiento){
+      momentVencimiento = this.dateParser.format(this.vencimiento);
     }else{
       momentVencimiento = "";
     }

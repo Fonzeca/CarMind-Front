@@ -2,10 +2,8 @@ import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { data } from 'jquery';
-import { catchError, map, of } from 'rxjs';
+import { of } from 'rxjs';
 import { AppRoutes } from 'src/app/routes';
-import { FormCreate } from '../../interfaces/form';
 import { AuthService } from '../../services/auth.service';
 import { AppService } from '../../services/core/app.service';
 import { FormsService } from '../../services/forms.service';
@@ -66,7 +64,6 @@ export class ChangePassComponent implements OnInit {
   }
 
   handlerError(error: any) {
-
     console.log(error);
     return of(error);
   }
