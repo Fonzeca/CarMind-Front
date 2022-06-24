@@ -1,9 +1,10 @@
 <form [formGroup]="form" #ngForm="ngForm" (ngSubmit)="action()">
   <!-- input -->
   <div class="mb-3 row">
-    <label for="staticEmail" class="col-sm-2 col-form-label">Nombre</label>
+    <label id="nameLabel" for="staticEmail" class="col-sm-2 col-form-label">Nombre</label>
     <div class="col-sm-10 has-validation">
       <input
+        id="nameInput"
         type="text"
         formControlName="nombre"
         [ngClass]="{
@@ -21,9 +22,10 @@
 
   <!-- input -->
   <div class="mb-3 row">
-    <label for="staticEmail" class="col-sm-2 col-form-label">Apellido</label>
+    <label id="surnameLabel" for="staticEmail" class="col-sm-2 col-form-label">Apellido</label>
     <div class="col-sm-10 has-validation">
       <input
+        id="surnameInput"
         type="text"
         formControlName="apellido"
         [ngClass]="{
@@ -41,9 +43,10 @@
 
   <!-- input -->
   <div class="mb-3 row">
-    <label for="staticEmail" class="col-sm-2 col-form-label">DNI</label>
+    <label id="dniLabel" for="staticEmail" class="col-sm-2 col-form-label">DNI</label>
     <div class="col-sm-10 has-validation">
       <input
+        id="dniInput"
         type="text"
         formControlName="DNI"
         [ngClass]="{
@@ -61,9 +64,10 @@
 
   <!-- input -->
   <div class="mb-3 row">
-    <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+    <label id="emailLabel" for="staticEmail" class="col-sm-2 col-form-label">Email</label>
     <div class="col-sm-10 has-validation">
       <input
+        id="emailInput"
         [readonly]="this.data && this.data.id"
         type="email"
         required
@@ -83,9 +87,10 @@
 
   <!-- input -->
   <div *ngIf="!this.data?.id" class="mb-3 row">
-    <label for="staticEmail" class="col-sm-2 col-form-label">Contraseña</label>
+    <label id="passLabel" for="staticEmail" class="col-sm-2 col-form-label">Contraseña</label>
     <div class="col-sm-10 has-validation">
       <input
+        id="passInput"
         type="text"
         formControlName="password"
         [ngClass]="{
@@ -102,10 +107,10 @@
   <!-- /input -->
   <!-- input -->
   <div class="mb-3 row">
-    <label for="staticEmail" class="col-sm-2 col-form-label">Admin</label>
+    <label id="adminLabel" for="staticEmail" class="col-sm-2 col-form-label">Admin</label>
     <div class="col-sm-10 has-validation">
       <div class="form-check mt-1">
-        <input class="form-check-input mt-1" [checked]="this.form.controls['administrador'].value" (click)="this.form.controls['administrador'].setValue(!this.form.controls['administrador'].value)" type="checkbox" value="" id="flexCheckDefault">
+        <input id="adminInput" class="form-check-input mt-1" [checked]="this.form.controls['administrador'].value" (click)="this.form.controls['administrador'].setValue(!this.form.controls['administrador'].value)" type="checkbox" value="" id="flexCheckDefault">
       </div>
     </div>
   </div>
@@ -113,7 +118,7 @@
 
   <div class="row justify-content-end">
     <div class="col-sm-3">
-      <button [ngClass]="{'m-progress': this._user.tail.length }" [disabled]="this._user.tail.length" type="submit" class="btn btn-success m-btn-success m-btn w-100">
+      <button id="addButton" [ngClass]="{'m-progress': this._user.tail.length }" [disabled]="this._user.tail.length" type="submit" class="btn btn-success m-btn-success m-btn w-100">
         {{ data?.id ? "Editar" : "Agregar" }}
       </button>
     </div>

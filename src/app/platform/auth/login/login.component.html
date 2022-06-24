@@ -7,16 +7,16 @@
       <form [formGroup]="myForm" (ngSubmit)="login(myForm.value)">
         <div class="form-group mt-5 mb-4">
           <label for="exampleInputEmail1">E-mail</label>
-          <input type="email" formControlName="username" class="form-control" aria-describedby="emailHelp" placeholder="Ingresar email">
+          <input id="emailInput" type="email" formControlName="username" class="form-control" aria-describedby="emailHelp" placeholder="Ingresar email">
         </div>
         <label for="exampleInputPassword1">Contraseña</label>
         <div class="form-group mb-3">
           <div class="position-relative">
-            <input [type]="this.showPassword ? 'text' : 'password'" formControlName="password" class="form-control" id="exampleInputPassword1" placeholder="Contraseña">
+            <input id="passInput" [type]="this.showPassword ? 'text' : 'password'" formControlName="password" class="form-control" id="exampleInputPassword1" placeholder="Contraseña">
             <img  (click)='showPasswordEvent()' class="position-absolute add-icon me-3" [src]="this.showPassword ? 'assets/icons/eye-slash.png' : 'assets/icons/eye.png'" alt="">
           </div>
         </div>
-        <button [ngClass]="{'m-progress':this._auth.tail.length }" [disabled]="this._auth.tail.length" type="submit" class="btn btn-primary w-100 m-btn-primary mt-4 mb-5" >
+        <button id="sendButton" [ngClass]="{'m-progress':this._auth.tail.length }" [disabled]="this._auth.tail.length" type="submit" class="btn btn-primary w-100 m-btn-primary mt-4 mb-5" >
           Iniciar sesión</button>
       </form>
     </div>

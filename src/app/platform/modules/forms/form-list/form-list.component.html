@@ -10,7 +10,7 @@
       <div class="col-lg-10">
         <div class="row justify-content-between">
           <div class="col-lg-3 col-xs-10 mb-4">
-            <button (click)="create()" class="btn btn-success m-btn-success m-btn w-100 truncate">
+            <button id="createFormButton" (click)="create()" class="btn btn-success m-btn-success m-btn w-100 truncate">
               Crear formulario
             </button>
           </div>
@@ -20,6 +20,7 @@
                 <div class="inner-addon right-addon">
                   <i class="fa fa-search"></i>
                   <input
+                    id="searchInput"
                     type="text"
                     [(ngModel)]="filterInput"
                     class="form-control w-100"
@@ -61,20 +62,20 @@
           <div class="dyTableContainer px-0 mb-4">
             <div class="dyTable">
               <div class="d-flex flex-row dyItem" [style.minWidth]="100 * columns+'px'">
-                <div [style.width.%]="(100 / columns) * 2" class="px-3 fw-300 dyCol">Formulario</div>
-                <div [style.width.%]="(100 / columns) * 2" class="px-3 fw-300 dyCol">Fecha</div>
-                <div [style.width.%]="100 / columns" class="px-3 fw-300 dyCol">Vehículo</div>
-                <div [style.width.%]="100 / columns" class="px-3 fw-300 dyCol">Conductor</div>
-                <div [style.width.%]="100 / columns" class="px-3 fw-300 dyCol">Estado</div>
+                <div id="formNameLabel" [style.width.%]="(100 / columns) * 2" class="px-3 fw-300 dyCol">Formulario</div>
+                <div id="dateLabel" [style.width.%]="(100 / columns) * 2" class="px-3 fw-300 dyCol">Fecha</div>
+                <div id="vehicleNameLabel" [style.width.%]="100 / columns" class="px-3 fw-300 dyCol">Vehículo</div>
+                <div id="driverLabel" [style.width.%]="100 / columns" class="px-3 fw-300 dyCol">Conductor</div>
+                <div id="stateLabel" [style.width.%]="100 / columns" class="px-3 fw-300 dyCol">Estado</div>
                 <div [style.width.%]="100 / columns" class="text-end px-3 fw-300 dyCol"></div>
               </div>
               <ng-container *ngFor="let evaluation of history | filterPipe : { term: this.filterInput , condition: this.filterCondition, empty: this.default  } ;">
                 <div  class="d-flex flex-row dyItem" [style.minWidth]="100 * columns+'px'">
-                  <div [style.width.%]="(100 / columns) * 2" class="px-3 dyCol">{{ evaluation.nombre_evaluacion }}</div>
-                  <div [style.width.%]="(100 / columns) * 2" class="px-3 dyCol truncate">{{ evaluation.fecha }}</div>
-                  <div [style.width.%]="100 / columns" class="px-3 dyCol">{{ evaluation.nombre_vehiculo }}</div>
-                  <div [style.width.%]="100 / columns" class="px-3 dyCol">{{ evaluation.nombre_usuario }}</div>
-                  <div [style.width.%]="100 / columns" class="px-3 dyCol">{{ evaluation.nombre_evaluacion!=="-"  ? "Completo":"-" }}</div>
+                  <div id="formNameValueLabel" [style.width.%]="(100 / columns) * 2" class="px-3 dyCol">{{ evaluation.nombre_evaluacion }}</div>
+                  <div id="dateValueLabel" [style.width.%]="(100 / columns) * 2" class="px-3 dyCol truncate">{{ evaluation.fecha }}</div>
+                  <div id="vehicleNameValueLabel" [style.width.%]="100 / columns" class="px-3 dyCol">{{ evaluation.nombre_vehiculo }}</div>
+                  <div id="driverValueLabel" [style.width.%]="100 / columns" class="px-3 dyCol">{{ evaluation.nombre_usuario }}</div>
+                  <div id="stateValueLabel" [style.width.%]="100 / columns" class="px-3 dyCol">{{ evaluation.nombre_evaluacion!=="-"  ? "Completo":"-" }}</div>
                   <div [style.width.%]="100 / columns" class="text-center px-3 dyCol">
                     <i (click)="viewForm(evaluation.log_id)" class="fa fa-eye pull-right pointer mx-2" aria-hidden="true"></i>
                   </div>

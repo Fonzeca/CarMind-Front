@@ -10,13 +10,13 @@
             <div class="col-lg-10">
                 <div class="row">
                     <div class=" col-lg-3 col-xs-10  mb-4">
-                        <button (click)="formAssignment()" class="btn btn-success m-btn-success m-btn w-100 truncate">Asignar formulario</button>
+                        <button id="addFormButton" (click)="formAssignment()" class="btn btn-success m-btn-success m-btn w-100 truncate">Asignar formulario</button>
                     </div>
                     <div class=" col-lg-3 col-xs-10  mb-4">
-                        <button (click)="addDocument(vehicle.id)" class="btn btn-primary m-btn-acento m-btn w-100 truncate">Adjuntar documento</button>
+                        <button id="addDocButton" (click)="addDocument(vehicle.id)" class="btn btn-primary m-btn-acento m-btn w-100 truncate">Adjuntar documento</button>
                     </div>
                     <div class=" col-lg-3 col-xs-10  mb-4">
-                        <button *ngIf="vehicle?.id && vehicle?.averiado" [routerLink]="'/'+this.getAppRoutes.platform.vehicles.review.route(vehicle.id)" class="btn btn-primary m-btn-acento m-btn w-100 truncate">Hacer revisión</button>
+                        <button id="makeCheckButton" *ngIf="vehicle?.id && vehicle?.averiado" [routerLink]="'/'+this.getAppRoutes.platform.vehicles.review.route(vehicle.id)" class="btn btn-primary m-btn-acento m-btn w-100 truncate">Hacer revisión</button>
                     </div>
                 </div>
             </div>
@@ -43,14 +43,14 @@
                     <div class="col">
                         <div class="card card-2" [ngClass]="{ 'animated-background' : !vehicle }">
                             <ng-container *ngIf="vehicle">
-                                <i (click)="editVehicle()" class="fa fa-pencil" aria-hidden="true"></i>
-                                <div class="information-content"> <span class="title-card-2">Nombre:</span> <span>{{vehicle.nombre}}</span> </div>
-                                <div class="information-content"> <span class="title-card-2">Marca:</span> <span>{{vehicle.marca}}</span> </div>
-                                <div class="information-content"> <span class="title-card-2">Modelo:</span> <span>{{vehicle.modelo}}</span> </div>
-                                <div class="information-content"> <span class="title-card-2">Año:</span> <span>{{vehicle.linea}}</span> </div>
-                                <div class="information-content"> <span class="title-card-2">Patente:</span> <span>{{vehicle.patente ? vehicle.patente : "N/A"  }}</span> </div>
-                                <div class="information-content"> <span class="title-card-2">Chofer actual:</span> <span>{{vehicle.usuario_en_uso ? vehicle.usuario_en_uso : "N/A"  }}</span> </div>
-                                <div class="information-content"> <span class="title-card-2">Kilometraje:</span> <span>{{vehicle.kilometraje ? vehicle.kilometraje : "N/A"  }}</span> </div>
+                                <i id="editButton" (click)="editVehicle()" class="fa fa-pencil" aria-hidden="true"></i>
+                                <div class="information-content"> <span id="nameLabel" class="title-card-2">Nombre:</span> <span id="nameValueLabel" >{{vehicle.nombre}}</span> </div>
+                                <div class="information-content"> <span id="brandLabel" class="title-card-2">Marca:</span> <span id="brandValueLabel" >{{vehicle.marca}}</span> </div>
+                                <div class="information-content"> <span id="modelLabel" class="title-card-2">Modelo:</span> <span id="modelValueLabel" >{{vehicle.modelo}}</span> </div>
+                                <div class="information-content"> <span id="yearLabel" class="title-card-2">Año:</span> <span id="yearValueLabel" >{{vehicle.linea}}</span> </div>
+                                <div class="information-content"> <span id="patentLabel" class="title-card-2">Patente:</span> <span id="patentValueLabel" >{{vehicle.patente ? vehicle.patente : "N/A"  }}</span> </div>
+                                <div class="information-content"> <span id="driverLabel" class="title-card-2">Chofer actual:</span> <span id="userValueLabel" >{{vehicle.usuario_en_uso ? vehicle.usuario_en_uso : "N/A"  }}</span> </div>
+                                <div class="information-content"> <span id="kmLabel" class="title-card-2">Kilometraje:</span> <span id="kmValueLabel" >{{vehicle.kilometraje ? vehicle.kilometraje : "N/A"  }}</span> </div>
                               </ng-container>
                         </div>
                     </div>
@@ -70,7 +70,7 @@
                                                 </div>
                                                 <div [style.width.%]="100 / columns" class="text-end px-3 d-flex flex-row justify-content-end align-items-center dyCol f">
                                                     <div class="mx-4">Fecha de caducidad: {{ doc.fecha_vencimiento?? "N/A" }}</div>
-                                                    <i (click)="verDocument(vehicle.id, doc.tipo_documento)" class="fa fa-eye pull-right pointer" aria-hidden="true"></i>
+                                                    <i id="viewDocButton" (click)="verDocument(vehicle.id, doc.tipo_documento)" class="fa fa-eye pull-right pointer" aria-hidden="true"></i>
                                                 </div>
                                             </div>
                                         </ng-container>
@@ -90,16 +90,16 @@
                                 <div class="dyTableContainer px-0">
                                     <div class="dyTable">
                                         <div class="d-flex flex-row dyItem" [style.minWidth]="100 * recentReviewsColumns+'px'">
-                                            <div [style.width.%]="100 / recentReviewsColumns" class="px-3 fw-300 dyCol">Fecha</div>
-                                            <div [style.width.%]="(100 / recentReviewsColumns) * 2" class="px-3 fw-300 dyCol">Nota</div>
+                                            <div id="dateLabel" [style.width.%]="100 / recentReviewsColumns" class="px-3 fw-300 dyCol">Fecha</div>
+                                            <div id="noteLabel" [style.width.%]="(100 / recentReviewsColumns) * 2" class="px-3 fw-300 dyCol">Nota</div>
                                             <div [style.width.%]="(100 / recentReviewsColumns)" class="px-3 fw-300 dyCol"></div>
                                         </div>
                                         <ng-container *ngFor="let review of recentReviews;">
                                             <div class="d-flex flex-row dyItem" [style.minWidth]="100 * recentReviewsColumns+'px'">
-                                                <div [style.width.%]="100 / recentReviewsColumns" class="px-3 dyCol truncate">{{ review.fecha }}</div>
-                                                <div [style.width.%]="(100 / recentReviewsColumns) * 2" class="px-3 dyCol truncate">{{ review.nota }}</div>
+                                                <div id="dateValueLabel" [style.width.%]="100 / recentReviewsColumns" class="px-3 dyCol truncate">{{ review.fecha }}</div>
+                                                <div id="noteValueLabel" [style.width.%]="(100 / recentReviewsColumns) * 2" class="px-3 dyCol truncate">{{ review.nota }}</div>
                                                 <div [style.width.%]="(100 / recentReviewsColumns)" class="px-3 dyCol text-end">
-                                                    <i [routerLink]="'/'+this.getAppRoutes.platform.vehicles.review.view.route(vehicle.id, review.id)" class="fa fa-eye pull-right pointer mx-2" aria-hidden="true"></i>
+                                                    <i id="viewHistoryButton" [routerLink]="'/'+this.getAppRoutes.platform.vehicles.review.view.route(vehicle.id, review.id)" class="fa fa-eye pull-right pointer mx-2" aria-hidden="true"></i>
                                                 </div>
                                             </div>
                                         </ng-container>
@@ -148,22 +148,22 @@
                             <div class="dyTableContainer px-0">
                                 <div class="dyTable">
                                     <div class="d-flex flex-row dyItem" [style.minWidth]="100 * recentFormsColumns+'px'">
-                                        <div [style.width.%]="(100 / recentFormsColumns) * 2" class="px-3 fw-300 dyCol">Formulario</div>
-                                        <div [style.width.%]="(100 / recentFormsColumns) * 2" class="px-3 fw-300 dyCol">Fecha</div>
-                                        <div [style.width.%]="100 / recentFormsColumns" class="px-3 fw-300 dyCol">Vehículo</div>
-                                        <div [style.width.%]="100 / recentFormsColumns" class="px-3 fw-300 dyCol">Conductor</div>
-                                        <div [style.width.%]="100 / recentFormsColumns" class="text-end px-3 fw-300 dyCol">Estado</div>
+                                        <div id="nameLabel" [style.width.%]="(100 / recentFormsColumns) * 2" class="px-3 fw-300 dyCol">Formulario</div>
+                                        <div id="dateLabel" [style.width.%]="(100 / recentFormsColumns) * 2" class="px-3 fw-300 dyCol">Fecha</div>
+                                        <div id="vehicleLabel" [style.width.%]="100 / recentFormsColumns" class="px-3 fw-300 dyCol">Vehículo</div>
+                                        <div id="driverLabel" [style.width.%]="100 / recentFormsColumns" class="px-3 fw-300 dyCol">Conductor</div>
+                                        <div id="stateLabel" [style.width.%]="100 / recentFormsColumns" class="text-end px-3 fw-300 dyCol">Estado</div>
                                         <div [style.width.%]="100 / recentFormsColumns" class="text-end px-3 fw-300 dyCol"></div>
                                     </div>
                                     <ng-container *ngFor="let evaluation of history;">
                                         <div class="d-flex flex-row dyItem" [style.minWidth]="100 * recentFormsColumns+'px'">
-                                            <div [style.width.%]="(100 / recentFormsColumns) * 2" class="px-3 dyCol">{{ evaluation.nombre_evaluacion }}</div>
-                                            <div [style.width.%]="(100 / recentFormsColumns) * 2" class="px-3 dyCol truncate">{{ evaluation.fecha }}</div>
-                                            <div [style.width.%]="100 / recentFormsColumns" class="px-3 dyCol">{{ evaluation.nombre_vehiculo }}</div>
-                                            <div [style.width.%]="100 / recentFormsColumns" class="px-3 dyCol">{{ evaluation.nombre_usuario }}</div>
-                                            <div [style.width.%]="100 / recentFormsColumns" class="text-end px-3 dyCol">{{ evaluation.nombre_evaluacion!=="-" ? "Completo":"-" }}</div>
+                                            <div id="nameValueLabel" [style.width.%]="(100 / recentFormsColumns) * 2" class="px-3 dyCol">{{ evaluation.nombre_evaluacion }}</div>
+                                            <div id="dateValueLabel" [style.width.%]="(100 / recentFormsColumns) * 2" class="px-3 dyCol truncate">{{ evaluation.fecha }}</div>
+                                            <div id="vehicleValueLabel" [style.width.%]="100 / recentFormsColumns" class="px-3 dyCol">{{ evaluation.nombre_vehiculo }}</div>
+                                            <div id="driverValueLabel" [style.width.%]="100 / recentFormsColumns" class="px-3 dyCol">{{ evaluation.nombre_usuario }}</div>
+                                            <div id="stateValueLabel" [style.width.%]="100 / recentFormsColumns" class="text-end px-3 dyCol">{{ evaluation.nombre_evaluacion!=="-" ? "Completo":"-" }}</div>
                                             <div [style.width.%]="100 / recentFormsColumns" class="text-end px-3 dyCol">
-                                                <i (click)="viewForm(evaluation.log_id)" class="fa fa-eye pull-right pointer mx-2" aria-hidden="true"></i>
+                                                <i id="viewFormButton" (click)="viewForm(evaluation.log_id)" class="fa fa-eye pull-right pointer mx-2" aria-hidden="true"></i>
                                             </div>
                                         </div>
                                     </ng-container>

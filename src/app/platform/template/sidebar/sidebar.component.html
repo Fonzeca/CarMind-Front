@@ -14,7 +14,7 @@
             </div>
             <a id="row-content" (mouseenter)="abrirSidebar()"  [routerLinkActive]="['active']" [routerLink]="['/'+this.getAppRoutes.platform.vehicles.route]">
                 <div item-menu>
-                  <img src="assets/icons/la_car-side.png" width="40" alt="">
+                  <img id="vehiclesIcon" src="assets/icons/la_car-side.png" width="40" alt="">
                 </div>
                 <div class="justify-left-content" item-menu>
                     <span class="text nav-text fw-400" #asText>Vehículos</span>
@@ -22,7 +22,7 @@
             </a>
             <a id="row-content" (mouseenter)="abrirSidebar()"  [routerLinkActive]="['active']" [routerLink]="['/'+this.getAppRoutes.platform.forms.route]">
                 <div item-menu>
-                  <img src="assets/icons/ant-design_form-outlined.png" width="36" alt="">
+                  <img id="formIcon" src="assets/icons/ant-design_form-outlined.png" width="36" alt="">
                 </div>
                 <div class="justify-left-content" item-menu>
                     <span class="text nav-text fw-400" #asText>Formulario</span>
@@ -30,7 +30,7 @@
             </a>
             <a id="row-content" (mouseenter)="abrirSidebar()"   [routerLinkActive]="['active']" [routerLink]="['/'+this.getAppRoutes.platform.users.route]">
                 <div item-menu>
-                  <img src="assets/icons/ion_people-sharp.png" width="40" alt="">
+                  <img id="personalIcon" src="assets/icons/ion_people-sharp.png" width="40" alt="">
                 </div>
                 <div class="justify-left-content" item-menu>
                     <span class="text nav-text fw-400" #asText>Personal</span>
