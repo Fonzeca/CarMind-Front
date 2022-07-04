@@ -2,8 +2,7 @@ import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { data } from 'jquery';
-import { catchError, map, of } from 'rxjs';
+import { map, of } from 'rxjs';
 import { AppRoutes } from 'src/app/routes';
 import { AuthService } from '../../services/auth.service';
 
@@ -14,43 +13,42 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  email!: string
-
-  usuario = new FormControl('', [Validators.required, Validators.maxLength(50), Validators.pattern('\b[\w.-]+@[\w.-]+.\w{2,4}\b')]);
-  contraseña = new FormControl('', [Validators.required, Validators.maxLength(50)])
-  resultado!: string;
+  username = new FormControl('', [Validators.required, Validators.maxLength(30), Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]);
+  password = new FormControl('', [Validators.required, Validators.maxLength(30), Validators.minLength(6)])
 
   constructor(
     public formBuilder: FormBuilder,
     public _auth: AuthService,
     private router: Router
-  ) { }
+  ) {
+  }
 
   myForm = this.formBuilder.group({
-    username: this.usuario,
-    password: this.contraseña
+    username: this.username,
+    password: this.password
   });
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   login(form:any): any {
     const params = new HttpParams()
     .append('username', form.username)
     .append('password', form.password)
 
-    this._auth.login(params).pipe(map((data:any) => {
-      if(data.mustChangePassword){
-        this.router.navigateByUrl(AppRoutes.auth.change_password);
-      }else{
-        this.router.navigateByUrl(AppRoutes.platform.vehicles.route);
-      }
-    })).subscribe(
-      error=>{
-        console.log(error);
-      },
-    )
+    if(this.username.errors === null && this.password.errors === null){
+      this._auth.login(params).pipe(map((data:any) => {
+        if(data.mustChangePassword){
+          this.router.navigateByUrl(AppRoutes.auth.change_password);
+        }else{
+          this.router.navigateByUrl(AppRoutes.platform.vehicles.route);
+        }
+      })).subscribe(
+        error=>{
+          console.log(error);
+        },
+      )
+    }
+
   }
 
   handlerError(error: any) {
@@ -59,32 +57,43 @@ export class LoginComponent implements OnInit {
     return of(error);
   }
 
-  errorUsuario() {
-    if ((this.usuario.dirty || this.usuario.touched) && this.usuario.errors) {
-      return "No ha ingresado su email";
+  userError() {
 
-    }
-    if (this.usuario.hasError('pattern') && this.usuario.errors) {
-      return "El campo esta incorrecto";
+    if(!this.username.dirty) this.username.setErrors(null);
 
-    }else if (this.usuario.hasError('maxlength') && this.usuario.errors) {
-      return "El maximo de letras es 30";
+    if (this.username.hasError('required')) {
+      return "El email no puede estar vacío";
     }
+
+    if (this.username.hasError('pattern')) {
+      return "Email ingresado inválido";
+    }
+
+    if (this.username.hasError('maxlength')) {
+      return "Email demasiado largo";
+    }
+
     return;
   }
 
-  errorContrasenia() {
-    if ((this.contraseña.dirty || this.contraseña.touched) && this.contraseña.errors) {
-      this.resultado = "No ha ingresa su contraseña";
+  passError() {
 
+    if(!this.password.dirty) this.password.setErrors(null);
+
+    if (this.password.hasError('required')) {
+      return "La contraseña no puede estar vacía";
     }
 
-    else if (this.contraseña.hasError('maxlength') && this.contraseña.errors) {
-      this.resultado = "El maximo de letras es 30";
 
+    if (this.password.hasError('maxlength')) {
+      return "Contraseña demasiado larga";
     }
 
-    return this.resultado;
+    if (this.password.hasError('minlength')) {
+      return "La contraseña debe tener al menos 6 caracteres";
+    }
+
+    return;
   }
 
   showPassword=false;

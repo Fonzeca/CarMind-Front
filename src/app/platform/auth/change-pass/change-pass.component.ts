@@ -16,7 +16,7 @@ import { FormsService } from '../../services/forms.service';
 export class ChangePassComponent implements OnInit {
 
   password = new FormControl('', [Validators.required, Validators.maxLength(50)])
-  verifyPassword = new FormControl('', [Validators.required, Validators.maxLength(50)])
+  verifyPassword = new FormControl('', [Validators.required, Validators.maxLength(50), Validators.minLength(6)])
   result!: string;
 
   constructor(
@@ -42,23 +42,21 @@ export class ChangePassComponent implements OnInit {
     .append('password', form.password)
     .append('verifyPassword', form.verifyPassword)
 
-    if(this.arePasswordsEqual()){
-      if(this.arePasswordsShort()){
-        this._app.sw.alertError('La contraseña debe tener al menos 6 caracteres');
+    if(this.password.errors === null && this.verifyPassword.errors === null){
+      if(this.arePasswordsEqual()){
+          this._auth.changePasswordAtFirstLogin(params).subscribe(
+            success=>{
+                this._app.sw.alertSuccess('Contraseña cambiada').then(() => {
+                  this.router.navigateByUrl(AppRoutes.platform.vehicles.route);
+                });
+            },
+           error=>{
+              console.log(error);
+            },
+          )
       }else{
-        this._auth.changePasswordAtFirstLogin(params).subscribe(
-          success=>{
-              this._app.sw.alertSuccess('Contraseña cambiada').then(() => {
-                this.router.navigateByUrl(AppRoutes.platform.vehicles.route);
-              });
-          },
-         error=>{
-            console.log(error);
-          },
-        )
+        this._app.sw.alertError('Las contraseñas no coinciden');
       }
-    }else{
-      this._app.sw.alertError('Las contraseñas no coinciden');
     }
 
   }
@@ -70,6 +68,26 @@ export class ChangePassComponent implements OnInit {
 
   showPassword=false;
   showPassword2=false;
+
+  passError() {
+
+    if(!this.password.dirty) this.password.setErrors(null);
+
+    if (this.password.hasError('required')) {
+      return "La contraseña no puede estar vacía";
+    }
+
+    if (this.password.hasError('maxlength') && this.password.errors) {
+      return "Contraseña demasiado larga";
+    }
+
+    if (this.password.hasError('minlength') && this.password.errors) {
+      return "La contraseña debe tener al menos 6 caracteres";
+    }
+
+    return;
+  }
+
   showPasswordEvent(){
     this.showPassword = !this.showPassword;
 
@@ -82,7 +100,4 @@ export class ChangePassComponent implements OnInit {
     return this.password.value === this.verifyPassword.value;
   }
 
-  arePasswordsShort() {
-    return this.password.value.length < 6 || this.verifyPassword.value.length < 6;
-  }
 }
