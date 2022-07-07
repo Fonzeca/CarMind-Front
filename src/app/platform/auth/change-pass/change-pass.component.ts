@@ -15,8 +15,8 @@ import { FormsService } from '../../services/forms.service';
 })
 export class ChangePassComponent implements OnInit {
 
-  password = new FormControl('', [Validators.required, Validators.maxLength(50)])
-  verifyPassword = new FormControl('', [Validators.required, Validators.maxLength(50), Validators.minLength(6)])
+  password = new FormControl('', [Validators.maxLength(50), Validators.minLength(6)])
+  verifyPassword = new FormControl('', [Validators.maxLength(50), Validators.minLength(6)])
   result!: string;
 
   constructor(
@@ -35,6 +35,11 @@ export class ChangePassComponent implements OnInit {
   ngOnInit(): void {
     this._app.sw.alertWarning('').then(() => {
     });
+  }
+
+  ngAfterViewInit() {
+    this.password.addValidators(Validators.required);
+    this.verifyPassword.addValidators(Validators.required);
   }
 
   changePass(form:any): any {
@@ -71,8 +76,6 @@ export class ChangePassComponent implements OnInit {
 
   passError() {
 
-    if(!this.password.dirty) this.password.setErrors(null);
-
     if (this.password.hasError('required')) {
       return "La contraseña no puede estar vacía";
     }
@@ -87,6 +90,24 @@ export class ChangePassComponent implements OnInit {
 
     return;
   }
+
+  verifyPassError() {
+
+    if (this.verifyPassword.hasError('required')) {
+      return "La contraseña no puede estar vacía";
+    }
+
+    if (this.verifyPassword.hasError('maxlength') && this.password.errors) {
+      return "Contraseña demasiado larga";
+    }
+
+    if (this.verifyPassword.hasError('minlength') && this.password.errors) {
+      return "La contraseña debe tener al menos 6 caracteres";
+    }
+
+    return;
+  }
+
 
   showPasswordEvent(){
     this.showPassword = !this.showPassword;

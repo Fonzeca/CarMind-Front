@@ -11,10 +11,11 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
+
 export class LoginComponent implements OnInit {
 
-  username = new FormControl('', [Validators.required, Validators.maxLength(30), Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]);
-  password = new FormControl('', [Validators.required, Validators.maxLength(30), Validators.minLength(6)])
+  username = new FormControl('', [Validators.maxLength(30), Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]);
+  password = new FormControl('', [Validators.maxLength(30), Validators.minLength(6)])
 
   constructor(
     public formBuilder: FormBuilder,
@@ -28,7 +29,14 @@ export class LoginComponent implements OnInit {
     password: this.password
   });
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+
+  }
+
+  ngAfterViewInit() {
+    this.username.addValidators(Validators.required);
+    this.password.addValidators(Validators.required);
+  }
 
   login(form:any): any {
     const params = new HttpParams()
@@ -59,8 +67,6 @@ export class LoginComponent implements OnInit {
 
   userError() {
 
-    if(!this.username.dirty) this.username.setErrors(null);
-
     if (this.username.hasError('required')) {
       return "El email no puede estar vacío";
     }
@@ -78,12 +84,9 @@ export class LoginComponent implements OnInit {
 
   passError() {
 
-    if(!this.password.dirty) this.password.setErrors(null);
-
     if (this.password.hasError('required')) {
       return "La contraseña no puede estar vacía";
     }
-
 
     if (this.password.hasError('maxlength')) {
       return "Contraseña demasiado larga";
