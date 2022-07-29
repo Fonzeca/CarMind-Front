@@ -163,7 +163,7 @@
                                             <div id="driverValueLabel" [style.width.%]="100 / recentFormsColumns" class="px-3 dyCol">{{ evaluation.nombre_usuario }}</div>
                                             <div id="stateValueLabel" [style.width.%]="100 / recentFormsColumns" class="text-end px-3 dyCol">{{ evaluation.nombre_evaluacion!=="-" ? "Completo":"-" }}</div>
                                             <div [style.width.%]="100 / recentFormsColumns" class="text-end px-3 dyCol">
-                                                <i id="viewFormButton" (click)="viewForm(evaluation.log_id)" class="fa fa-eye pull-right pointer mx-2" aria-hidden="true"></i>
+                                                <i id="viewFormButton"  (click)="viewForm(evaluation.log_id)" class="fa fa-eye pull-right pointer mx-2" aria-hidden="true"></i>
                                             </div>
                                         </div>
                                     </ng-container>

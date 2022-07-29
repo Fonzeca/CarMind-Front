@@ -1,6 +1,7 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { ModalComponent } from 'src/app/platform/components/modal/modal.component';
 import { formInterface } from 'src/app/platform/interfaces/form';
@@ -38,7 +39,7 @@ export class VehiclePreviewComponent extends BaseComponent implements OnInit {
   slideIndex: number = 0;
   slideCant: number = 4;
 
-  constructor(public _vehicle: VehiclesService,  public activatedRoute:ActivatedRoute, public dialog: MatDialog) {
+  constructor(public _vehicle: VehiclesService,  public activatedRoute:ActivatedRoute, public dialog: MatDialog, private _router: Router, private _location: Location) {
     super()
   }
 
@@ -47,6 +48,9 @@ export class VehiclePreviewComponent extends BaseComponent implements OnInit {
       this.activatedRoute.params.subscribe((param:Params)=>{
         if(param["id"]){
           this.getById(param["id"]);
+        }
+        if(param["evaluation_id"]){
+          this.viewForm(param["evaluation_id"], false);
         }
       })
     );
@@ -177,7 +181,9 @@ export class VehiclePreviewComponent extends BaseComponent implements OnInit {
     setTimeout(() => this.flicker.next(null), 0);
   }
 
-  viewForm(id:number|string) {
+  viewForm(id:number|string, changeUrl = true) {
+    if (changeUrl) this._location.replaceState(`${this._router.url}/evaluation/${id}`);
+
     this.dialog.open(ModalComponent, {
       width: '280px;',
       height: 'auto',
@@ -188,11 +194,21 @@ export class VehiclePreviewComponent extends BaseComponent implements OnInit {
           component: ViewFormModalComponent,
           data: {
             id,
-            close: () => this.dialog.closeAll(),
+            close: () => {
+              this.dialog.closeAll();
+            },
           },
         },
         title: 'Formulario',
       },
-    }).afterClosed();
+    }).afterClosed().subscribe(() => {
+      if(changeUrl){
+        this._location.replaceState(`/platform/vehicles/${this.vehicle.id}`)
+      }
+      else{
+        this._router.navigateByUrl('/platform/vehicles/' + this.vehicle.id);
+      }
+
+  })
   }
 }

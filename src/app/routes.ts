@@ -55,7 +55,25 @@ export const AppRoutes = {
                   }
                 }
               }
-            }
+            },
+            get evaluation(){
+              return {
+                route(id:any){
+                  return this._route.replace(":id", id);
+                },
+                _route:`${this.route}/:id/evaluation`,
+                main:":id/evaluation",
+                get view(){
+                  return {
+                    route(vehicle_id:any, evaluation_id:any){
+                      return this._route.replace(":id", vehicle_id).replace(":evaluation_id", evaluation_id);
+                    },
+                    _route:`${this._route}/:evaluation_id`,
+                    main:`${this.main}/:evaluation_id`.toString()
+                  }
+                }
+              }
+            },
           }
         },
         get my_account(){
