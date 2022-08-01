@@ -9,7 +9,7 @@
                             <input [(ngModel)]="form.titulo" (focusout)="editTitle=false" (keydown.enter)="editTitle=false" class="form-control" #Intitle *ngIf="editTitle" type="text">
                             <span *ngIf="!editTitle" [ngClass]="{'text-danger': formSubmit &&  !form.titulo}"> {{form.titulo ? form.titulo : "Título del formulario"}}</span>
                             <i *ngIf="!editTitle" (click)="editTitleFn()" [ngClass]="{ 'fa-check':editTitle, 'fa-pencil':!editTitle, 'text-danger': formSubmit &&  !form.titulo}" class="fa  edit-title px-2 pointer"></i>
-                            <i *ngIf="!editTitle" (click)="deleteTitleFn()" [ngClass]="{ 'fa-trash':!editTitle, 'text-danger': formSubmit &&  !form.titulo}" class="fa  edit-title"></i>
+                            <i *ngIf="!editTitle" (click)="deleteTitleFn()" [ngClass]="{ 'fa-trash':!editTitle, 'text-danger': formSubmit &&  !form.titulo}" class="fa  edit-title pointer"></i>
                         </h3>
                         <div class="card">
                             <h5 class="card-header px-4">Agregar pregunta</h5>
