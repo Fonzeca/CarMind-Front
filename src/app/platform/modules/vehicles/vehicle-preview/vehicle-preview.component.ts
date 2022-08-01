@@ -1,14 +1,12 @@
-import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { Subject } from 'rxjs';
 import { ModalComponent } from 'src/app/platform/components/modal/modal.component';
 import { formInterface } from 'src/app/platform/interfaces/form';
 import { vehicle } from 'src/app/platform/interfaces/vehicle';
 import { vehicleByIdResponse, VehiclesService } from 'src/app/platform/services/vehicles.service';
 import { BaseComponent } from 'src/app/platform/shared/components/base.component';
-import { ViewFormModalComponent } from '../../forms/shared/view-form-modal/view-form-modal.component';
 import { AddDocumentComponent } from '../shared/add-document/add-document.component';
 import { FormAssignmentComponent } from '../shared/form-assignment/form-assignment.component';
 import { FormVehicleComponent } from '../shared/form-vehicle/form-vehicle.component';
@@ -39,7 +37,7 @@ export class VehiclePreviewComponent extends BaseComponent implements OnInit {
   slideIndex: number = 0;
   slideCant: number = 4;
 
-  constructor(public _vehicle: VehiclesService,  public activatedRoute:ActivatedRoute, public dialog: MatDialog, private _router: Router, private _location: Location) {
+  constructor(public _vehicle: VehiclesService,  public activatedRoute:ActivatedRoute, public dialog: MatDialog) {
     super()
   }
 
@@ -48,9 +46,6 @@ export class VehiclePreviewComponent extends BaseComponent implements OnInit {
       this.activatedRoute.params.subscribe((param:Params)=>{
         if(param["id"]){
           this.getById(param["id"]);
-        }
-        if(param["evaluation_id"]){
-          this.viewForm(param["evaluation_id"], false);
         }
       })
     );
@@ -181,34 +176,4 @@ export class VehiclePreviewComponent extends BaseComponent implements OnInit {
     setTimeout(() => this.flicker.next(null), 0);
   }
 
-  viewForm(id:number|string, changeUrl = true) {
-    if (changeUrl) this._location.replaceState(`${this._router.url}/evaluation/${id}`);
-
-    this.dialog.open(ModalComponent, {
-      width: '280px;',
-      height: 'auto',
-      panelClass: ['md:w-3/5', 'w-full'],
-      maxHeight: '85vh',
-      data: {
-        viewComponent: {
-          component: ViewFormModalComponent,
-          data: {
-            id,
-            close: () => {
-              this.dialog.closeAll();
-            },
-          },
-        },
-        title: 'Formulario',
-      },
-    }).afterClosed().subscribe(() => {
-      if(changeUrl){
-        this._location.replaceState(`/platform/vehicles/${this.vehicle.id}`)
-      }
-      else{
-        this._router.navigateByUrl('/platform/vehicles/' + this.vehicle.id);
-      }
-
-  })
-  }
 }

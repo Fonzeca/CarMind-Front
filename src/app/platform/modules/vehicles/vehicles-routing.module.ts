@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppRoutes } from 'src/app/routes';
 import { VehicleListComponent } from './vehicle-list/vehicle-list.component';
+import { DialogEntryComponent } from './vehicle-preview/dialog-entry.component';
 import { VehiclePreviewComponent } from './vehicle-preview/vehicle-preview.component';
 import { VehicleReviewComponent } from './vehicle-review/vehicle-review.component';
 
@@ -12,7 +13,13 @@ const routes: Routes = [
   },
   {
     path:':id',
-    component: VehiclePreviewComponent
+    component: VehiclePreviewComponent,
+    children:[
+      {
+        path: 'evaluation/:id',
+        component: DialogEntryComponent
+      }
+    ]
   },
   {
     path: AppRoutes.platform.vehicles.review.main,
@@ -21,11 +28,7 @@ const routes: Routes = [
   {
     path: AppRoutes.platform.vehicles.review.view.main,
     component: VehicleReviewComponent
-  },
-  {
-    path: AppRoutes.platform.vehicles.evaluation.view.main,
-    component: VehiclePreviewComponent
-  },
+  }
 ];
 
 @NgModule({
