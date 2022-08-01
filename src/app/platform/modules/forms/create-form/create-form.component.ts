@@ -118,6 +118,24 @@ export class CreateFormComponent implements OnInit {
     setTimeout(() => this.Intitle.nativeElement.focus(), 0);
   }
 
+  deleteTitleFn() {
+    Swal.fire({
+      title: `¿Estás seguro que querés eliminar este formulario?`,
+      showCancelButton: true,
+      confirmButtonText: 'Si',
+      cancelButtonText: 'Cancelar',
+      customClass: {
+        actions: 'my-actions',
+        confirmButton: "btn btn-success m-btn-succes",
+        cancelButton: 'order-1 right-gap',
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        //lamar a la api
+      }
+    })
+  }
+
   editPregunta(i: number, pregunta: Pregunta) {
     this.editing_index = i;
     const tempPregunta = { ...pregunta };
