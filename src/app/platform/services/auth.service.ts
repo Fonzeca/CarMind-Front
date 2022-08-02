@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, map, Observable, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
 import { user } from '../interfaces/user';
 import { ApiService } from './core/api.service';
 import endpoints from './core/endpoints';
@@ -22,7 +22,7 @@ export class AuthService extends ApiService {
     const { auth : {login : url} } = endpoints
     return this.post(url, params).pipe(
       map((data:any) => {
-        localStorage.setItem('token', data.token);
+        if(!data.mustChangePassword) localStorage.setItem('token', data.token);
         return data;
       })
     );
