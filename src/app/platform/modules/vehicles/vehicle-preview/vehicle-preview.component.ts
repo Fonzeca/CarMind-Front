@@ -114,7 +114,7 @@ export class VehiclePreviewComponent extends BaseComponent implements OnInit {
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        this._vehicle.delete(this.vehicle.id.toString()).subscribe((res) => {
+        this._vehicle.deleteVehicle(this.vehicle.id.toString()).subscribe((res) => {
           this._app.sw.alertSuccess('Vehículo eliminado').then(() => {
             this._app.router.navigateByUrl(AppRoutes.platform.vehicles.route);
           });
