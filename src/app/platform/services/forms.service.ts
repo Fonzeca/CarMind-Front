@@ -1,9 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, Observable, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
 import { evaluation } from '../interfaces/evaluation';
 import { FormCreate, formInterface } from '../interfaces/form';
-import { notifications } from '../interfaces/notifications';
 import { ApiService } from './core/api.service';
 import endpoints from './core/endpoints';
 
@@ -52,6 +51,12 @@ export class FormsService extends ApiService {
   create(param:FormCreate){
     const { forms: { post: url } } = endpoints;
     return this.post(url,param);
+  }
+
+  deleteEvaluacion(id:string){
+    const { forms: { delete: url } } = endpoints;
+    this._getHistorialById.next(null);
+    return this.delete(url.replace(":id",id.toString()));
   }
 
   getEvaluacionById(id:string){

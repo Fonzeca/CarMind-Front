@@ -131,7 +131,11 @@ export class CreateFormComponent implements OnInit {
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        //lamar a la api
+        this._form.delete(this.form_id).subscribe((res) => {
+          this._app.sw.alertSuccess('Formulario eliminado').then(() => {
+            this._app.router.navigateByUrl(AppRoutes.platform.forms.route);
+          });
+        });
       }
     })
   }

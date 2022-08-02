@@ -32,6 +32,7 @@ const endpoints = {
       post:'/evaluacion',
       get_evaluation:'/evaluacion/:id',
       put:'/evaluacion/:id/modify',
+      delete:'/evaluacion/:id'
     }
   },
   types:"/tipos",
