@@ -75,7 +75,7 @@ export class ApiService {
     } else {
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
-    if(error.status===403){
+    if(error.status===401){
       Swal.fire({
         title: 'Mensaje',
         text: "Sesión Expirada",
