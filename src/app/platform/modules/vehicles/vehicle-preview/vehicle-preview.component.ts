@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { ModalComponent } from 'src/app/platform/components/modal/modal.component';
 import { formInterface } from 'src/app/platform/interfaces/form';
@@ -40,7 +40,7 @@ export class VehiclePreviewComponent extends BaseComponent implements OnInit {
   slideIndex: number = 0;
   slideCant: number = 4;
 
-  constructor(public _vehicle: VehiclesService,  public activatedRoute:ActivatedRoute, public dialog: MatDialog, public _app: AppService) {
+  constructor(public _vehicle: VehiclesService,  public activatedRoute:ActivatedRoute, public dialog: MatDialog, public _app: AppService, private _router : Router) {
     super()
   }
 
@@ -176,8 +176,10 @@ export class VehiclePreviewComponent extends BaseComponent implements OnInit {
     })
   }
 
-
-
+  edit(form:any){
+    let url = '/'.concat(this.getAppRoutes.platform.forms.update.route(form.id));
+    this._router.navigateByUrl(url);
+  }
 
   getFormSlider(forms: formInterface[]) {
     return forms.slice(this.slideIndex, this.slideIndex + this.slideCant);
