@@ -146,6 +146,11 @@ export class VehiclesService extends ApiService {
     );
   }
 
+  deleteVehicle(id : string) {
+    const { vehicles: { delete: url } } = endpoints;
+    return this.delete(url.replace(":id",id.toString()));
+  }
+
   update(params: HttpParams) {
     const {
       vehicles: { put: url },

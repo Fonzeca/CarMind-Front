@@ -5,8 +5,11 @@ import { Subject } from 'rxjs';
 import { ModalComponent } from 'src/app/platform/components/modal/modal.component';
 import { formInterface } from 'src/app/platform/interfaces/form';
 import { vehicle } from 'src/app/platform/interfaces/vehicle';
+import { AppService } from 'src/app/platform/services/core/app.service';
 import { vehicleByIdResponse, VehiclesService } from 'src/app/platform/services/vehicles.service';
 import { BaseComponent } from 'src/app/platform/shared/components/base.component';
+import { AppRoutes } from 'src/app/routes';
+import Swal from 'sweetalert2';
 import { AddDocumentComponent } from '../shared/add-document/add-document.component';
 import { FormAssignmentComponent } from '../shared/form-assignment/form-assignment.component';
 import { FormVehicleComponent } from '../shared/form-vehicle/form-vehicle.component';
@@ -37,7 +40,7 @@ export class VehiclePreviewComponent extends BaseComponent implements OnInit {
   slideIndex: number = 0;
   slideCant: number = 4;
 
-  constructor(public _vehicle: VehiclesService,  public activatedRoute:ActivatedRoute, public dialog: MatDialog) {
+  constructor(public _vehicle: VehiclesService,  public activatedRoute:ActivatedRoute, public dialog: MatDialog, public _app: AppService) {
     super()
   }
 
@@ -96,6 +99,28 @@ export class VehiclePreviewComponent extends BaseComponent implements OnInit {
         title: 'Editar Vehículo',
       },
     }).afterClosed().subscribe(res=> this.getById(this.vehicle.id));
+  }
+
+  deleteVehicle() {
+    Swal.fire({
+      title: `¿Estás seguro que querés eliminar este vehículo?`,
+      showCancelButton: true,
+      confirmButtonText: 'Si',
+      cancelButtonText: 'Cancelar',
+      customClass: {
+        actions: 'my-actions',
+        confirmButton: "btn btn-success m-btn-succes",
+        cancelButton: 'order-1 right-gap',
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._vehicle.delete(this.vehicle.id.toString()).subscribe((res) => {
+          this._app.sw.alertSuccess('Vehículo eliminado').then(() => {
+            this._app.router.navigateByUrl(AppRoutes.platform.vehicles.route);
+          });
+        });
+      }
+    })
   }
 
   addDocument(id:number) {

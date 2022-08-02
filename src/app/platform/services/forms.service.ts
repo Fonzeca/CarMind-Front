@@ -55,7 +55,6 @@ export class FormsService extends ApiService {
 
   deleteEvaluacion(id:string){
     const { forms: { delete: url } } = endpoints;
-    this._getHistorialById.next(null);
     return this.delete(url.replace(":id",id.toString()));
   }
 

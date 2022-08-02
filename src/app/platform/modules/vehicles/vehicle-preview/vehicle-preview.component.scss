@@ -1,3 +1,9 @@
+.topcorner{
+  position:absolute;
+  top:10;
+  right:10;
+ }
+
 .vehicle-col {
   max-width: 220px;
 }
@@ -72,6 +78,13 @@
     top: 17px;
     cursor: pointer;
   }
+
+  .fa-trash {
+    position: absolute;
+    right: 20px;
+    top: 17px;
+    cursor: pointer;
+  }
 }
 
 .fa-eye {
@@ -81,6 +94,10 @@
 
 .fa-pencil {
   text-decoration: underline;
+  color: var(--m-acento2-color);
+}
+
+.fa-trash {
   color: var(--m-acento2-color);
 }
 
