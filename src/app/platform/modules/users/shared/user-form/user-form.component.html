@@ -89,18 +89,8 @@
   <div *ngIf="!this.data?.id" class="mb-3 row">
     <label id="passLabel" for="staticEmail" class="col-sm-2 col-form-label">Contraseña</label>
     <div class="col-sm-10 has-validation">
-      <input
-        id="passInput"
-        type="text"
-        formControlName="password"
-        [ngClass]="{
-          'is-invalid':
-            getControl('password')?.invalid &&
-            (getControl('password').touched || ngForm.submitted)
-        }"
-        class="form-control"
-        value=""
-      />
+      <input id="passInput" formControlName="password" class="form-control" value=""/>
+      <span class="errorFormLabel" *ngIf="!form.get('password')?.valid">{{passError()}}</span>
       <div class="invalid-feedback">Este campo es requerido</div>
     </div>
   </div>

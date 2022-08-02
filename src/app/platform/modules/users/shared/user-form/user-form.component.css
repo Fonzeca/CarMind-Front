@@ -3,3 +3,9 @@
   align-items: center;
   font-weight: 400;
 }
+
+.errorFormLabel{
+  color: #dc0404;
+  font-size: small;
+}
+

@@ -12,6 +12,8 @@ import { UsersService } from 'src/app/platform/services/users.service';
 })
 export class UserFormComponent implements OnInit {
 
+  password = new FormControl('', [Validators.maxLength(30), Validators.minLength(6)]);
+
   @Input() data:any;
 
   form!: FormGroup;
@@ -32,8 +34,12 @@ export class UserFormComponent implements OnInit {
         "administrador" : [this.data?.administrador ? true : false],
     });
     if(!this.data?.id){
-      this.form.addControl('password', new FormControl('', Validators.required));
+      this.form.addControl('password', this.password);
     }
+  }
+
+  ngAfterViewInit() {
+    this.password.addValidators(Validators.required);
   }
 
   action(){
@@ -75,6 +81,23 @@ export class UserFormComponent implements OnInit {
 
   close(){
       this.dialogRef.closeAll();
+  }
+
+  passError() {
+
+    if (this.password.hasError('required')) {
+      return "La contraseña no puede estar vacía";
+    }
+
+    if (this.password.hasError('maxlength')) {
+      return "Contraseña demasiado larga";
+    }
+
+    if (this.password.hasError('minlength')) {
+      return "La contraseña debe tener al menos 6 caracteres";
+    }
+
+    return;
   }
 
 }
