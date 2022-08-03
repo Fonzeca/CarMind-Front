@@ -18,6 +18,10 @@ const routes: Routes = [
   {
     path: AppRoutes.platform.forms.main,
     loadChildren:() => import('./forms/forms.module').then(m=> m.FormSModule)
+  },
+  {
+    path: AppRoutes.platform.trackin.main,
+    loadChildren:() => import('./trackin/trackin.module').then(m=> m.TrackinModule)
   }
 ];
 

@@ -90,6 +90,12 @@ export const AppRoutes = {
             main:"users",
           }
         },
+        get trackin(){
+          return {
+            route:`${this.route}/trackin`,
+            main:"trackin",
+          }
+        },
       }
     }
 }
