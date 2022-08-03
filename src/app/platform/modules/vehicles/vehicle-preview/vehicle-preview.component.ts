@@ -103,10 +103,11 @@ export class VehiclePreviewComponent extends BaseComponent implements OnInit {
 
   deleteVehicle() {
     Swal.fire({
-      title: `¿Estás seguro que querés eliminar este vehículo?`,
+      title: '¿Estás seguro que querés eliminar este vehículo?',
       showCancelButton: true,
       confirmButtonText: 'Si',
       cancelButtonText: 'Cancelar',
+      text: 'Se borrará el historial de este vehículo y la documentación adjuntada.',
       customClass: {
         actions: 'my-actions',
         confirmButton: "btn btn-success m-btn-succes",
