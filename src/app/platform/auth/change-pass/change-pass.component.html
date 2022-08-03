@@ -5,7 +5,7 @@
       <h1 class="title-1 mt-2 fw-700">CarMind</h1>
       <h3 class="title-2 fw-400">Ingresá tu nueva contraseña</h3>
       <label for="exampleInputPassword1">Nueva Contraseña</label>
-      <form [formGroup]="myForm" (ngSubmit)="changePass(myForm.value)">
+      <form class="myclase" [formGroup]="myForm" (ngSubmit)="changePass(myForm.value)">
         <div class="form-group mb-3">
           <div class="position-relative">
             <input id="passInput" [type]="this.showPassword ? 'text' : 'password'" formControlName="password" class="form-control" id="exampleInputPassword1" placeholder="Contraseña">
@@ -16,17 +16,16 @@
         <div class="form-group mb-3">
           <label for="exampleInputPassword1">Verificar Contraseña</label>
           <div class="position-relative">
-            <input id="rePassInput" [type]="this.showPassword2 ? 'text' : 'password'" formControlName="verifyPassword" class="form-control" id="exampleInputPassword1" placeholder="Contraseña">
+            <input id="rePassInput" [type]="this.showPassword2 ? 'text' : 'password'" formControlName="verifyPassword" class="form-control" id="exampleInputPassword2" placeholder="Confirmar contraseña">
             <img  (click)='showPassword2Event()' class="position-absolute add-icon me-3" [src]="this.showPassword2 ? 'assets/icons/eye-slash.png' : 'assets/icons/eye.png'" alt="">
           </div>
-          <span class="errorFormLabel" *ngIf="!myForm.get('verifyPassword')?.valid">{{passError()}}</span>
+          <span class="errorFormLabel" *ngIf="!myForm.get('verifyPassword')?.valid">{{verifyPassError()}}</span>
         </div>
-        <button id="sendButton" [ngClass]="{'m-progress':this._auth.tail.length }" [disabled]="this._auth.tail.length" type="submit" class="btn btn-primary w-100 m-btn-primary mt-4 mb-5" >
+        <button id="sendButton" [ngClass]="{'m-progress':this._auth.tail.length }" [disabled]="this._auth.tail.length" type="submit" class="btn btn-primary w-100 m-btn-primary mt-4 mb-4" >
           Cambiar contraseña</button>
       </form>
-      <div class="flex"> <p>¿Ya tienes tu cuenta?</p><p></p> <a href="">Inicia sesión</a>.</div>
+      <div class="flex"> <p>¿Ya tienes tu cuenta?</p><p></p> <a href="javascript:void(0)" (click)="login()">Inicia sesión</a>.</div>
   </div>
 </div>
 
-<div class="center mt-5 mb-5">&nbsp;</div>
 

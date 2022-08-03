@@ -57,4 +57,31 @@ export class AuthService extends ApiService {
       })
     );
   }
+
+  sendEmailToChangePass(params:any){
+    const { auth : {sendEmailToChangePass : url} } = endpoints
+    return this.post(url, params).pipe(
+      map((data:any) => {
+        return data;
+      })
+    );
+  }
+
+  sendCodeToChangePass(data:any){
+    const { auth : {sendCodeToChangePass : url} } = endpoints
+    return this.post(url, data).pipe(
+      map((data:any) => {
+        return data;
+      })
+    );
+  }
+
+  changePass(data:any){
+    const { auth : {changePassword : url} } = endpoints
+    return this.post(url, data).pipe(
+      map((data:any) => {
+        return data;
+      })
+    );
+  }
 }

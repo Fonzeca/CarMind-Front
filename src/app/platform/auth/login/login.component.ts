@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { map, of } from 'rxjs';
 import { AppRoutes } from 'src/app/routes';
 import { AuthService } from '../../services/auth.service';
+import { AppService } from '../../services/core/app.service';
 
 @Component({
   selector: 'app-login',
@@ -20,8 +21,9 @@ export class LoginComponent implements OnInit {
   constructor(
     public formBuilder: FormBuilder,
     public _auth: AuthService,
-    private router: Router
-  ) {
+    private router: Router,
+    public _app: AppService,
+    ) {
   }
 
   myForm = this.formBuilder.group({
@@ -46,7 +48,9 @@ export class LoginComponent implements OnInit {
     if(this.username.errors === null && this.password.errors === null){
       this._auth.login(params).pipe(map((data:any) => {
         if(data.mustChangePassword){
-          this.router.navigateByUrl(AppRoutes.auth.change_password);
+          this._app.sw.alertWarning('').then(() => {
+            this.router.navigateByUrl(AppRoutes.auth.change_password,{state: {token: data.token}});
+          });
         }else{
           this.router.navigateByUrl(AppRoutes.platform.vehicles.route);
         }
@@ -102,6 +106,10 @@ export class LoginComponent implements OnInit {
   showPassword=false;
   showPasswordEvent(){
     this.showPassword = !this.showPassword;
+  }
+
+  changePassword(){
+    this.router.navigateByUrl(AppRoutes.auth.enter_email);
   }
 
 

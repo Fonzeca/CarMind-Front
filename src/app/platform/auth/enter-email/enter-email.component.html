@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <img class="img-logo" src="../assets/logo/android-chrome-192x192.png" alt="" />
+      <h1 class="title-1 mt-2 fw-700">CarMind</h1>
+      <h3 class="title-2 fw-400">¿Olvidaste tu contraseña?</h3>
+      <h4 class="title-3 fw-400"> No hay problema. Te enviaremos un código a tu correo para restaurar tu contraseña</h4>
+      <form [formGroup]="myForm" (ngSubmit)="sendCodeToEmail(myForm.value)">
+        <div class="form-group mt-3 mb-2">
+          <label for="exampleInputEmail1">E-mail</label>
+          <input id="emailInput" type="email" formControlName="username" class="form-control" aria-describedby="emailHelp" placeholder="Ingresar email">
+          <span class="errorFormLabel" *ngIf="!myForm.get('username')?.valid">{{userError()}}</span>
+        </div>
+        <button id="sendButton" [ngClass]="{'m-progress':this._auth.tail.length }" [disabled]="this._auth.tail.length" type="submit" class="btn btn-primary w-100 m-btn-primary mt-4 mb-4" >
+          Restaurar contraseña</button>
+      </form>
+      <div class="flex"> <p>¿Ya tienes tu cuenta?</p><p></p> <a href="javascript:void(0)" (click)="login()">Inicia sesión</a>.</div>
+    </div>
+  </div>
+</div>
+
+

@@ -3,7 +3,10 @@ const endpoints = {
     login: "/login",
     loggedUser:"/loggedUser",
     put_user:"/usuario",
-    firstLogin:"/usuario/newPassword"
+    firstLogin:"/usuario/newPassword",
+    sendEmailToChangePass: "/public/usuario/recuperar",
+    sendCodeToChangePass: "/public/usuario/validateRecoverToken",
+    changePassword: "/public/usuario/resetPassword"
   },
   vehicles:{
     post:"/vehiculo",

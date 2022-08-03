@@ -5,7 +5,7 @@
       <h1 class="title-1 mt-2 fw-700">CarMind</h1>
       <h3 class="title-2 fw-400">Ingresá a tu cuenta</h3>
       <form [formGroup]="myForm" (ngSubmit)="login(myForm.value)">
-        <div class="form-group mt-5 mb-4">
+        <div class="form-group mt-3 mb-4">
           <label for="exampleInputEmail1">E-mail</label>
           <input id="emailInput" type="email" formControlName="username" class="form-control" aria-describedby="emailHelp" placeholder="Ingresar email">
           <span class="errorFormLabel" *ngIf="!myForm.get('username')?.valid">{{userError()}}</span>
@@ -18,6 +18,7 @@
           </div>
           <span class="errorFormLabel" *ngIf="!myForm.get('password')?.valid">{{passError()}}</span>
         </div>
+        <div class="flex"><a href="javascript:void(0)" (click)="changePassword()">Olvidé mi contraseña</a></div>
         <button id="sendButton" [ngClass]="{'m-progress':this._auth.tail.length }" [disabled]="this._auth.tail.length" type="submit" class="btn btn-primary w-100 m-btn-primary mt-4 mb-5" >
           Iniciar sesión</button>
       </form>
@@ -25,5 +26,4 @@
   </div>
 </div>
 
-<div class="center mt-5 mb-5">&nbsp;</div>
 
