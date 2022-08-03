@@ -131,7 +131,7 @@
                                         <i class="fa fa-angle-left"></i>
                                     </div>
                                 </div>
-                                <m-form-card (click)="edit(form)" [flicker]="flicker" *ngFor="let form of getFormSlider(forms);" [name]='form.titulo'></m-form-card>
+                                <m-form-card class="pointer" (click)="edit(form)" [flicker]="flicker" *ngFor="let form of getFormSlider(forms);" [name]='form.titulo'></m-form-card>
                                 <div class="arrow-div ">
                                     <div (click)="nextSlide(forms)" [ngClass]="{ 'arrow-disabled': (this.slideIndex+this.slideCant) === forms.length ||  forms.length===1 }" class="form-arrow arrow-right pointer">
                                         <i class="fa fa-angle-right"></i>
