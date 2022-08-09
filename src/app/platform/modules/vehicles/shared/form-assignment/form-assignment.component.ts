@@ -19,6 +19,11 @@ export class FormAssignmentComponent implements dyComponent {
 
   form!:FormGroup;
 
+  submitted = false;
+
+
+  nrSelect:string = "Seleccionar"
+
   fechaInicio: NgbDateStruct | undefined;
   constructor(
     private _app:AppService,
@@ -35,7 +40,8 @@ export class FormAssignmentComponent implements dyComponent {
 
 
   action(){
-    if(this.data.id){
+    this.submitted = true;
+    if(this.data.id && this.form.valid && this.form.value.id_evaluacion !== 'Seleccionar'){
       let form = {...this.form.value};
       form.fecha_inicio = this.dateParser.format(form.fecha_inicio)
       this._vehicle.documentAssignment(this.data.id,form).subscribe(res=> {
@@ -57,5 +63,21 @@ export class FormAssignmentComponent implements dyComponent {
   validControl(controlName:string, submited:boolean): boolean{
     return this.getControl(controlName)?.invalid && (this.getControl(controlName).touched || submited)
   }
+
+  selectDateError(){
+    if(this.form.value.fecha_inicio === undefined && this.submitted) return "Seleccione una fecha";
+    return ""
+  }
+
+  selectFormError(){
+    if(this.form.value.id_evaluacion === 'Seleccionar' && this.submitted) return "Seleccione un formulario";
+    return ""
+  }
+
+  selectIntervaloError(){
+    if(this.form.value.intervalo_dias <= 0 && this.submitted) return "El intervalo debe ser mayor a 0";
+    return ""
+  }
+
 
 }

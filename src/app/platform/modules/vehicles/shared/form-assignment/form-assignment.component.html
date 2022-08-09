@@ -6,32 +6,24 @@
                 <input class="form-control" formControlName="fecha_inicio" placeholder="dd/mm/yyyy" name="dp" (click)="d.toggle()" [(ngModel)]="fechaInicio" [placement]="'bottom'" autocomplete="off" ngbDatepicker #d="ngbDatepicker">
                 <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
             </div>
-
-            <!-- <input [(ngModel)]="vencimiento" name="" class="form-control" id="datepicker" [disabled]="!tieneVencimiento"> -->
-            <!-- <input type="date" onkeydown="return false" formControlName="fecha_inicio" [ngClass]="{'is-invalid': this.validControl('fecha_inicio', ngForm.submitted) }" class="form-control"> -->
-            <div class="invalid-feedback">
-                Es requerido
-            </div>
+            <div class="errorFormLabel">{{selectDateError()}}</div>
         </div>
         <div class="col">
             <label for="">Intervalo de días *</label>
             <input type="number" formControlName="intervalo_dias" [ngClass]="{'is-invalid': this.validControl('intervalo_dias', ngForm.submitted) }" class="form-control" id="">
-            <div class="invalid-feedback">
-                Es requerido
-            </div>
+            <div class="errorFormLabel" *ngIf="form.get('id_evaluacion')?.valid">{{selectIntervaloError()}}</div>
         </div>
     </div>
     <div class="row mt-4">
         <div class="col">
             <label for="">Formulario *</label>
             <ng-container *ngIf="this._forms.getAllForms$ | async as forms;">
-                <select class="form-select" name="id_evaluacion" [ngClass]="{'is-invalid': this.validControl('id_evaluacion', ngForm.submitted) }" formControlName="id_evaluacion" aria-label="Default select example">
-          <option *ngFor="let form of forms" [value]="form.id">{{form.titulo}}</option>
-        </select>
+                <select class="form-select" name="id_evaluacion"  [(ngModel)]='nrSelect'  [ngClass]="{'is-invalid': this.validControl('id_evaluacion', ngForm.submitted) }" formControlName="id_evaluacion" aria-label="Default select example">
+                  <option>Seleccionar</option>
+                  <option *ngFor="let form of forms" [value]="form.id">{{form.titulo}}</option>
+                </select>
             </ng-container>
-            <div class="invalid-feedback">
-                Es requerido
-            </div>
+            <div class="errorFormLabel" *ngIf="form.get('id_evaluacion')?.valid">{{selectFormError()}}</div>
         </div>
     </div>
     <div class="row justify-content-end mt-4">
