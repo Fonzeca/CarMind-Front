@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Loader } from '@googlemaps/js-api-loader';
+import { tap } from 'rxjs';
+import { GpsService } from 'src/app/platform/services/gps.service';
 
 @Component({
   selector: 'app-map',
@@ -8,7 +10,7 @@ import { Loader } from '@googlemaps/js-api-loader';
 })
 export class MapComponent implements OnInit {
 
-  constructor() { }
+  constructor(public gps_service: GpsService) { }
 
   private map?: google.maps.Map;
 
@@ -18,12 +20,10 @@ export class MapComponent implements OnInit {
   ngOnInit(): void {
     let loader = new Loader({
       //TODO: NO MOSTRAR APIKEY
-      apiKey: '',
+      apiKey: 'AIzaSyCXP9yjiw8I5P5uo4Og613DVUYlTYrTkYI',
     });
 
     loader.load().then((response) => {
-      console.log(response);
-
       const location = {
         lat: -48.404479,
         lng: -69.651008
@@ -35,6 +35,20 @@ export class MapComponent implements OnInit {
         zoom: 6,
         mapId: "aa99da66fc3150b"
       });
+
+      this.gps_service.getLastLogByIMEI("867730050816697").pipe(
+        tap((response) => {
+          console.log(response);
+          new google.maps.Marker({
+            map: this.map,
+            position: {
+              lat: response.latitud,
+              lng: response.longitud
+            },
+          })
+        })
+      ).subscribe();
+
     });
     
   }

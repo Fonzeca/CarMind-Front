@@ -47,6 +47,9 @@ const endpoints = {
   },
   notifications:{
     get:"/notificaciones"
+  },
+  trackin:{
+    get_last_log:"/trackin/lastLog"
   }
 };
 export default endpoints;
