@@ -49,7 +49,8 @@ const endpoints = {
     get:"/notificaciones"
   },
   trackin:{
-    get_last_log:"/trackin/lastLog"
+    get_last_log:"/trackin/lastLog",
+    get_route:"/trackin/route"
   }
 };
 export default endpoints;

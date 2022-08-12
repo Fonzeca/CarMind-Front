@@ -20,7 +20,7 @@ export class MapComponent implements OnInit {
   ngOnInit(): void {
     let loader = new Loader({
       //TODO: NO MOSTRAR APIKEY
-      apiKey: 'AIzaSyCXP9yjiw8I5P5uo4Og613DVUYlTYrTkYI',
+      apiKey: 'AIzaSyBvE0e-a4U25CU6LjBSsH1uJ-QgolcJkQ4',
     });
 
     loader.load().then((response) => {
@@ -38,14 +38,30 @@ export class MapComponent implements OnInit {
 
       this.gps_service.getLastLogByIMEI("867730050816697").pipe(
         tap((response) => {
-          console.log(response);
           new google.maps.Marker({
             map: this.map,
             position: {
               lat: response.latitud,
               lng: response.longitud
             },
+          });
+        })
+      ).subscribe();
+
+      this.gps_service.getRoute("867730050816697").pipe(
+        tap((response) =>{
+          let ploygonArray = response.data.map(x => {
+            return {
+              lat: x.latitud,
+              lng: x.longitud
+            }
           })
+          console.log(ploygonArray)
+
+          new google.maps.Polyline({
+            path: ploygonArray,
+            map: this.map,
+          });
         })
       ).subscribe();
 
