@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Loader } from '@googlemaps/js-api-loader';
 import { tap } from 'rxjs';
+import { GpsPoint } from 'src/app/platform/interfaces/gps_data';
 import { GpsService } from 'src/app/platform/services/gps.service';
 
 @Component({
@@ -50,23 +51,57 @@ export class MapComponent implements OnInit {
 
       this.gps_service.getRoute("867730050816697").pipe(
         tap((response) =>{
-          let ploygonArray = response.data.map(x => {
-            return {
-              lat: x.latitud,
-              lng: x.longitud
-            }
-          })
-          console.log(ploygonArray)
 
-          new google.maps.Polyline({
-            path: ploygonArray,
-            map: this.map,
+          let lastPoint: GpsPoint;
+          response.data.forEach((data) => { 
+            if (lastPoint == null){
+              lastPoint = data;
+              return;
+            }
+
+            let colorLine = "black";
+            if(data.speed > 40){
+              colorLine = "red";
+            }
+            if (data.speed< 10){
+              colorLine = "green";
+            }
+
+            new google.maps.Polyline({
+              path: [{lat: lastPoint.latitud, lng: lastPoint.longitud},{lat: data.latitud, lng: data.longitud}],
+              map: this.map,
+              strokeColor: colorLine,
+              strokeWeight: 2
+            });
+
+            lastPoint = data;
+            new google.maps.TrafficLayer({map: this.map})
+
+
           });
+
+
+
+          // let ploygonArray = response.data.map(x => {
+          //   return {
+          //     lat: x.latitud,
+          //     lng: x.longitud
+          //   }
+          // })
+          // console.log(ploygonArray)
+
+          // new google.maps.Polyline({
+          //   path: ploygonArray,
+          //   map: this.map,
+          // });
         })
       ).subscribe();
 
     });
     
+    
+
   }
+
 
 }
