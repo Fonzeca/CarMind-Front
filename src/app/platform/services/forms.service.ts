@@ -17,6 +17,9 @@ export class FormsService extends ApiService {
   private _getAllForms: BehaviorSubject<formInterface[]> = new BehaviorSubject<formInterface[]>([]);
   public getAllForms$: Observable<formInterface[]> = this._getAllForms.asObservable();
 
+  private _getAllFormsExcept: BehaviorSubject<formInterface[]> = new BehaviorSubject<formInterface[]>([]);
+  public getAllFormsExcept$: Observable<formInterface[]> = this._getAllFormsExcept.asObservable();
+
   private _getHistorialById: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   public getHistorialById$: Observable<any> = this._getHistorialById.asObservable();
 
@@ -44,6 +47,24 @@ export class FormsService extends ApiService {
         map((response: any[]) => {
           this._getAllForms.next(response);
           return { response: response, getAllForms$: this.getAllForms$ };
+        })
+      );
+  }
+
+  getAllFormsExcept(_forms: any[]): Observable<any> {
+    const { forms: { get_all: url } } = endpoints;
+    return this.get(url)
+      .pipe(
+        map((response: any[]) => {
+
+          var formsNotAssignedToVehicle = response.filter(function(objFromA) {
+            return !_forms.find(function(objFromB) {
+              return objFromA.id === objFromB.id
+            })
+          })
+          this._getAllFormsExcept.next(formsNotAssignedToVehicle);
+
+          return { response: formsNotAssignedToVehicle, getAllFormsExcept$: this.getAllFormsExcept$ };
         })
       );
   }

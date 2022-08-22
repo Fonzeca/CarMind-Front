@@ -22,6 +22,7 @@ export class FormAssignmentComponent implements dyComponent {
   submitted = false;
 
 
+
   nrSelect:string = "Seleccionar"
 
   fechaInicio: NgbDateStruct | undefined;
@@ -29,13 +30,14 @@ export class FormAssignmentComponent implements dyComponent {
     private _app:AppService,
     private _vehicle:VehiclesService, public _forms:FormsService, private formBuilder:FormBuilder, private dateParser : NgbDateFRParserFormatter) { }
 
-  ngOnInit(): void {
+    ngOnInit (): void {
     this.form = this.formBuilder.group({
       "id_evaluacion" : [undefined,Validators.required],
       "intervalo_dias" : [1,Validators.required],
       "fecha_inicio" : [NgbDate,Validators.required],
     });
-    this._forms.getAllForms().subscribe();
+    this._forms.getAllFormsExcept(this.data.vehicleForms).subscribe();
+
   }
 
 
@@ -49,11 +51,6 @@ export class FormAssignmentComponent implements dyComponent {
         this.data.close();
       })
     }
-    // if(this.data?.id){
-    //   this.update(this.form);
-    // }else{
-    //   this.create(this.form);
-    // }
   }
 
   getControl(control:string) : AbstractControl {

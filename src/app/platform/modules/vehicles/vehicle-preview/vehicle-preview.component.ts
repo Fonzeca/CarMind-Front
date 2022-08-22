@@ -168,6 +168,7 @@ export class VehiclePreviewComponent extends BaseComponent implements OnInit {
         viewComponent: {
           component: FormAssignmentComponent,
           data: {
+            vehicleForms: this.forms,
             id: this.vehicle.id,
             close: () => this.dialog.closeAll(),
           },
