@@ -1,6 +1,5 @@
-import { HttpParams } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, Input } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { dyComponent } from 'src/app/platform/components/modal/modal.component';
 import { AppService } from 'src/app/platform/services/core/app.service';
@@ -45,6 +44,7 @@ export class FormVehicleComponent implements dyComponent {
         "patente" : [this.data?.patente ? this.data.patente : (this.data?.id ? "N/A": "") ],
         "tipo" : [ this.data?.tipo ? this.data.tipo : this.type.tipo_vehiculo[0],Validators.required],
         "kilometraje" : [ this.data?.kilometraje ? this.data.kilometraje : '', Validators.required],
+        "imei" : [ this.data?.imei ? this.data.imei :  (this.data?.imei ? "N/A": "")],
     });
   }
 

@@ -28,4 +28,5 @@ export interface vehicle {
   usuario_en_uso:string;
   documentos:documents[];
   kilometraje: string;
+  imei: string;
 }
