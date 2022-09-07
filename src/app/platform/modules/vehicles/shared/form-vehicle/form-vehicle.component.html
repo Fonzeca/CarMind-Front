@@ -40,7 +40,7 @@
     <div class="mb-3 row">
         <label for="staticEmail" class="col-sm-2 col-form-label">Patente</label>
         <div class="col-sm-10  has-validation">
-            <input id="patentInput" [readonly]="this.data && this.data.id" type="text" formControlName="patente" [ngClass]="{'is-invalid': getControl('patente')?.invalid && ((getControl('patente').touched  || ngForm.submitted) )  }" class="form-control" value="">
+            <input id="patentInput" type="text" formControlName="patente" [ngClass]="{'is-invalid': getControl('patente')?.invalid && ((getControl('patente').touched  || ngForm.submitted) )  }" class="form-control" value="">
             <div class="invalid-feedback">
                 Este campo es requerido
             </div>
