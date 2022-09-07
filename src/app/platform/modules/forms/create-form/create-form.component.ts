@@ -95,18 +95,18 @@ export class CreateFormComponent implements OnInit {
   }
 
   addOption(question: Pregunta, i: number) {
-    question.opciones.splice(i + 1, 0,  {
+    question.opciones!.splice(i + 1, 0,  {
       opcion:"",
       crucial:true
     });
   }
 
   removeOption(question: Pregunta, i: number) {
-    question.opciones.splice(i, 1);
+    question.opciones!.splice(i, 1);
   }
 
-  event(e: any, opciones: Opciones[], index: number) {
-    opciones[index].opcion = e.currentTarget.value;
+  event(e: any, opciones: Opciones[] | undefined, index: number) {
+    opciones![index].opcion = e.currentTarget.value;
   }
 
   trackByFn(index: number, item: any) {
@@ -184,8 +184,8 @@ export class CreateFormComponent implements OnInit {
   validQuestionOptions(question: Pregunta) {
     if (question.tipo === 'S1' || question.tipo === 'S2') {
       return (
-        question.opciones.length &&
-        !question.opciones.filter((data) => !data.opcion).length
+        question.opciones!.length &&
+        !question.opciones!.filter((data) => !data.opcion).length
       );
     }
     return true;

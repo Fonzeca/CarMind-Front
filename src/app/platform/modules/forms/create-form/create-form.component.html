@@ -65,8 +65,8 @@
                                             <ng-container *ngFor="let option of addPregunta.opciones; index as ix; trackBy: trackByFn">
                                                 <div class="position-relative mb-2">
                                                     <input type="text" class="form-control" [value]="option.opcion" [ngClass]="{'is-invaliFd': validInput(option.opcion)  }" (focusout)="event($event, addPregunta.opciones, ix)">
-                                                    <img (click)="addOption(addPregunta, ix)" [ngClass]="{'me-4': addPregunta.opciones.length > 1 }" class="position-absolute add-icon me-4" src="assets/icons/fa_plus-square-o.png" alt="">
-                                                    <img *ngIf="addPregunta.opciones.length > 1" (click)="removeOption(addPregunta, ix)" class="position-absolute add-icon me-1" src="assets/icons/fa_times-square-o.png" style="width: 20px;padding-top: 1px;" alt="">
+                                                    <img (click)="addOption(addPregunta, ix)" [ngClass]="{'me-4': addPregunta.opciones != undefined && addPregunta.opciones.length > 1 }" class="position-absolute add-icon me-4" src="assets/icons/fa_plus-square-o.png" alt="">
+                                                    <img *ngIf="addPregunta.opciones != undefined && addPregunta.opciones.length > 1" (click)="removeOption(addPregunta, ix)" class="position-absolute add-icon me-1" src="assets/icons/fa_times-square-o.png" style="width: 20px;padding-top: 1px;" alt="">
                                                 </div>
                                                 <div *ngIf="addPregunta.tipo === 'S1'" class="row">
                                                     <label for="staticEmail" class="col col-form-label text-end" style="font-size: 14px;">Avisar al seleccionar esta opcion</label>

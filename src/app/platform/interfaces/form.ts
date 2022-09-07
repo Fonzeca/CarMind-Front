@@ -8,7 +8,7 @@ export interface Pregunta {
   descripcion: string;
   crucial?: boolean;
   tipo: string;
-  opciones: Opciones[];
+  opciones?: Opciones[];
 }
 
 export interface Opciones {

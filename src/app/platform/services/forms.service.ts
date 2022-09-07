@@ -71,6 +71,11 @@ export class FormsService extends ApiService {
 
   create(param:FormCreate){
     const { forms: { post: url } } = endpoints;
+    param.preguntas.forEach(pregunta => {
+      if (pregunta.tipo === 'S1' || pregunta.tipo === 'S2'){}else{
+        delete pregunta.opciones;
+      }
+    });
     return this.post(url,param);
   }
 
@@ -92,6 +97,11 @@ export class FormsService extends ApiService {
 
   updateEvaluacion(param:FormCreate, id:string){
     const { forms: { put: url } } = endpoints;
+    param.preguntas.forEach(pregunta => {
+      if (pregunta.tipo === 'S1' || pregunta.tipo === 'S2'){}else{
+        delete pregunta.opciones;
+      }
+    });
     return this.put(url.replace(":id",id.toString()),param);
   }
 
