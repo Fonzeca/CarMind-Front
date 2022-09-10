@@ -19,7 +19,7 @@ export class GpsMapComponent implements OnInit {
   ngOnInit(): void {
     let loader = new Loader({
       //TODO: NO MOSTRAR APIKEY
-      apiKey: 'AIzaSyD7FklGNnN7EcMuGtSz4WpRNRXIsOSmxDU',
+      apiKey: 'asdasdasdas',
     });
 
     loader.load().then((response) => {
