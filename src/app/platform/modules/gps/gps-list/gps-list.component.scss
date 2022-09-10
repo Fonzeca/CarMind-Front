@@ -1,0 +1,64 @@
+.row {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: stretch;
+  height: 100%;
+  margin-left: 100px;
+}
+
+.card {
+  background-color: #eee;
+}
+
+#map {
+  width: calc(65% - 100px);
+  height: 100%;
+  position: absolute;
+  background-color: white;
+}
+
+/**input**/
+
+.form-control-feedback {
+  position: absolute;
+  padding: 10px;
+  pointer-events: none;
+  background-color: #eee;
+}
+
+.form-control {
+  padding-left: 30px !important;
+  background-color: #eee;
+}
+
+/*here edite background of icon */
+
+.round {
+  border-radius: 50%;
+  padding-bottom: 1px;
+  padding-left: 4px;
+  padding-right: 5px;
+  background-color: #1a006e;
+  width: 30px;
+  height: 25px;
+}
+
+/**modification of icon circle**/
+
+.circle-1 {
+  background-color: #dc3545;
+  border-radius: 100%;
+  color: #dc3545;
+  font-size: 0.8rem;
+  width: 10px;
+  height: 10px;
+}
+
+.circle-2 {
+  background-color: greenyellow;
+  border-radius: 100%;
+  color: greenyellow;
+  font-size: 0.8rem;
+  width: 10px;
+  height: 10px;
+}

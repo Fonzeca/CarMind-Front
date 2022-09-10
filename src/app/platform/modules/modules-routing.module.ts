@@ -20,8 +20,8 @@ const routes: Routes = [
     loadChildren:() => import('./forms/forms.module').then(m=> m.FormSModule)
   },
   {
-    path: AppRoutes.platform.trackin.main,
-    loadChildren:() => import('./trackin/trackin.module').then(m=> m.TrackinModule)
+    path: AppRoutes.platform.gps.main,
+    loadChildren:() => import('./gps/gps.module').then(m=> m.GpsModule)
   }
 ];
 

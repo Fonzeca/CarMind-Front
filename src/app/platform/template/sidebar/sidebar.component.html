@@ -36,6 +36,14 @@
                     <span class="text nav-text fw-400" #asText>Personal</span>
                 </div>
             </a>
+            <a id="row-content" (mouseenter)="abrirSidebar()"   [routerLinkActive]="['active']" [routerLink]="['/'+this.getAppRoutes.platform.gps.route]">
+                <div item-menu>
+                  <img id="personalIcon" src="assets/icons/route.png" width="40" alt="">
+                </div>
+                <div class="justify-left-content" item-menu>
+                    <span class="text nav-text fw-400" #asText>Rastreador</span>
+                </div>
+            </a>
         </div>
     </nav>
 </section>

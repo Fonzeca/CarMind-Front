@@ -25,15 +25,15 @@ export class TopbarComponent extends BaseComponent implements OnInit {
   full_name! :string
 
   ngOnInit(): void {
-    this.getNotifications();
-    this.addSafeSubscription(
-      this.auth.getLoggedUser().subscribe((data) => {
-        this.full_name = `${data.nombre} ${data.apellido}`;
-      }),
-      interval(1800000).subscribe(()=>{
-        this.getNotifications();
-      })
-    );
+    // this.getNotifications();
+    // this.addSafeSubscription(
+    //   this.auth.getLoggedUser().subscribe((data) => {
+    //     this.full_name = `${data.nombre} ${data.apellido}`;
+    //   }),
+    //   interval(1800000).subscribe(()=>{
+    //     this.getNotifications();
+    //   })
+    // );
   }
 
   getNotifications(){

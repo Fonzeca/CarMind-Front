@@ -1,0 +1,112 @@
+<div class="m-2">
+  <h4 class="mt-2 text-dark">Vehiculo</h4>
+  <div class="row mt-3">
+    <div class="col-lg-3 col-md-3 col-sm-3">
+      <p class="fw-bold">Nombre:</p>
+    </div>
+    <div class="col-lg col-md col-sm">
+      <p class="fs-6">La 05</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-2 col-md-2 col-sm-2">
+      <p class="fw-bold">Motor:</p>
+    </div>
+    <div class="col-lg col-md col-sm pl-2">
+      <div class="row">
+        <div class="col-lg-9 col-md-9 col-sm-9">
+          <p class="fs-6">
+            Encendido <i class="fa fa-circle-thin circle-2 fa-1x"></i>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-3 col-md-3 col-sm-3">
+      <p class="fw-bold">Patente:</p>
+    </div>
+    <div class="col-lg col-md col-sm">
+      <p class="fs-6">GGG-445</p>
+    </div>
+  </div>
+  <h5 class="mt-2 text-secondary">Trayecto</h5>
+  <div class="row mt-4">
+    <div class="col-lg-2 col-md-2 col-sm-2 d-flex align-items-center">
+      <p class="fw-bold align-self-center m-0">Desde:</p>
+    </div>
+    <div class="col-lg col-md">
+      <div class="input-group">
+        <input
+          class="form-control"
+          placeholder="dd/mm/yyyy"
+          name="dp"
+          (click)="d.toggle()"
+          [placement]="'bottom'"
+          autocomplete="off"
+          ngbDatepicker
+          #d="ngbDatepicker"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="row mt-2 mb-4">
+    <div class="col-lg-2 col-md-2 col-sm-2 d-flex align-items-center">
+      <p class="fw-bold align-self-center m-0">Hasta:</p>
+    </div>
+    <div class="col-lg col-md d-flex align-items-center">
+      <div class="input-group">
+        <input
+          class="form-control"
+          placeholder="dd/mm/yyyy"
+          name="dp"
+          (click)="d.toggle()"
+          [placement]="'bottom'"
+          autocomplete="off"
+          ngbDatepicker
+          #d="ngbDatepicker"
+        />
+      </div>
+    </div>
+  </div>
+  <hr />
+  <div class="row">
+    <div class="col">
+      <div class="d-flex">
+        <div class="col-lg-3 col-md-3 col-sm-3 text-end p-1">
+          <img  src="assets/icons/route.png" width="20" alt="">
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 mt-1">
+          <p>20 km</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="d-flex">
+        <div class="col-lg-3 col-md-3 col-sm-3 text-end p-1">
+          <i class="fa fa-map-marker" style="font-size: 1.2rem"></i>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 mt-1">
+          <p>5 paradas</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card" *ngFor="let array of [].constructor(5)">
+    <div class="card-body m-0 p-0">
+      <div class="d-flex m-0 justify-content-between">
+        <div
+          class="col-lg-5 col-md-5 col-sm-3 d-flex align-items-center justify-content-start align-items-center"
+        >
+        <img class="mx-2" src="assets/icons/route.png" width="25" alt="">
+          <p class="m-0" style="font-size: 0.8rem">17/05/22</p>
+        </div>
+        <div class="col-lg col-md d-flex justify-content-end">
+          <p class="pt-1 m-2" style="font-size: 0.8rem">
+            20:00 - 05:04 (9hr 4m)
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
