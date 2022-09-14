@@ -1,5 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { tap } from 'rxjs';
+import { VehiclesImeisRequest, VehicleState } from 'src/app/platform/interfaces/gps_data';
+import { vehicle } from 'src/app/platform/interfaces/vehicle';
+import { GpsService } from 'src/app/platform/services/gps.service';
+import { VehiclesService } from 'src/app/platform/services/vehicles.service';
 import { BaseComponent } from 'src/app/platform/shared/components/base.component';
 
 @Component({
@@ -9,8 +14,30 @@ import { BaseComponent } from 'src/app/platform/shared/components/base.component
 })
 export class GpsListComponent extends BaseComponent implements OnInit {
 
-  constructor(public router:Router) {
+  vehicles!:VehicleState[];
+
+  constructor(public router:Router, public gps_service: GpsService, public vehicle_service: VehiclesService) {
     super();
+
+    const vehiclesImeisRequest: VehiclesImeisRequest = {
+      imeis: ['867730050816697','123123312'],
+    };
+
+    this.gps_service.getVehiclesStateByImeis(vehiclesImeisRequest).pipe(
+      tap((response) => {
+        vehicle_service.getAll().subscribe((vehicles)=>{
+          var vehiclesStates = vehicles.splice( vehicles.findIndex(v => v.imei !== undefined), 1).map((vehicle) => {
+            var fullDetailedVehicle : VehicleState = response.find(v => v.imei == vehicle.imei)!;
+            fullDetailedVehicle!.nombre = vehicle.nombre;
+            fullDetailedVehicle!.patente = vehicle.patente;
+            return fullDetailedVehicle;
+          });
+          this.vehicles = vehiclesStates;
+        });
+       
+
+      })
+    ).subscribe();
    }
 
   ngOnInit(): void {

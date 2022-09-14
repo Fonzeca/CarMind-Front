@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { vehicle } from 'src/app/platform/interfaces/vehicle';
 
 @Component({
   selector: 'app-gps-details',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./gps-details.component.scss']
 })
 export class GpsDetailsComponent implements OnInit {
+
+  @Input() vehicle!:vehicle;
 
   constructor() { }
 

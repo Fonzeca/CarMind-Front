@@ -1,3 +1,15 @@
+import { vehicle } from "./vehicle";
+
+export interface VehiclesImeisRequest {
+    imeis: string[];
+}
+
+export interface VehicleState extends vehicle {
+  latitud: number;
+  longitud: number;
+  engine_status: boolean;
+}
+
 export interface gps_data {
     imei: string;
     latitud: number;

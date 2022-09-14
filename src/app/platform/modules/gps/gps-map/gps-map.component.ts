@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Loader } from '@googlemaps/js-api-loader';
 import { tap } from 'rxjs';
-import { GpsPoint, GpsRouteData, RouteRequest, StopRoute, TravelRoute } from 'src/app/platform/interfaces/gps_data';
+import { GpsPoint, GpsRouteData, RouteRequest, StopRoute, TravelRoute, VehiclesImeisRequest, VehicleState } from 'src/app/platform/interfaces/gps_data';
+import { vehicle } from 'src/app/platform/interfaces/vehicle';
 import { GpsService } from 'src/app/platform/services/gps.service';
+import { VehiclesService } from 'src/app/platform/services/vehicles.service';
 
 @Component({
   selector: 'app-gps-map',
@@ -10,7 +12,10 @@ import { GpsService } from 'src/app/platform/services/gps.service';
   styleUrls: ['./gps-map.component.scss'],
 })
 export class GpsMapComponent implements OnInit {
-  constructor(public gps_service: GpsService) {}
+
+  constructor(public gps_service: GpsService) {
+
+  }
 
   private map?: google.maps.Map;
 
@@ -49,14 +54,14 @@ export class GpsMapComponent implements OnInit {
         )
         .subscribe();
 
-        const data: RouteRequest = {
+        const routeRequest: RouteRequest = {
           imei: '867730050816697',
           from: '2022-09-01 00:00:00',
           to: '2022-09-05 04:42:00'
         };
 
       this.gps_service
-        .getRoute(data)
+        .getRouteByImei(routeRequest)
         .pipe(
           tap((route) => {
 

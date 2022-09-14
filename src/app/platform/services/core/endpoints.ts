@@ -50,7 +50,8 @@ const endpoints = {
   },
   trackin:{
     get_last_log:"/trackin/getLastLogByImei",
-    get_route:"/trackin/getRouteByImei"
+    get_route:"/trackin/getRouteByImei",
+    get_vehicles_state_by_imeis: "/trackin/getVehiclesStateByImeis"
   }
 };
 export default endpoints;
