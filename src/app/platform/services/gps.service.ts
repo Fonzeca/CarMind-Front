@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { GpsRouteData, gps_data } from '../interfaces/gps_data';
+import { GpsRouteData, gps_data, RouteRequest } from '../interfaces/gps_data';
 import { ApiService } from './core/api.service';
 import endpoints from './core/endpoints';
 
@@ -21,10 +21,11 @@ export class GpsService extends ApiService {
     return this.get(url + "?imei=" + imei);
   }
 
-  getRoute(imei: string) : Observable<GpsRouteData>{
+  getRoute(params: RouteRequest) : Observable<GpsRouteData[]>{
     const {
       trackin: { get_route: url },
     } = endpoints;
-    return this.get(url + "?imei=" + imei);
+    return this.post(url, params);
   }
+
 }

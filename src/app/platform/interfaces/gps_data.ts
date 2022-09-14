@@ -9,13 +9,32 @@ export interface gps_data {
 export interface GpsPoint {
   latitud: number;
   longitud: number;
-  date: Date;
+  azimuth: number;
   speed: number;
 }
 
-export interface GpsRouteData {
+export interface RouteRequest {
   imei: string;
-  from: Date;
-  to: Date;
+  from: string;
+  to: string;
+}
+
+export interface GpsRouteData {
+  type: string;
+  fromDate: Date;
+  toDate: Date;
+  fromHour: Date;
+  toHour: Date;
+}
+
+export interface StopRoute extends GpsRouteData {
+  latitud: number;
+  longitud: number;
+}
+
+
+export interface TravelRoute extends GpsRouteData {
+  km: number;
   data: GpsPoint[];
 }
+

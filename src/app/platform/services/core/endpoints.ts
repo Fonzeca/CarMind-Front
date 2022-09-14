@@ -49,8 +49,8 @@ const endpoints = {
     get:"/notificaciones"
   },
   trackin:{
-    get_last_log:"/trackin/lastLog",
-    get_route:"/trackin/route"
+    get_last_log:"/trackin/getLastLogByImei",
+    get_route:"/trackin/getRouteByImei"
   }
 };
 export default endpoints;

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Loader } from '@googlemaps/js-api-loader';
 import { tap } from 'rxjs';
-import { GpsPoint } from 'src/app/platform/interfaces/gps_data';
+import { GpsPoint, GpsRouteData, RouteRequest, StopRoute, TravelRoute } from 'src/app/platform/interfaces/gps_data';
 import { GpsService } from 'src/app/platform/services/gps.service';
 
 @Component({
@@ -19,7 +19,7 @@ export class GpsMapComponent implements OnInit {
   ngOnInit(): void {
     let loader = new Loader({
       //TODO: NO MOSTRAR APIKEY
-      apiKey: 'asdasdasdas',
+      apiKey: 'AIzaSyBksBzP29Z651LUCwmF0U7bSp7U6Z9IIuI',
     });
 
     loader.load().then((response) => {
@@ -49,54 +49,107 @@ export class GpsMapComponent implements OnInit {
         )
         .subscribe();
 
+        const data: RouteRequest = {
+          imei: '867730050816697',
+          from: '2022-09-01 00:00:00',
+          to: '2022-09-05 04:42:00'
+        };
+
       this.gps_service
-        .getRoute('867730050816697')
+        .getRoute(data)
         .pipe(
-          tap((response) => {
-            let lastPoint: GpsPoint;
-            response.data.forEach((data) => {
-              if (lastPoint == null) {
-                lastPoint = data;
-                return;
+          tap((route) => {
+
+            for(var i = 0; i < route.length; i++) {
+              if ('latitud' in route[i]){
+                let stopRoute : StopRoute = route[i] as StopRoute;
+  
+                var polyLinePoints : google.maps.LatLng[] = [];
+
+                if (i - 1 >= 0) {
+                  var previousRoute = route[i - 1] as TravelRoute;
+                  polyLinePoints.push(new google.maps.LatLng({lat: previousRoute.data[previousRoute.data.length-1].latitud, lng: previousRoute.data[previousRoute.data.length-1].longitud}));
+                }
+  
+                polyLinePoints.push( new google.maps.LatLng({ lat: stopRoute.latitud, lng: stopRoute.longitud }));
+
+                if (i + 1 < route.length) {
+                  var nextRoute = route[i + 1] as TravelRoute;
+                  polyLinePoints.push(new google.maps.LatLng({lat: nextRoute.data[0].latitud, lng: nextRoute.data[0].longitud}));
+                }
+
+                
+                this.drawRouteMarker(stopRoute.latitud, stopRoute.longitud);
+
+                this.drawRoutePolyline(polyLinePoints, 'black')
               }
+              else{
+                let travelRoute : TravelRoute = route[i] as TravelRoute;
 
-              let colorLine = 'black';
-              if (data.speed > 40) {
-                colorLine = 'red';
+                this.drawRouteMarker(travelRoute.data[0].latitud, travelRoute.data[0].longitud);
+
+                this.drawRoutePolylines(travelRoute.data);
               }
-              if (data.speed < 10) {
-                colorLine = 'green';
-              }
-
-              new google.maps.Polyline({
-                path: [
-                  { lat: lastPoint.latitud, lng: lastPoint.longitud },
-                  { lat: data.latitud, lng: data.longitud },
-                ],
-                map: this.map,
-                strokeColor: colorLine,
-                strokeWeight: 2,
-              });
-
-              lastPoint = data;
-              new google.maps.TrafficLayer({ map: this.map });
-            });
-
-            // let ploygonArray = response.data.map(x => {
-            //   return {
-            //     lat: x.latitud,
-            //     lng: x.longitud
-            //   }
-            // })
-            // console.log(ploygonArray)
-
-            // new google.maps.Polyline({
-            //   path: ploygonArray,
-            //   map: this.map,
-            // });
+            }
           })
         )
         .subscribe();
     });
+  }
+
+  drawRouteMarker(latitud:number, longitud:number){
+    new google.maps.Marker({
+      map: this.map,
+      position: {
+        lat: latitud,
+        lng: longitud,
+      },
+    });
+  }
+
+  drawRoutePolyline(points : google.maps.LatLng[], colorLine : string){
+    var polyLinePoints : google.maps.MVCArray<google.maps.LatLng> = new google.maps.MVCArray<google.maps.LatLng>(points);
+    new google.maps.Polyline({
+      path: polyLinePoints,
+      map: this.map,
+      strokeColor: colorLine,
+      strokeWeight: 2,
+    }); 
+  }
+
+  drawRoutePolylines(points : GpsPoint[]){
+    if (points.length > 0) {
+      var polyLinePoints : google.maps.LatLng[] = [];
+      var speed : number = 0;
+      var color : string = 'black';
+      var previousColor : string = 'black';
+      for (var i = 0; i < points.length; i++) {
+        speed = points[i].speed;
+        color = this.speedToColor(speed);
+
+        polyLinePoints.push(new google.maps.LatLng({lat: points[i].latitud, lng: points[i].longitud}));
+
+        if (i > 0 && (color != previousColor || i + 1 >= points.length)) {
+          
+          if (i + 1 >= points.length) {
+            this.drawRoutePolyline(polyLinePoints, color);
+          } else {
+            this.drawRoutePolyline(polyLinePoints, previousColor);
+          }
+
+          polyLinePoints = [];
+        }
+        previousColor = color;
+      }
+    }
+  }
+
+  speedToColor(speed : number) {
+    if (speed < 60) {
+      return 'green';
+    } else if (speed < 110) {
+      return 'orange';
+    }
+    return 'red';
   }
 }
