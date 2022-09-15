@@ -14,7 +14,7 @@ import { BaseComponent } from 'src/app/platform/shared/components/base.component
 })
 export class GpsDetailsComponent extends BaseComponent implements OnInit {
 
-  vehicle!:VehicleState;
+  vehicle:VehicleState | undefined;
   dateFrom : string =  '';
   dateTo : string =  '';
   polylines: google.maps.Polyline[] = [];
@@ -25,7 +25,11 @@ export class GpsDetailsComponent extends BaseComponent implements OnInit {
 
   constructor(private router: Router, public gps_service: GpsService,private ngbDateParserFormatter: NgbDateParserFormatter) {
     super();
-    this.vehicle = this.router.getCurrentNavigation()!.extras.state!['vehicle'];
+    if(this.router.getCurrentNavigation() === null || this.router.getCurrentNavigation()!.extras.state! === undefined){
+      this.router.navigateByUrl(this.getAppRoutes.platform.gps.route);
+    }else{
+      this.vehicle = this.router.getCurrentNavigation()!.extras.state!['vehicle'];
+    }
   }
 
   ngOnInit(): void {
@@ -58,7 +62,7 @@ export class GpsDetailsComponent extends BaseComponent implements OnInit {
     if(this.dateFrom.length <= 0 || this.dateTo.length <= 0) return;
 
     const routeRequest: RouteRequest = {
-      imei: this.vehicle.imei,
+      imei: this.vehicle!.imei,
       from: this.dateFrom,
       to: this.dateTo
     };
