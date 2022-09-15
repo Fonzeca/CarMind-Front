@@ -47,3 +47,8 @@ input{
   color: greenyellow;
   font-size: 0.8rem;
 }
+
+.overflow-list {
+  height: calc(100vh - 480px);
+  overflow-y: auto;
+}

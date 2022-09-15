@@ -1,9 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbDate, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { tap } from 'rxjs';
 import { GpsPoint, RouteRequest, StopRoute, TravelRoute, VehicleState } from 'src/app/platform/interfaces/gps_data';
-import { vehicle } from 'src/app/platform/interfaces/vehicle';
+import { Easing, Tween, update } from "@tweenjs/tween.js";
 import { GpsService } from 'src/app/platform/services/gps.service';
 import { BaseComponent } from 'src/app/platform/shared/components/base.component';
 
@@ -53,11 +53,7 @@ export class GpsDetailsComponent extends BaseComponent implements OnInit {
     this.totalKms = 0;
     this.totalStops = 0;
 
-    this.markers.forEach(marker => marker.setMap(null));
-    this.markers = [];
-
-    this.polylines.forEach(polyline => polyline.setMap(null));
-    this.polylines = [];
+    this.clearRoute();
 
     if(this.dateFrom.length <= 0 || this.dateTo.length <= 0) return;
 
@@ -117,18 +113,49 @@ export class GpsDetailsComponent extends BaseComponent implements OnInit {
               this.drawRoutePolylines(travelRoute.data);
             }
           }
+
+          this.moveCameraMapToRoute();
         })
     ).subscribe();
+
   }
 
   drawRouteMarker(latitud:number, longitud:number){
-    this.markers.push(new google.maps.Marker({
+    var marker :  google.maps.Marker = new google.maps.Marker({
       map: this.gps_service.map,
       position: {
         lat: latitud,
         lng: longitud,
       },
-    }));
+    });
+    this.markers.push(marker);
+    google.maps.event.addListener(marker, 'click', (function(map) {
+      return function() {
+
+        var cameraOptions = {
+          tilt: map?.getTilt(),
+          zoom: map?.getZoom(),
+          heading: map?.getHeading(),
+          lat:map?.getCenter()!.lat()!,
+          lng: map?.getCenter()!.lng()!,
+        }
+
+        new Tween(cameraOptions)
+        .to({lat: latitud, lng: longitud, zoom: 10, tilt: 0, heading: 0}, 3000)
+        .easing(Easing.Quintic.InOut)
+        .onUpdate(() => {
+          map?.moveCamera({tilt: cameraOptions.tilt, heading: cameraOptions.heading, zoom: cameraOptions.zoom, center:  {lat: cameraOptions.lat, lng: cameraOptions.lng}});
+        }).start();
+
+
+      function animate(time: number) {
+        requestAnimationFrame(animate);
+        update(time);
+      }
+
+      requestAnimationFrame(animate);
+      }
+    })(this.gps_service.map));
   }
 
   drawRoutePolyline(points : google.maps.LatLng[], colorLine : string){
@@ -176,5 +203,26 @@ export class GpsDetailsComponent extends BaseComponent implements OnInit {
     }
     return 'red';
   }
+
+  moveCameraMapToRoute(){
+
+    var bounds = new google.maps.LatLngBounds();
+
+    this.markers.forEach(marker => bounds.extend(marker.getPosition()!));
+    this.gps_service.map!.fitBounds(bounds);
+  }
+
+  @HostListener('window:popstate', ['$event'])
+  onPopState() {
+    this.clearRoute();
+  }
+  
+  clearRoute(){
+    this.markers.forEach(marker => marker.setMap(null));
+    this.polylines.forEach(polyline => polyline.setMap(null));
+    this.polylines = [];
+    this.markers = [];
+  }
+
 
 }
