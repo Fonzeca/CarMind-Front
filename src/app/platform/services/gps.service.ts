@@ -10,6 +10,8 @@ import endpoints from './core/endpoints';
 })
 export class GpsService extends ApiService {
 
+  map?: google.maps.Map;
+
   constructor(http: HttpClient) {
     super(http);
   }

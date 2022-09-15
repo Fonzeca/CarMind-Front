@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs';
 import { VehiclesImeisRequest, VehicleState } from 'src/app/platform/interfaces/gps_data';
-import { vehicle } from 'src/app/platform/interfaces/vehicle';
 import { GpsService } from 'src/app/platform/services/gps.service';
 import { VehiclesService } from 'src/app/platform/services/vehicles.service';
 import { BaseComponent } from 'src/app/platform/shared/components/base.component';
@@ -43,8 +42,8 @@ export class GpsListComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  detail(){
-    this.router.navigateByUrl(this.getAppRoutes.platform.gps.details.route)
+  detail(vehicle: VehicleState){
+    this.router.navigate([this.getAppRoutes.platform.gps.details.route], {state:{vehicle: vehicle}})
   }
 
 }

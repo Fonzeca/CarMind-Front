@@ -48,5 +48,6 @@ export interface StopRoute extends GpsRouteData {
 export interface TravelRoute extends GpsRouteData {
   km: number;
   data: GpsPoint[];
+  duration: string;
 }
 
