@@ -23,14 +23,14 @@
             <td class="p-1 text-center">
               <i class="fa fa-square-o"></i>
             </td>
-            <td class="text-center p-1">{{vehicle.nombre}}</td>
-            <td class="text-center p-1">{{vehicle.patente}}</td>
+            <td class="text-center p-1">{{ vehicle.nombre }}</td>
+            <td class="text-center p-1">{{ vehicle.patente }}</td>
             <td class="text-center p-1" style="font-size: 0.8rem">
               <div *ngIf="vehicle.engine_status == true">
-                <i class=  "fa fa-circle-thin circle-2 mt-1"></i>
+                <i class="fa circle-2 mt-1"></i>
               </div>
               <div *ngIf="vehicle.engine_status == false">
-                <i class=  "fa fa-circle-thin circle-1 mt-1"></i>
+                <i class="fa circle-1 mt-1"></i>
               </div>
             </td>
             <td></td>
