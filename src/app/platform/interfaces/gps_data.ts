@@ -1,26 +1,25 @@
 import { vehicle } from "./vehicle";
 
+export interface Position{
+  latitud: number;
+  longitud: number;
+}
+
 export interface VehiclesImeisRequest {
     imeis: string[];
 }
 
-export interface VehicleState extends vehicle {
-  latitud: number;
-  longitud: number;
+export interface VehicleState extends vehicle, Position {
   engine_status: boolean;
 }
 
-export interface gps_data {
+export interface gps_data extends Position{
     imei: string;
-    latitud: number;
-    longitud: number;
     speed: number;
     date: string;
   }
 
-export interface GpsPoint {
-  latitud: number;
-  longitud: number;
+export interface GpsPoint extends Position {
   azimuth: number;
   speed: number;
 }
@@ -39,9 +38,7 @@ export interface GpsRouteData {
   toHour: Date;
 }
 
-export interface StopRoute extends GpsRouteData {
-  latitud: number;
-  longitud: number;
+export interface StopRoute extends GpsRouteData, Position {
 }
 
 
