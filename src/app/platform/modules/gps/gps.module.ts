@@ -7,6 +7,8 @@ import { GpsListComponent } from './gps-list/gps-list.component';
 import { GpsDetailsComponent } from './gps-details/gps-details.component';
 import { GpsMapComponent } from './gps-map/gps-map.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -19,7 +21,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   imports: [
     CommonModule,
     GpsRoutingModule,
-    NgbModule
+    NgbModule,
+    Ng2SearchPipeModule,
+    FormsModule
   ]
 })
 export class GpsModule { }

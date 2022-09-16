@@ -19,6 +19,7 @@ export class GpsListComponent extends BaseComponent implements OnInit {
   vehiclesStates!:VehicleState[];
   markers: { [imei: string] : google.maps.Marker; } = {};
   private drawVehcilePositionsEvery5Seconds :  Subscription | undefined;
+  searchText = '';
 
   constructor(public router:Router, public gps_service: GpsService, public vehicle_service: VehiclesService) {
     super();
@@ -130,9 +131,6 @@ export class GpsListComponent extends BaseComponent implements OnInit {
 
       requestAnimationFrame(animate);
     }
-
-
-
   }
 
 }
