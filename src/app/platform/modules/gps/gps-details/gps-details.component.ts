@@ -2,7 +2,7 @@ import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbDate, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { tap } from 'rxjs';
-import { GpsPoint, RouteRequest, StopRoute, TravelRoute, VehicleState } from 'src/app/platform/interfaces/gps_data';
+import { GpsPoint, GpsRouteData, RouteRequest, StopRoute, TravelRoute, VehicleState } from 'src/app/platform/interfaces/gps_data';
 import { Easing, Tween, update } from "@tweenjs/tween.js";
 import { GpsService } from 'src/app/platform/services/gps.service';
 import { BaseComponent } from 'src/app/platform/shared/components/base.component';
@@ -19,7 +19,7 @@ export class GpsDetailsComponent extends BaseComponent implements OnInit {
   dateTo : string =  '';
   polylines: google.maps.Polyline[] = [];
   markers: google.maps.Marker[] = [];
-  travelRoutes: TravelRoute[] = [];
+  travelRoutes: GpsRouteData[] = [];
   totalKms : number = 0;
   totalStops: number = 0;
 
@@ -88,6 +88,9 @@ export class GpsDetailsComponent extends BaseComponent implements OnInit {
                 polyLinePoints.push(new google.maps.LatLng({lat: nextRoute.data[0].latitud, lng: nextRoute.data[0].longitud}));
               }
 
+              stopRoute.duration =  this.getDuration(stopRoute.fromDate.toString(), stopRoute.toDate.toString(), stopRoute.fromHour.toString(), stopRoute.toHour.toString());
+
+              this.travelRoutes.push(stopRoute);
               
               this.drawRouteMarker(stopRoute.latitud, stopRoute.longitud);
 
@@ -95,14 +98,8 @@ export class GpsDetailsComponent extends BaseComponent implements OnInit {
             }
             else{
               let travelRoute : TravelRoute = route[i] as TravelRoute;
-              
-              let fromDate = new Date(travelRoute.fromDate.toString() + " " + travelRoute.fromHour.toString());
-              let toDate = new Date(travelRoute.toDate.toString() + " "+ travelRoute.toHour.toString());
-              let diffMs = (toDate.getTime() - fromDate.getTime());
-              let diffHrs = Math.floor((diffMs % 86400000) / 3600000); 
-              let diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);
 
-              travelRoute.duration = diffHrs.toString() + "hs " + diffMins.toString() + "min";
+              travelRoute.duration =  this.getDuration(travelRoute.fromDate.toString(), travelRoute.toDate.toString(), travelRoute.fromHour.toString(), travelRoute.toHour.toString());
               
               this.totalKms += travelRoute.km;
               
@@ -118,6 +115,15 @@ export class GpsDetailsComponent extends BaseComponent implements OnInit {
         })
     ).subscribe();
 
+  }
+
+  getDuration(fromDateString : string, toDateString : string, fromHourString : string, toHourString : string){
+    let fromDate = new Date(fromDateString + " " + fromHourString);
+    let toDate = new Date( toDateString + " "+ toHourString);
+    let diffMs = (toDate.getTime() - fromDate.getTime());
+    let diffHrs = Math.floor((diffMs % 86400000) / 3600000); 
+    let diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);
+    return  diffHrs.toString() + "hs " + diffMins.toString() + "min";
   }
 
   drawRouteMarker(latitud:number, longitud:number){

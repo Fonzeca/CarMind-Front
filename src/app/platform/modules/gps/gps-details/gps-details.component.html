@@ -104,7 +104,12 @@
           <div
             class="col-lg-5 col-md-5 col-sm-3 d-flex align-items-center justify-content-start align-items-center"
           >
-          <img class="mx-2" src="assets/icons/route.png" width="25" alt="">
+          <div class="route">
+            <img  *ngIf="travelRoute.type === 'Viaje'" src="assets/icons/route.png" width="25" alt="">
+          </div>
+          <div class="pin">
+            <i  *ngIf="travelRoute.type === 'Parada'" class="fa fa-map-marker" style="font-size: 1.5rem"></i>
+          </div>
             <p class="m-0" style="font-size: 0.8rem">{{travelRoute.fromDate}}</p>
           </div>
           <div class="col-lg col-md d-flex justify-content-end">

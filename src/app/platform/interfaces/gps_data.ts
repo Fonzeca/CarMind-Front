@@ -36,6 +36,7 @@ export interface GpsRouteData {
   toDate: Date;
   fromHour: Date;
   toHour: Date;
+  duration: string;
 }
 
 export interface StopRoute extends GpsRouteData, Position {
@@ -45,6 +46,5 @@ export interface StopRoute extends GpsRouteData, Position {
 export interface TravelRoute extends GpsRouteData {
   km: number;
   data: GpsPoint[];
-  duration: string;
 }
 
