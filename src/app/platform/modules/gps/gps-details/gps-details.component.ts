@@ -111,7 +111,7 @@ export class GpsDetailsComponent extends BaseComponent implements OnInit {
             }
           }
 
-          this.moveCameraMapToRoute();
+          this.moveCameraToRoute(this.markers.map(m => m.getPosition()!));
         })
     ).subscribe();
 
@@ -135,33 +135,7 @@ export class GpsDetailsComponent extends BaseComponent implements OnInit {
       },
     });
     this.markers.push(marker);
-    google.maps.event.addListener(marker, 'click', (function(map) {
-      return function() {
-
-        var cameraOptions = {
-          tilt: map?.getTilt(),
-          zoom: map?.getZoom(),
-          heading: map?.getHeading(),
-          lat:map?.getCenter()!.lat()!,
-          lng: map?.getCenter()!.lng()!,
-        }
-
-        new Tween(cameraOptions)
-        .to({lat: latitud, lng: longitud, zoom: 10, tilt: 0, heading: 0}, 3000)
-        .easing(Easing.Quintic.InOut)
-        .onUpdate(() => {
-          map?.moveCamera({tilt: cameraOptions.tilt, heading: cameraOptions.heading, zoom: cameraOptions.zoom, center:  {lat: cameraOptions.lat, lng: cameraOptions.lng}});
-        }).start();
-
-
-      function animate(time: number) {
-        requestAnimationFrame(animate);
-        update(time);
-      }
-
-      requestAnimationFrame(animate);
-      }
-    })(this.gps_service.map));
+    google.maps.event.addListener(marker, 'click', this.moveCameraToMarker.bind(this, latitud, longitud));
   }
 
   drawRoutePolyline(points : google.maps.LatLng[], colorLine : string){
@@ -210,12 +184,51 @@ export class GpsDetailsComponent extends BaseComponent implements OnInit {
     return 'red';
   }
 
-  moveCameraMapToRoute(){
-
+  moveCameraToRoute(positions : google.maps.LatLng[]){
     var bounds = new google.maps.LatLngBounds();
 
-    this.markers.forEach(marker => bounds.extend(marker.getPosition()!));
+    positions.forEach(position => bounds.extend(position));
     this.gps_service.map!.fitBounds(bounds);
+  }
+
+  moveCamera(travelRoute : GpsRouteData){
+    if ('latitud' in travelRoute){
+
+      var latitud : number = (travelRoute as StopRoute).latitud;
+      var longitud : number = (travelRoute as StopRoute).longitud;
+
+      this.moveCameraToMarker(latitud, longitud);
+    }else{
+
+      var positions : GpsPoint[] = (travelRoute as TravelRoute).data;
+
+      this.moveCameraToRoute(positions.map(p => new google.maps.LatLng(p.latitud, p.longitud)));
+    }
+  }
+
+  moveCameraToMarker(latitud: number, longitud: number){
+    var cameraOptions = {
+      tilt: this.gps_service.map?.getTilt(),
+      zoom: this.gps_service.map?.getZoom(),
+      heading: this.gps_service.map?.getHeading(),
+      lat:this.gps_service.map?.getCenter()!.lat()!,
+      lng: this.gps_service.map?.getCenter()!.lng()!,
+    }
+
+    new Tween(cameraOptions)
+    .to({lat: latitud, lng: longitud, zoom: 15, tilt: 0, heading: 0}, 3000)
+    .easing(Easing.Quintic.InOut)
+    .onUpdate(() => {
+      this.gps_service.map?.moveCamera({tilt: cameraOptions.tilt, heading: cameraOptions.heading, zoom: cameraOptions.zoom, center:  {lat: cameraOptions.lat, lng: cameraOptions.lng}});
+    }).start();
+
+
+  function animate(time: number) {
+    requestAnimationFrame(animate);
+    update(time);
+  }
+
+  requestAnimationFrame(animate);
   }
 
   @HostListener('window:popstate', ['$event'])
@@ -229,6 +242,5 @@ export class GpsDetailsComponent extends BaseComponent implements OnInit {
     this.polylines = [];
     this.markers = [];
   }
-
 
 }

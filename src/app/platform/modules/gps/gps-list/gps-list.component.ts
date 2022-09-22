@@ -96,41 +96,47 @@ export class GpsListComponent extends BaseComponent implements OnInit {
     } 
     else {
 
-      var marker :  google.maps.Marker = new google.maps.Marker({
-        map: this.gps_service.map,
-        position: finalPosition,
-      });
+      (async() => {
+        while(this.gps_service.map === undefined)
+            await new Promise(resolve => setTimeout(resolve, 1000));
 
-      google.maps.event.addListener(marker, 'click', (function(map) {
-        return function() {
-  
-          var cameraOptions = {
-            tilt: map?.getTilt(),
-            zoom: map?.getZoom(),
-            heading: map?.getHeading(),
-            lat:map?.getCenter()!.lat()!,
-            lng: map?.getCenter()!.lng()!,
-          }
-  
-          new Tween(cameraOptions)
-          .to({lat: latitud, lng: longitud, zoom: 10, tilt: 0, heading: 0}, 3000)
-          .easing(Easing.Quintic.InOut)
-          .onUpdate(() => {
-            map?.moveCamera({tilt: cameraOptions.tilt, heading: cameraOptions.heading, zoom: cameraOptions.zoom, center:  {lat: cameraOptions.lat, lng: cameraOptions.lng}});
-          }).start();
-  
-        }
-      })(this.gps_service.map));
+        var marker :  google.maps.Marker = new google.maps.Marker({
+          map: this.gps_service.map,
+          position: finalPosition,
+        });
+    
+        google.maps.event.addListener(marker, 'click', this.moveCameraToVehicle.bind(this, latitud, longitud));
+    
+        this.markers[imei] = marker
+    
 
-      this.markers[imei] = marker
+    })();
+      
+    }
+  }
+
+
+  moveCameraToVehicle(latitud: number, longitud:number){
+      var cameraOptions = {
+        tilt: this.gps_service.map?.getTilt(),
+        zoom: this.gps_service.map?.getZoom(),
+        heading: this.gps_service.map?.getHeading(),
+        lat:this.gps_service.map?.getCenter()!.lat()!,
+        lng: this.gps_service.map?.getCenter()!.lng()!,
+      }
+
+      new Tween(cameraOptions)
+      .to({lat: latitud, lng: longitud, zoom: 17, tilt: 0, heading: 0}, 3000)
+      .easing(Easing.Quintic.InOut)
+      .onUpdate(() => {
+        this.gps_service.map?.moveCamera({tilt: cameraOptions.tilt, heading: cameraOptions.heading, zoom: cameraOptions.zoom, center:  {lat: cameraOptions.lat, lng: cameraOptions.lng}});
+      }).start();
 
       function animate(time: number) {
         requestAnimationFrame(animate);
         update(time);
       }
-
+  
       requestAnimationFrame(animate);
     }
-  }
-
 }

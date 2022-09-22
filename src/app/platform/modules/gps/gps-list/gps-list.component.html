@@ -19,7 +19,7 @@
             <th scope="col"></th>
             <th scope="col"></th>
           </tr>
-          <tr *ngFor="let vehicle of vehiclesStates | filter: searchText">
+          <tr *ngFor="let vehicle of vehiclesStates | filter: searchText"  (click)="moveCameraToVehicle(vehicle.latitud, vehicle.longitud)" class="pointer">
             <td class="p-1 text-center">
               <i class="fa fa-square-o"></i>
             </td>
