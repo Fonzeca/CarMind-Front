@@ -1,6 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Loader } from '@googlemaps/js-api-loader';
-import { tap } from 'rxjs';
 import { GpsService } from 'src/app/platform/services/gps.service';
 
 @Component({
