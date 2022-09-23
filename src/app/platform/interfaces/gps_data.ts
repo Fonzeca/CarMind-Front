@@ -31,6 +31,7 @@ export interface RouteRequest {
 }
 
 export interface GpsRouteData {
+  id : number;
   type: string;
   fromDate: Date;
   toDate: Date;

@@ -15,18 +15,24 @@ import { GeoOperationsService } from '../util/geo-operations.service';
 })
 export class GpsDetailsComponent extends BaseComponent implements OnInit {
 
+  isAnimate : boolean = false;
+  itemSelected : number | null = null;
+
   vehicle: VehicleState | undefined;
   dateFrom: string = '';
   dateTo: string = '';
   polylines: google.maps.Polyline[] = [];
   markers: google.maps.Marker[] = [];
 
-  directionalMarkers: google.maps.Marker[] = [];
+  // directionalMarkers: google.maps.Marker[] = [];
   carMarker : google.maps.Marker | null = null;
+  startTrip : google.maps.Marker | null = null;
+  endTrip : google.maps.Marker | null = null;
 
   readonly carIcon : google.maps.Symbol;
-
   readonly stopIcon : google.maps.Icon;
+  readonly startTripIcon : google.maps.Icon;
+  readonly endTripIcon : google.maps.Icon;
 
 
   travelRoutes: GpsRouteData[] = [];
@@ -54,10 +60,19 @@ export class GpsDetailsComponent extends BaseComponent implements OnInit {
       scaledSize: new google.maps.Size(20,20),
       url: "assets/gps/stop.svg"
     }
+    this.startTripIcon = {
+      scaledSize: new google.maps.Size(50,50),
+      url: "assets/gps/start.svg"
+    }
+    this.endTripIcon = {
+      scaledSize: new google.maps.Size(50,50),
+      url: "assets/gps/end.svg"
+    }
 
   }
 
   ngOnInit(): void {
+    this.clearRoute();
   }
 
   onDateFromSelect(dateFrom: NgbDate) {
@@ -93,6 +108,7 @@ export class GpsDetailsComponent extends BaseComponent implements OnInit {
       .pipe(
         tap((route) => {
 
+
           for (var i = 0; i < route.length; i++) {
             if ('latitud' in route[i]) {
               let stopRoute: StopRoute = route[i] as StopRoute;
@@ -122,11 +138,13 @@ export class GpsDetailsComponent extends BaseComponent implements OnInit {
               //Agrego la parada para que se renderice en la lista
               this.travelRoutes.push(stopRoute);
 
-              //Dibujo una marca para que se sepa que es una parada
-              this.drawRouteMarker(stopRoute.latitud, stopRoute.longitud, this.stopIcon);
+              if(i != 0){
+                //Dibujo una marca para que se sepa que es una parada
+                this.drawRouteMarker(stopRoute.latitud, stopRoute.longitud, this.stopIcon, stopRoute);
+              }
 
               //Dibujo las lineas correspondientes a la parada
-              this.drawRoutePolyline(polyLinePoints, 'green')
+              this.drawRoutePolyline(polyLinePoints, 'green', -1)
             }
             else {
               let travelRoute: TravelRoute = route[i] as TravelRoute;
@@ -143,11 +161,26 @@ export class GpsDetailsComponent extends BaseComponent implements OnInit {
 
               // this.drawRouteMarker(travelRoute.data[0].latitud, travelRoute.data[0].longitud);
 
-              this.drawRoutePolylines(travelRoute.data);
+              this.drawRoutePolylines(travelRoute.data, travelRoute.id);
             }
           }
+          
+          //Centra la camara a todo la ruta
+          var points :google.maps.LatLng[] = []
+          this.polylines.forEach((line) =>{
+            line.getPath().getArray().forEach((point)=>{points.push(point)})
+          })
+          this.moveCameraToRoute(points);
 
-          this.moveCameraToRoute(this.markers.map(m => m.getPosition()!));
+          //Se dibuja las banderas de inicio y fin
+          this.drawStartAndEndOfTrip()
+
+          this.gps_service.map?.addListener('dragstart', () => {
+            this.itemSelected = null;
+            this.polylines.forEach((item) => {
+              item.setOptions({strokeOpacity: 1});
+            })
+          })
         })
       ).subscribe();
 
@@ -157,11 +190,7 @@ export class GpsDetailsComponent extends BaseComponent implements OnInit {
       this.polylines.forEach((item) =>{
         item.setOptions({strokeWeight: weight})
       });
-      // this.drawDirectionalMarkers();
     });
-    // this.gps_service.map?.addListener("bounds_changed", ()=>{
-    //   this.drawDirectionalMarkers();
-    // });
   }
 
   getDuration(fromDateString: string, toDateString: string, fromHourString: string, toHourString: string) {
@@ -173,7 +202,7 @@ export class GpsDetailsComponent extends BaseComponent implements OnInit {
     return diffHrs.toString() + "hs " + diffMins.toString() + "min";
   }
 
-  drawRouteMarker(latitud: number, longitud: number, icon : google.maps.Icon | null) {
+  drawRouteMarker(latitud: number, longitud: number, icon : google.maps.Icon | null, stopLog : GpsRouteData | null = null) {
 
     var marker: google.maps.Marker = new google.maps.Marker({
       map: this.gps_service.map,
@@ -184,7 +213,10 @@ export class GpsDetailsComponent extends BaseComponent implements OnInit {
     });
     if(icon != null) marker.setIcon(icon);
     this.markers.push(marker);
-    google.maps.event.addListener(marker, 'click', this.moveCameraToMarker.bind(this, latitud, longitud));
+
+    marker.addListener('click', ()=>{
+      if(stopLog != null) this.selectTravelOrStop(stopLog)
+    })
   }
 
   // setDirectionOfPath(points: google.maps.LatLng[]) {
@@ -234,7 +266,7 @@ export class GpsDetailsComponent extends BaseComponent implements OnInit {
   // }
 
 
-  drawRoutePolyline(points: google.maps.LatLng[], colorLine: string) {
+  drawRoutePolyline(points: google.maps.LatLng[], colorLine: string, id:number) {
     // this.setDirectionOfPath(points);
     var polyLinePoints: google.maps.MVCArray<google.maps.LatLng> = new google.maps.MVCArray<google.maps.LatLng>(points);
     var singlePolyline = new google.maps.Polyline({
@@ -243,6 +275,8 @@ export class GpsDetailsComponent extends BaseComponent implements OnInit {
       strokeColor: colorLine,
       strokeWeight: 3,
     });
+    singlePolyline.set("id", id);
+    singlePolyline.set("originalColor", colorLine);
     singlePolyline.addListener("mouseover", (event : google.maps.PolyMouseEvent)=>{
       this.drawCar(event.latLng!, points)
     })
@@ -255,7 +289,7 @@ export class GpsDetailsComponent extends BaseComponent implements OnInit {
     this.polylines.push(singlePolyline);
   }
 
-  drawRoutePolylines(points: GpsPoint[]) {
+  drawRoutePolylines(points: GpsPoint[], id: number) {
     if (points.length > 0) {
       var polyLinePoints: google.maps.LatLng[] = [];
       var speed: number = 0;
@@ -275,9 +309,9 @@ export class GpsDetailsComponent extends BaseComponent implements OnInit {
         if (polyLinePoints.length >= 2 || color != previousColor || i + 1 == points.length) {
 
           if (i + 1 == points.length) {
-            this.drawRoutePolyline(polyLinePoints, color);
+            this.drawRoutePolyline(polyLinePoints, color, id);
           } else {
-            this.drawRoutePolyline(polyLinePoints, previousColor);
+            this.drawRoutePolyline(polyLinePoints, previousColor, id);
           }
 
           polyLinePoints = [];
@@ -288,6 +322,62 @@ export class GpsDetailsComponent extends BaseComponent implements OnInit {
         previousLng = points[i].longitud;
       }
     }
+  }
+
+  drawStartAndEndOfTrip(points : GpsPoint[] | null = null){
+    var startPosition : google.maps.LatLng | null = null;
+    var endPosition : google.maps.LatLng | null = null;
+    if(this.startTrip != null){
+      this.startTrip.setMap(null)
+      this.startTrip = null
+    }
+    if(this.endTrip != null){
+      this.endTrip.setMap(null)
+      this.endTrip = null
+    }
+
+    if(points == null){
+      if(this.polylines.length >= 2){
+        var length = this.polylines.length;
+        startPosition = this.polylines[0].getPath().getAt(0);
+        
+        var lengthOfLast = this.polylines[length-1].getPath().getLength();
+        endPosition = this.polylines[length-1].getPath().getAt(lengthOfLast-1);
+        
+      }
+    }else{
+      if(points.length >= 2){
+        var length = points.length;
+        startPosition = new google.maps.LatLng({lat: points[0].latitud, lng: points[0].longitud})
+
+        endPosition = new google.maps.LatLng({lat: points[length-1].latitud, lng: points[length-1].longitud})
+      }
+    }
+
+
+    if(startPosition != null && endPosition != null){
+      var startmarker: google.maps.Marker = new google.maps.Marker({
+        map: this.gps_service.map,
+        position: {
+          lat: startPosition.lat(),
+          lng: startPosition.lng(),
+        },
+      });
+      startmarker.setIcon(this.startTripIcon);
+      this.startTrip = startmarker;
+
+      var endMarker: google.maps.Marker = new google.maps.Marker({
+        map: this.gps_service.map,
+        position: {
+          lat: endPosition.lat(),
+          lng: endPosition.lng(),
+        },
+      });
+      endMarker.setIcon(this.endTripIcon);
+      this.endTrip = endMarker;
+    }
+
+
   }
 
   speedToColor(speed: number) {
@@ -301,12 +391,9 @@ export class GpsDetailsComponent extends BaseComponent implements OnInit {
 
   drawCar(point: google.maps.LatLng, path : google.maps.LatLng[]) {
     var deg : number = 0;
-      deg = this.geo_operations.degreesOfTwoPoints(path[0], path[1])
-
+    deg = this.geo_operations.degreesOfTwoPoints(path[0], path[1])
 
     if(this.carMarker == null){
-  
-  
       var marker: google.maps.Marker = new google.maps.Marker({
         map: this.gps_service.map,
         position: point,
@@ -327,6 +414,30 @@ export class GpsDetailsComponent extends BaseComponent implements OnInit {
 
     positions.forEach(position => bounds.extend(position));
     this.gps_service.map!.fitBounds(bounds);
+  }
+
+  selectTravelOrStop(travelRoute : GpsRouteData){
+    this.itemSelected = travelRoute.id;
+    // this.mylist.find((item)=>{
+    //   if(item.nativeElement.id == travelRoute.id){
+    //     item.nativeElement.scrollIntoView();
+    //   }
+    //   return false
+    // })
+    if((<TravelRoute>travelRoute).data !== undefined){
+      this.resaltarRuta(travelRoute as TravelRoute);
+    }
+    this.moveCamera(travelRoute);
+  }
+
+  resaltarRuta(travelRoute : TravelRoute){
+    this.polylines.forEach((item) => {
+      item.setOptions({strokeOpacity : 1})
+      if(item.get("id") == travelRoute.id){
+      }else{
+        item.setOptions({strokeOpacity : 0.3})
+      }
+    })
   }
 
   moveCamera(travelRoute : GpsRouteData){
@@ -354,11 +465,18 @@ export class GpsDetailsComponent extends BaseComponent implements OnInit {
     }
 
     new Tween(cameraOptions)
-    .to({lat: latitud, lng: longitud, zoom: 15, tilt: 0, heading: 0}, 3000)
+    .to({lat: latitud, lng: longitud, zoom: 15, tilt: 0, heading: 0}, 2000)
     .easing(Easing.Quintic.InOut)
+    .onStart(()=>{
+      this.isAnimate = true;
+    })
     .onUpdate(() => {
       this.gps_service.map?.moveCamera({tilt: cameraOptions.tilt, heading: cameraOptions.heading, zoom: cameraOptions.zoom, center:  {lat: cameraOptions.lat, lng: cameraOptions.lng}});
-    }).start();
+    })
+    .onComplete(() => {
+      this.isAnimate = false;
+    })
+    .start();
 
 
   function animate(time: number) {
@@ -385,8 +503,16 @@ export class GpsDetailsComponent extends BaseComponent implements OnInit {
     this.clearCarMarker();
     this.markers.forEach(marker => marker.setMap(null));
     this.polylines.forEach(polyline => polyline.setMap(null));
-    this.directionalMarkers.forEach(marker => marker.setMap(null));
-    this.directionalMarkers = [];
+    // this.directionalMarkers.forEach(marker => marker.setMap(null));
+    // this.directionalMarkers = [];
+    if(this.endTrip != null){
+      this.endTrip.setMap(null)
+      this.endTrip = null;
+    }
+    if(this.startTrip != null){
+      this.startTrip.setMap(null)
+      this.startTrip = null;
+    }
     this.polylines = [];
     this.markers = [];
   }
