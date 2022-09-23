@@ -16,6 +16,8 @@ import { BaseComponent } from 'src/app/platform/shared/components/base.component
 })
 export class GpsListComponent extends BaseComponent implements OnInit {
 
+  itemSelected : string | null = null;
+
   vehiclesStates!:VehicleState[];
   markers: { [imei: string] : google.maps.Marker; } = {};
   private drawVehcilePositionsEvery5Seconds :  Subscription | undefined;
@@ -45,7 +47,9 @@ export class GpsListComponent extends BaseComponent implements OnInit {
               return fullDetailedVehicle;
             });     
   
-            
+            this.gps_service.map?.addListener('dragstart', () => {
+              this.itemSelected = null;
+            })
 
           })
         ).subscribe();
@@ -115,8 +119,12 @@ export class GpsListComponent extends BaseComponent implements OnInit {
     }
   }
 
+  selectVehicle(imei : string){
+    this.itemSelected = imei;
+  }
 
   moveCameraToVehicle(latitud: number, longitud:number){
+    
       var cameraOptions = {
         tilt: this.gps_service.map?.getTilt(),
         zoom: this.gps_service.map?.getZoom(),

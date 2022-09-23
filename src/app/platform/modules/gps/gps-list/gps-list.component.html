@@ -12,17 +12,13 @@
       <table class="table m-0">
         <tbody>
           <tr>
-            <th scope="col"><i class="fa fa-minus-square-o"></i></th>
-            <td scope="col">Vehiculo</td>
+            <td  class="text-center" scope="col">Vehiculo</td>
             <td scope="col">Patente</td>
             <td scope="col">Motor</td>
             <th scope="col"></th>
             <th scope="col"></th>
           </tr>
-          <tr *ngFor="let vehicle of vehiclesStates | filter: searchText"  (click)="moveCameraToVehicle(vehicle.latitud, vehicle.longitud)" class="pointer">
-            <td class="p-1 text-center">
-              <i class="fa fa-square-o"></i>
-            </td>
+          <tr [ngClass]="{'backColor-selected' : vehicle.imei == itemSelected, 'backColor' : vehicle.imei != itemSelected}" *ngFor="let vehicle of vehiclesStates | filter: searchText"  (click)="moveCameraToVehicle(vehicle.latitud, vehicle.longitud); selectVehicle(vehicle.imei)" class="pointer">
             <td class="text-center p-1">{{ vehicle.nombre }}</td>
             <td class="text-center p-1">{{ vehicle.patente }}</td>
             <td class="text-center p-1" style="font-size: 0.8rem">
