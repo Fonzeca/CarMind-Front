@@ -1,21 +1,51 @@
-export interface gps_data {
+import { vehicle } from "./vehicle";
+
+export interface Position{
+  latitud: number;
+  longitud: number;
+}
+
+export interface VehiclesImeisRequest {
+    imeis: string[];
+}
+
+export interface VehicleState extends vehicle, Position {
+  engine_status: boolean;
+}
+
+export interface gps_data extends Position{
     imei: string;
-    latitud: number;
-    longitud: number;
     speed: number;
     date: string;
   }
 
-export interface GpsPoint {
-  latitud: number;
-  longitud: number;
-  date: Date;
+export interface GpsPoint extends Position {
+  azimuth: number;
   speed: number;
 }
 
-export interface GpsRouteData {
+export interface RouteRequest {
   imei: string;
-  from: Date;
-  to: Date;
+  from: string;
+  to: string;
+}
+
+export interface GpsRouteData {
+  id : number;
+  type: string;
+  fromDate: Date;
+  toDate: Date;
+  fromHour: Date;
+  toHour: Date;
+  duration: string;
+}
+
+export interface StopRoute extends GpsRouteData, Position {
+}
+
+
+export interface TravelRoute extends GpsRouteData {
+  km: number;
   data: GpsPoint[];
 }
+

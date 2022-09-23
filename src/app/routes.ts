@@ -90,10 +90,16 @@ export const AppRoutes = {
             main:"users",
           }
         },
-        get trackin(){
+        get gps(){
           return {
-            route:`${this.route}/trackin`,
-            main:"trackin",
+            route:`${this.route}/gps`,
+            main:"gps",
+            get details(){
+              return {
+                route:`${this.route}/details`,
+                main:"details"
+              }
+            }
           }
         },
       }

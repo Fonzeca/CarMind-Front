@@ -72,7 +72,7 @@
                                                     {{ doc.tipo_documento }}
                                                 </div>
                                                 <div [style.width.%]="100 / columns" class="text-end px-3 d-flex flex-row justify-content-end align-items-center dyCol f">
-                                                    <div class="mx-4">Fecha de caducidad: {{ doc.fecha_vencimiento?? "N/A" }}</div>
+                                                    <div class="mx-4">Fecha de caducidad: {{ doc?.fecha_vencimiento?? "N/A" }}</div>
                                                     <i id="viewDocButton" (click)="verDocument(vehicle.id, doc.tipo_documento)" class="fa fa-eye pull-right pointer" aria-hidden="true"></i>
                                                 </div>
                                             </div>

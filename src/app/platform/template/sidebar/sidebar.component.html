@@ -12,7 +12,7 @@
             <div class="justify-left-content">
                 <span class="text-header fw-700"  id="navbarDropdown" #asText>Menú</span>
             </div>
-            <a id="row-content" (mouseenter)="abrirSidebar()"  [routerLinkActive]="['active']" [routerLink]="['/'+this.getAppRoutes.platform.vehicles.route]">
+            <a class="row-content" (mouseenter)="abrirSidebar()"  [routerLinkActive]="['active']" [routerLink]="['/'+this.getAppRoutes.platform.vehicles.route]">
                 <div item-menu>
                   <img id="vehiclesIcon" src="assets/icons/la_car-side.png" width="40" alt="">
                 </div>
@@ -20,7 +20,7 @@
                     <span class="text nav-text fw-400" #asText>Vehículos</span>
                 </div>
             </a>
-            <a id="row-content" (mouseenter)="abrirSidebar()"  [routerLinkActive]="['active']" [routerLink]="['/'+this.getAppRoutes.platform.forms.route]">
+            <a class="row-content" (mouseenter)="abrirSidebar()"  [routerLinkActive]="['active']" [routerLink]="['/'+this.getAppRoutes.platform.forms.route]">
                 <div item-menu>
                   <img id="formIcon" src="assets/icons/ant-design_form-outlined.png" width="36" alt="">
                 </div>
@@ -28,12 +28,20 @@
                     <span class="text nav-text fw-400" #asText>Formulario</span>
                 </div>
             </a>
-            <a id="row-content" (mouseenter)="abrirSidebar()"   [routerLinkActive]="['active']" [routerLink]="['/'+this.getAppRoutes.platform.users.route]">
+            <a class="row-content" (mouseenter)="abrirSidebar()"   [routerLinkActive]="['active']" [routerLink]="['/'+this.getAppRoutes.platform.users.route]">
                 <div item-menu>
                   <img id="personalIcon" src="assets/icons/ion_people-sharp.png" width="40" alt="">
                 </div>
                 <div class="justify-left-content" item-menu>
                     <span class="text nav-text fw-400" #asText>Personal</span>
+                </div>
+            </a>
+            <a class="row-content" id="rastreadorIcon"  (mouseenter)="abrirSidebar()"   [routerLinkActive]="['active']" [routerLink]="['/'+this.getAppRoutes.platform.gps.route]">
+                <div item-menu>
+                  <img  src="assets/icons/route-menu.png" width="36" alt="">
+                </div>
+                <div class="justify-left-content" item-menu>
+                    <span class="text nav-text fw-400" #asText>Rastreador</span>
                 </div>
             </a>
         </div>

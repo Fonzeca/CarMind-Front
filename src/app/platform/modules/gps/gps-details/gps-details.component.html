@@ -1,0 +1,127 @@
+<div class="m-2">
+  <h4 class="mt-2 text-dark"> <i (click)='clearRoute()' [routerLink]="'/'+ this.getAppRoutes.platform.gps.route" class="fa fa-arrow-left px-2 pointer" aria-hidden="true"></i>  Vehiculo</h4>
+  <div class="row mt-3" *ngIf="vehicle !== undefined">
+    <div class="col-lg-3 col-md-3 col-sm-3">
+      <p class="fw-bold">Nombre:</p>
+    </div>
+    <div class="col-lg col-md col-sm">
+      <p class="fs-6">{{vehicle.nombre}}</p>
+    </div>
+  </div>
+  <div class="row" *ngIf="vehicle !== undefined">
+    <div class="col-lg-2 col-md-2 col-sm-2">
+      <p class="fw-bold">Motor:</p>
+    </div>
+    <div class="col-lg col-md col-sm pl-2">
+      <div class="row">
+        <div class="col-lg-9 col-md-9 col-sm-9">
+          <p class="fs-6" *ngIf="vehicle.engine_status == true">
+              Encendido <i class="fa fa-circle-thin circle-2 fa-1x"></i>
+          </p>
+          <p class="fs-6" *ngIf="vehicle.engine_status == false">
+            Apagado <i class="fa fa-circle-thin circle-1 fa-1x"></i>
+        </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="vehicle !== undefined">
+    <div class="col-lg-3 col-md-3 col-sm-3">
+      <p class="fw-bold">Patente:</p>
+    </div>
+    <div class="col-lg col-md col-sm">
+      <p class="fs-6">{{vehicle.patente}}</p>
+    </div>
+  </div>
+  <h5 class="mt-2 text-secondary">Trayecto</h5>
+  <div class="row mt-4">
+    <div class="col-lg-2 col-md-2 col-sm-2 d-flex align-items-center">
+      <p class="fw-bold align-self-center m-0">Desde:</p>
+    </div>
+    <div class="col-lg col-md">
+      <div class="input-group">
+        <input
+          class="form-control"
+          placeholder="dd/mm/yyyy"
+          name="dp"
+          (click)="d.toggle()"
+          (dateSelect)="onDateFromSelect($event)"
+          [placement]="'bottom'"
+          autocomplete="off"
+          ngbDatepicker
+          #d="ngbDatepicker"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="row mt-2 mb-4">
+    <div class="col-lg-2 col-md-2 col-sm-2 d-flex align-items-center">
+      <p class="fw-bold align-self-center m-0">Hasta:</p>
+    </div>
+    <div class="col-lg col-md d-flex align-items-center">
+      <div class="input-group">
+        <input
+          class="form-control"
+          placeholder="dd/mm/yyyy"
+          name="dp2"
+          (click)="d2.toggle()"
+          (dateSelect)="onDateToSelect($event)"
+          [placement]="'bottom'"
+          autocomplete="off"
+          ngbDatepicker
+          #d2="ngbDatepicker"
+        />
+      </div>
+    </div>
+    <p *ngIf="travelRoutes.length == 0 && dateFrom.length != 0 && dateTo.length != 0" class="mt-4 mb-0" style="font-size: 0.8rem">
+      No se encontraron rutas
+    </p>
+  </div>
+  <hr />
+  <div class="row">
+    <div class="col">
+      <div class="d-flex">
+        <div class="col-lg-3 col-md-3 col-sm-3 text-end p-1">
+          <img  src="assets/icons/route.png" width="20" alt="">
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 mt-1">
+          <p>{{totalKms}} km</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="d-flex">
+        <div class="col-lg-3 col-md-3 col-sm-3 text-end p-1">
+          <i class="fa fa-map-marker" style="font-size: 1.2rem"></i>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 mt-1">
+          <p>{{totalStops}} paradas</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="overflow-list" >
+    <div *ngFor="let travelRoute of travelRoutes">
+      <div #myListOfTrips [id]="travelRoute.id" class="card-body m-0 p-0" [ngClass]="{'card-selected' : travelRoute.id == itemSelected, 'card' : travelRoute.id != itemSelected}">
+        <div (click)="isAnimate ? null : selectTravelOrStop(travelRoute)" class="d-flex m-0 justify-content-between pointer">
+          <div
+            class="col-lg-5 col-md-5 col-sm-3 d-flex align-items-center justify-content-start align-items-center"
+          >
+          <div class="route">
+            <img  *ngIf="travelRoute.type === 'Viaje'" src="assets/icons/route.png" width="25" alt="">
+          </div>
+          <div class="pin">
+            <i  *ngIf="travelRoute.type === 'Parada'" class="fa fa-map-marker" style="font-size: 1.5rem"></i>
+          </div>
+            <p class="m-0" style="font-size: 0.8rem">{{travelRoute.fromDate}}</p>
+          </div>
+          <div class="col-lg col-md d-flex justify-content-end">
+            <p class="pt-1 m-2" style="font-size: 0.8rem">
+              {{travelRoute.fromHour}} - {{travelRoute.toHour}} ({{travelRoute.duration}})
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

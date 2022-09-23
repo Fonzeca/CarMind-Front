@@ -49,7 +49,7 @@ export class SidebarComponent extends BaseComponent implements OnInit, AfterView
   cerrarSidebar() {
     const asRigth = document.querySelector(".clase-padre")
     const asToggle = this.toggle.nativeElement;
-    if(asToggle) this.renderer2.setStyle(asToggle, 'width', '102px',  RendererStyleFlags2.Important + RendererStyleFlags2.DashCase);
+    if(asToggle) this.renderer2.setStyle(asToggle, 'width', '100px',  RendererStyleFlags2.Important + RendererStyleFlags2.DashCase);
     if(asRigth) this.renderer2.setStyle(asRigth, 'margin-left', '100px');
     // this.renderer2.setStyle(asRigthPersonal, 'margin-left', '300px');
 

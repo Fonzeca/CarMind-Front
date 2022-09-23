@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { GpsRouteData, gps_data } from '../interfaces/gps_data';
+import { GpsRouteData, gps_data, RouteRequest, VehiclesImeisRequest, VehicleState } from '../interfaces/gps_data';
 import { ApiService } from './core/api.service';
 import endpoints from './core/endpoints';
 
@@ -10,21 +10,32 @@ import endpoints from './core/endpoints';
 })
 export class GpsService extends ApiService {
 
+  map?: google.maps.Map;
+
   constructor(http: HttpClient) {
     super(http);
   }
 
+  getVehiclesStateByImeis(params: VehiclesImeisRequest) : Observable<VehicleState[]>{
+    const {
+      trackin: { get_vehicles_state_by_imeis: url },
+    } = endpoints;
+    return this.post(url, params);
+  }
+  
   getLastLogByIMEI(imei: string) : Observable<gps_data>{
     const {
       trackin: { get_last_log: url },
     } = endpoints;
     return this.get(url + "?imei=" + imei);
   }
+  getRouteByImei(params: RouteRequest) : Observable<GpsRouteData[]>{
 
-  getRoute(imei: string) : Observable<GpsRouteData>{
     const {
       trackin: { get_route: url },
     } = endpoints;
-    return this.get(url + "?imei=" + imei);
+    return this.post(url, params);
   }
+
+
 }

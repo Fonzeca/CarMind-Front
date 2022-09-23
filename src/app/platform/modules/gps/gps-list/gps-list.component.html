@@ -1,0 +1,46 @@
+<div class="m-2">
+  <h4 class="mt-2 text-dark">GPS tracker</h4>
+  <h5 class="mt-4 text-secondary">Vehiculos</h5>
+  <div class="form-group has-feedback mt-4">
+    <div class="d-flex justify-content-end">
+      <i class="fa fa-search form-control-feedback"></i>
+    </div>
+    <input [(ngModel)]="searchText" type="text" class="form-control" placeholder="Buscar vehiculos.." />
+  </div>
+  <div class="card mt-5">
+    <div class="card-body p-0">
+      <table class="table m-0">
+        <tbody>
+          <tr>
+            <td  class="text-center" scope="col">Vehiculo</td>
+            <td scope="col">Patente</td>
+            <td scope="col">Motor</td>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+          <tr [ngClass]="{'backColor-selected' : vehicle.imei == itemSelected, 'backColor' : vehicle.imei != itemSelected}" *ngFor="let vehicle of vehiclesStates | filter: searchText"  (click)="moveCameraToVehicle(vehicle.latitud, vehicle.longitud); selectVehicle(vehicle.imei)" class="pointer">
+            <td class="text-center p-1">{{ vehicle.nombre }}</td>
+            <td class="text-center p-1">{{ vehicle.patente }}</td>
+            <td class="text-center p-1" style="font-size: 0.8rem">
+              <div *ngIf="vehicle.engine_status == true">
+                <i class="fa circle-2 mt-1"></i>
+              </div>
+              <div *ngIf="vehicle.engine_status == false">
+                <i class="fa circle-1 mt-1"></i>
+              </div>
+            </td>
+            <td></td>
+            <td class="text-center p-1">
+              <div class="round pointer" (click)="detail(vehicle)">
+                <i
+                  class="fa fa-list-ul text-white"
+                  style="font-size: 0.8rem"
+                ></i>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

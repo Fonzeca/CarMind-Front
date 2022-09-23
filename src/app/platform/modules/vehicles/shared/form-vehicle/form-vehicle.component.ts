@@ -41,10 +41,10 @@ export class FormVehicleComponent implements dyComponent {
         "marca" : [this.data?.marca ? this.data.marca : '',Validators.required],
         "modelo" : [this.data?.modelo ? this.data.modelo : '',Validators.required],
         "linea" : [this.data?.linea ? this.data.linea : '',Validators.required],
-        "patente" : [this.data?.patente ? this.data.patente : (this.data?.id ? "N/A": "") ],
+        "patente" : [this.data?.patente ? this.data.patente : "N/A" ],
         "tipo" : [ this.data?.tipo ? this.data.tipo : this.type.tipo_vehiculo[0],Validators.required],
         "kilometraje" : [ this.data?.kilometraje ? this.data.kilometraje : '', Validators.required],
-        "imei" : [ this.data?.imei ? this.data.imei :  (this.data?.imei ? "N/A": "")],
+        "imei" : [ this.data?.imei ? this.data.imei :  "N/A"],
     });
   }
 
@@ -72,6 +72,8 @@ export class FormVehicleComponent implements dyComponent {
     if(!form.invalid){
       const { value:data } = form;
       data.id = this.data.id;
+      if (data["imei"].length <= 0 || data["imei"] === "N/A") data["imei"] = null
+      if (data["patente"].length <= 0 || data["patente"] == "N/A") data["patente"] = null
       this._vehicle.update(data).subscribe(
         res=>{
           this.close()
