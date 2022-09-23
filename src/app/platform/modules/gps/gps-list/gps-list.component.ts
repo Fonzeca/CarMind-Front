@@ -57,7 +57,7 @@ export class GpsListComponent extends BaseComponent implements OnInit {
   
   async getVehicles() {
     var vehiclesResponse = await    firstValueFrom( this.vehicle_service.getAll())
-    var vehicles: vehicle[] = vehiclesResponse.splice( vehiclesResponse.findIndex(v => v.imei !== undefined), 1)
+    var vehicles = vehiclesResponse.filter(v=> v.imei !== undefined);
     var vehiclesImeis: string[] = vehicles.map((vehicle) => vehicle.imei);
     return [vehicles, vehiclesImeis];
   }
