@@ -33,7 +33,7 @@ export class GpsListComponent extends BaseComponent implements OnInit {
       };
 
 
-      this.drawVehcilePositionsEvery5Seconds = timer(0, 5000).subscribe(_ => {
+      this.drawVehcilePositionsEvery5Seconds = timer(0, 3000).subscribe(_ => {
         this.gps_service.getVehiclesStateByImeis(vehiclesImeisRequest).pipe(
           tap((response) => {
               

@@ -72,8 +72,8 @@ export class FormVehicleComponent implements dyComponent {
     if(!form.invalid){
       const { value:data } = form;
       data.id = this.data.id;
-      if (data["imei"].length <= 0) data["imei"] = null
-      if (data["patente"].length <= 0) data["patente"] = null
+      if (data["imei"].length <= 0 || data["imei"] === "N/A") data["imei"] = null
+      if (data["patente"].length <= 0 || data["patente"] == "N/A") data["patente"] = null
       this._vehicle.update(data).subscribe(
         res=>{
           this.close()
