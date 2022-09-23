@@ -119,7 +119,8 @@ export class GpsDetailsComponent extends BaseComponent implements OnInit {
       .getRouteByImei(routeRequest)
       .pipe(
         tap((route) => {
-
+          
+          if(route.length <= 0) return;
 
           for (var i = 0; i < route.length; i++) {
             if ('latitud' in route[i]) {

@@ -73,6 +73,9 @@
         />
       </div>
     </div>
+    <p *ngIf="travelRoutes.length == 0 && dateFrom.length != 0 && dateTo.length != 0" class="mt-4 mb-0" style="font-size: 0.8rem">
+      No se encontraron rutas
+    </p>
   </div>
   <hr />
   <div class="row">
