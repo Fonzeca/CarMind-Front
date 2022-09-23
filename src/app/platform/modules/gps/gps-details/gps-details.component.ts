@@ -15,6 +15,8 @@ import { GeoOperationsService } from '../util/geo-operations.service';
 })
 export class GpsDetailsComponent extends BaseComponent implements OnInit {
 
+  rastreadorButton = document.getElementById('rastreadorIcon');
+
   isAnimate : boolean = false;
   itemSelected : number | null = null;
 
@@ -71,8 +73,18 @@ export class GpsDetailsComponent extends BaseComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
+
+  //Esto es necesario para que cuando se haga click en el botón del menú Rastreador (botón que se encuentra fuera de este componente, se borre la ruta)
+  navButtonHandler: any;
+
+  ngOnInit() {
     this.clearRoute();
+      this.navButtonHandler = this.clearRoute.bind(this);
+      this.rastreadorButton?.addEventListener("click", this.navButtonHandler, true);
+  }
+
+  override ngOnDestroy(): void {
+    this.rastreadorButton?.removeEventListener('click',   this.navButtonHandler )
   }
 
   onDateFromSelect(dateFrom: NgbDate) {
