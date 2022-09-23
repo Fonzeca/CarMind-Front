@@ -31,6 +31,7 @@ export class GpsMapComponent implements OnInit {
         center: location,
         zoom: 6,
         mapId: 'aa99da66fc3150b',
+        minZoom: 5
       });
 
     });
