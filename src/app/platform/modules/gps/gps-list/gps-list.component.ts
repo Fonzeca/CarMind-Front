@@ -37,14 +37,18 @@ export class GpsListComponent extends BaseComponent implements OnInit {
         this.gps_service.getVehiclesStateByImeis(vehiclesImeisRequest).pipe(
           tap((response) => {
               
-            this.vehiclesStates = (vehicles as vehicle[]).map((vehicle) => {
+            this.vehiclesStates = [];
+            (vehicles as vehicle[]).forEach((vehicle) => {
               var fullDetailedVehicle : VehicleState = response.find(v => v.imei == vehicle.imei)!;
-              fullDetailedVehicle!.nombre = vehicle.nombre;
-              fullDetailedVehicle!.patente = vehicle.patente;
-              
-              this.drawVehicleMarker(fullDetailedVehicle.latitud, fullDetailedVehicle.longitud, vehicle.imei)
-    
-              return fullDetailedVehicle;
+
+              if (fullDetailedVehicle){
+                fullDetailedVehicle!.nombre = vehicle.nombre;
+                fullDetailedVehicle!.patente = vehicle.patente;
+                
+                this.drawVehicleMarker(fullDetailedVehicle.latitud, fullDetailedVehicle.longitud, vehicle.imei)
+      
+                this.vehiclesStates.push(fullDetailedVehicle);
+              }
             });     
   
             this.gps_service.map?.addListener('dragstart', () => {
