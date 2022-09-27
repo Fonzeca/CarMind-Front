@@ -115,7 +115,6 @@ export class GpsListComponent extends BaseComponent implements OnInit {
         var marker :  google.maps.Marker = new google.maps.Marker({
           map: this.gps_service.map,
           position: finalPosition,
-          draggable: true
         });
     
         google.maps.event.addListener(marker, 'click', this.moveCameraToVehicle.bind(this, latitud, longitud));
