@@ -11,6 +11,8 @@ import endpoints from './core/endpoints';
 export class GpsService extends ApiService {
 
   map?: google.maps.Map;
+  markers: { [imei: string] : google.maps.Marker; } = {};
+
 
   constructor(http: HttpClient) {
     super(http);
