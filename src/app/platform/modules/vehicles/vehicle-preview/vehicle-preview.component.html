@@ -47,9 +47,9 @@
                                 <i id="editButton" (click)="editVehicle()" class="fa fa-pencil  pointer mx-4 text-end px-1 justify-content-end" aria-hidden="true"></i>
                                 <i id="deleteButton" (click)="deleteVehicle()" class="fa fa-trash pointer text-end px-1 justify-content-end" aria-hidden="true"></i>
                                 <div class="information-content"><span id="nameLabel" class="title-card-2">Nombre:</span> <span id="nameValueLabel" >{{vehicle.nombre}}</span></div>
-                                <div class="information-content"> <span id="brandLabel" class="title-card-2">Marca:</span> <span id="brandValueLabel" >{{vehicle.marca}}</span> </div>
-                                <div class="information-content"> <span id="modelLabel" class="title-card-2">Modelo:</span> <span id="modelValueLabel" >{{vehicle.modelo}}</span> </div>
-                                <div class="information-content"> <span id="yearLabel" class="title-card-2">Año:</span> <span id="yearValueLabel" >{{vehicle.linea}}</span> </div>
+                                <div class="information-content"> <span id="brandLabel" class="title-card-2">Marca:</span> <span id="brandValueLabel" >{{vehicle.marca ? vehicle.marca : "N/A"}}</span> </div>
+                                <div class="information-content"> <span id="modelLabel" class="title-card-2">Modelo:</span> <span id="modelValueLabel" >{{vehicle.modelo ? vehicle.modelo : "N/A"}}</span> </div>
+                                <div class="information-content"> <span id="yearLabel" class="title-card-2">Año:</span> <span id="yearValueLabel" >{{vehicle.linea ? vehicle.linea : "N/A"}}</span> </div>
                                 <div class="information-content"> <span id="patentLabel" class="title-card-2">Patente:</span> <span id="patentValueLabel" >{{vehicle.patente ? vehicle.patente : "N/A"  }}</span> </div>
                                 <div class="information-content"> <span id="driverLabel" class="title-card-2">Chofer actual:</span> <span id="userValueLabel" >{{vehicle.usuario_en_uso ? vehicle.usuario_en_uso : "N/A"  }}</span> </div>
                                 <div class="information-content"> <span id="kmLabel" class="title-card-2">Kilometraje:</span> <span id="kmValueLabel" >{{vehicle.kilometraje ? vehicle.kilometraje : "N/A"  }}</span> </div>

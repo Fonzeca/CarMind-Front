@@ -8,10 +8,10 @@ import { VehiclesService } from 'src/app/platform/services/vehicles.service';
 
 @Component({
   selector: 'm-form-vehicle',
-  templateUrl: './form-vehicle.component.html',
-  styleUrls: ['./form-vehicle.component.scss']
+  templateUrl: './edit-form-vehicle.component.html',
+  styleUrls: ['./edit-form-vehicle.component.scss']
 })
-export class FormVehicleComponent implements dyComponent {
+export class EditFormVehicleComponent implements dyComponent {
 
   @Input() data:any;
 
@@ -38,42 +38,30 @@ export class FormVehicleComponent implements dyComponent {
   ngOnInit(): void {
     this.form = this.formBuilder.group({
         "nombre" : [ this.data?.nombre ? this.data.nombre : '' ,Validators.required],
-        "marca" : [this.data?.marca ? this.data.marca : '',Validators.required],
-        "modelo" : [this.data?.modelo ? this.data.modelo : '',Validators.required],
-        "linea" : [this.data?.linea ? this.data.linea : '',Validators.required],
+        "marca" : [this.data?.marca ? this.data.marca : "N/A"],
+        "modelo" : [this.data?.modelo ? this.data.modelo : "N/A"],
+        "linea" : [this.data?.linea ? this.data.linea : "N/A"],
         "patente" : [this.data?.patente ? this.data.patente : "N/A" ],
         "tipo" : [ this.data?.tipo ? this.data.tipo : this.type.tipo_vehiculo[0],Validators.required],
-        "kilometraje" : [ this.data?.kilometraje ? this.data.kilometraje : '', Validators.required],
+        "kilometraje" : [ this.data?.kilometraje ? this.data.kilometraje : "N/A"],
         "imei" : [ this.data?.imei ? this.data.imei :  "N/A"],
     });
   }
 
   action(){
-    if(this.data?.id){
-      this.update(this.form);
-    }else{
-      this.create(this.form);
-    }
-  }
-
-  create(form:any){
-    if(!form.invalid){
-      const { value:data } = form;
-      this._vehicle.create(data).subscribe(
-        res=>{
-          this.close()
-          this._app.sw.alertSuccess("Vehículo guardado");
-        }
-      )
-    }
+    this.update(this.form);
   }
 
   update(form:any){
     if(!form.invalid){
       const { value:data } = form;
       data.id = this.data.id;
-      if (data["imei"].length <= 0 || data["imei"] === "N/A") data["imei"] = null
-      if (data["patente"].length <= 0 || data["patente"] == "N/A") data["patente"] = null
+      if (data["imei"] != null && (data["imei"].length <= 0 || data["imei"] === "N/A")) data["imei"] = null
+      if (data["patente"] != null && (data["patente"].length <= 0 || data["patente"] == "N/A")) data["patente"] = null
+      if (data["marca"] != null && (data["marca"].length <= 0 || data["marca"] == "N/A")) data["marca"] = null
+      if (data["modelo"] != null && (data["modelo"].length <= 0 || data["modelo"] == "N/A")) data["modelo"] = null
+      if (data["linea"] != null && (data["linea"].length <= 0 || data["linea"] == "N/A")) data["linea"] = null
+      if (data["kilometraje"] != null && (data["kilometraje"].length < 0 || data["kilometraje"] == "N/A")) data["kilometraje"] = null
       this._vehicle.update(data).subscribe(
         res=>{
           this.close()

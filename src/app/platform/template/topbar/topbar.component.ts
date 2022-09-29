@@ -4,7 +4,7 @@ import { interval } from 'rxjs';
 import { ModalComponent } from '../../components/modal/modal.component';
 import { NotificationsComponent } from '../../components/notifications/notifications.component';
 import { notifications } from '../../interfaces/notifications';
-import { FormVehicleComponent } from '../../modules/vehicles/shared/form-vehicle/form-vehicle.component';
+import { EditFormVehicleComponent } from '../../modules/vehicles/shared/edit-form-vehicle/edit-form-vehicle.component';
 import { AuthService } from '../../services/auth.service';
 import { NotificationsService } from '../../services/notifications.service';
 import { BaseComponent } from '../../shared/components/base.component';

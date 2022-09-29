@@ -10,7 +10,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { FormSModule } from '../forms/forms.module';
 import { AddDocumentComponent } from './shared/add-document/add-document.component';
 import { FormAssignmentComponent } from './shared/form-assignment/form-assignment.component';
-import { FormVehicleComponent } from './shared/form-vehicle/form-vehicle.component';
+import { EditFormVehicleComponent } from './shared/edit-form-vehicle/edit-form-vehicle.component';
 import { QrModalComponent } from './shared/qr-modal/qr-modal.component';
 import { VehicleCardComponent } from './shared/vehicle-card/vehicle-card.component';
 import { VehicleDocumentViewComponent } from './shared/vehicle-document-view/vehicle-document-view.component';
@@ -18,12 +18,14 @@ import { VehicleListComponent } from './vehicle-list/vehicle-list.component';
 import { VehiclePreviewComponent } from './vehicle-preview/vehicle-preview.component';
 import { VehicleReviewComponent } from './vehicle-review/vehicle-review.component';
 import { VehiclesRoutingModule } from './vehicles-routing.module';
+import { CreateFormVehicleComponent } from './shared/create-form-vehicle/create-form-vehicle.component';
 
 @NgModule({
   declarations: [
     VehicleListComponent,
     VehicleCardComponent,
-    FormVehicleComponent,
+    EditFormVehicleComponent,
+    CreateFormVehicleComponent,
     VehiclePreviewComponent,
     QrModalComponent,
     VehicleDocumentViewComponent,

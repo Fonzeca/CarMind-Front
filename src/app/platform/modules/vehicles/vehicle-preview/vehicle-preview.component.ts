@@ -12,7 +12,7 @@ import { AppRoutes } from 'src/app/routes';
 import Swal from 'sweetalert2';
 import { AddDocumentComponent } from '../shared/add-document/add-document.component';
 import { FormAssignmentComponent } from '../shared/form-assignment/form-assignment.component';
-import { FormVehicleComponent } from '../shared/form-vehicle/form-vehicle.component';
+import { EditFormVehicleComponent } from '../shared/edit-form-vehicle/edit-form-vehicle.component';
 import { QrModalComponent } from '../shared/qr-modal/qr-modal.component';
 import { VehicleDocumentViewComponent } from '../shared/vehicle-document-view/vehicle-document-view.component';
 
@@ -93,7 +93,7 @@ export class VehiclePreviewComponent extends BaseComponent implements OnInit {
       maxHeight: '85vh',
       data: {
         viewComponent: {
-          component: FormVehicleComponent,
+          component: EditFormVehicleComponent,
           data: {...this.vehicle},
         },
         title: 'Editar Vehículo',

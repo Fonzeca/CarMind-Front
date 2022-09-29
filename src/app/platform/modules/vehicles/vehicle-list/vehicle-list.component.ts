@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from 'src/app/platform/components/modal/modal.component';
 import { vehicle } from 'src/app/platform/interfaces/vehicle';
 import { VehiclesService } from 'src/app/platform/services/vehicles.service';
-import { FormVehicleComponent } from '../shared/form-vehicle/form-vehicle.component';
+import { CreateFormVehicleComponent } from '../shared/create-form-vehicle/create-form-vehicle.component';
 
 @Component({
   selector: 'm-vehicle-list',
@@ -43,8 +43,7 @@ export class VehicleListComponent implements OnInit {
       maxHeight: '85vh',
       data: {
         viewComponent: {
-          component: FormVehicleComponent,
-          data: {  },
+          component: CreateFormVehicleComponent,
         },
         title: 'Nuevo Vehículo',
       },
