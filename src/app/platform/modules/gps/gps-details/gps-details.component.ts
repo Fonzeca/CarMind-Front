@@ -33,6 +33,7 @@ export class GpsDetailsComponent extends BaseComponent implements OnInit {
 
   readonly carIcon : google.maps.Symbol;
   readonly stopIcon : google.maps.Icon;
+  readonly stopRedIcon : google.maps.Icon;
   readonly startTripIcon : google.maps.Icon;
   readonly endTripIcon : google.maps.Icon;
 
@@ -61,6 +62,10 @@ export class GpsDetailsComponent extends BaseComponent implements OnInit {
     this.stopIcon = {
       scaledSize: new google.maps.Size(20,20),
       url: "assets/gps/stop.svg"
+    }
+    this.stopRedIcon = {
+      scaledSize: new google.maps.Size(30,30),
+      url: "assets/gps/stop-red.svg"
     }
     this.startTripIcon = {
       scaledSize: new google.maps.Size(50,50),
@@ -104,10 +109,15 @@ export class GpsDetailsComponent extends BaseComponent implements OnInit {
     this.travelRoutes = [];
     this.totalKms = 0;
     this.totalStops = 0;
-
+    
     this.clearRoute();
-
+    
     if (this.dateFrom.length <= 0 || this.dateTo.length <= 0) return;
+    
+    for (const [imei, marker] of Object.entries(this.gps_service.markers)) { 
+      marker.setMap(null);
+      delete this.gps_service.markers[imei]
+    }
 
     const routeRequest: RouteRequest = {
       imei: this.vehicle!.imei,
@@ -193,6 +203,12 @@ export class GpsDetailsComponent extends BaseComponent implements OnInit {
             this.polylines.forEach((item) => {
               item.setOptions({strokeOpacity: 1});
             })
+
+            this.markers.forEach(marker =>{
+              if(marker === this.startTrip || marker === this.startTrip) return;
+               
+              marker.setIcon(this.stopIcon);
+            });
           })
         })
       ).subscribe();
@@ -337,7 +353,7 @@ export class GpsDetailsComponent extends BaseComponent implements OnInit {
     }
   }
 
-  drawStartAndEndOfTrip(points : GpsPoint[] | null = null){
+  drawStartAndEndOfTrip(){
     var startPosition : google.maps.LatLng | null = null;
     var endPosition : google.maps.LatLng | null = null;
     if(this.startTrip != null){
@@ -349,25 +365,14 @@ export class GpsDetailsComponent extends BaseComponent implements OnInit {
       this.endTrip = null
     }
 
-    if(points == null){
-      if(this.polylines.length >= 2){
-        var length = this.polylines.length;
-        startPosition = this.polylines[0].getPath().getAt(0);
+    if(this.polylines.length >= 2){
+      var length = this.polylines.length;
+      startPosition = this.polylines[0].getPath().getAt(0);
         
-        var lengthOfLast = this.polylines[length-1].getPath().getLength();
-        endPosition = this.polylines[length-1].getPath().getAt(lengthOfLast-1);
-        
-      }
-    }else{
-      if(points.length >= 2){
-        var length = points.length;
-        startPosition = new google.maps.LatLng({lat: points[0].latitud, lng: points[0].longitud})
-
-        endPosition = new google.maps.LatLng({lat: points[length-1].latitud, lng: points[length-1].longitud})
-      }
+      var lengthOfLast = this.polylines[length-1].getPath().getLength();
+      endPosition = this.polylines[length-1].getPath().getAt(lengthOfLast-1);    
     }
-
-
+    
     if(startPosition != null && endPosition != null){
       var startmarker: google.maps.Marker = new google.maps.Marker({
         map: this.gps_service.map,
@@ -429,19 +434,35 @@ export class GpsDetailsComponent extends BaseComponent implements OnInit {
     this.gps_service.map!.fitBounds(bounds);
   }
 
-  selectTravelOrStop(travelRoute : GpsRouteData){
-    this.itemSelected = travelRoute.id;
+  selectTravelOrStop(travelOrStopRoute : GpsRouteData){
+
+    
+    this.itemSelected = travelOrStopRoute.id;
     // this.mylist.find((item)=>{
-    //   if(item.nativeElement.id == travelRoute.id){
-    //     item.nativeElement.scrollIntoView();
-    //   }
-    //   return false
-    // })
-    if((<TravelRoute>travelRoute).data !== undefined){
-      this.resaltarRuta(travelRoute as TravelRoute);
+      //   if(item.nativeElement.id == travelRoute.id){
+        //     item.nativeElement.scrollIntoView();
+        //   }
+        //   return false
+        // })
+        if((<TravelRoute>travelOrStopRoute).data !== undefined){
+          this.resaltarRuta(travelOrStopRoute as TravelRoute);
+          this.moveCamera(travelOrStopRoute as TravelRoute);
+        }else{
+          var stopRoute : StopRoute = travelOrStopRoute as StopRoute;
+          this.moveCamera(travelOrStopRoute);
+
+          this.markers.forEach(marker =>{
+            if(marker === this.startTrip || marker === this.startTrip) return;
+
+            if(marker.getPosition()!.lat() == stopRoute.latitud && marker.getPosition()!.lng() == stopRoute.longitud){
+              marker.setIcon(this.stopRedIcon);
+            }else{
+              marker.setIcon(this.stopIcon);
+            }
+          });
     }
-    this.moveCamera(travelRoute);
   }
+  
 
   resaltarRuta(travelRoute : TravelRoute){
     this.polylines.forEach((item) => {
