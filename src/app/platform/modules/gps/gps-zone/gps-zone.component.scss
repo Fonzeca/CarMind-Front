@@ -1,0 +1,77 @@
+  .card {
+    background-color: #eee;
+  }
+  
+  .backColor{
+    background-color: #eee;
+  }
+  .backColor-selected{
+    color: #eee;
+    background-color: #0078FF;
+  }
+
+  .input-group{
+    background-color: #eeeeee;
+    color: red;
+  }
+
+  
+  #map {
+    width: calc(65% - 100px);
+    height: 100%;
+    position: absolute;
+    background-color: white;
+  }
+  
+  /**input**/
+  
+  .form-control-feedback {
+    position: absolute;
+    padding: 10px;
+    pointer-events: none;
+    background-color: #eee;
+  }
+  
+  .form-control {
+    padding-left: 30px !important;
+    background-color: #eee;
+  }
+
+  .input-control {
+    background-color: white;
+    padding: 5px;
+  }
+
+  .input-control:focus {
+    color: #212529;
+    background-color: #fff;
+    border: 0px solid rgba(182, 232, 2, 0.7);
+    outline: 0;
+    height: 100%;
+    box-shadow: rgba(182, 232, 2, 0.7) 0px 0px 0px 3px !important;
+  }
+  
+  .input-control.ng-dirty.ng-invalid {
+    color: #212529;
+    background-color: #fff;
+    border: 0px solid #dc0404;
+    outline: 0;
+    box-shadow: #dc0404 0px 0px 0px 2px !important;
+  }
+  
+  /*here edite background of icon */
+  
+  .round {
+    border-radius: 50%;
+    padding-bottom: 1px;
+    padding-left: 4px;
+    padding-right: 5px;
+    background-color: #1a006e;
+    width: 30px;
+    height: 25px;
+  }
+  
+  .actions{
+    color: var(--m-acento2-color);
+  }
+

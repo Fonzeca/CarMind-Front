@@ -94,10 +94,28 @@ export const AppRoutes = {
           return {
             route:`${this.route}/gps`,
             main:"gps",
-            get details(){
+            get vehicles(){
               return {
-                route:`${this.route}/details`,
-                main:"details"
+                route:`${this.route}/vehicles`,
+                main:"vehicles",
+                get details(){
+                  return {
+                    route:`${this.route}/details`,
+                    main:"details"
+                  }
+                }
+              }
+            },
+            get zones(){
+              return {
+                route:`${this.route}/zones`,
+                main:"zones",
+                get details(){
+                  return {
+                    route:`${this.route}/details`,
+                    main:"details"
+                  }
+                }
               }
             }
           }

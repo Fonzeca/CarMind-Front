@@ -3,20 +3,24 @@ import { CommonModule } from '@angular/common';
 
 import { GpsRoutingModule } from './gps-routing.module';
 import { GpsComponent } from './gps.component';
-import { GpsListComponent } from './gps-list/gps-list.component';
-import { GpsDetailsComponent } from './gps-details/gps-details.component';
+import { GpsVehicleDetailsComponent } from './gps-vehicle-details/gps-vehicle-details.component';
 import { GpsMapComponent } from './gps-map/gps-map.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { FormsModule } from '@angular/forms';
+import { GpsVehicleListComponent } from './gps-vehicle-list/gps-vehicle-list.component';
+import { GpsZoneComponent } from './gps-zone/gps-zone.component';
+import { GpsZoneDetailsComponent } from './gps-zone-details/gps-zone-details.component';
 
 
 @NgModule({
   declarations: [
     GpsComponent,
-    GpsListComponent,
-    GpsDetailsComponent,
-    GpsMapComponent
+    GpsVehicleDetailsComponent,
+    GpsMapComponent,
+    GpsVehicleListComponent,
+    GpsZoneComponent,
+    GpsZoneDetailsComponent,
   ],
   imports: [
     CommonModule,

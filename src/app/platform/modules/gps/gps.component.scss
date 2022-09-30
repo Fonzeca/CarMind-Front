@@ -6,6 +6,11 @@
   margin-left: 100px;
 }
 
+.row2 {
+  display: flex;
+}
+
+
 .map-container {
   height: calc(100vh - 70px);
   @media screen and (max-width: 500px) {
@@ -26,5 +31,106 @@
     margin-top: -3px;
     padding: 0px !important;
     margin-right: 6px;
+  }
+}
+
+
+
+
+.buttonUnderline{
+  background: transparent;
+  border: none;
+  margin: 30px auto 0;
+  display: block;
+  font-size: 20px;
+  outline: none;
+  position: relative;
+  transition: 0.3s;
+  padding: 10px;
+  &:before{
+    content: '';
+    border-bottom: 2px solid rgb(218, 218, 218);
+    padding: 0 10px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 130%;
+    transition: 0.3s;
+  }
+}
+
+.buttonUnderlineSelected{
+  background: transparent;
+  border: none;
+  margin: 30px auto 0;
+  display: block;
+  font-size: 20px;
+  outline: none;
+  position: relative;
+  transition: 0.3s;
+  padding: 10px;
+  color: #b6e802;
+  &:before{
+    content: '';
+    border-bottom: 2px solid #b6e802;
+    padding: 0 10px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 130%;
+    transition: 0.3s;
+  }
+}
+
+.buttonUnderline2{
+  background: transparent;
+  border: none;
+  margin: 30px auto 0;
+  display: block;
+  font-size: 20px;
+  outline: none;
+  position: relative;
+  transition: 0.3s;
+  padding: 10px;
+  &:before{
+    content: '';
+    border-bottom: 2px solid rgb(218, 218, 218);
+    padding: 0 10px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 110%;
+    transition: 0.3s;
+  }
+}
+
+.buttonUnderlineSelected2{
+  background: transparent;
+  border: none;
+  margin: 30px auto 0;
+  display: block;
+  font-size: 20px;
+  outline: none;
+  position: relative;
+  transition: 0.3s;
+  padding: 10px;
+  color: #b6e802;
+  &:before{
+    content: '';
+    border-bottom: 2px solid #b6e802;
+    padding: 0 10px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 110%;
+    transition: 0.3s;
   }
 }

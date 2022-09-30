@@ -49,3 +49,7 @@ export interface TravelRoute extends GpsRouteData {
   data: GpsPoint[];
 }
 
+export interface ZoneView{
+  id: number;
+  name: string;
+}

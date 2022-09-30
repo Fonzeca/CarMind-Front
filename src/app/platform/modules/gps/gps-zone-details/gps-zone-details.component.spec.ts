@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GpsDetailsComponent } from './gps-details.component';
+import { GpsZoneDetailsComponent } from './gps-zone-details.component';
 
-describe('GpsDetailsComponent', () => {
-  let component: GpsDetailsComponent;
-  let fixture: ComponentFixture<GpsDetailsComponent>;
+describe('GpsZoneDetailsComponent', () => {
+  let component: GpsZoneDetailsComponent;
+  let fixture: ComponentFixture<GpsZoneDetailsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GpsDetailsComponent ]
+      declarations: [ GpsZoneDetailsComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GpsDetailsComponent);
+    fixture = TestBed.createComponent(GpsZoneDetailsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -23,3 +23,4 @@ describe('GpsDetailsComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+

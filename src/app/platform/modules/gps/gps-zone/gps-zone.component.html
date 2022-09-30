@@ -1,0 +1,40 @@
+<div class="form-group has-feedback mt-4">
+    <div class=" col-lg-5 col-xs-10  mb-4">
+        <button id="addZoneButton" class="btn btn-success m-btn-success m-btn w-100 truncate" (click)="addZone('zoneName')">Añadir zona</button>
+    </div>
+    <div class="d-flex justify-content-end">
+      <i class="fa fa-search form-control-feedback"></i>
+    </div>
+    <input [(ngModel)]="searchText" type="text" class="form-control" placeholder="Buscar zonas.." />
+  </div>
+  <div class="card mt-5">
+    <div class="card-body p-0">
+      <table class="table m-0">
+        <tbody>
+          <tr >
+            <td  class="text-center" scope="col">Nombre</td>
+            <td class="text-center" scope="col">Acciones</td>
+          </tr>
+
+          <tr [ngClass]="{'backColor-selected' : zone.id == itemSelected, 'backColor' : zone.id != itemSelected}" *ngFor="let zone of zones | filter: searchText"  class="pointer">
+            <td class="text-center p-1">{{ zone.name }}</td>
+            <td class="text-center">
+                <i id="editButton" class="fa fa-pencil pointer mx-2 actions" aria-hidden="true"></i>
+                <i id="deleteButton" class="fa fa-trash pointer mx-2 actions" aria-hidden="true"></i>
+            </td>
+          </tr>
+          <tr *ngIf="editing_id==='zoneName'">
+            <td class="text-center width:100%">
+                <input id="nameInput" #editing autofocus (focusout)="saveZone(editing)"  (keydown.enter)="saveZone(editing)"  type="text" class="input-control" placeholder="Nombre de la zona" aria-describedby="button-addon2">
+            </td>
+             <td class="text-center">
+                <i id="editButton" class="fa fa-pencil pointer mx-2 actions" aria-hidden="true"></i>
+                <i id="deleteButton" class="fa fa-trash pointer mx-2 actions" aria-hidden="true"></i>
+             </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  
