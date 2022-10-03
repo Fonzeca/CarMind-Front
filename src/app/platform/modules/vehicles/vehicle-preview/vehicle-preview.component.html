@@ -52,7 +52,7 @@
                                 <div class="information-content"> <span id="yearLabel" class="title-card-2">Año:</span> <span id="yearValueLabel" >{{vehicle.linea ? vehicle.linea : "N/A"}}</span> </div>
                                 <div class="information-content"> <span id="patentLabel" class="title-card-2">Patente:</span> <span id="patentValueLabel" >{{vehicle.patente ? vehicle.patente : "N/A"  }}</span> </div>
                                 <div class="information-content"> <span id="driverLabel" class="title-card-2">Chofer actual:</span> <span id="userValueLabel" >{{vehicle.usuario_en_uso ? vehicle.usuario_en_uso : "N/A"  }}</span> </div>
-                                <div class="information-content"> <span id="kmLabel" class="title-card-2">Kilometraje:</span> <span id="kmValueLabel" >{{vehicle.kilometraje ? vehicle.kilometraje : "N/A"  }}</span> </div>
+                                <div class="information-content"> <span id="kmLabel" class="title-card-2">Kilometraje:</span> <span id="kmValueLabel" >{{vehicle.kilometraje == '0' ? 0 : vehicle.kilometraje ? vehicle.kilometraje : "N/A" }}</span> </div>
                                 <div class="information-content"> <span id="imeiLabel" class="title-card-2">Imei:</span> <span id="imeiValueLabel" >{{vehicle.imei ? vehicle.imei : "N/A"  }}</span> </div>
                               </ng-container>
                         </div>

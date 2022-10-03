@@ -1,9 +1,9 @@
 <form [formGroup]="form" #ngForm="ngForm" (ngSubmit)="action()">
     <div class="mb-3 row">
-        <label for="staticEmail" class="col-sm-2 col-form-label fw-400">Nombre identificador</label>
+        <label for="staticEmail" class="col-sm-2 col-form-label">Nombre identificador</label>
         <div class="col-sm-10">
-            <div class="input-group has-validation">
-                <input id="nameInput" type="text" formControlName="nombre" placeholder="Escribel el nombre del vehículo..." class="form-control" [ngClass]="{'is-invalid': getControl('nombre')?.invalid && (getControl('nombre').touched || ngForm.submitted) }" value="">
+            <div class="input-group has-validation inputMar">
+                <input id="nameInput" type="text" formControlName="nombre" placeholder="Escribe el nombre del vehículo..." class="form-control" [ngClass]="{'is-invalid': getControl('nombre')?.invalid && (getControl('nombre').touched || ngForm.submitted) }" value="">
                 <div class="invalid-feedback">
                     Este campo es requerido
                 </div>

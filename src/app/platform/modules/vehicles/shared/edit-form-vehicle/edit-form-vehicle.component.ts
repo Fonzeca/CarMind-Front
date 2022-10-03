@@ -18,9 +18,7 @@ export class EditFormVehicleComponent implements dyComponent {
   _tipo:string = "Auto";
   set tipo (value:any){
     this._tipo = value;
-    this.form.patchValue({
-      tipo: value
-    });
+
   }
   get tipo(){
     return this._tipo;
@@ -37,15 +35,18 @@ export class EditFormVehicleComponent implements dyComponent {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-        "nombre" : [ this.data?.nombre ? this.data.nombre : '' ,Validators.required],
-        "marca" : [this.data?.marca ? this.data.marca : "N/A"],
-        "modelo" : [this.data?.modelo ? this.data.modelo : "N/A"],
-        "linea" : [this.data?.linea ? this.data.linea : "N/A"],
-        "patente" : [this.data?.patente ? this.data.patente : "N/A" ],
-        "tipo" : [ this.data?.tipo ? this.data.tipo : this.type.tipo_vehiculo[0],Validators.required],
-        "kilometraje" : [ this.data?.kilometraje ? this.data.kilometraje : "N/A"],
-        "imei" : [ this.data?.imei ? this.data.imei :  "N/A"],
+      "nombre" : [ this.data?.nombre ? this.data.nombre : '' ,Validators.required],
+      "marca" : [this.data?.marca ? this.data.marca : "N/A"],
+      "modelo" : [this.data?.modelo ? this.data.modelo : "N/A"],
+      "linea" : [this.data?.linea ? this.data.linea : "N/A"],
+      "patente" : [this.data?.patente ? this.data.patente : "N/A", Validators.maxLength(20) ],
+      "tipo" : [ this.data.tipo,Validators.required],
+      "kilometraje" : [ this.data?.kilometraje == 0 ? 0 : this.data?.kilometraje ? this.data.kilometraje : "N/A"],
+      "imei" : [ this.data?.imei ? this.data.imei :  "N/A", Validators.maxLength(16)],
     });
+    
+    var typeindex = this.type.tipo_vehiculo.indexOf(this.data.tipo);
+    this.tipo =  this.type.tipo_vehiculo[typeindex];
   }
 
   action(){

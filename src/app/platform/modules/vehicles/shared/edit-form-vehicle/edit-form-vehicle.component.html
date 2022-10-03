@@ -31,18 +31,18 @@
     <div class="mb-3 row">
         <label for="staticEmail" class="col-sm-2 col-form-label">Año</label>
         <div class="col-sm-10  has-validation">
-            <input id="lineInput" type="number" formControlName="linea" [ngClass]="{'is-invalid': getControl('linea')?.invalid && (getControl('linea').touched  || ngForm.submitted) }" class="form-control" value="">
-            <div class="invalid-feedback">
-                Este campo es requerido
+            <input min="0" id="lineInput" type="number" formControlName="linea" [ngClass]="{'is-invalid': getControl('linea')?.invalid }" class="form-control" value="">
+            <div  class="invalid-feedback" *ngIf="getControl('linea').errors?.['min']">
+                El año no puede ser negativo
             </div>
         </div>
     </div>
     <div class="mb-3 row">
         <label for="staticEmail" class="col-sm-2 col-form-label">Patente</label>
         <div class="col-sm-10  has-validation">
-            <input id="patentInput" type="text" formControlName="patente" [ngClass]="{'is-invalid': getControl('patente')?.invalid && ((getControl('patente').touched  || ngForm.submitted) )  }" class="form-control" value="">
-            <div class="invalid-feedback">
-                Este campo es requerido
+            <input id="patentInput" type="text" formControlName="patente" [ngClass]="{'is-invalid': getControl('patente')?.invalid }" class="form-control" value="">
+            <div  class="invalid-feedback" *ngIf="getControl('patente').errors?.['maxlength']">
+                La patente puede tener 20 caracteres como máximo
             </div>
         </div>
     </div>
@@ -74,14 +74,20 @@
     <div class="mb-3 row">
       <label for="staticEmail" class="col-sm-2 col-form-label">Kilometraje</label>
       <div class="col-sm-10  has-validation">
-          <input id="kmInput" type="number" formControlName="kilometraje" [ngClass]="{'is-invalid': getControl('kilometraje')?.invalid && (getControl('kilometraje').touched  || ngForm.submitted) }" class="form-control" value="">
+          <input min="0" id="kmInput" type="number" formControlName="kilometraje" [ngClass]="{'is-invalid': getControl('kilometraje')?.invalid }" class="form-control" value="">
+          <div  class="invalid-feedback" *ngIf="getControl('kilometraje').errors?.['min']">
+            El kilometraje no puede ser negativo
+        </div>
       </div>
   </div>
   <div class="mb-3 row">
     <label for="staticEmail" class="col-sm-2 col-form-label">Imei</label>
     <div class="col-sm-10  has-validation">
-        <input id="imeiInput" type="text" formControlName="imei" [ngClass]="{'is-invalid': getControl('imei')?.invalid && (getControl('imei').touched  || ngForm.submitted) }" class="form-control" value="">
-      </div>
+        <input id="imeiInput" type="text" formControlName="imei" [ngClass]="{'is-invalid': getControl('imei')?.invalid }" class="form-control" value="">
+        <div  class="invalid-feedback" *ngIf="getControl('imei').errors?.['maxlength']">
+            El imei puede tener 16 caracteres como máximo
+        </div>
+    </div>
   </div>
     <div class="row justify-content-end">
         <div class="col-sm-3">
