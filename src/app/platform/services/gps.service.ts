@@ -12,6 +12,7 @@ export class GpsService extends ApiService {
 
   map?: google.maps.Map;
   markers: { [imei: string] : google.maps.Marker; } = {};
+  isInDetails : boolean = false;
 
 
   constructor(http: HttpClient) {

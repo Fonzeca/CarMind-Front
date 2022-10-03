@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { GpsDetailsComponent } from './gps-details/gps-details.component';
-import { GpsListComponent } from './gps-list/gps-list.component';
+import { GpsVehicleDetailsComponent } from './gps-vehicle-details/gps-vehicle-details.component';
+import { GpsZoneDetailsComponent } from './gps-zone-details/gps-zone-details.component';
 import { GpsComponent } from './gps.component';
 
 const routes: Routes = [
@@ -10,12 +10,22 @@ const routes: Routes = [
     component: GpsComponent,
     children:[
       {
-        path:'',
-        component: GpsListComponent
+        path:'vehicles',
+        children: [
+          {
+            path:'details',
+            component: GpsVehicleDetailsComponent
+          },
+        ]
       },
       {
-        path:'details',
-        component: GpsDetailsComponent
+        path:'zones',
+        children: [
+          {
+            path:'details',
+            component: GpsZoneDetailsComponent
+          },
+        ]
       },
     ]
   },

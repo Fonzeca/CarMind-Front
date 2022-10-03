@@ -10,10 +10,10 @@ import { GeoOperationsService } from '../util/geo-operations.service';
 
 @Component({
   selector: 'app-gps-details',
-  templateUrl: './gps-details.component.html',
-  styleUrls: ['./gps-details.component.scss']
+  templateUrl: './gps-vehicle-details.component.html',
+  styleUrls: ['./gps-vehicle-details.component.scss']
 })
-export class GpsDetailsComponent extends BaseComponent implements OnInit {
+export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit {
 
   rastreadorButton = document.getElementById('rastreadorIcon');
 
@@ -45,7 +45,7 @@ export class GpsDetailsComponent extends BaseComponent implements OnInit {
   constructor(private router: Router, public gps_service: GpsService, private ngbDateParserFormatter: NgbDateParserFormatter, private geo_operations: GeoOperationsService) {
     super();
     if (this.router.getCurrentNavigation() === null || this.router.getCurrentNavigation()!.extras.state! === undefined) {
-      this.router.navigateByUrl(this.getAppRoutes.platform.gps.route);
+      this.router.navigateByUrl(this.getAppRoutes.platform.gps.vehicles.route);
     } else {
       this.vehicle = this.router.getCurrentNavigation()!.extras.state!['vehicle'];
     }
@@ -90,6 +90,7 @@ export class GpsDetailsComponent extends BaseComponent implements OnInit {
 
   override ngOnDestroy(): void {
     this.rastreadorButton?.removeEventListener('click',   this.navButtonHandler )
+    this.gps_service.isInDetails = false;
   }
 
   onDateFromSelect(dateFrom: NgbDate) {

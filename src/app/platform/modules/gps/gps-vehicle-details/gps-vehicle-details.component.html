@@ -15,10 +15,10 @@
     <div class="col-lg col-md col-sm pl-2">
       <div class="row">
         <div class="col-lg-9 col-md-9 col-sm-9">
-          <p class="fs-6" *ngIf="vehicle.engine_status == true">
+          <p class="fs-6" *ngIf="vehicle.engine_status">
               Encendido <i class="fa fa-circle-thin circle-2 fa-1x"></i>
           </p>
-          <p class="fs-6" *ngIf="vehicle.engine_status == false">
+          <p class="fs-6" *ngIf="!vehicle.engine_status">
             Apagado <i class="fa fa-circle-thin circle-1 fa-1x"></i>
         </p>
         </div>
