@@ -1,10 +1,86 @@
 <div class="m-2">
         <h4 class="mt-2 text-dark">Zona</h4>
-        <h5 class="mt-2 text-dark">Nombre: {{zoneName}}</h5>
-        <h5 class="mt-2 text-dark">Puntos</h5>
-        <p class="mt-2 text-dark">Inserte entre 3 y 30 puntos en el mapa...</p>
-        <div class="col-xs-10  mb-4">
-            <button id="addZoneButton" class="btn btn-success m-btn-success m-btn w-100 truncate">Finalizar</button>
+        <div class="container">
+            <div class="child-div">
+                <h5 class="mt-2 text-dark">Nombre:</h5>
+            </div>
+            <div class="child-div">
+                <p class="mt-2 text-dark">{{zoneName}}</p>
+            </div>
+        </div>
+        <hr class="solid mt-1">
+        <h5 class="text-secondary">Puntos</h5>
+        <div *ngIf="isAddingPoints">
+            <p class="mt-2 text-dark">Inserte entre 3 y 30 puntos en el mapa...</p>
+        </div>
+        <div *ngIf="!isAddingPoints">
+            <div class="card mt-1">
+                <div class="card-body p-0">
+                    <table class="table m-0">
+                        <tbody>
+                        <tr>
+                            <td scope="col">3 puntos</td>
+                            <td class="text-end">
+                                <i id="deleteButton" class="fa fa-trash pointer mx-2 actions" aria-hidden="true"></i>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <hr class="solid">
+            <h5 class="text-secondary mb-3">Personalizar</h5>
+            <div class="container">
+                <div class="child-div">
+                  <p>Color de linea:</p>
+                </div>
+                <div><div class='box red'></div></div>
+            </div>
+            <div class="container">
+                <div class="child-div">
+                  <p>Color de relleno:</p>
+                </div>
+                <div><div class='box redLigth'></div></div>
+            </div>
+            <hr class="solid mt-1">
+            <h5 class="text-secondary mb-3">Notificaciones</h5>
+            <div class="container">
+                <div class="child-div">
+                  <p>Cuando entra:</p>
+                </div>
+                <mat-slide-toggle [color]="color" [checked]="checked">
+                </mat-slide-toggle>
+            </div>
+            <div class="container">
+                <div class="child-div">
+                  <p>Cuando sale:</p>
+                </div>
+                <mat-slide-toggle [color]="color" [checked]="checked">
+                </mat-slide-toggle>
+            </div>
+            <p class="mt-2 text-dark">Aplica a:</p>
+            <div class="card mt-1">
+                <div class="card-body p-0">
+                  <table class="table m-0">
+                    <tbody>
+                      <tr >
+                        <td  class="text-center" scope="col"></td>
+                        <td  class="text-center" scope="col">Vehículo</td>
+                        <td class="text-center" scope="col">Patente</td>
+                      </tr>
+                      <tr *ngFor="let vehicle of vehicles"  class="pointer">
+                        <td class="p-1 text-center">
+                            <i class="fa fa-square-o"></i>
+                          </td>
+                        <td class="text-center p-1">{{ vehicle.nombre }}</td>
+                        <td class="text-center p-1">{{ vehicle.patente }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+        </div>
+        <div class="col-xs-10 mt-4 mb-4">
+            <button id="addZoneButton" (click)="endPoints()" class="btn btn-success m-btn-success m-btn w-100 truncate">Finalizar</button>
         </div>
 </div>
-  

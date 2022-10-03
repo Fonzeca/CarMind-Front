@@ -53,3 +53,8 @@ export interface ZoneView{
   id: number;
   name: string;
 }
+
+export interface VehicleView{
+  nombre: string,
+  patente: string
+}

@@ -12,6 +12,8 @@ import { GpsVehicleListComponent } from './gps-vehicle-list/gps-vehicle-list.com
 import { GpsZoneComponent } from './gps-zone/gps-zone.component';
 import { GpsZoneDetailsComponent } from './gps-zone-details/gps-zone-details.component';
 
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { GpsZoneDetailsComponent } from './gps-zone-details/gps-zone-details.com
     GpsRoutingModule,
     NgbModule,
     Ng2SearchPipeModule,
-    FormsModule
+    FormsModule,
+    MatSlideToggleModule
   ]
 })
 export class GpsModule { }
