@@ -20,6 +20,7 @@ export class GpsZoneDetailsComponent extends BaseComponent implements OnInit {
   zoneName: string | undefined;
   zoneStrokeColor : string = "#ff0000";
   zoneFillColor : string = "#ffa07a"
+  zoneCoords : google.maps.LatLng[] = [];
 
   vehicles : VehicleView[] = []
 
@@ -54,6 +55,7 @@ export class GpsZoneDetailsComponent extends BaseComponent implements OnInit {
       }));
 
     })
+
   }
 
   ngOnInit(): void {
@@ -61,10 +63,10 @@ export class GpsZoneDetailsComponent extends BaseComponent implements OnInit {
 
   finishCreatingZone(){
 
-    var zoneCoords : google.maps.LatLng[] = this.markersToDrawZone.map(marker => marker.getPosition()!);
+    this.zoneCoords = this.markersToDrawZone.map(marker => marker.getPosition()!);
   
     this.zone = new google.maps.Polygon({
-      paths: zoneCoords,
+      paths: this.zoneCoords,
       strokeColor: this.zoneStrokeColor,
       strokeOpacity: 0.8,
       strokeWeight: 2,
@@ -84,5 +86,41 @@ export class GpsZoneDetailsComponent extends BaseComponent implements OnInit {
     google.maps.event.clearListeners(this.gps_service.map!, 'click');
   }
 
-  
+  onStrokeColorInputChanged(color : string){
+
+    this.zone!.setMap(null);
+
+      this.zone = new google.maps.Polygon({
+        paths: this.zoneCoords,
+        strokeColor: color,
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: this.zoneFillColor,
+        fillOpacity: 0.35,
+        editable: false
+      });
+
+      this.zone.setMap(this.gps_service.map!);
+
+      this.zoneStrokeColor = color;
+  }
+
+  onFillColorInputChanged(color : string){
+
+    this.zone!.setMap(null);
+
+      this.zone = new google.maps.Polygon({
+        paths: this.zoneCoords,
+        strokeColor: this.zoneStrokeColor,
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: color,
+        fillOpacity: 0.35,
+        editable: false
+      });
+
+      this.zone.setMap(this.gps_service.map!);
+
+      this.zoneFillColor = color;
+  }
 }

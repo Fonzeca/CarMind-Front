@@ -34,13 +34,13 @@
                 <div class="child-div">
                   <p>Color de linea:</p>
                 </div>
-                
+                <input id="strokeColor" type="color" class="e-custom-picker" (ngModelChange)="onStrokeColorInputChanged($event)" [(ngModel)]="zoneStrokeColor">
             </div>
             <div class="container">
                 <div class="child-div">
                   <p>Color de relleno:</p>
                 </div>
-                
+                <input id="strokeColor" type="color" class="e-custom-picker" (ngModelChange)="onFillColorInputChanged($event)" [(ngModel)]="zoneFillColor">
             </div>
             <hr class="solid mt-1">
             <h5 class="text-secondary mb-3">Notificaciones</h5>

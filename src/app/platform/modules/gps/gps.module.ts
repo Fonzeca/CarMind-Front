@@ -11,9 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { GpsVehicleListComponent } from './gps-vehicle-list/gps-vehicle-list.component';
 import { GpsZoneComponent } from './gps-zone/gps-zone.component';
 import { GpsZoneDetailsComponent } from './gps-zone-details/gps-zone-details.component';
-
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-
 
 @NgModule({
   declarations: [
@@ -25,6 +23,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     GpsZoneDetailsComponent,
   ],
   imports: [
+    
     CommonModule,
     GpsRoutingModule,
     NgbModule,
