@@ -43,6 +43,7 @@ export class GpsZoneComponent extends BaseComponent implements OnInit {
     let data: any = {};
     data[property] = value;
     this.editing_id = '';
+    if(data[property].length <= 0) return;
     this.router.navigate([this.getAppRoutes.platform.gps.zones.details.route], {state:{zoneName: data['zoneName']}});
   }
 

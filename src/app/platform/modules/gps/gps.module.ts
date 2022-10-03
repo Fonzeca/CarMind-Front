@@ -30,7 +30,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     NgbModule,
     Ng2SearchPipeModule,
     FormsModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
   ]
 })
 export class GpsModule { }
