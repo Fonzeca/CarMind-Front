@@ -47,7 +47,7 @@ export class GpsZoneDetailsComponent extends BaseComponent implements OnInit {
     super(); 
     
     if (this.router.getCurrentNavigation() === null || this.router.getCurrentNavigation()!.extras.state! === undefined) {
-      this.router.navigateByUrl(this.getAppRoutes.platform.gps.zones.route);
+      this.router.navigate([this.getAppRoutes.platform.gps.zones.route]);
       return;
     }
 
@@ -93,10 +93,10 @@ export class GpsZoneDetailsComponent extends BaseComponent implements OnInit {
   }
 
   override ngOnDestroy(): void {
-    google.maps.event.clearListeners(this.gps_service.map!, 'click');
-    this.zone?.setMap(null);
+    if(this.gps_service.map !== undefined) google.maps.event.clearListeners(this.gps_service.map, 'click');
+    if(this.zone !== undefined) this.zone.setMap(null);
     this.markersToDrawZone.forEach(marker => marker.setMap(null));
-    this.poly?.setMap(null);
+    if(this.poly !== undefined) this.poly.setMap(null);
   }
 
   setMapToDrawZone(){
