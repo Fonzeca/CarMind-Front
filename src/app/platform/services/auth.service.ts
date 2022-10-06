@@ -11,11 +11,15 @@ import endpoints from './core/endpoints';
 })
 export class AuthService extends ApiService {
 
+  user:  user | undefined;
+
   private _getLoggedUser: BehaviorSubject<user> = new BehaviorSubject<user>((<any>{}));
   public getLoggedUser$: Observable<user> = this._getLoggedUser.asObservable();
 
   constructor(http:HttpClient, public router:Router){
     super(http)
+
+    this.getLoggedUser$.subscribe((res: user) => this.user = res);
   }
 
   login(params:any){

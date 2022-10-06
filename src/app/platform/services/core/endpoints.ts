@@ -51,7 +51,11 @@ const endpoints = {
   trackin:{
     get_last_log:"/trackin/getLastLogByImei",
     get_route:"/trackin/getRouteByImei",
-    get_vehicles_state_by_imeis: "/trackin/getVehiclesStateByImeis"
+    get_vehicles_state_by_imeis: "/trackin/getVehiclesStateByImeis",
+    get_zones_by_empresa_id: "/trackin/getZonesByEmpresaId",
+    create_zone: "/trackin/createZone",
+    edit_zone_by_id: "/trackin/editZoneById",
+    delete_zone: "/trackin/deleteZoneById",
   }
 };
 export default endpoints;

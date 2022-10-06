@@ -19,8 +19,6 @@ export class GpsComponent extends BaseComponent implements OnInit {
   vehiclesStates!:VehicleState[];
   private drawVehcilePositionsEvery5Seconds :  Subscription | undefined;
 
-  firstTimeFetchingVehicles: boolean = true;
-
   vehicleViewSelected : boolean = true;
 
   constructor(public router:Router, public gps_service: GpsService, public vehicle_service: VehiclesService) {
@@ -36,7 +34,6 @@ export class GpsComponent extends BaseComponent implements OnInit {
         imeis:  vehiclesImeis as string[],
       };
 
-
       this.drawVehcilePositionsEvery5Seconds = timer(0, 3000).subscribe(_ => {
         this.gps_service.getVehiclesStateByImeis(vehiclesImeisRequest).pipe(
           tap((response) => {
@@ -50,14 +47,11 @@ export class GpsComponent extends BaseComponent implements OnInit {
                 fullDetailedVehicle!.patente = vehicle.patente;
                 
                 this.drawVehicleMarker(fullDetailedVehicle.latitud, fullDetailedVehicle.longitud, vehicle.imei)
-                
-                if(this.firstTimeFetchingVehicles) this.gps_service.vehiclesStates.push(fullDetailedVehicle);
 
                 this.vehiclesStates.push(fullDetailedVehicle);
               }
             });    
             
-            this.firstTimeFetchingVehicles = false;
           })
         ).subscribe();
       });
@@ -68,7 +62,6 @@ export class GpsComponent extends BaseComponent implements OnInit {
   }
   
   async getVehicles() {
-    this.firstTimeFetchingVehicles = true;
     var vehiclesResponse = await    firstValueFrom( this.vehicle_service.getAll())
     var vehicles = vehiclesResponse.filter(v=> v.imei !== undefined);
     var vehiclesImeis: string[] = vehicles.map((vehicle) => vehicle.imei);

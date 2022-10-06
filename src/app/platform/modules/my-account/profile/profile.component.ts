@@ -1,7 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { user } from 'src/app/platform/interfaces/user';
 import { AuthService } from 'src/app/platform/services/auth.service';
-import * as $ from 'jquery';
 import { BaseComponent } from 'src/app/platform/shared/components/base.component';
 
 @Component({
@@ -11,8 +9,6 @@ import { BaseComponent } from 'src/app/platform/shared/components/base.component
 })
 export class ProfileComponent extends BaseComponent implements OnInit {
 
-  user!: user;
-
   editing_id = '';
 
   @ViewChild('editing') input!: ElementRef;
@@ -20,11 +16,9 @@ export class ProfileComponent extends BaseComponent implements OnInit {
   constructor(public auth: AuthService) {
     super();
   }
-
+  
   ngOnInit(): void {
-    this.addSafeSubscription(
-      this.auth.getLoggedUser$.subscribe((res: user) => this.user = res)
-    );
+    
   }
 
   edit(id: string, value: any) {
@@ -40,7 +34,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     const value = input.value;
     let data: any = {};
     data[property] = value;
-    data['username'] = this.user.username;
+    data['username'] = this.auth.user!.username;
     this.editing_id = '';
     this.auth.updateLoggedUser(data).subscribe((res) => {});
   }

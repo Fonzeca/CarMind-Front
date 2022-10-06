@@ -17,20 +17,16 @@
           </tr>
 
           <tr [ngClass]="{'backColor-selected' : zone.id == itemSelected, 'backColor' : zone.id != itemSelected}" *ngFor="let zone of zones | filter: searchText"  class="pointer">
-            <td class="text-center p-1">{{ zone.name }}</td>
+            <td class="text-center p-1">{{ zone.nombre }}</td>
             <td class="text-center">
-                <i id="editButton" class="fa fa-pencil pointer mx-2 actions" aria-hidden="true"></i>
-                <i id="deleteButton" class="fa fa-trash pointer mx-2 actions" aria-hidden="true"></i>
+                <i id="editButton" class="fa fa-pencil pointer mx-2 actions" (click)="editZone(zone)" aria-hidden="true"></i>
+                <i id="deleteButton" class="fa fa-trash pointer mx-2 actions" (click)="deleteZone(zone)" aria-hidden="true"></i>
             </td>
           </tr>
           <tr *ngIf="editing_id==='zoneName'">
             <td class="text-center width:100%">
-                <input id="nameInput" #editing autofocus (focusout)="saveZone(editing)"  (keydown.enter)="saveZone(editing)"  type="text" class="input-control" placeholder="Nombre de la zona" aria-describedby="button-addon2">
+                <input id="nameInput" #editing autofocus (focusout)="saveNewZone(editing)"  (keydown.enter)="saveNewZone(editing)"  type="text" class="input-control" placeholder="Nombre de la zona" aria-describedby="button-addon2">
             </td>
-             <td class="text-center">
-                <i id="editButton" class="fa fa-pencil pointer mx-2 actions" aria-hidden="true"></i>
-                <i id="deleteButton" class="fa fa-trash pointer mx-2 actions" aria-hidden="true"></i>
-             </td>
           </tr>
         </tbody>
       </table>

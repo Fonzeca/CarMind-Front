@@ -51,10 +51,23 @@ export interface TravelRoute extends GpsRouteData {
 
 export interface ZoneView{
   id: number;
-  name: string;
+  empresa_id: string;
+  color_linea: string;
+  color_relleno: string;
+  puntos: string;
+  nombre: string;
+  vehiculos_ids: number[];
+  avisar_entrada: boolean;
+  avisar_salida: boolean;
 }
 
-export interface VehicleView{
-  nombre: string,
-  patente: string
+export interface ZoneRequest{
+  empresa_id: string;
+  color_linea: string;
+  color_relleno: string;
+  puntos: string;
+  nombre: string;
+  vehiculos_ids: number[];
+  avisar_entrada: boolean;
+  avisar_salida: boolean;
 }
