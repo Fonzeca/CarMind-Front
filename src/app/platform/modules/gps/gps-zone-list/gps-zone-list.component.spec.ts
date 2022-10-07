@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GpsZoneComponent } from './gps-zone.component';
+import { GpsZoneComponent } from './gps-zone-list.component';
 
 describe('GpsZoneComponent', () => {
   let component: GpsZoneComponent;

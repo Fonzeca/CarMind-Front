@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { ZoneView } from 'src/app/platform/interfaces/gps_data';
 import { AuthService } from 'src/app/platform/services/auth.service';
@@ -8,8 +8,8 @@ import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-zone',
-  templateUrl: './gps-zone.component.html',
-  styleUrls: ['./gps-zone.component.scss']
+  templateUrl: './gps-zone-list.component.html',
+  styleUrls: ['./gps-zone-list.component.scss']
 })
 export class GpsZoneComponent extends BaseComponent implements OnInit {
 

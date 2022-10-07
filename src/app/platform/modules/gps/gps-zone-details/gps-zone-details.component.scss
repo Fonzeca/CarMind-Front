@@ -88,9 +88,25 @@
   margin-right: 8px;
 }
 
-.e-custom-picker{
-  border: none;
-  width: 20px;
-  height: 20px;
+.github-picker1 {
+  position:absolute;
+  left: 235px;
+  z-index: 2;
 }
 
+.github-picker2 {
+  position:absolute;
+  left: 224px;
+  z-index: 2;
+}
+
+.overlay {
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+}
+
+.overflow-list {
+  height: calc(100vh - 480px);
+  overflow-y: auto;
+}

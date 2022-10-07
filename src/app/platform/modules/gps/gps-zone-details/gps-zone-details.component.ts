@@ -1,7 +1,8 @@
 import { LEADING_TRIVIA_CHARS } from '@angular/compiler/src/render3/view/template';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Renderer2 } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { Router } from '@angular/router';
+import { ColorPickerControl } from '@iplab/ngx-color-picker';
 import { firstValueFrom } from 'rxjs';
 import { ZoneRequest } from 'src/app/platform/interfaces/gps_data';
 import { AuthService } from 'src/app/platform/services/auth.service';
@@ -19,6 +20,12 @@ import Swal from 'sweetalert2';
   styleUrls: ['./gps-zone-details.component.scss']
 })
 export class GpsZoneDetailsComponent extends BaseComponent implements OnInit {
+
+  strokeColorControl = new ColorPickerControl() 
+  fillColorControl = new ColorPickerControl()
+  isStrokeColorPickerVisible: boolean = false;
+  isFillColorPickerVisible: boolean = false;
+  colorListener : any;
 
   isAddingPoints: boolean = true;
   isEditingPoints: boolean = false;
@@ -43,9 +50,12 @@ export class GpsZoneDetailsComponent extends BaseComponent implements OnInit {
   vehicles : any;
   selectedAll: any;
 
-  constructor(private router: Router, public gps_service: GpsService, public _app: AppService, public vehicle_service: VehiclesService, public auth: AuthService) {
+  constructor(private router: Router, public gps_service: GpsService, public _app: AppService, public vehicle_service: VehiclesService, public auth: AuthService, private renderer: Renderer2) {
     super(); 
-    
+
+    this.strokeColorControl.setColorPresets(["#B80000","#DB3E00","#FCCB00","#008B02","#006B76","#1273DE","#004DCF","#5300EB"]);
+    this.fillColorControl.setColorPresets(["#EB9694","#FAD0C3","#FEF3BD","#C1E1C5","#BEDADC","#C4DEF6","#BED3F3","#D4C4FB"]);
+
     if (this.router.getCurrentNavigation() === null || this.router.getCurrentNavigation()!.extras.state! === undefined) {
       this.router.navigate([this.getAppRoutes.platform.gps.zones.route]);
       return;
@@ -253,44 +263,6 @@ export class GpsZoneDetailsComponent extends BaseComponent implements OnInit {
     })
   }
 
-  onStrokeColorInputChanged(color : string){
-
-    this.zone!.setMap(null);
-
-      this.zone = new google.maps.Polygon({
-        paths: this.zoneCoords,
-        strokeColor: color,
-        strokeOpacity: 0.8,
-        strokeWeight: 2,
-        fillColor: this.zoneFillColor,
-        fillOpacity: 0.35,
-        editable: false,
-      });
-
-      this.zone.setMap(this.gps_service.map!);
-
-      this.zoneStrokeColor = color;
-  }
-
-  onFillColorInputChanged(color : string){
-
-    this.zone!.setMap(null);
-
-      this.zone = new google.maps.Polygon({
-        paths: this.zoneCoords,
-        strokeColor: this.zoneStrokeColor,
-        strokeOpacity: 0.8,
-        strokeWeight: 2,
-        fillColor: color,
-        fillOpacity: 0.35,
-        editable: false
-      });
-
-      this.zone.setMap(this.gps_service.map!);
-
-      this.zoneFillColor = color;
-  }
-
   changeAvisarEntrada(){
     this.avisarEntrada = !this.avisarEntrada
   }
@@ -316,6 +288,45 @@ export class GpsZoneDetailsComponent extends BaseComponent implements OnInit {
     this.selectedAll = this.vehicles.every(function(item:any) {
         return item.selected == true;
       })
+  }
+
+  public boxStrokeColorClicked(event: MouseEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.getClickEventInColorPicker();
+    this.isStrokeColorPickerVisible = true;
+  }
+
+  public boxFillColorClicked(event: MouseEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.getClickEventInColorPicker();
+    this.isFillColorPickerVisible = true;
+  }
+
+  getClickEventInColorPicker(){
+    this.colorListener = this.renderer.listen('window', 'click',(e:Event)=>{
+      this.isFillColorPickerVisible = false;
+      this.isStrokeColorPickerVisible = false;
+      this.onColorChanged();
+      this.colorListener();
+    })
+  }
+
+  onColorChanged(){
+    this.zone!.setMap(null);
+
+    this.zone = new google.maps.Polygon({
+      paths: this.zoneCoords,
+      strokeColor: this.zoneStrokeColor,
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      fillColor: this.zoneFillColor,
+      fillOpacity: 0.35,
+      editable: false,
+    });
+
+    this.zone.setMap(this.gps_service.map!);
   }
 
 }

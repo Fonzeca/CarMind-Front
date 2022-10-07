@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { GpsVehicleDetailsComponent } from './gps-vehicle-details/gps-vehicle-details.component';
 import { GpsVehicleListComponent } from './gps-vehicle-list/gps-vehicle-list.component';
 import { GpsZoneDetailsComponent } from './gps-zone-details/gps-zone-details.component';
-import { GpsZoneComponent } from './gps-zone/gps-zone.component';
+import { GpsZoneComponent } from './gps-zone-list/gps-zone-list.component';
 import { GpsComponent } from './gps.component';
 
 const routes: Routes = [
@@ -13,24 +13,20 @@ const routes: Routes = [
     children:[
       {
         path:'vehicles',
-        component: GpsVehicleListComponent,
-        children: [
-          {
-            path:'details',
-            component: GpsVehicleDetailsComponent
-          },
-        ]
+        component: GpsVehicleListComponent
       },
       {
         path:'zones',
-        component: GpsZoneComponent,
-        children: [
-          {
-            path:'details',
-            component: GpsZoneDetailsComponent
-          },
-        ]
+        component: GpsZoneComponent
       },
+      {
+        path:'zones/details',
+        component: GpsZoneDetailsComponent
+      },
+      {
+        path:'vehicles/details',
+        component: GpsVehicleDetailsComponent
+      }
     ]
   },
 ];

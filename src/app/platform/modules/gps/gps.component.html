@@ -1,20 +1,17 @@
 <div class="row clase-padre map-container">
   <div class="map-container__content">
-    
-    <div class="m-2">
+    <div *ngIf="isNotInDetails()" class="m-2">
       <h4 class="mt-2 text-dark">GPS tracker</h4>
       <div class="row2 justify-content-start">
         <div class="col-4">
-          <button (click)="changeView(true)" [ngClass]="{'buttonUnderlineSelected' : vehicleViewSelected, 'buttonUnderline' : !vehicleViewSelected}" class="mt-3">Vehiculos</button>
+          <button routerLink="/platform/gps/vehicles" routerLinkActive="buttonUnderlineSelected" (click)="changeRoute(true)"  class="mt-3 buttonUnderline">Vehiculos</button>
         </div>
-        <div class="col-3">
-          <button (click)="changeView(false)"  [ngClass]="{'buttonUnderlineSelected2' : !vehicleViewSelected, 'buttonUnderline2' : vehicleViewSelected}" class="mt-3">Zonas</button>
+        <div class="col-3"> 
+          <button routerLink="/platform/gps/zones" routerLinkActive="buttonUnderlineSelected2" (click)="changeRoute(false)"  class="mt-3 buttonUnderline2">Zonas</button>
         </div>
       </div>
-      <!-- <app-vehicle-list  *ngIf="vehicleViewSelected" [vehiclesStates]=vehiclesStates  (moveCameraEvent)="moveCameraToVehicle($event[0], $event[1])"></app-vehicle-list>
-      <app-zone *ngIf="!vehicleViewSelected"></app-zone> -->
-      <router-outlet></router-outlet>
     </div>    
+      <router-outlet></router-outlet>
   </div>
   <div class="px-0 map-container__map">
     <app-gps-map></app-gps-map>
