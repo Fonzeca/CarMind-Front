@@ -27,9 +27,16 @@ input{
   background-color: #eee;
 }
 
-.form-control {
-  background-color: #eee;
+.input-group{
+  width: 120px;
 }
+
+.input-group2{
+  width: 120px;
+  height: 30px;
+  padding-left: 6px;
+}
+
 
 .round {
   border-radius: 50%;
@@ -68,4 +75,21 @@ input{
 
 .route{
   padding-left: 10px;
+}
+
+.form-control {
+  width: 310px;
+  margin-top: 15px;
+  margin-left: 12px !important;
+  background-color: #eee;
+  outline: none;
+}
+.form-control:focus{
+  outline: none !important;
+  box-shadow: none !important;
+  border: 0px solid none !important;
+}
+
+.dateError{
+  color: red;
 }

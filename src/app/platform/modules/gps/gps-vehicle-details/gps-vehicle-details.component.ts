@@ -1,8 +1,8 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgbDate, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { Easing, Tween, update } from "@tweenjs/tween.js";
-import { tap } from 'rxjs';
+import { tap} from 'rxjs';
 import { GpsPoint, GpsRouteData, RouteRequest, StopRoute, TravelRoute, VehicleState } from 'src/app/platform/interfaces/gps_data';
 import { GpsService } from 'src/app/platform/services/gps.service';
 import { BaseComponent } from 'src/app/platform/shared/components/base.component';
@@ -15,14 +15,18 @@ import { GeoOperationsService } from '../util/geo-operations.service';
 })
 export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit {
 
+  dateTimeRange : Date[] | undefined;
+  dateTimeFrom : string = ''; 
+  dateTimeTo : string = '';
+  dateHaveErrors : boolean = false;
+  isGettingRoutes : boolean = false;
+
   rastreadorButton = document.getElementById('rastreadorIcon');
 
   isAnimate : boolean = false;
   itemSelected : number | null = null;
 
   vehicle: VehicleState | undefined;
-  dateFrom: string = '';
-  dateTo: string = '';
   polylines: google.maps.Polyline[] = [];
   markers: google.maps.Marker[] = [];
 
@@ -37,13 +41,13 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
   readonly startTripIcon : google.maps.Icon;
   readonly endTripIcon : google.maps.Icon;
 
-
   travelRoutes: GpsRouteData[] = [];
   totalKms: number = 0;
   totalStops: number = 0;
 
   constructor(private router: Router, public gps_service: GpsService, private ngbDateParserFormatter: NgbDateParserFormatter, private geo_operations: GeoOperationsService) {
     super();
+
     if (this.router.getCurrentNavigation() === null || this.router.getCurrentNavigation()!.extras.state! === undefined) {
       this.router.navigateByUrl(this.getAppRoutes.platform.gps.vehicles.route);
     } else {
@@ -93,27 +97,16 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
     this.gps_service.isInDetails = false;
   }
 
-  onDateFromSelect(dateFrom: NgbDate) {
-    let paredDate = this.ngbDateParserFormatter.format(dateFrom);
-    this.dateFrom = paredDate + ' 00:00:00'
-    this.getRoute();
-  }
-
-  onDateToSelect(dateTo: NgbDate) {
-    let paredDate = this.ngbDateParserFormatter.format(dateTo);
-    this.dateTo = paredDate + ' 00:00:00'
-    this.getRoute();
-  }
 
   getRoute() {
+
+    this.isGettingRoutes = true;
 
     this.travelRoutes = [];
     this.totalKms = 0;
     this.totalStops = 0;
     
-    this.clearRoute();
-    
-    if (this.dateFrom.length <= 0 || this.dateTo.length <= 0) return;
+    if (this.dateTimeFrom.length <= 0 || this.dateTimeTo.length <= 0) return;
     
     for (const [imei, marker] of Object.entries(this.gps_service.markers)) { 
       marker.setMap(null);
@@ -122,8 +115,8 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
 
     const routeRequest: RouteRequest = {
       imei: this.vehicle!.imei,
-      from: this.dateFrom,
-      to: this.dateTo
+      from: this.dateTimeFrom,
+      to: this.dateTimeTo
     };
 
     this.gps_service
@@ -131,7 +124,10 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
       .pipe(
         tap((route) => {
           
-          if(route.length <= 0) return;
+          if(route.length <= 0){
+            this.isGettingRoutes = false; 
+            return;
+          };
 
           for (var i = 0; i < route.length; i++) {
             if ('latitud' in route[i]) {
@@ -211,6 +207,7 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
               marker.setIcon(this.stopIcon);
             });
           })
+          this.isGettingRoutes = false;
         })
       ).subscribe();
 
@@ -525,6 +522,38 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
   @HostListener('window:popstate', ['$event'])
   onPopState() {
     this.clearRoute();
+  }
+
+  dateTimeRangeClosed(){
+    this.dateHaveErrors = false;
+
+    if(this.dateTimeRange === undefined) return;
+
+    if(this.dateTimeRange!.length != 2){
+      this.dateHaveErrors = true;
+      return;
+    }
+
+    var stringDateTimeFrom : Date = this.dateTimeRange![0];
+    var stringDateTimeTo : Date = this.dateTimeRange![1];
+    const dateTimeFrom = new Date(stringDateTimeFrom).toISOString().replace('T',' ').substring(0, 19);
+    const dateTimeTo = new Date(stringDateTimeTo).toISOString().replace('T', ' ').substring(0, 19);
+
+    if(dateTimeFrom.includes('1970') || dateTimeTo.includes('1970')){
+      this.dateHaveErrors = true;
+      return;
+    }
+
+    if(this.dateTimeFrom === dateTimeFrom && this.dateTimeTo === dateTimeTo){
+      return;
+    }
+
+    this.clearRoute();
+
+    this.dateTimeFrom = dateTimeFrom;
+    this.dateTimeTo = dateTimeTo;
+
+    this.getRoute();
   }
 
   clearCarMarker(){
