@@ -65,7 +65,8 @@
                   </mat-slide-toggle>
               </div>
               <p class="mt-2 text-dark">Aplica a:</p>
-              <div class="card mt-1 overflow-list">
+              <div class="overflow-list">
+                <div class="card mt-1">
                   <div class="card-body p-0">
                     <table class="table m-0">
                       <tbody>
@@ -85,9 +86,10 @@
                     </table>
                   </div>
                 </div>
+                <div class="col-xs-10 mt-4 mb-4">
+                    <button id="addZoneButton" (click)="finishCreatingZone()" class="btn btn-success m-btn-success m-btn w-100 truncate">Finalizar</button>
+                </div>
               </div>
-              <div class="col-xs-10 mt-4 mb-4">
-                  <button id="addZoneButton" (click)="finishCreatingZone()" class="btn btn-success m-btn-success m-btn w-100 truncate">Finalizar</button>
-              </div>
+            </div>
             </div>
 </div>
