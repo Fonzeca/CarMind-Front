@@ -19,6 +19,7 @@
           <tr [ngClass]="{'backColor-selected' : zone.id == itemSelected, 'backColor' : zone.id != itemSelected}" *ngFor="let zone of zones | filter: searchText">
             <td class="text-center p-1">{{ zone.nombre }}</td>
             <td class="text-center">
+                <img  (click)='hideZone(zone.id)' class="pointer add-icon mx-2 actions" [src]="zone.isHidden ? 'assets/icons/eye-slash.png' : 'assets/icons/eye.png'" alt="">
                 <i id="editButton" class="fa fa-pencil pointer mx-2 actions" (click)="editZone(zone)" aria-hidden="true"></i>
                 <i id="deleteButton" class="fa fa-trash pointer mx-2 actions" (click)="deleteZone(zone)" aria-hidden="true"></i>
             </td>

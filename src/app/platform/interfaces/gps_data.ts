@@ -59,6 +59,7 @@ export interface ZoneView{
   vehiculos_ids: number[];
   avisar_entrada: boolean;
   avisar_salida: boolean;
+  isHidden: boolean;
 }
 
 export interface ZoneRequest{

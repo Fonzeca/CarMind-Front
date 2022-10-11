@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit,ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
 import { ZoneView } from 'src/app/platform/interfaces/gps_data';
 import { AuthService } from 'src/app/platform/services/auth.service';
 import { GpsService } from 'src/app/platform/services/gps.service';
@@ -26,8 +27,6 @@ export class GpsZoneComponent extends BaseComponent implements OnInit {
   constructor(public router:Router, public gps_service: GpsService, public auth: AuthService) {
     super();
 
-    this.getZones();
-
     //Cada vez que se agrega una zona, se actualiza o se elimina, una se llama a la api de obtener zonas de nuevo.
     this.reloadZones = this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
@@ -47,19 +46,17 @@ export class GpsZoneComponent extends BaseComponent implements OnInit {
   }
 
   async getZones(){
+    var response : any;
     if (this.auth.user === undefined || Object.keys(this.auth.user).length === 0){
-      this.auth.getLoggedUser().subscribe(user => {
-        this.gps_service.getZonesByEmpresaId(user.empresa).subscribe(response => {
-          this.zones = response
-          this.drawAllZones();
-        });
-      })
+      const user = await firstValueFrom(this.auth.getLoggedUser());
+      response = await firstValueFrom(this.gps_service.getZonesByEmpresaId(user.empresa));
     }else{
-      this.gps_service.getZonesByEmpresaId(this.auth.user.empresa).subscribe(response => {
-        this.zones = response
-        this.drawAllZones();
-      });
+      response = await firstValueFrom(this.gps_service.getZonesByEmpresaId(this.auth.user.empresa));
     }
+    this.zones = response
+    this.zones.forEach(z => z.isHidden = false);
+    this.drawAllZones();
+
   }
 
   drawAllZones() {
@@ -131,6 +128,16 @@ export class GpsZoneComponent extends BaseComponent implements OnInit {
       z.setMap(null);
     });
     this.zonesDraw = [];
+  }
+
+  hideZone(zoneId: number){
+    var selectedZoneIndex : number = this.zones.findIndex(z => z.id === zoneId)!
+    this.zones[selectedZoneIndex].isHidden = !this.zones[selectedZoneIndex].isHidden;
+    if( this.zones[selectedZoneIndex].isHidden){
+      this.zonesDraw[selectedZoneIndex].setMap(null);
+    }else{
+      this.zonesDraw[selectedZoneIndex].setMap(this.gps_service.map!);
+    }
   }
 
 }
