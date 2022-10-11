@@ -10,8 +10,9 @@
         </div>
         <hr class="solid mt-1">
         <h5 class="text-secondary">Puntos</h5>
-        <div *ngIf="isAddingPoints">
+        <div *ngIf="isAddingPoints || isEditingPoints">
             <p class="mt-2 text-dark">Inserte entre 3 y 30 puntos en el mapa...</p>
+            <button id="addZoneButton" (click)="finishCreatingZone()" class="btn btn-success m-btn-success m-btn w-100 truncate">Finalizar</button>
         </div>
         <div *ngIf="!isAddingPoints">
             <div *ngIf="!isEditingPoints" class="card mt-1">
@@ -27,9 +28,6 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
-            <div *ngIf="isEditingPoints">
-              <p class="mt-2 text-dark">Inserte entre 3 y 30 puntos en el mapa...</p>
             </div>
             <div  *ngIf="!isEditingPoints">
               <hr class="solid">
@@ -86,9 +84,9 @@
                     </table>
                   </div>
                 </div>
-                <div class="col-xs-10 mt-4 mb-4">
-                    <button id="addZoneButton" (click)="finishCreatingZone()" class="btn btn-success m-btn-success m-btn w-100 truncate">Finalizar</button>
-                </div>
+              </div>
+              <div class="col-xs-10 mt-4 mb-4">
+                  <button id="addZoneButton" (click)="finishCreatingZone()" class="btn btn-success m-btn-success m-btn w-100 truncate">Finalizar</button>
               </div>
             </div>
             </div>

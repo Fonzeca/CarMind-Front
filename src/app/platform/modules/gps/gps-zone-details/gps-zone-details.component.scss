@@ -1,5 +1,6 @@
   .card {
     background-color: #eee;
+    height: 100%;
   }
   
   .backColor{
@@ -107,6 +108,7 @@
 }
 
 .overflow-list {
-  height: calc(100vh - 480px);
+  min-height: 200px;
+  height: calc(100vh - 600px);
   overflow-y: auto;
 }
