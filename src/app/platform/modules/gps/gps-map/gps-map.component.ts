@@ -37,9 +37,5 @@ export class GpsMapComponent implements OnInit {
     });
   }
 
-  ngOnDestroy() {
-    this.gps_service.markers = {};
-  }
-
 
 }

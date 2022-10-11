@@ -15,6 +15,9 @@ import { GeoOperationsService } from '../util/geo-operations.service';
 })
 export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit {
 
+
+  selectedVehicleMarker: google.maps.Marker | undefined;
+
   dateTimeRange : Date[] | undefined;
   dateTimeFrom : string = ''; 
   dateTimeTo : string = '';
@@ -52,6 +55,10 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
       this.router.navigateByUrl(this.getAppRoutes.platform.gps.vehicles.route);
     } else {
       this.vehicle = this.router.getCurrentNavigation()!.extras.state!['vehicle'];
+      this.selectedVehicleMarker = new google.maps.Marker({
+        map: this.gps_service.map,
+        position: new google.maps.LatLng(this.vehicle!.latitud, this.vehicle!.longitud),
+      });
     }
     this.carIcon = {
       path: "M 687.792 587.663 L 351.644 0 L 0 587.663 L 7.3507 597 L 342.306 518.724 L 680.441 597 L 687.792 587.663 Z M 75.4941 537.002 L 349.657 70.7261 L 342.704 474.421 L 75.4941 537.002 Z",
@@ -95,6 +102,7 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
   override ngOnDestroy(): void {
     this.rastreadorButton?.removeEventListener('click',   this.navButtonHandler )
     this.gps_service.isInDetails = false;
+    this.selectedVehicleMarker?.setMap(null);
   }
 
 
@@ -107,11 +115,8 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
     this.totalStops = 0;
     
     if (this.dateTimeFrom.length <= 0 || this.dateTimeTo.length <= 0) return;
-    
-    for (const [imei, marker] of Object.entries(this.gps_service.markers)) { 
-      marker.setMap(null);
-      delete this.gps_service.markers[imei]
-    }
+
+    this.selectedVehicleMarker?.setMap(null);
 
     const routeRequest: RouteRequest = {
       imei: this.vehicle!.imei,

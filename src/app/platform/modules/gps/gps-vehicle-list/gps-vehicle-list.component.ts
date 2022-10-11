@@ -15,6 +15,8 @@ import { BaseComponent } from 'src/app/platform/shared/components/base.component
 })
 export class GpsVehicleListComponent extends BaseComponent implements OnInit {
 
+  markers: { [imei: string] : google.maps.Marker; } = {};
+
   vehiclesStates!:VehicleState[];
   private drawVehcilePositionsEvery5Seconds :  Subscription | undefined;
 
@@ -71,7 +73,7 @@ export class GpsVehicleListComponent extends BaseComponent implements OnInit {
   override ngOnDestroy(): void {
     this.gps_service.map?.unbind('dragstart');
     this.drawVehcilePositionsEvery5Seconds?.unsubscribe();
-    for (const [_, marker] of Object.entries(this.gps_service.markers)) { 
+    for (const [_, marker] of Object.entries(this.markers)) { 
         marker.setMap(null);
     }
   }
@@ -83,16 +85,16 @@ export class GpsVehicleListComponent extends BaseComponent implements OnInit {
       lng: longitud,
     }; 
     
-    if(imei in this.gps_service.markers){
+    if(imei in this.markers){
       var currentPosition = {
-        lat: this.gps_service.markers[imei].getPosition()!.lat(),
-        lng: this.gps_service.markers[imei].getPosition()!.lng()
+        lat: this.markers[imei].getPosition()!.lat(),
+        lng: this.markers[imei].getPosition()!.lng()
       }
       new Tween( currentPosition)
         .to({lat: latitud, lng: longitud}, 2000)
         .easing(Easing.Linear.None)
         .onUpdate(() => {
-          this.gps_service.markers[imei].setPosition({lat: currentPosition.lat, lng: currentPosition.lng});
+          if(this.markers[imei] !== undefined) this.markers[imei].setPosition({lat: currentPosition.lat, lng: currentPosition.lng});
       }).start();
     } 
     else {
@@ -110,7 +112,7 @@ export class GpsVehicleListComponent extends BaseComponent implements OnInit {
     
         google.maps.event.addListener(marker, 'click', this.moveCameraToVehicle.bind(this, latitud, longitud));
     
-        this.gps_service.markers[imei] = marker
+        this.markers[imei] = marker
     
 
     })();
@@ -121,10 +123,10 @@ export class GpsVehicleListComponent extends BaseComponent implements OnInit {
 
   detail(vehicle: VehicleState){
     this.gps_service.isInDetails = true;
-    for (const [imei, marker] of Object.entries(this.gps_service.markers)) { 
+    for (const [imei, marker] of Object.entries(this.markers)) { 
       if(imei !== vehicle.imei){
         marker.setMap(null);
-        delete this.gps_service.markers[imei]
+        delete this.markers[imei]
       }
     }
     this.router.navigate([this.getAppRoutes.platform.gps.vehicles.details.route], {state:{vehicle: vehicle}})
@@ -147,6 +149,9 @@ export class GpsVehicleListComponent extends BaseComponent implements OnInit {
     new Tween(cameraOptions)
     .to({lat: latitud, lng: longitud, zoom: 17, tilt: 0, heading: 0}, 3000)
     .easing(Easing.Quintic.InOut)
+    .onComplete(()=>{
+      this.drawVehcilePositionsEvery5Seconds?.add()
+    })
     .onUpdate(() => {
       this.gps_service.map?.moveCamera({tilt: cameraOptions.tilt, heading: cameraOptions.heading, zoom: cameraOptions.zoom, center:  {lat: cameraOptions.lat, lng: cameraOptions.lng}});
     }).start();
