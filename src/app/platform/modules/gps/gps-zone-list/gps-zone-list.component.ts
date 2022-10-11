@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit,ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { ZoneView } from 'src/app/platform/interfaces/gps_data';
 import { AuthService } from 'src/app/platform/services/auth.service';
@@ -13,6 +13,7 @@ import Swal from 'sweetalert2';
 })
 export class GpsZoneComponent extends BaseComponent implements OnInit {
 
+  zonesDraw : google.maps.Polygon[] = [];
   zones: ZoneView[] = [];
   searchText = '';
   itemSelected = -1;
@@ -27,7 +28,7 @@ export class GpsZoneComponent extends BaseComponent implements OnInit {
 
     this.getZones();
 
-    //Cada vez que se agrega una zona, se actualiza o se elimina una se llama a la api de obtener zonas de nuevo.
+    //Cada vez que se agrega una zona, se actualiza o se elimina, una se llama a la api de obtener zonas de nuevo.
     this.reloadZones = this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
           if(event.url === "/platform/gps/zones") {
@@ -41,6 +42,7 @@ export class GpsZoneComponent extends BaseComponent implements OnInit {
   }
 
   override ngOnDestroy(): void {
+    this.clearAllDrawZones();
     this.reloadZones.unsubscribe();
   }
 
@@ -49,13 +51,39 @@ export class GpsZoneComponent extends BaseComponent implements OnInit {
       this.auth.getLoggedUser().subscribe(user => {
         this.gps_service.getZonesByEmpresaId(user.empresa).subscribe(response => {
           this.zones = response
+          this.drawAllZones();
         });
       })
     }else{
       this.gps_service.getZonesByEmpresaId(this.auth.user.empresa).subscribe(response => {
         this.zones = response
+        this.drawAllZones();
       });
     }
+  }
+
+  drawAllZones() {
+    this.zones.forEach(z => {
+      //Proceso para pasar los puntos de un string a el objeto de tipo LatLng necesario para dibujar la zona posteriormente
+      var splittedPoints : string[] = z.puntos.split('; ')
+      var path =  splittedPoints.map((point : any) => {
+        var splittedPoint : string[] = point.split(',');
+        return new google.maps.LatLng(+splittedPoint[0], +splittedPoint[1]);
+      }) 
+
+      var newZoneDraw = new google.maps.Polygon({
+        paths: path,
+        strokeColor: z.color_linea,
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: z.color_relleno,
+        fillOpacity: 0.35,
+        editable: false
+      });
+      newZoneDraw.setMap(this.gps_service.map!);
+
+      this.zonesDraw.push(newZoneDraw);
+    });
   }
 
   addZone(id: string) {
@@ -92,9 +120,17 @@ export class GpsZoneComponent extends BaseComponent implements OnInit {
       }
     }).then((result) => {
       if (result.isConfirmed) {
+        this.clearAllDrawZones();
         this.gps_service.deleteZone(zone.id.toString()).subscribe(()=>this.getZones());
       }
     })
+  }
+
+  clearAllDrawZones(){
+    this.zonesDraw.forEach(z => {
+      z.setMap(null);
+    });
+    this.zonesDraw = [];
   }
 
 }

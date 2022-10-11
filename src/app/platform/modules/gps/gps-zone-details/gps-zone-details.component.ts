@@ -125,7 +125,7 @@ export class GpsZoneDetailsComponent extends BaseComponent implements OnInit {
       const path = this.poly!.getPath();
       path.push(mapsMouseEvent.latLng);
 
-      //Los markers es apra que el usuario vea mas detalladamente dónde colocó el punto
+      //Los markers es para que el usuario vea mas detalladamente dónde colocó el punto
       var newMarker : google.maps.Marker = new google.maps.Marker({
         position: mapsMouseEvent.latLng.toJSON(),
         icon: {
@@ -229,7 +229,7 @@ export class GpsZoneDetailsComponent extends BaseComponent implements OnInit {
 
   goToAllZones(){
       //Borrar la zona del mapa y volver a la página anterior
-      this.zone!.setMap(null);
+      if(this.zone !== undefined) this.zone.setMap(null);
       this.zone = undefined;
       this.router.navigate([this.getAppRoutes.platform.gps.zones.route]);
   }

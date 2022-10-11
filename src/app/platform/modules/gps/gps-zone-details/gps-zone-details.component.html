@@ -1,5 +1,5 @@
 <div class="m-2">
-        <h4 class="mt-2 text-dark">Zona</h4>
+        <h4 class="mt-2 text-dark"> <i (click)='goToAllZones()' class="fa fa-arrow-left px-2 pointer" aria-hidden="true"></i>  Zona</h4>
         <div class="container">
             <div class="child-div">
                 <h5 class="mt-2 text-dark">Nombre:</h5>
@@ -30,65 +30,64 @@
             </div>
             <div *ngIf="isEditingPoints">
               <p class="mt-2 text-dark">Inserte entre 3 y 30 puntos en el mapa...</p>
-              <div class="col-xs-10 mt-2 mb-4">
-                <button id="addZoneButton" (click)="finishCreatingZone()" class="btn btn-success m-btn-success m-btn w-100 truncate">Finalizar</button>
+            </div>
+            <div  *ngIf="!isEditingPoints">
+              <hr class="solid">
+              <h5 class="text-secondary mb-3">Personalizar</h5>
+              <div class="container">
+                  <div class="child-div">
+                    <p>Color de linea:</p>
+                  </div>
+                  <div [ngStyle]="{ background: zoneStrokeColor }" class="overlay" (click)="boxStrokeColorClicked($event)"></div>
+                  <github-picker class="github-picker2" [(color)]="zoneStrokeColor" *ngIf="isStrokeColorPickerVisible" [control]="strokeColorControl"></github-picker>
+              </div>
+              <div class="container">
+                  <div class="child-div">
+                    <p>Color de relleno:</p>
+                  </div>
+                  <div [ngStyle]="{ background: zoneFillColor }" class="overlay" (click)="boxFillColorClicked($event)"></div>
+                  <github-picker class="github-picker1" [(color)]="zoneFillColor" *ngIf="isFillColorPickerVisible" [control]="fillColorControl"></github-picker>
+              </div>
+              <hr class="solid mt-1">
+              <h5 class="text-secondary mb-3">Notificaciones</h5>
+              <div class="container">
+                  <div class="child-div">
+                    <p>Cuando entra:</p>
+                  </div>
+                  <mat-slide-toggle [color]="color" [checked]="avisarEntrada" (change)="changeAvisarEntrada()">
+                  </mat-slide-toggle>
+              </div>
+              <div class="container">
+                  <div class="child-div">
+                    <p>Cuando sale:</p>
+                  </div>
+                  <mat-slide-toggle [color]="color"  [checked]="avisarSalida"(change)="changeAvisarSalida()">
+                  </mat-slide-toggle>
+              </div>
+              <p class="mt-2 text-dark">Aplica a:</p>
+              <div class="card mt-1 overflow-list">
+                  <div class="card-body p-0">
+                    <table class="table m-0">
+                      <tbody>
+                        <tr >
+                          <td  class="text-center" scope="col"> <input type="checkbox" [(ngModel)]="selectedAll" (change)="selectAll();"/></td>
+                          <td  class="text-center" scope="col">Vehículo</td>
+                          <td class="text-center" scope="col">Patente</td>
+                        </tr>
+                        <tr *ngFor="let vehicle of vehicles" >
+                          <div class="text-center px-3">
+                            <input  class="pointer" type="checkbox" [(ngModel)]="vehicle.selected" (change)="checkIfAllSelected()"/>
+                          </div>
+                          <td class="text-center p-1">{{ vehicle.vehicle.nombre }}</td>
+                          <td class="text-center p-1">{{ vehicle.vehicle.patente }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-10 mt-4 mb-4">
+                  <button id="addZoneButton" (click)="finishCreatingZone()" class="btn btn-success m-btn-success m-btn w-100 truncate">Finalizar</button>
               </div>
             </div>
-            <hr class="solid">
-            <h5 class="text-secondary mb-3">Personalizar</h5>
-            <div class="container">
-                <div class="child-div">
-                  <p>Color de linea:</p>
-                </div>
-                <div [ngStyle]="{ background: zoneStrokeColor }" class="overlay" (click)="boxStrokeColorClicked($event)"></div>
-                <github-picker class="github-picker2" [(color)]="zoneStrokeColor" *ngIf="isStrokeColorPickerVisible" [control]="strokeColorControl"></github-picker>
-            </div>
-            <div class="container">
-                <div class="child-div">
-                  <p>Color de relleno:</p>
-                </div>
-                <div [ngStyle]="{ background: zoneFillColor }" class="overlay" (click)="boxFillColorClicked($event)"></div>
-                <github-picker class="github-picker1" [(color)]="zoneFillColor" *ngIf="isFillColorPickerVisible" [control]="fillColorControl"></github-picker>
-            </div>
-            <hr class="solid mt-1">
-            <h5 class="text-secondary mb-3">Notificaciones</h5>
-            <div class="container">
-                <div class="child-div">
-                  <p>Cuando entra:</p>
-                </div>
-                <mat-slide-toggle [color]="color" [checked]="avisarEntrada" (change)="changeAvisarEntrada()">
-                </mat-slide-toggle>
-            </div>
-            <div class="container">
-                <div class="child-div">
-                  <p>Cuando sale:</p>
-                </div>
-                <mat-slide-toggle [color]="color"  [checked]="avisarSalida"(change)="changeAvisarSalida()">
-                </mat-slide-toggle>
-            </div>
-            <p class="mt-2 text-dark">Aplica a:</p>
-            <div class="card mt-1 overflow-list">
-                <div class="card-body p-0">
-                  <table class="table m-0">
-                    <tbody>
-                      <tr >
-                        <td  class="text-center" scope="col"> <input type="checkbox" [(ngModel)]="selectedAll" (change)="selectAll();"/></td>
-                        <td  class="text-center" scope="col">Vehículo</td>
-                        <td class="text-center" scope="col">Patente</td>
-                      </tr>
-                      <tr *ngFor="let vehicle of vehicles"  class="pointer">
-                        <div class="text-center px-3">
-                          <input type="checkbox" [(ngModel)]="vehicle.selected" (change)="checkIfAllSelected()"/>
-                        </div>
-                        <td class="text-center p-1">{{ vehicle.vehicle.nombre }}</td>
-                        <td class="text-center p-1">{{ vehicle.vehicle.patente }}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-        </div>
-        <div class="col-xs-10 mt-4 mb-4">
-            <button id="addZoneButton" (click)="finishCreatingZone()" class="btn btn-success m-btn-success m-btn w-100 truncate">Finalizar</button>
-        </div>
 </div>

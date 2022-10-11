@@ -16,7 +16,7 @@
             <td class="text-center" scope="col">Acciones</td>
           </tr>
 
-          <tr [ngClass]="{'backColor-selected' : zone.id == itemSelected, 'backColor' : zone.id != itemSelected}" *ngFor="let zone of zones | filter: searchText"  class="pointer">
+          <tr [ngClass]="{'backColor-selected' : zone.id == itemSelected, 'backColor' : zone.id != itemSelected}" *ngFor="let zone of zones | filter: searchText">
             <td class="text-center p-1">{{ zone.nombre }}</td>
             <td class="text-center">
                 <i id="editButton" class="fa fa-pencil pointer mx-2 actions" (click)="editZone(zone)" aria-hidden="true"></i>
