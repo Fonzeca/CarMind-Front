@@ -76,3 +76,9 @@
     width: 25px;
     height: 20px;
   }
+
+  
+.overflow-list {
+  height: calc(100vh - 360px);
+  overflow-y: auto;
+}
