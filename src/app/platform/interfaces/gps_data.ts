@@ -63,12 +63,12 @@ export interface ZoneView{
 }
 
 export interface ZoneRequest{
-  empresa_id: string;
+  empresa_id: number;
   color_linea: string;
   color_relleno: string;
   puntos: string;
   nombre: string;
-  imeis: number[];
+  imeis: string[];
   avisar_entrada: boolean;
   avisar_salida: boolean;
 }

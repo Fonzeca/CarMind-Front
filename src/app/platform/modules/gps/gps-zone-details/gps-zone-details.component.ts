@@ -204,14 +204,14 @@ export class GpsZoneDetailsComponent extends BaseComponent implements OnInit {
       });
 
       //OBtener la lista de vehiculos seleccionados
-      var vehiclesImeis : number[] = this.vehicles.filter((vehicle : any) => vehicle.selected).map((vehicle : any) => vehicle.vehicle.imei)
+      var vehiclesImeis : string[] = this.vehicles.filter((vehicle : any) => vehicle.selected).map((vehicle : any) => vehicle.vehicle.imei)
 
       var newZone : ZoneRequest = {
         nombre: this.zoneName!, 
         color_linea: this.zoneColor, 
         color_relleno: this.zoneColor, 
         puntos: points.join("; "), 
-        empresa_id: this.auth.user!.empresa,
+        empresa_id: +this.auth.user!.empresa,
         imeis: vehiclesImeis,
         avisar_entrada: this.avisarEntrada,
         avisar_salida: this.avisarSalida
