@@ -34,17 +34,10 @@
               <h5 class="text-secondary mb-3">Personalizar</h5>
               <div class="container">
                   <div class="child-div">
-                    <p>Color de linea:</p>
+                    <p>Color:</p>
                   </div>
-                  <div [ngStyle]="{ background: zoneStrokeColor }" class="overlay" (click)="boxStrokeColorClicked($event)"></div>
-                  <github-picker class="github-picker2" [(color)]="zoneStrokeColor" *ngIf="isStrokeColorPickerVisible" [control]="strokeColorControl"></github-picker>
-              </div>
-              <div class="container">
-                  <div class="child-div">
-                    <p>Color de relleno:</p>
-                  </div>
-                  <div [ngStyle]="{ background: zoneFillColor }" class="overlay" (click)="boxFillColorClicked($event)"></div>
-                  <github-picker class="github-picker1" [(color)]="zoneFillColor" *ngIf="isFillColorPickerVisible" [control]="fillColorControl"></github-picker>
+                  <div [ngStyle]="{ background: zoneColor }" class="overlay" (click)="boxColorClicked($event)"></div>
+                  <github-picker class="github-picker2" [(color)]="zoneColor" *ngIf="isColorPickerVisible" [control]="colorControl"></github-picker>
               </div>
               <hr class="solid mt-1">
               <h5 class="text-secondary mb-3">Notificaciones</h5>

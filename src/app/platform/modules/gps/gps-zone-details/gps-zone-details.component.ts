@@ -21,10 +21,8 @@ import Swal from 'sweetalert2';
 })
 export class GpsZoneDetailsComponent extends BaseComponent implements OnInit {
 
-  strokeColorControl = new ColorPickerControl() 
-  fillColorControl = new ColorPickerControl()
-  isStrokeColorPickerVisible: boolean = false;
-  isFillColorPickerVisible: boolean = false;
+  colorControl = new ColorPickerControl() 
+  isColorPickerVisible: boolean = false;
   colorListener : any;
 
   isAddingPoints: boolean = true;
@@ -34,8 +32,7 @@ export class GpsZoneDetailsComponent extends BaseComponent implements OnInit {
   zone : google.maps.Polygon | undefined;
   zoneName: string | undefined;
   zoneId: number | undefined;
-  zoneStrokeColor : string = "#ff0000";
-  zoneFillColor : string = "#ffa07a"
+  zoneColor : string = "#ff0000";
   zoneCoords : google.maps.LatLng[] = [];
 
   color: ThemePalette = 'primary';
@@ -53,8 +50,7 @@ export class GpsZoneDetailsComponent extends BaseComponent implements OnInit {
   constructor(private router: Router, public gps_service: GpsService, public _app: AppService, public vehicle_service: VehiclesService, public auth: AuthService, private renderer: Renderer2) {
     super(); 
 
-    this.strokeColorControl.setColorPresets(["#B80000","#DB3E00","#FCCB00","#008B02","#006B76","#1273DE","#004DCF","#5300EB"]);
-    this.fillColorControl.setColorPresets(["#EB9694","#FAD0C3","#FEF3BD","#C1E1C5","#BEDADC","#C4DEF6","#BED3F3","#D4C4FB"]);
+    this.colorControl.setColorPresets(["#5F4690","#1D6996","#38A6A5","#0F8554","#73AF48","#EDAD08","#E17C05","#CC503E","#94346E","#6F4070","#994E95","#666666"]);
 
     if (this.router.getCurrentNavigation() === null || this.router.getCurrentNavigation()!.extras.state! === undefined) {
       this.router.navigate([this.getAppRoutes.platform.gps.zones.route]);
@@ -73,9 +69,9 @@ export class GpsZoneDetailsComponent extends BaseComponent implements OnInit {
     } 
     else{
       this.zoneName = this.router.getCurrentNavigation()!.extras.state!['zone'].nombre;
-      this.zoneId =  this.zoneStrokeColor = this.router.getCurrentNavigation()!.extras.state!['zone'].id;
-      this.zoneStrokeColor = this.router.getCurrentNavigation()!.extras.state!['zone'].color_linea;
-      this.zoneFillColor = this.router.getCurrentNavigation()!.extras.state!['zone'].color_relleno;
+      this.zoneId = this.router.getCurrentNavigation()!.extras.state!['zone'].id;
+      this.zoneColor = this.router.getCurrentNavigation()!.extras.state!['zone'].color_linea;
+      this.zoneColor = this.router.getCurrentNavigation()!.extras.state!['zone'].color_relleno;
       this.avisarEntrada = this.router.getCurrentNavigation()!.extras.state!['zone'].avisar_entrada;
       this.avisarSalida = this.router.getCurrentNavigation()!.extras.state!['zone'].avisar_salida;
 
@@ -113,7 +109,7 @@ export class GpsZoneDetailsComponent extends BaseComponent implements OnInit {
 
     //El poly es para que el usuario vea las líneas 
     this.poly = new google.maps.Polyline({
-      strokeColor:   this.zoneStrokeColor,
+      strokeColor:   this.zoneColor,
       strokeOpacity: 1.0,
       strokeWeight: 3,
     });
@@ -131,8 +127,8 @@ export class GpsZoneDetailsComponent extends BaseComponent implements OnInit {
         icon: {
           path: google.maps.SymbolPath.CIRCLE,
           scale: 4,
-          fillColor:  this.zoneFillColor,
-          strokeColor:  this.zoneStrokeColor,
+          fillColor:  this.zoneColor,
+          strokeColor:  this.zoneColor,
         },
         draggable: true,
         map: this.gps_service.map,
@@ -165,10 +161,10 @@ export class GpsZoneDetailsComponent extends BaseComponent implements OnInit {
   setZoneAndAddToMap(){
     this.zone = new google.maps.Polygon({
       paths: this.zoneCoords,
-      strokeColor: this.zoneStrokeColor,
+      strokeColor: this.zoneColor,
       strokeOpacity: 0.8,
       strokeWeight: 2,
-      fillColor: this.zoneFillColor,
+      fillColor: this.zoneColor,
       fillOpacity: 0.35,
       editable: false
     });
@@ -212,8 +208,8 @@ export class GpsZoneDetailsComponent extends BaseComponent implements OnInit {
 
       var newZone : ZoneRequest = {
         nombre: this.zoneName!, 
-        color_linea: this.zoneStrokeColor, 
-        color_relleno: this.zoneFillColor, 
+        color_linea: this.zoneColor, 
+        color_relleno: this.zoneColor, 
         puntos: points.join("; "), 
         empresa_id: this.auth.user!.empresa,
         imeis: vehiclesImeis,
@@ -253,7 +249,7 @@ export class GpsZoneDetailsComponent extends BaseComponent implements OnInit {
         this.zone = undefined;
 
         this.poly = new google.maps.Polyline({
-          strokeColor:  this.zoneStrokeColor,
+          strokeColor:  this.zoneColor,
           strokeOpacity: 1.0,
           strokeWeight: 3,
         });
@@ -290,24 +286,16 @@ export class GpsZoneDetailsComponent extends BaseComponent implements OnInit {
       })
   }
 
-  public boxStrokeColorClicked(event: MouseEvent): void {
+  public boxColorClicked(event: MouseEvent): void {
     event.preventDefault();
     event.stopPropagation();
     this.getClickEventInColorPicker();
-    this.isStrokeColorPickerVisible = true;
-  }
-
-  public boxFillColorClicked(event: MouseEvent): void {
-    event.preventDefault();
-    event.stopPropagation();
-    this.getClickEventInColorPicker();
-    this.isFillColorPickerVisible = true;
+    this.isColorPickerVisible = true;
   }
 
   getClickEventInColorPicker(){
     this.colorListener = this.renderer.listen('window', 'click',(e:Event)=>{
-      this.isFillColorPickerVisible = false;
-      this.isStrokeColorPickerVisible = false;
+      this.isColorPickerVisible = false;
       this.onColorChanged();
       this.colorListener();
     })
@@ -318,10 +306,10 @@ export class GpsZoneDetailsComponent extends BaseComponent implements OnInit {
 
     this.zone = new google.maps.Polygon({
       paths: this.zoneCoords,
-      strokeColor: this.zoneStrokeColor,
+      strokeColor: this.zoneColor,
       strokeOpacity: 0.8,
       strokeWeight: 2,
-      fillColor: this.zoneFillColor,
+      fillColor: this.zoneColor,
       fillOpacity: 0.35,
       editable: false,
     });
