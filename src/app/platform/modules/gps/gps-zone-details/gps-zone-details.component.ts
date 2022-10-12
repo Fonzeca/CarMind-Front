@@ -86,10 +86,10 @@ export class GpsZoneDetailsComponent extends BaseComponent implements OnInit {
         return new google.maps.LatLng(+splittedPoint[0], +splittedPoint[1]);
       }) 
       //Marcar los checkbox de los vehículos que tiene esta zona
-      var selectedVehicles : number[] = this.router.getCurrentNavigation()!.extras.state!['zone'].vehiculos_ids
+      var selectedVehicles : number[] = this.router.getCurrentNavigation()!.extras.state!['zone'].imeis
       this.getAllVehicles().then(() => {
-        selectedVehicles.forEach((id: number) => {
-          var vehicle = this.vehicles.find((v : any) => v.vehicle.id === id);
+        selectedVehicles.forEach((imei: number) => {
+          var vehicle = this.vehicles.find((v : any) => v.vehicle.imei === imei);
           if (vehicle  !== undefined) vehicle.selected = true;
         })
       })
@@ -208,7 +208,7 @@ export class GpsZoneDetailsComponent extends BaseComponent implements OnInit {
       });
 
       //OBtener la lista de vehiculos seleccionados
-      var vehiclesIds : number[] = this.vehicles.filter((vehicle : any) => vehicle.selected).map((vehicle : any) => vehicle.vehicle.id)
+      var vehiclesImeis : number[] = this.vehicles.filter((vehicle : any) => vehicle.selected).map((vehicle : any) => vehicle.vehicle.imei)
 
       var newZone : ZoneRequest = {
         nombre: this.zoneName!, 
@@ -216,7 +216,7 @@ export class GpsZoneDetailsComponent extends BaseComponent implements OnInit {
         color_relleno: this.zoneFillColor, 
         puntos: points.join("; "), 
         empresa_id: this.auth.user!.empresa,
-        vehiculos_ids: vehiclesIds,
+        imeis: vehiclesImeis,
         avisar_entrada: this.avisarEntrada,
         avisar_salida: this.avisarSalida
       } 

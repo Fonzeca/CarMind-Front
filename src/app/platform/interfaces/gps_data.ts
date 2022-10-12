@@ -56,7 +56,7 @@ export interface ZoneView{
   color_relleno: string;
   puntos: string;
   nombre: string;
-  vehiculos_ids: number[];
+  imeis: number[];
   avisar_entrada: boolean;
   avisar_salida: boolean;
   isHidden: boolean;
@@ -68,7 +68,7 @@ export interface ZoneRequest{
   color_relleno: string;
   puntos: string;
   nombre: string;
-  vehiculos_ids: number[];
+  imeis: number[];
   avisar_entrada: boolean;
   avisar_salida: boolean;
 }
