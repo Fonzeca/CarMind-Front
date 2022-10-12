@@ -40,13 +40,15 @@
 .buttonUnderline{
   background: transparent;
   border: none;
-  margin: 30px auto 0;
   display: block;
   font-size: 20px;
   outline: none;
   position: relative;
   transition: 0.3s;
-  padding: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
   &:before{
     content: '';
     border-bottom: 2px solid rgb(218, 218, 218);
@@ -56,7 +58,7 @@
     left: 0;
     right: 0;
     margin: 0 auto;
-    width: 130%;
+    width: 110%;
     transition: 0.3s;
   }
 }
@@ -64,14 +66,16 @@
 .buttonUnderlineSelected{
   background: transparent;
   border: none;
-  margin: 30px auto 0;
   display: block;
   font-size: 20px;
   outline: none;
   position: relative;
   transition: 0.3s;
-  padding: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   color: #b6e802;
+  padding-left: 20px;
   &:before{
     content: '';
     border-bottom: 2px solid #b6e802;
@@ -81,7 +85,7 @@
     left: 0;
     right: 0;
     margin: 0 auto;
-    width: 130%;
+    width: 120%;
     transition: 0.3s;
   }
 }
@@ -89,13 +93,15 @@
 .buttonUnderline2{
   background: transparent;
   border: none;
-  margin: 30px auto 0;
   display: block;
   font-size: 20px;
   outline: none;
   position: relative;
   transition: 0.3s;
-  padding: 10px;
+  padding-top: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  padding-left: 15px;
   &:before{
     content: '';
     border-bottom: 2px solid rgb(218, 218, 218);
@@ -113,13 +119,15 @@
 .buttonUnderlineSelected2{
   background: transparent;
   border: none;
-  margin: 30px auto 0;
   display: block;
   font-size: 20px;
   outline: none;
   position: relative;
   transition: 0.3s;
-  padding: 10px;
+  padding-top: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  padding-left: 15px;
   color: #b6e802;
   &:before{
     content: '';
