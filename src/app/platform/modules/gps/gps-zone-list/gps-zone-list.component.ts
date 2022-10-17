@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit,ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { Easing, Tween, update } from '@tweenjs/tween.js';
 import { firstValueFrom } from 'rxjs';
 import { ZoneView } from 'src/app/platform/interfaces/gps_data';
 import { AuthService } from 'src/app/platform/services/auth.service';
@@ -17,7 +18,7 @@ export class GpsZoneComponent extends BaseComponent implements OnInit {
   zonesDraw : google.maps.Polygon[] = [];
   zones: ZoneView[] = [];
   searchText = '';
-  itemSelected = -1;
+  itemSelected : number | null = null;
 
   editing_id = '';
   @ViewChild('editing') input!: ElementRef;
@@ -140,4 +141,59 @@ export class GpsZoneComponent extends BaseComponent implements OnInit {
     }
   }
 
+  selectZone(id : number){
+    this.itemSelected = id;
+  }
+
+  moveCameraToZone(zone : ZoneView){
+    var bounds = new google.maps.LatLngBounds();
+    
+    var splittedPoints : string[] = zone.puntos.split('; ')
+    splittedPoints.map((point : any) => {
+      var splittedPoint : string[] = point.split(',');
+      bounds.extend( new google.maps.LatLng(+splittedPoint[0], +splittedPoint[1]));
+    }) 
+
+    var cameraOptions = {
+      tilt: this.gps_service.map?.getTilt(),
+      zoom: this.gps_service.map?.getZoom(),
+      heading: this.gps_service.map?.getHeading(),
+      lat:this.gps_service.map?.getCenter()!.lat()!,
+      lng: this.gps_service.map?.getCenter()!.lng()!,
+    }
+
+    new Tween(cameraOptions)
+    .to({lat: bounds.getCenter().lat(), lng: bounds.getCenter().lng(), zoom: this.getZoomByBounds(bounds), tilt: 0, heading: 0}, 3000)
+    .easing(Easing.Quintic.InOut)
+    .onUpdate(() => {
+      this.gps_service.map?.moveCamera({tilt: cameraOptions.tilt, heading: cameraOptions.heading, zoom: cameraOptions.zoom, center:  {lat: cameraOptions.lat, lng: cameraOptions.lng}});
+    }).start();
+
+    function animate(time: number) {
+      requestAnimationFrame(animate);
+      update(time);
+    }
+
+    requestAnimationFrame(animate);
+  }
+
+  getZoomByBounds( bounds :  google.maps.LatLngBounds){
+    var MAX_ZOOM = this.gps_service.map!.mapTypes.get( this.gps_service.map!.getMapTypeId()! ).maxZoom || 21 ;
+    var MIN_ZOOM = this.gps_service.map!.mapTypes.get( this.gps_service.map!.getMapTypeId()! ).minZoom || 0 ;
+  
+    var ne= this.gps_service.map!.getProjection()!.fromLatLngToPoint( bounds.getNorthEast() )!;
+    var sw= this.gps_service.map!.getProjection()!.fromLatLngToPoint( bounds.getSouthWest() )!; 
+  
+    var worldCoordWidth = Math.abs(ne.x-sw.x);
+    var worldCoordHeight = Math.abs(ne.y-sw.y);
+  
+    var FIT_PAD = 40;
+  
+    for( var zoom = MAX_ZOOM; zoom >= MIN_ZOOM; --zoom ){ 
+        if( worldCoordWidth*(1<<zoom)+2*FIT_PAD < this.gps_service.map!.getDiv().offsetWidth && 
+            worldCoordHeight*(1<<zoom)+2*FIT_PAD < this.gps_service.map!.getDiv().offsetHeight )
+            return zoom;
+    }
+    return 0;
+  }
 }

@@ -7,7 +7,7 @@
   }
   .backColor-selected{
     color: #eee;
-    background-color: #0078FF;
+    background-color: #0078ff;
   }
 
   .input-group{
@@ -75,6 +75,17 @@
     color: var(--m-acento2-color);
     width: 25px;
     height: 20px;
+  }
+
+  .actions-selected{
+    color: white;
+    width: 25px;
+    height: 20px;
+  }
+
+  .eye{
+    width: 20px;
+    height: 15px;
   }
 
   
