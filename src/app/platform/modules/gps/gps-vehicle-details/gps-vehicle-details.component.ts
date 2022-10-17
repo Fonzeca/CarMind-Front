@@ -539,10 +539,14 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
       return;
     }
 
-    var fixedDateTimeFrom : Date = this.dateTimeRange![0];
-    var fixedDateTimeTo : Date = this.dateTimeRange![1];
-    const dateTimeFrom = fixedDateTimeFrom.toLocaleString().replace('T',' ').replace(',','').substring(0, 19);
-    const dateTimeTo = fixedDateTimeTo.toLocaleString().replace('T', ' ').replace(',','').substring(0, 19);
+    var dateFrom : string = this.dateTimeRange![0].toISOString().substring(0,10);
+    var timeFrom : string = this.dateTimeRange![0].toTimeString().substring(0,8);
+
+    var dateTo : string = this.dateTimeRange![1].toISOString().substring(0,10);
+    var timeTo : string = this.dateTimeRange![1].toTimeString().substring(0,8);
+
+    const dateTimeFrom = dateFrom + " " + timeFrom;
+    const dateTimeTo = dateTo + " " + timeTo;
 
     if(dateTimeFrom.includes('1970') || dateTimeTo.includes('1970')){
       this.dateHaveErrors = true;
