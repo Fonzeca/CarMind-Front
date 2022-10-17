@@ -1,0 +1,105 @@
+/* Table */
+
+.table{
+    box-sizing: border-box;
+}
+
+/* Auto layout */
+.autolayout{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+
+    background: #FFFFFF;
+    border-bottom:  1px solid #B9B9B9;
+    border-right:  1px solid #B9B9B9;
+    border-radius: 4px;
+}
+
+.header{
+    background: rgba(0, 0, 0, 0.06);
+    border-width: 1px 0px 0px 1px;
+    border-style: solid;
+    border-color: #B9B9B9;
+}
+
+.cell{
+    background: rgba(255, 255, 255, 0.002);
+    border-width: 1px 0px 0px 1px;
+    border-style: solid;
+    border-color: #B9B9B9;
+    vertical-align: middle;
+}
+
+
+.card {
+    background-color: #eee;
+}
+
+.form-control-feedback {
+    position: absolute;
+    margin: 265px;
+    pointer-events: none;
+    background-color: #eee;
+    align-self: center;
+
+}
+  
+.form-control {
+    padding-left: 10px !important;
+    padding-right: 40px !important;
+    background-color: #eee;
+} 
+
+.searchCustom{
+    width: 294px;
+    height: 52px;
+
+}
+
+.container{
+    margin-left: 0;
+    padding-left: 0;
+    display: flex;
+}
+
+.child-div{
+    padding-left: 10px;
+    padding-top: 5px;
+}
+
+.child-div2{
+    padding-left: 10px;
+    padding-top: 12px;
+}
+
+.checkbox{
+    width: 24px;
+    height: 24px;
+}
+
+.action{
+    color: #0078FF;
+}
+
+mark {
+    border-radius: 2px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+
+.select2CarMind-option-item {
+   width: 60px;
+}
+
+.select2CarMind {
+    &-option-item {
+      height: 20px;
+      img {
+        max-width: 32px;
+      }
+    }
+
+}

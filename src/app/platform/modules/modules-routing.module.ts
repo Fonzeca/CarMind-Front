@@ -22,6 +22,10 @@ const routes: Routes = [
   {
     path: AppRoutes.platform.gps.main,
     loadChildren:() => import('./gps/gps.module').then(m=> m.GpsModule)
+  },
+  {
+    path: AppRoutes.platform.maintenance.main,
+    loadChildren:() => import('./maintenance/maintenance.module').then(m=> m.MaintenanceModule)
   }
 ];
 

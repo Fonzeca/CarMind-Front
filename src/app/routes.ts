@@ -120,6 +120,24 @@ export const AppRoutes = {
             }
           }
         },
+        get maintenance(){
+          return {
+            route:`${this.route}/maintenance`,
+            main:"maintenance",
+            get defects(){
+              return {
+                route:`${this.route}/defects`,
+                main:"defects",
+              }
+            },
+            get service(){
+              return {
+                route:`${this.route}/service`,
+                main:"service",
+              }
+            },
+          }
+        },
       }
     }
 }

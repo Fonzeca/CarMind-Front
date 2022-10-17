@@ -44,6 +44,14 @@
                     <span class="text nav-text fw-400" #asText>Rastreador</span>
                 </div>
             </a>
+            <a class="row-content" id="llaveIcon"  (mouseenter)="abrirSidebar()"   [routerLinkActive]="['active']" [routerLink]="['/'+this.getAppRoutes.platform.maintenance.route]">
+                <div item-menu>
+                  <img  src="assets/icons/llave.png" width="36" alt="">
+                </div>
+                <div class="justify-left-content" item-menu>
+                    <span class="text nav-text fw-400" #asText>Mantenimiento</span>
+                </div>
+            </a>
         </div>
     </nav>
 </section>

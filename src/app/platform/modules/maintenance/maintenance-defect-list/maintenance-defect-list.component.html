@@ -1,0 +1,59 @@
+<div class="form-group has-feedback mt-4">
+    <div class="container">
+        <div>
+            <div class="searchCustom d-flex">
+                <i class="fa fa-search form-control-feedback "></i>
+                <input [(ngModel)]="searchText" type="text" class="form-control" placeholder="Buscar" />
+            </div>
+        </div>
+        <div class="child-div">
+            <p class="mt-2 text-dark">Mostrar resueltos</p>
+        </div>
+        <div class="child-div2">
+            <input  class="pointer checkbox" type="checkbox"/>
+        </div>
+    </div>
+  </div>
+  <div class="mt-5">
+    <div class="autolayout p-0">
+      <table class="table m-0">
+        <tbody>
+          <tr>
+            <th  class="text-center header" scope="col">Id</th>
+            <th class="text-center header" scope="col">Fecha de creación</th>
+            <th class="text-center header" scope="col">Prioridad</th>
+            <th class="text-center header" scope="col">Defecto</th>
+            <th class="text-center header" scope="col">Conductor</th>
+            <th class="text-center header" scope="col">Vehículo</th>
+            <th class="text-center header" scope="col">Estado</th>
+            <th class="text-center header" scope="col">Acciones</th>
+          </tr>
+          <tr *ngFor="let defect of defects | filter: searchText">
+            <td class="text-center p-1 cell">{{ defect.id }}</td>
+            <td class="text-center p-1 cell">{{ defect.fecha_creacion }}</td>
+            <td class="text-center p-1 cell">
+                <p-dropdown id="typeButton"  appendTo="body" class="select2carMind" [options]="prioritys" [(ngModel)]="priority" [style]="{'width':'100%'}">
+                    <ng-template pTemplate="selectedItem">
+                        <div class="select2CarMind-option-item tipo-item-value px-3 py-0" *ngIf="priority">
+                            <img [src]="'assets/icons/'+priority+'.png'" />
+                            <div class="fw-400">{{priority}}</div>
+                        </div>
+                    </ng-template>
+                    <ng-template let-priority pTemplate="item">
+                        <div class="select2CarMind-option-item px-3 py-1">
+                            <img [src]="'assets/icons/'+priority+'.png'" />
+                            <div class="fw-400">{{priority}}</div>
+                        </div>
+                    </ng-template>
+                </p-dropdown>
+            </td>
+            <td class="text-center p-1 cell">{{ defect.defecto }}</td>
+            <td class="text-center p-1 cell">{{ defect.conductor }}</td>
+            <td class="text-center p-1 cell">{{ defect.vehiculo }}</td>
+            <td class="text-center p-1 cell"><mark [ngStyle]="{ background: getStateColor(defect.estado) }">{{ defect.estado }}</mark></td>
+            <td class="text-center p-1 cell action">Ver</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
