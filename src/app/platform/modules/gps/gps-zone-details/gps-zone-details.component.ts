@@ -88,6 +88,7 @@ export class GpsZoneDetailsComponent extends BaseComponent implements OnInit {
           var vehicle = this.vehicles.find((v : any) => v.vehicle.imei === imei);
           if (vehicle  !== undefined) vehicle.selected = true;
         })
+        this.checkIfAllSelected(); 
       })
 
       this.setZoneAndAddToMap();
