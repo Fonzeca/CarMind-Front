@@ -18,7 +18,7 @@ export class GpsVehicleListComponent extends BaseComponent implements OnInit {
   markers: { [imei: string] : google.maps.Marker; } = {};
 
   vehiclesStates!:VehicleState[];
-  private drawVehcilePositionsEvery5Seconds :  Subscription | undefined;
+  drawVehcilePositionsEvery5Seconds :  Subscription | undefined;
 
   itemSelected : string | null = null;
   searchText = '';
@@ -35,7 +35,9 @@ export class GpsVehicleListComponent extends BaseComponent implements OnInit {
       this.drawVehcilePositionsEvery5Seconds = timer(0, 3000).subscribe(_ => {
         this.gps_service.getVehiclesStateByImeis(vehiclesImeisRequest).pipe(
           tap((response) => {
-              
+            
+            if (this.drawVehcilePositionsEvery5Seconds?.closed) return;
+
             this.vehiclesStates = [];
             (vehicles as vehicle[]).forEach((vehicle) => {
               var fullDetailedVehicle : VehicleState = response.find(v => v.imei == vehicle.imei)!;

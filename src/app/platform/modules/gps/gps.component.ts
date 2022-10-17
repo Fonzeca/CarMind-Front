@@ -24,7 +24,7 @@ export class GpsComponent extends BaseComponent implements OnInit {
     this.changeRoute(this.vehicleViewSelected);
 
     //Cuando se está en la pestaña de rastreador, y se clickea nuevamente en rastreador, no se llama al cosntructor por lo que no se va ni a la zone-list
-    // ni a los vehicle-list Y queda la pantalla vacía, con este oberber, cuando se detecta esta ruta se redirige a la vehicle-list
+    // ni a los vehicle-list Y queda la pantalla vacía, con este obserber, cuando se detecta esta ruta se redirige a la vehicle-list
     this.changeToVehicles = this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
           if(event.url === "/platform/gps") {
