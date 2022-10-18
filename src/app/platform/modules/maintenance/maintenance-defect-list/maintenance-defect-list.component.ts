@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { data } from 'jquery';
+import {Sort} from '@angular/material/sort';
 import { Defect } from 'src/app/platform/interfaces/maintenance';
 import { MaintenanceService } from 'src/app/platform/services/maintenance.service';
 import { BaseComponent } from 'src/app/platform/shared/components/base.component';
@@ -11,6 +11,7 @@ import { BaseComponent } from 'src/app/platform/shared/components/base.component
 })
 export class MaintenanceDefectListComponent extends BaseComponent implements OnInit {
 
+  sortedData: Defect[] = [];
   defects : Defect[] = [];
   searchText = '';
 
@@ -37,29 +38,63 @@ export class MaintenanceDefectListComponent extends BaseComponent implements OnI
       response => {
         this.defects = response;
         this.defects.forEach(defect => {
+          var fecha : any = defect.fecha_creacion;
+          var parsedDateTime : Date = new Date(fecha[0],fecha[1],fecha[2], fecha[3], fecha[4], fecha[5]);
+          defect.fecha_creacion = parsedDateTime;
           this.priority.push(this.prioritys[defect.prioridad]);
         });
+        this.sortedData = this.defects.slice();
       } 
     );
-
-    //var priorityIndex = this.prioritys.indexOf( this.defects[0].prioridad);
-    //this.priority =  this.prioritys[priorityIndex];
    }
 
   ngOnInit(): void {
   }
 
+  sortData(sort: Sort) {
+    const data = this.defects.slice();
+    if (!sort.active || sort.direction === '') {
+      this.sortedData = data;
+      return;
+    }
+
+    this.sortedData = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'id':
+          return compare(a.id, b.id, isAsc);
+        case 'prioridad':
+          return compare(a.prioridad, b.prioridad, isAsc);
+        case 'fecha':
+          return isAsc ? a.fecha_creacion.getTime() - b.fecha_creacion.getTime() : b.fecha_creacion.getTime() - a.fecha_creacion.getTime();
+        case 'defecto':
+          return compare(a.defecto, b.defecto, isAsc);
+        case 'conductor':
+          return compare(a.nombre_ape_usuario, b.nombre_ape_usuario, isAsc);
+        case 'vehiculo':
+          return compare(a.vehiculo, b.vehiculo, isAsc);
+        case 'estado':
+          return compare(a.estado, b.estado, isAsc);
+        default:
+          return 0;
+      }
+    });
+
+    function compare(a: number | string , b: number | string , isAsc: boolean) {
+      return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+    }
+  }
+
 
   getStateColor(state : string){
-    if(state === "Pendiente") return "#FFC350";
-    if(state === "En progreso") return "#3ADCFF";
+    if(state === "pendiente") return "#FFC350";
+    if(state === "en progreso") return "#3ADCFF";
     return "#62FF3A";
   }
 
   getFecha(fecha : any){
-    var dateTime : Date = new Date(fecha[0],fecha[1],fecha[2], fecha[3], fecha[4], fecha[5]);
-    var date : string = dateTime.toISOString().substring(0,10);
-    var time : string = dateTime.toTimeString().substring(0,8);
+    var date : string = fecha.toISOString().substring(0,10);
+    var time : string = fecha.toTimeString().substring(0,8);
     return date + " " + time;
   }
 

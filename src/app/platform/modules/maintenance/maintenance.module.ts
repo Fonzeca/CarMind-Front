@@ -6,12 +6,7 @@ import { MaintenanceRoutingModule } from './maintenance-routing.module';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
-import { ComponentsModule } from '../../components/components.module';
-import { SharedModule } from 'primeng/api';
-import { FormSModule } from '../forms/forms.module';
-import { CalendarModule } from 'primeng/calendar';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import {MatSortModule} from '@angular/material/sort';
 
 
 @NgModule({
@@ -29,6 +24,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     FormsModule,
     DropdownModule,
     ReactiveFormsModule,
+    MatSortModule
   ]
 })
 export class MaintenanceModule { }

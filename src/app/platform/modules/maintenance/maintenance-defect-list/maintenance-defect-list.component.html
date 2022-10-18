@@ -16,19 +16,19 @@
   </div>
   <div class="mt-5">
     <div class="autolayout p-0">
-      <table class="table m-0">
+      <table  matSort (matSortChange)="sortData($event)" class="table m-0">
         <tbody>
           <tr>
-            <th  class="text-center header" scope="col">Id</th>
-            <th class="text-center header" scope="col">Fecha de creación</th>
-            <th class="text-center header" scope="col">Prioridad</th>
-            <th class="text-center header" scope="col">Defecto</th>
-            <th class="text-center header" scope="col">Conductor</th>
-            <th class="text-center header" scope="col">Vehículo</th>
-            <th class="text-center header" scope="col">Estado</th>
+            <th mat-sort-header="id" class="header" scope="col">Id</th>
+            <th mat-sort-header="fecha" class="header" scope="col">Fecha de creación</th>
+            <th mat-sort-header="prioridad" class="header" scope="col">Prioridad</th>
+            <th mat-sort-header="defecto" class="header" scope="col">Defecto</th>
+            <th mat-sort-header="conductor" class="header" scope="col">Conductor</th>
+            <th mat-sort-header="vehiculo" class="header" scope="col">Vehículo</th>
+            <th mat-sort-header="estado" class="header" scope="col">Estado</th>
             <th class="text-center header" scope="col">Acciones</th>
           </tr>
-          <tr *ngFor="let defect of defects | filter: searchText ; let i = index" [attr.data-index]="i">
+          <tr *ngFor="let defect of sortedData | filter: searchText ; let i = index" [attr.data-index]="i">
             <td class="text-center p-1 cell">{{ defect.id }}</td>
             <td class="text-center p-1 cell">{{ getFecha(defect.fecha_creacion) }}</td>
             <td class="text-center p-1 cell">

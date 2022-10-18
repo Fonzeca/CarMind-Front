@@ -24,6 +24,11 @@
     border-color: #B9B9B9;
 }
 
+::ng-deep .mat-sort-header-container {
+    display:flex;
+    justify-content:center;
+  }
+  
 .cell{
     background: rgba(255, 255, 255, 0.002);
     border-width: 1px 0px 0px 1px;

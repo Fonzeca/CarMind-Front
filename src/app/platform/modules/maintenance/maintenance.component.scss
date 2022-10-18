@@ -54,6 +54,18 @@
       width: 120%;
       transition: 0.3s;
     }
+    &:before{
+      content: '';
+      border-bottom: 2px solid #b6e802;
+      padding: 0 10px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+      width: 120%;
+      transition: 0.3s;
+    }
   }
   
   .buttonUnderline2{
