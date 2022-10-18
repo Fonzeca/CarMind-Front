@@ -1,9 +1,9 @@
 export interface Defect{
     id: number,
-    fecha_creacion: string,
-    prioridad: string,
+    fecha_creacion: Date,
+    prioridad: number,
     defecto: string,
-    conductor: string, 
+    nombre_ape_usuario: string, 
     vehiculo: string,
     estado: string
 }

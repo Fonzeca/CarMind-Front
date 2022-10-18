@@ -25,6 +25,10 @@ const endpoints = {
     get_forms_pending_to_review_by_vehicle:"/vehiculo/:id/logsParaRevisar",
     post_review:"/revision",
   },
+  defects:{
+    get_all: "/defectos",
+    update_priority: "/defectos/:id/changePriority"
+  },
   get forms () {
     return {
       get_all:'/evaluacion',

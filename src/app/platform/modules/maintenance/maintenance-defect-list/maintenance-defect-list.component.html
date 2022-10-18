@@ -28,15 +28,15 @@
             <th class="text-center header" scope="col">Estado</th>
             <th class="text-center header" scope="col">Acciones</th>
           </tr>
-          <tr *ngFor="let defect of defects | filter: searchText">
+          <tr *ngFor="let defect of defects | filter: searchText ; let i = index" [attr.data-index]="i">
             <td class="text-center p-1 cell">{{ defect.id }}</td>
-            <td class="text-center p-1 cell">{{ defect.fecha_creacion }}</td>
+            <td class="text-center p-1 cell">{{ getFecha(defect.fecha_creacion) }}</td>
             <td class="text-center p-1 cell">
-                <p-dropdown id="typeButton"  appendTo="body" class="select2carMind" [options]="prioritys" [(ngModel)]="priority" [style]="{'width':'100%'}">
+                <p-dropdown id="typeButton"  appendTo="body" class="select2carMind" [options]="prioritys" [(ngModel)]="priority[i]" [style]="{'width':'100%'}" (onChange)="onPriorityChange(defect.id, priority[i])">
                     <ng-template pTemplate="selectedItem">
-                        <div class="select2CarMind-option-item tipo-item-value px-3 py-0" *ngIf="priority">
-                            <img [src]="'assets/icons/'+priority+'.png'" />
-                            <div class="fw-400">{{priority}}</div>
+                        <div class="select2CarMind-option-item priority[i]-item-value px-3 py-0" *ngIf="priority[i]">
+                            <img [src]="'assets/icons/'+priority[i]+'.png'" />
+                            <div class="fw-400">{{priority[i]}}</div>
                         </div>
                     </ng-template>
                     <ng-template let-priority pTemplate="item">
@@ -47,8 +47,8 @@
                     </ng-template>
                 </p-dropdown>
             </td>
-            <td class="text-center p-1 cell">{{ defect.defecto }}</td>
-            <td class="text-center p-1 cell">{{ defect.conductor }}</td>
+            <td class="text-center p-1 cell">No existe</td>
+            <td class="text-center p-1 cell">{{ defect.nombre_ape_usuario }}</td>
             <td class="text-center p-1 cell">{{ defect.vehiculo }}</td>
             <td class="text-center p-1 cell"><mark [ngStyle]="{ background: getStateColor(defect.estado) }">{{ defect.estado }}</mark></td>
             <td class="text-center p-1 cell action">Ver</td>
