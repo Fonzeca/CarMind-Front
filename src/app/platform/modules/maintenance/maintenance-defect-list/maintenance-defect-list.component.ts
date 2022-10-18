@@ -62,22 +62,27 @@ export class MaintenanceDefectListComponent extends BaseComponent implements OnI
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
         case 'id':
-          return compare(a.id, b.id, isAsc);
+            return compare(a.id, b.id, isAsc);
         case 'prioridad':
-          return compare(a.prioridad, b.prioridad, isAsc);
+            return compare(this.prioritys[a.prioridad], this.prioritys[b.prioridad], isAsc);
         case 'fecha':
-          return isAsc ? a.fecha_creacion.getTime() - b.fecha_creacion.getTime() : b.fecha_creacion.getTime() - a.fecha_creacion.getTime();
+            return isAsc ? a.fecha_creacion.getTime() - b.fecha_creacion.getTime() : b.fecha_creacion.getTime() - a.fecha_creacion.getTime();
         case 'defecto':
-          return compare(a.defecto, b.defecto, isAsc);
+            return compare(a.defecto, b.defecto, isAsc);
         case 'conductor':
-          return compare(a.nombre_ape_usuario, b.nombre_ape_usuario, isAsc);
+            return compare(a.nombre_ape_usuario, b.nombre_ape_usuario, isAsc);
         case 'vehiculo':
-          return compare(a.vehiculo, b.vehiculo, isAsc);
+            return compare(a.vehiculo, b.vehiculo, isAsc);
         case 'estado':
-          return compare(a.estado, b.estado, isAsc);
+            return compare(a.estado, b.estado, isAsc);
         default:
-          return 0;
-      }
+            return 0;
+          }  
+      });
+
+    this.priority = [];
+    this.sortedData.forEach(defect => {
+        this.priority.push(this.prioritys[defect.prioridad]);
     });
 
     function compare(a: number | string , b: number | string , isAsc: boolean) {
