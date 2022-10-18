@@ -28,7 +28,7 @@
             <th mat-sort-header="estado" class="header" scope="col">Estado</th>
             <th class="text-center header" scope="col">Acciones</th>
           </tr>
-          <tr *ngFor="let defect of sortedData | filter: searchText ; let i = index" [attr.data-index]="i">
+          <tr *ngFor="let defect of sortedData | filterPipeS: searchText:['id','nombre_ape_usuario','vehiculo','estado']; ; let i = index" [attr.data-index]="i">
             <td class="text-center p-1 cell">{{ defect.id }}</td>
             <td class="text-center p-1 cell">{{ getFecha(defect.fecha_creacion) }}</td>
             <td class="text-center p-1 cell">
