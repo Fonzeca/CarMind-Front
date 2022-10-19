@@ -94,8 +94,8 @@ export class MaintenanceDefectListComponent extends BaseComponent implements OnI
   }
 
   getStateColor(state : string){
-    if(state === "pendiente") return "#FFC350";
-    if(state === "en progreso") return "#3ADCFF";
+    if(state === "Pendiente") return "#FFC350";
+    if(state === "En progreso") return "#3ADCFF";
     return "#62FF3A";
   }
 
