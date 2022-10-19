@@ -2,13 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FilterPipe } from './filter.pipe';
 import { FormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
-import { FilterPipeS } from './filter2.pipe';
+import { FilterDefectPipe } from './filterDefect.pipe';
 
 
 @NgModule({
-  declarations: [FilterPipe, FilterPipeS],
-  exports: [FilterPipe, FilterPipeS],
+  declarations: [FilterPipe, FilterDefectPipe],
+  exports: [FilterPipe, FilterDefectPipe],
   imports: [
     CommonModule,
     FormsModule,

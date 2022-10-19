@@ -13,7 +13,10 @@ export class MaintenanceDefectListComponent extends BaseComponent implements OnI
 
   sortedData: Defect[] = [];
   defects : Defect[] = [];
+
   searchText = '';
+
+  isShowingResolved = false;
 
   public prioritys = [
     "Indefinida",
@@ -90,7 +93,6 @@ export class MaintenanceDefectListComponent extends BaseComponent implements OnI
     }
   }
 
-
   getStateColor(state : string){
     if(state === "pendiente") return "#FFC350";
     if(state === "en progreso") return "#3ADCFF";
@@ -106,6 +108,13 @@ export class MaintenanceDefectListComponent extends BaseComponent implements OnI
   onPriorityChange(defectId : number, newPriority : string){
     var newPriorityIndex = this.prioritys.indexOf( newPriority);
     this.maintenanceService.updatePriorityDefectById(defectId.toString(), newPriorityIndex).subscribe();
+  }
+
+  showResolved(){
+    this.isShowingResolved = !this.isShowingResolved;
+    
+    if(this.isShowingResolved) this.sortedData = this.defects.filter(defect => defect.estado === 'resuelto')
+    else this.sortedData = this.defects;
   }
 
 }

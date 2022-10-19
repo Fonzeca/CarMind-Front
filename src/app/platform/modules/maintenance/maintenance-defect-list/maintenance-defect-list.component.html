@@ -10,7 +10,7 @@
             <p class="mt-2 text-dark">Mostrar resueltos</p>
         </div>
         <div class="child-div2">
-            <input  class="pointer checkbox" type="checkbox"/>
+            <input (click)="showResolved()"  class="pointer checkbox" type="checkbox"/>
         </div>
     </div>
   </div>
@@ -28,7 +28,7 @@
             <th mat-sort-header="estado" class="header" scope="col">Estado</th>
             <th class="text-center header" scope="col">Acciones</th>
           </tr>
-          <tr *ngFor="let defect of sortedData | filterPipeS: searchText:['id','nombre_ape_usuario','vehiculo','estado']; ; let i = index" [attr.data-index]="i">
+          <tr *ngFor="let defect of sortedData | filterDefectPipe: searchText:['id','nombre_ape_usuario','vehiculo','estado']; ; let i = index" [attr.data-index]="i">
             <td class="text-center p-1 cell">{{ defect.id }}</td>
             <td class="text-center p-1 cell">{{ getFecha(defect.fecha_creacion) }}</td>
             <td class="text-center p-1 cell">
@@ -47,7 +47,7 @@
                     </ng-template>
                 </p-dropdown>
             </td>
-            <td class="text-center p-1 cell">No existe</td>
+            <td class="text-center p-1 cell">{{defect.defecto}}</td>
             <td class="text-center p-1 cell">{{ defect.nombre_ape_usuario }}</td>
             <td class="text-center p-1 cell">{{ defect.vehiculo }}</td>
             <td class="text-center p-1 cell"><mark [ngStyle]="{ background: getStateColor(defect.estado) }">{{ defect.estado }}</mark></td>

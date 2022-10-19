@@ -1,5 +1,4 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { vehicle } from '../interfaces/vehicle';
 
 interface PipeFilterParam {
   term:string;
@@ -8,9 +7,9 @@ interface PipeFilterParam {
 }
 
 @Pipe({
-  name: 'filterPipeS'
+  name: 'filterDefectPipe'
 })
-export class FilterPipeS implements PipeTransform {
+export class FilterDefectPipe implements PipeTransform {
 
   transform(items: any[], keyword: any, properties: string[]): any[] {
     if (!items) return [];
