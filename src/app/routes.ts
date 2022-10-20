@@ -136,6 +136,12 @@ export const AppRoutes = {
                 main:"service",
               }
             },
+            get details(){
+              return {
+                route:`${this.route}/details`,
+                main:"details",
+              }
+            },
           }
         },
       }

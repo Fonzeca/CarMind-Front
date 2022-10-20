@@ -1,0 +1,140 @@
+<div class="m-container clase-padre">
+    <div class="container">
+        <div class="d-flex justify-content-start">
+            <div class="mt-4 mb-2">
+                <div class="mb-4"></div>
+                <h5><i  [routerLink]="'/'+ this.getAppRoutes.platform.maintenance.route" class="fa fa-arrow-left px-2 pointer" aria-hidden="true"></i></h5>
+            </div>
+            <div>
+              <h3 class="title text-dark">{{defect!.defecto}}</h3>
+            </div>
+        </div>
+        <div class="d-flex justify-content-end">
+            <div *ngIf="defect!.estado === 'En progreso' || defect!.estado === 'Resuelto'" class=" col col-md-auto  mb-1 pendienteContainer">
+                <button (click)="onUpdateState('Pendiente')" class="btn btn-success m-btn-success m-btn w-100 truncate pendienteButton">Marcar pendiente</button>
+            </div>
+            <div *ngIf="defect!.estado === 'En progreso'" class=" col col-md-auto  mb-1 resueltoContainer">
+                <button (click)="onUpdateState('Resuelto')"  class="btn btn-success m-btn-success m-btn w-100 truncate resueltoButton">Marcar resuelto</button>
+            </div>
+            <div *ngIf="defect!.estado === 'Pendiente'" class=" col col-md-auto  mb-1 pendienteContainer">
+                <button (click)="onUpdateState('En progreso')"  class="btn btn-success m-btn-success m-btn w-100 truncate pendienteButton">Marcar en progreso</button>
+            </div>
+        </div>
+        <div class="mb-4"></div>
+        <div class="d-flex main">
+            <div class="infoDiv">
+                <div class="row justify-content-start">
+                    <div class="col col-md-auto">
+                        <p class="textHeader">Id:</p>
+                    </div>
+                    <div class="col col-md-auto padding-0 col2">
+                        <p class="text-dark padding-0 textBody">{{defect!.id}}</p>
+                    </div>
+                </div>
+                <div class="row justify-content-start">
+                    <div class="col col-md-auto">
+                        <p class="textHeader">Defecto:</p>
+                    </div>
+                    <div class="col col-md-auto padding-0 col2">
+                        <p class="text-dark padding-0 textBody">{{defect!.defecto}}</p>
+                    </div>
+                </div>
+                <div class="row align-items-center">
+                    <div class="col col-md-auto">
+                        <p class="textHeader">Prioridad:</p>
+                    </div>
+                    <div class="col col-md-auto dropdownContainer">
+                        <p-dropdown  class="select2CarMind2" [options]="prioritys" [(ngModel)]="priority"  (onChange)="onPriorityChange(priority)">
+                            <ng-template pTemplate="selectedItem">
+                                <div class="select2CarMind2-option-item priority-item-value" *ngIf="priority">
+                                    <img  [src]="'assets/icons/'+priority+'.png'" />
+                                    <div class="fw-400">{{priority}}</div>
+                                </div>
+                            </ng-template>
+                            <ng-template let-priority pTemplate="item">
+                                <div class="d-flex select2CarMind2-items">
+                                    <img [src]="'assets/icons/'+priority+'.png'" />
+                                    <div class="fw-400 iconPrior">{{priority}}</div>
+                                </div>
+                            </ng-template>
+                        </p-dropdown>
+                    </div>
+                </div>
+                <div class="row justify-content-start">
+                    <div class="col col-md-auto">
+                        <p class="textHeader">Fecha de creación:</p>
+                    </div>
+                    <div class="col col-md-auto padding-0 col2">
+                        <p class="text-dark padding-0 textBody">{{getFecha(defect!.fecha_creacion)}}</p>
+                    </div>
+                </div>
+                <div class="row justify-content-start">
+                    <div class="col col-md-auto">
+                        <p class="textHeader">Conductor:</p>
+                    </div>
+                    <div class="col col-md-auto padding-0 col2">
+                        <p class="text-dark padding-0 textBody">{{defect!.nombre_ape_usuario}}</p>
+                    </div>
+                </div>
+                <div class="row justify-content-start">
+                    <div class="col col-md-auto">
+                        <p class="textHeader">Vehículo:</p>
+                    </div>
+                    <div class="col col-md-auto padding-0 col2">
+                        <p class="text-dark padding-0 textBody">{{defect!.vehiculo}}</p>
+                    </div>
+                </div>
+                <div class="row justify-content-start">
+                    <div class="col col-md-auto">
+                        <p class="textHeader">Estado:</p>
+                    </div>
+                    <div class="col col-md-auto padding-0 col2">
+                        <p class="text-dark padding-0 textBody"><mark [ngStyle]="{ background: getStateColor(defect!.estado) }">{{ defect!.estado }}</mark></p>
+                    </div>
+                </div>
+            </div>
+            <div class="actionsDiv">
+                <div class="cardFotos">
+                    <h5 class="textActions">Fotos</h5>
+                    <hr class="rounded">
+                    <div class="col-lg-12 flickerContainer">
+                        <div class="d-flex flex-row justify-content-between">
+                        <ng-container *ngIf="images">
+                                <div class="arrow-div">
+                                    <div (click)="previousSlide()" [ngClass]="{ 'arrow-disabled': this.slideIndex===0  }" class="form-arrow arrow-left pointer">
+                                        <i class="fa fa-angle-left"></i>
+                                    </div>
+                                </div>
+                                <image-card  class="pointer" (click)="viewImage(image)" [flicker]="flicker" *ngFor="let image of getImageSlider(images);"></image-card>
+                                <div class="arrow-div ">
+                                    <div (click)="nextSlide(images)" [ngClass]="{ 'arrow-disabled': (this.slideIndex+this.slideCant) === images.length ||  images.length===1 }" class="form-arrow arrow-right pointer">
+                                        <i class="fa fa-angle-right"></i>
+                                    </div>
+                                </div>
+                        </ng-container>
+                        <ng-container *ngIf="!images">
+                            <image-card [flicker]="flicker" *ngFor="let i of [].constructor(4)"></image-card>
+                        </ng-container>
+                        </div>
+                    </div>
+                </div>
+                <div class="cardComentarios">
+                    <h5 class="textActions">Comentarios</h5>
+                    <hr class="rounded">
+                    <div class="commentsList">
+                        <comment-card *ngFor="let i of [].constructor(20)"></comment-card>
+                    </div>
+                    <div class="d-flex justify-content-start">
+                        <div class="preffixIcon"><img [src]="'assets/icons/user.png'" class="userIcon" alt="..."  ></div>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <div class="suffixIcon"><img [src]="'assets/icons/send.png'" class="userIcon" alt="..."  ></div>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Agregar comentario.." />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+  

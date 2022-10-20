@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Sort} from '@angular/material/sort';
+import { Router } from '@angular/router';
 import { Defect } from 'src/app/platform/interfaces/maintenance';
 import { MaintenanceService } from 'src/app/platform/services/maintenance.service';
 import { BaseComponent } from 'src/app/platform/shared/components/base.component';
@@ -34,7 +35,7 @@ export class MaintenanceDefectListComponent extends BaseComponent implements OnI
   }
 
 
-  constructor(public maintenanceService: MaintenanceService) {
+  constructor(public router :Router,public maintenanceService: MaintenanceService) {
     super();
 
     maintenanceService.getDefects().subscribe(
@@ -116,5 +117,10 @@ export class MaintenanceDefectListComponent extends BaseComponent implements OnI
     if(this.isShowingResolved) this.sortedData = this.defects.filter(defect => defect.estado === 'resuelto')
     else this.sortedData = this.defects;
   }
+
+  viewDetails(defect : Defect){{
+    this.router.navigate([this.getAppRoutes.platform.maintenance.details.route], {state:{defect: defect}});
+  }}
+
 
 }

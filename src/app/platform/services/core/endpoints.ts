@@ -27,7 +27,8 @@ const endpoints = {
   },
   defects:{
     get_all: "/defectos",
-    update_priority: "/defectos/:id/changePriority"
+    update_priority: "/defectos/:id/changePriority",
+    update_state: "/defectos/:id/changeState",
   },
   get forms () {
     return {

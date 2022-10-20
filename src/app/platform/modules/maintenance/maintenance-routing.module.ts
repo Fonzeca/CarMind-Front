@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MaintenanceDefectListComponent } from './maintenance-defect-list/maintenance-defect-list.component';
+import { MaintenanceDefectDetailsComponent } from './maintenance-defect-details/maintenance-defect-details.component';
+import { MaintenanceDefectListComponent } from './maintenance-main/maintenance-defect-list/maintenance-defect-list.component';
 import { MaintenanceComponent } from './maintenance.component';
 
 
@@ -18,6 +19,10 @@ const routes: Routes = [
       }
     ]
   },
+  {
+    path:'details',
+    component: MaintenanceDefectDetailsComponent
+  }
 ];
 
 @NgModule({

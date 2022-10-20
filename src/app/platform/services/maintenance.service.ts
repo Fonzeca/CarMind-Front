@@ -28,4 +28,11 @@ export class MaintenanceService extends ApiService {
     return this.put(url.replace(':id', defectId.toString()) + "?newPriority=" + priority, {});
   }
 
+  updateStateDefectById(defectId: string, state: string) : Observable<number>{
+    const {
+      defects: { update_state: url },
+    } = endpoints;
+    return this.put(url.replace(':id', defectId.toString()) + "?newState=" + state, {});
+  }
+
 }
