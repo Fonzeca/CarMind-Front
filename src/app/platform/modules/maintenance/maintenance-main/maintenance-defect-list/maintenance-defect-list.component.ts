@@ -108,13 +108,17 @@ export class MaintenanceDefectListComponent extends BaseComponent implements OnI
 
   onPriorityChange(defectId : number, newPriority : string){
     var newPriorityIndex = this.prioritys.indexOf( newPriority);
-    this.maintenanceService.updatePriorityDefectById(defectId.toString(), newPriorityIndex).subscribe();
+    this.maintenanceService.updatePriorityDefectById(defectId.toString(), newPriorityIndex).subscribe(
+      res=>{
+        this.defects.find(defect => defect.id === defectId)!.prioridad = newPriorityIndex 
+      }
+    );
   }
 
   showResolved(){
     this.isShowingResolved = !this.isShowingResolved;
     
-    if(this.isShowingResolved) this.sortedData = this.defects.filter(defect => defect.estado === 'resuelto')
+    if(this.isShowingResolved) this.sortedData = this.defects.filter(defect => defect.estado === 'Resuelto')
     else this.sortedData = this.defects;
   }
 

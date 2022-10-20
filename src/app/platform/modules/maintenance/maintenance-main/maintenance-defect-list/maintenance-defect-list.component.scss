@@ -44,7 +44,8 @@
 
 .form-control-feedback {
     position: absolute;
-    margin: 265px;
+    margin: 255px;
+    margin-left: 270px;
     pointer-events: none;
     background-color: #eee;
     align-self: center;
@@ -59,7 +60,7 @@
 
 .searchCustom{
     width: 294px;
-    height: 52px;
+    height: 35px;
 
 }
 
@@ -71,7 +72,6 @@
 
 .child-div{
     padding-left: 10px;
-    padding-top: 5px;
 }
 
 .child-div2{
@@ -80,8 +80,8 @@
 }
 
 .checkbox{
-    width: 24px;
-    height: 24px;
+    width: 17px;
+    height: 17px;
 }
 
 .action{
@@ -95,19 +95,46 @@ mark {
 }
 
 
-.select2CarMind-option-item {
-   width: 60px;
-}
-
-.select2CarMind {
+.select2CarMind2{
+    background-color: #8ed8f8;
+    height: 12px !important;
+    .p-dropdown {
+      background-color: red;
+      height: 12px !important;
+    }
     &-option-item {
-      height: 20px;
+      padding-left: 5px !important;
+      padding-right: 0px !important;
+      margin-left: -5px !important;
+      margin-top: -5px !important;
+      margin-bottom: -5px !important;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      width: 40px;
+      height: 12px !important;
       img {
-        max-width: 32px;
+        width: 17px;
+        height: 12px;
       }
     }
 
+    &-items{
+      gap: 6px;
+    }
 }
+
+::ng-deep{
+  .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
+    padding-left: 10px !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px!important;
+    padding-right: 0px !important;
+    margin-right: 0px !important;
+  }
+}
+
+
 
 .iconPrior{
     padding-left: 8px;

@@ -32,9 +32,9 @@
             <td class="text-center p-1 cell">{{ defect.id }}</td>
             <td class="text-center p-1 cell">{{ getFecha(defect.fecha_creacion) }}</td>
             <td class="text-center p-1 cell">
-                <p-dropdown id="typeButton"  appendTo="body" class="select2carMind" [options]="prioritys" [(ngModel)]="priority[i]" [style]="{'width':'100%'}" (onChange)="onPriorityChange(defect.id, priority[i])">
+                <p-dropdown id="typeButton"  appendTo="body" class="select2carMind2" [options]="prioritys" [(ngModel)]="priority[i]" [style]="{'width':'100%'}" (onChange)="onPriorityChange(defect.id, priority[i])">
                     <ng-template pTemplate="selectedItem">
-                        <div class="select2CarMind-option-item priority[i]-item-value px-3 py-0" *ngIf="priority[i]">
+                        <div class="select2CarMind2-option-item priority[i]-item-value px-3 py-0" *ngIf="priority[i]">
                             <img [src]="'assets/icons/'+priority[i]+'.png'" />
                             <div class="fw-400">{{priority[i]}}</div>
                         </div>
