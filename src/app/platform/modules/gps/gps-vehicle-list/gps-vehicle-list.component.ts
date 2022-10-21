@@ -23,6 +23,8 @@ export class GpsVehicleListComponent extends BaseComponent implements OnInit {
   itemSelected : string | null = null;
   searchText = '';
 
+  onMapCreatedSubscription: any;
+
   constructor(public router:Router, public gps_service: GpsService, public vehicle_service: VehiclesService) {
     super();
   
@@ -67,12 +69,16 @@ export class GpsVehicleListComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.gps_service.map?.addListener('dragstart', () => {
-      this.itemSelected = null;
-    })
+    this.onMapCreatedSubscription = this.gps_service.onMapCreated
+      .subscribe(isMapCreated => {
+        if ( isMapCreated) this.gps_service.map!.addListener('dragstart', () => {
+          this.itemSelected = null;
+        })
+      });
   }
 
   override ngOnDestroy(): void {
+    this.onMapCreatedSubscription.unsubscribe();
     this.gps_service.map?.unbind('dragstart');
     this.drawVehcilePositionsEvery5Seconds?.unsubscribe();
     for (const [_, marker] of Object.entries(this.markers)) { 
@@ -113,6 +119,8 @@ export class GpsVehicleListComponent extends BaseComponent implements OnInit {
         });
     
         google.maps.event.addListener(marker, 'click', this.moveCameraToVehicle.bind(this, latitud, longitud));
+
+        google.maps.event.addListener(marker, 'click', () =>  this.itemSelected = imei);
     
         this.markers[imei] = marker
     

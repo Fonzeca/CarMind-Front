@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GpsRouteData, gps_data, RouteRequest, VehiclesImeisRequest, VehicleState, ZoneRequest, ZoneView } from '../interfaces/gps_data';
 import { ApiService } from './core/api.service';
@@ -11,7 +11,10 @@ import endpoints from './core/endpoints';
 export class GpsService extends ApiService {
 
   map?: google.maps.Map;
-  
+
+  onMapCreated : EventEmitter<boolean> = new EventEmitter();
+
+
   isInDetails : boolean = false;
 
 

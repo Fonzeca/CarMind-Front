@@ -9,24 +9,23 @@ import { GpsService } from 'src/app/platform/services/gps.service';
 })
 export class GpsMapComponent implements OnInit {
 
-  constructor(public gps_service: GpsService) {
-
-  }
-
   title = 'google-maps';
+
+  constructor(public gps_service: GpsService) {}
+
 
   ngOnInit(): void {
     let loader = new Loader({
       //TODO: NO MOSTRAR APIKEY
       apiKey: 'AIzaSyBksBzP29Z651LUCwmF0U7bSp7U6Z9IIuI',
     });
-
+  
     loader.load().then((response) => {
       const location = {
         lat: -48.404479,
         lng: -69.651008,
       };
-
+  
       this.gps_service.map = new google.maps.Map(document.getElementById('map')!, {
         center: location,
         zoom: 6,
@@ -34,6 +33,10 @@ export class GpsMapComponent implements OnInit {
         minZoom: 5
       });
 
+      
+  
+    }).then(_=>{
+      this.gps_service.onMapCreated.emit(true);
     });
   }
 
