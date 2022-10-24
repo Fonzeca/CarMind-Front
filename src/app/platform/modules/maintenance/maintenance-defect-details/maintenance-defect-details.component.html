@@ -126,7 +126,7 @@
                     </div>
                     <div class="position-relative">
                         <div class="preffixIcon"><img [src]="'assets/icons/user.png'" class="userIcon" alt="..."  ></div>
-                        <input [(ngModel)]="commentText" type="text" class="form-control" placeholder="Agregar comentario.." />
+                        <input (keydown.enter)="onCommentSend()" [(ngModel)]="commentText" type="text" class="form-control" placeholder="Agregar comentario.." />
                         <img (click)="onCommentSend()" [src]="'assets/icons/send.png'" class="position-absolute add-icon me-3 sendIcon" alt="..."  >
                     </div>
                 </div>
