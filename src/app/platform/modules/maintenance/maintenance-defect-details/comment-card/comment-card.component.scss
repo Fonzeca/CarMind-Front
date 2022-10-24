@@ -1,5 +1,7 @@
 .container{
-    margin-top: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    overflow-y: auto;
 }
 
 .header{
@@ -49,4 +51,5 @@
 
 .message{
     padding-left: 45px;
+    word-wrap: break-word;
 }

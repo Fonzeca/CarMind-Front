@@ -136,12 +136,15 @@ export const AppRoutes = {
                 main:"service",
               }
             },
-            get details(){
+            get defect(){
               return {
-                route:`${this.route}/details`,
-                main:"details",
+                route(id:any){
+                  return this._route.replace(":id", id);
+                },
+                _route:`${this.route}/defect/details/:id`,
+                main:`${this.route}/defect/details/:id`,
               }
-            },
+            }
           }
         },
       }

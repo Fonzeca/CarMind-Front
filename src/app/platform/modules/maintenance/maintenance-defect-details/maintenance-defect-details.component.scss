@@ -34,20 +34,20 @@ hr.rounded {
   margin-bottom: 8px;
 }
 
-.pendienteButton{
+.blueButton{
   padding: 0px;
   height: 35px;
   background-color: #8ed8f8;
   border-radius: 10px;
 }
 
-.pendienteButton:focus{
+.blueButton:focus{
   color: white;
   outline: 0;
   box-shadow: #8ed8f87a 0px 0px 0px 3px !important;
 }
 
-.resueltoButton{
+.greenButton{
   padding: 0px;
   height: 35px;
   border-radius: 10px;
@@ -88,6 +88,11 @@ hr.rounded {
   height: calc(100vh - 610px);
 }
 
+.actionsDiv{
+  width: 50vw;
+  max-width:  800px;
+}
+
 .textActions{
   margin-top: 20px;
   margin-bottom: 10px;
@@ -109,21 +114,17 @@ mark {
     padding-right: 5px;
 }
 
-.form-control{
-  margin-top: 10px;
-  padding-left: 45px;
-  padding-right: 35px;
-}
 
 .preffixIcon {
   position: absolute;
-  margin-top: 18px;
+  margin-top: 8px;
   margin-left: 10px;
   pointer-events: none;
   background-color: var(--m-primary-color);
   border-radius: 100%;
   height: 22px;
   width: 22px;
+  z-index: 10;
 }
 
 .userIcon{
@@ -133,11 +134,22 @@ mark {
   margin-top: -2px;
 }
 
+.sendIcon{
+  z-index: 10;
+  width: 20px;
+  height: 20px;
+}
+
 .suffixIcon {
   position: absolute;
-  margin-top: 18px;
+  margin-top: 17px;
   margin-right: 10px;
   pointer-events: none;
+}
+
+.form-control{
+  padding-left: 40px;
+  padding-right: 40px;
 }
 
 

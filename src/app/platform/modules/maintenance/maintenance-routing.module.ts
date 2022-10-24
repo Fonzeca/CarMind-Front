@@ -20,7 +20,7 @@ const routes: Routes = [
     ]
   },
   {
-    path:'details',
+    path:'defect/details/:id',
     component: MaintenanceDefectDetailsComponent
   }
 ];

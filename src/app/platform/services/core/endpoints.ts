@@ -29,6 +29,8 @@ const endpoints = {
     get_all: "/defectos",
     update_priority: "/defectos/:id/changePriority",
     update_state: "/defectos/:id/changeState",
+    create_comment: "/chatline/createComment",
+    get_comment_by_topic_and_topicId: "/chatline/getCommentsByTopicAndTopicId",
   },
   get forms () {
     return {

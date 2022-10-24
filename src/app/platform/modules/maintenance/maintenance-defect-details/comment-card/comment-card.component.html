@@ -2,13 +2,13 @@
     <div class="row justify-content-start header">
         <div class="col col-sm-auto circle"><img [src]="'assets/icons/user.png'" class="userIcon" alt="..."  ></div>
         <div class="col col-sm-auto">
-            <p class="name">Leo Gomes</p>
+            <p class="name">{{comment?.usuario}}</p>
         </div>
         <div class="col col-sm-auto">
-            <p class="time"> hace 2 días</p>
+            <p class="time">{{getDateInformation(comment?.fecha)}}</p>
         </div>
     </div>
     <div class="row body">
-        <p class="message">Los focos de frenos no andan bien</p>
+        <p class="message">{{comment?.mensaje}}</p>
     </div>
 </div>

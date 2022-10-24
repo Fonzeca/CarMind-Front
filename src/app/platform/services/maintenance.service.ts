@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Defect } from '../interfaces/maintenance';
+import { Observable, Subscription } from 'rxjs';
+import { Comentario, CreateComentario, Defect } from '../interfaces/maintenance';
 import { ApiService } from './core/api.service';
 import endpoints from './core/endpoints';
 
@@ -9,6 +9,8 @@ import endpoints from './core/endpoints';
   providedIn: 'root'
 })
 export class MaintenanceService extends ApiService {
+
+  updateFechaLabelEvery1Second :  Subscription | undefined;
 
   constructor(http: HttpClient) {
     super(http);
@@ -33,6 +35,20 @@ export class MaintenanceService extends ApiService {
       defects: { update_state: url },
     } = endpoints;
     return this.put(url.replace(':id', defectId.toString()) + "?newState=" + state, {});
+  }
+
+  createComment(newCommment : CreateComentario) : Observable<number>{
+    const {
+      defects: { create_comment: url },
+    } = endpoints;
+    return this.post(url, newCommment);
+  }
+
+  getCommentsByTopicAndTopicId(topic : string, topicId : string) : Observable<Comentario[]>{
+    const {
+      defects: { get_comment_by_topic_and_topicId: url },
+    } = endpoints;
+    return this.get(url + "?tema=" + topic + "&tema_id=" + topicId);
   }
 
 }

@@ -47,7 +47,7 @@ export class MaintenanceDefectListComponent extends BaseComponent implements OnI
           defect.fecha_creacion = parsedDateTime;
           this.priority.push(this.prioritys[defect.prioridad]);
         });
-        this.sortedData = this.defects.slice();
+        this.sortedData = this.defects.filter(defect => defect.estado !== 'Resuelto');
       } 
     );
    }
@@ -118,12 +118,12 @@ export class MaintenanceDefectListComponent extends BaseComponent implements OnI
   showResolved(){
     this.isShowingResolved = !this.isShowingResolved;
     
-    if(this.isShowingResolved) this.sortedData = this.defects.filter(defect => defect.estado === 'Resuelto')
-    else this.sortedData = this.defects;
+    if(this.isShowingResolved) this.sortedData = this.defects.filter(defect => defect.estado === 'Resuelto');
+    else this.sortedData = this.defects.filter(defect => defect.estado !== 'Resuelto');
   }
 
   viewDetails(defect : Defect){{
-    this.router.navigate([this.getAppRoutes.platform.maintenance.details.route], {state:{defect: defect}});
+    this.router.navigate([this.getAppRoutes.platform.maintenance.defect.route(defect.id)], {state:{defect: defect}});
   }}
 
 
