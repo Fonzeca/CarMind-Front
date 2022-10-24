@@ -13,6 +13,7 @@
 
 .map-container {
   height: calc(100vh - 70px);
+  margin-right: 0px !important;
   @media screen and (max-width: 500px) {
     &__content {
       width: 100% !important;
@@ -30,7 +31,6 @@
     background-color: grey;
     margin-top: -3px;
     padding: 0px !important;
-    margin-right: 6px;
   }
 }
 
