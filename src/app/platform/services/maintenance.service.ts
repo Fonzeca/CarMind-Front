@@ -10,8 +10,6 @@ import endpoints from './core/endpoints';
 })
 export class MaintenanceService extends ApiService {
 
-  updateFechaLabelEvery1Second :  Subscription | undefined;
-
   constructor(http: HttpClient) {
     super(http);
   }

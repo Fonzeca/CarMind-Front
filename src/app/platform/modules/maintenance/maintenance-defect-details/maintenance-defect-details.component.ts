@@ -81,8 +81,6 @@ export class MaintenanceDefectDetailsComponent extends BaseComponent implements 
 
   override ngOnDestroy(): void {
     this.getCommentsEvery1minute?.unsubscribe();
-    this.maintenanceService.updateFechaLabelEvery1Second?.unsubscribe();
-    this.maintenanceService.updateFechaLabelEvery1Second = undefined;
   }
 
   onPriorityChange(newPriority : string){

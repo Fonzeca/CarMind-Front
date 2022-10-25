@@ -12,8 +12,6 @@ export class CommentCardComponent implements OnInit {
 
   @Input() comment : Comentario | undefined;
 
-  isUpdatingFechaLabel : boolean = false;
-
   constructor(public maintenanceService: MaintenanceService) { }
 
   ngOnInit(): void {
@@ -33,35 +31,19 @@ export class CommentCardComponent implements OnInit {
     if (daysDiff == 0){
       var minDiff : string = this.getDifferenceInMinutes(diff, +hoursDiff);
       if (hoursDiff != "0"){
-        this.stopFechaLabelUpdate()
         return "hace " + hoursDiff + ((hoursDiff !== "1") ? " horas " : " hora ") + minDiff + ((minDiff !== "1") ? " minutos" : " minuto");
       } 
       
-      var secondsDiff : string = this.getDifferenceInSeconds(diff, +hoursDiff, +minDiff);
       if(minDiff != "0"){
-        this.stopFechaLabelUpdate()
         return "hace " + minDiff + ((minDiff !== "1") ? " minutos" : " minuto") 
-      } 
-
-      if(!this.maintenanceService.updateFechaLabelEvery1Second){
-        this.isUpdatingFechaLabel = true;
-        this.maintenanceService.updateFechaLabelEvery1Second = timer(0, 1000).subscribe(_ => this.getDateInformation(fecha));
-      } 
-        
+      }         
       
-      return "hace " + secondsDiff + ((secondsDiff !== "1") ? " segundos" : " segundo")
+      return "hace unos instantes";
     }else if (daysDiff <= 7){
-      this.stopFechaLabelUpdate()
       return "hace " + daysDiff +  ((daysDiff != 1) ? " días " : " día") + hoursDiff + ((hoursDiff !== "1") ? " horas" : " hora");
     }else{
-      this.stopFechaLabelUpdate()
       return this.getFechaAsString(commentDate);
     }
-  }
-
-  stopFechaLabelUpdate(){
-    if(this.isUpdatingFechaLabel && this.maintenanceService.updateFechaLabelEvery1Second) this.maintenanceService.updateFechaLabelEvery1Second.unsubscribe();
-    
   }
 
   getDifferenceInHours(diff : number){
@@ -70,10 +52,6 @@ export class CommentCardComponent implements OnInit {
 
   getDifferenceInMinutes(diff : number, hours : number){
     return Math.floor(((diff / 36e5 * 60) - (60*hours))).toString()
-  }
-
-  getDifferenceInSeconds(diff : number, hours : number, minutes : number){
-    return Math.floor(((diff / 36e5 * 3600) - (3600*hours) - (60*minutes))).toString()
   }
 
   getFechaAsString(fecha : any){
