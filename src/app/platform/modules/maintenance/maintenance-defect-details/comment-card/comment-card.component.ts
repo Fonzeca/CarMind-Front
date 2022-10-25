@@ -12,9 +12,13 @@ export class CommentCardComponent implements OnInit {
 
   @Input() comment : Comentario | undefined;
 
+  popContent: string = "asd";
+  popTitle: string = "asdasd";
+
   constructor(public maintenanceService: MaintenanceService) { }
 
   ngOnInit(): void {
+    
   }
 
 
@@ -38,9 +42,9 @@ export class CommentCardComponent implements OnInit {
         return "hace " + minDiff + ((minDiff !== "1") ? " minutos" : " minuto") 
       }         
       
-      return "hace unos instantes";
-    }else if (daysDiff <= 7){
-      return "hace " + daysDiff +  ((daysDiff != 1) ? " días " : " día") + hoursDiff + ((hoursDiff !== "1") ? " horas" : " hora");
+      return "hace algunos segundos";
+    }else if (daysDiff == 1){
+      return "ayer";
     }else{
       return this.getFechaAsString(commentDate);
     }
@@ -58,6 +62,11 @@ export class CommentCardComponent implements OnInit {
     var date : string = fecha.toISOString().substring(0,10);
     var time : string = fecha.toTimeString().substring(0,8);
     return date + " " + time;
+  }
+
+  getTime(fecha : any){
+    var commentDate : Date = new Date(fecha);
+    return this.getFechaAsString(commentDate);
   }
 
 

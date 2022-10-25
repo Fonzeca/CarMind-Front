@@ -12,6 +12,8 @@ import { MaintenanceDefectDetailsComponent } from './maintenance-defect-details/
 import { MaintenanceMainComponent } from './maintenance-main/maintenance-main.component';
 import { ImageCardComponent } from './maintenance-defect-details/image-card/image-card.component';
 import { CommentCardComponent } from './maintenance-defect-details/comment-card/comment-card.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BrowserModule } from '@angular/platform-browser';
 
 
 @NgModule({
@@ -31,8 +33,8 @@ import { CommentCardComponent } from './maintenance-defect-details/comment-card/
     FormsModule,
     DropdownModule,
     ReactiveFormsModule,
-    MatSortModule
-
+    MatSortModule,
+    NgbModule
   ]
 })
 export class MaintenanceModule { }

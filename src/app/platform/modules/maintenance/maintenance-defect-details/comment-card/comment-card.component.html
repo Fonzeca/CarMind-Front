@@ -5,7 +5,7 @@
             <p class="name">{{comment?.usuario}}</p>
         </div>
         <div class="col col-sm-auto">
-            <p class="time">{{getDateInformation(comment?.fecha)}}</p>
+            <p [ngbPopover]="getTime(comment?.fecha)" triggers="mouseenter:mouseleave" class="time">{{getDateInformation(comment?.fecha)}}</p>
         </div>
     </div>
     <div class="row body">

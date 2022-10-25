@@ -58,8 +58,6 @@ export class MaintenanceDefectDetailsComponent extends BaseComponent implements 
       this.priority = this.prioritys[this.defect!.prioridad];
     }
 
-
-
     this.getCommentsEvery1minute = timer(0, 60000).subscribe(_ => {
       this.maintenanceService.getCommentsByTopicAndTopicId('defecto', this.defect!.id.toString()).subscribe(response => {
         if(this.comments === undefined){

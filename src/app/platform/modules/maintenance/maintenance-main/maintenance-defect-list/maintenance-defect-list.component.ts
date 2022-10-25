@@ -118,7 +118,7 @@ export class MaintenanceDefectListComponent extends BaseComponent implements OnI
   showResolved(){
     this.isShowingResolved = !this.isShowingResolved;
     
-    if(this.isShowingResolved) this.sortedData = this.defects.filter(defect => defect.estado === 'Resuelto');
+    if(this.isShowingResolved) this.sortedData = this.defects;
     else this.sortedData = this.defects.filter(defect => defect.estado !== 'Resuelto');
   }
 
