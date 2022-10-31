@@ -12,6 +12,7 @@ import { BaseComponent } from 'src/app/platform/shared/components/base.component
 })
 export class MaintenanceDefectListComponent extends BaseComponent implements OnInit {
 
+  unResolvedDefects : Defect[] = [];
   sortedData: Defect[] = [];
   defects : Defect[] = [];
 
@@ -45,9 +46,10 @@ export class MaintenanceDefectListComponent extends BaseComponent implements OnI
           var fecha : any = defect.fecha_creacion;
           var parsedDateTime : Date = new Date(fecha[0],fecha[1],fecha[2], fecha[3], fecha[4], fecha[5]);
           defect.fecha_creacion = parsedDateTime;
-          this.priority.push(this.prioritys[defect.prioridad]);
         });
-        this.sortedData = this.defects.filter(defect => defect.estado !== 'Resuelto');
+        this.unResolvedDefects = this.defects.filter(defect => defect.estado !== 'Resuelto');
+        this.sortedData = this.unResolvedDefects;
+        this.priority.push(this.sortedData.map( d => this.prioritys[d.prioridad]));
       } 
     );
    }
@@ -56,7 +58,7 @@ export class MaintenanceDefectListComponent extends BaseComponent implements OnI
   }
 
   sortData(sort: Sort) {
-    const data = this.defects.slice();
+    const data = this.isShowingResolved ? this.defects.slice() : this.unResolvedDefects.slice();
     if (!sort.active || sort.direction === '') {
       this.sortedData = data;
       return;
@@ -109,8 +111,10 @@ export class MaintenanceDefectListComponent extends BaseComponent implements OnI
   onPriorityChange(defectId : number, newPriority : string){
     var newPriorityIndex = this.prioritys.indexOf( newPriority);
     this.maintenanceService.updatePriorityDefectById(defectId.toString(), newPriorityIndex).subscribe(
-      res=>{
+      _=>{
         this.defects.find(defect => defect.id === defectId)!.prioridad = newPriorityIndex 
+        this.sortedData.find(defect => defect.id === defectId)!.prioridad = newPriorityIndex 
+        if(!this.isShowingResolved) this.unResolvedDefects.find(defect => defect.id === defectId)!.prioridad = newPriorityIndex 
       }
     );
   }
@@ -118,8 +122,16 @@ export class MaintenanceDefectListComponent extends BaseComponent implements OnI
   showResolved(){
     this.isShowingResolved = !this.isShowingResolved;
     
-    if(this.isShowingResolved) this.sortedData = this.defects;
-    else this.sortedData = this.defects.filter(defect => defect.estado !== 'Resuelto');
+    if(this.isShowingResolved){
+      this.sortedData = this.defects;
+    } else{
+      this.unResolvedDefects = this.defects.filter(defect => defect.estado !== 'Resuelto');
+      this.sortedData = this.unResolvedDefects;
+    }
+
+    this.priority = [];
+    this.priority = this.sortedData.map( d => this.prioritys[d.prioridad]);
+
   }
 
   viewDetails(defect : Defect){{
