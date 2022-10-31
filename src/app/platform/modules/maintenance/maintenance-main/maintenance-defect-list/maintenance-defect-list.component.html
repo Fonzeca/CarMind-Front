@@ -49,7 +49,7 @@
             </td>
             <td class="text-center p-1 cell">{{defect.defecto}}</td>
             <td class="text-center p-1 cell">{{ defect.nombre_ape_usuario }}</td>
-            <td class="text-center p-1 cell">{{ defect.vehiculo }}</td>
+            <td class="text-center p-1 cell action pointer " ><a class="link"[href]="'/#/'+ this.getAppRoutes.platform.vehicles.route+'/'+defect.vehiculo_id">{{ defect.vehiculo }}</a></td>
             <td class="text-center p-1 cell"><mark [ngStyle]="{ background: getStateColor(defect.estado) }">{{ defect.estado }}</mark></td>
             <td class="text-center p-1 cell action pointer " ><a class="link" (click)="viewDetails(defect)">Ver</a></td>
           </tr>
