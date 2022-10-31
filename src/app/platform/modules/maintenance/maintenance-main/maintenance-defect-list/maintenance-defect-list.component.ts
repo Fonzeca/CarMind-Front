@@ -49,7 +49,7 @@ export class MaintenanceDefectListComponent extends BaseComponent implements OnI
         });
         this.unResolvedDefects = this.defects.filter(defect => defect.estado !== 'Resuelto');
         this.sortedData = this.unResolvedDefects;
-        this.priority.push(this.sortedData.map( d => this.prioritys[d.prioridad]));
+        this.priority = this.sortedData.map( d => this.prioritys[d.prioridad]);
       } 
     );
    }
@@ -87,9 +87,7 @@ export class MaintenanceDefectListComponent extends BaseComponent implements OnI
       });
 
     this.priority = [];
-    this.sortedData.forEach(defect => {
-        this.priority.push(this.prioritys[defect.prioridad]);
-    });
+    this.priority = this.sortedData.map( d => this.prioritys[d.prioridad]);
 
     function compare(a: number | string , b: number | string , isAsc: boolean) {
       return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
