@@ -12,10 +12,11 @@ export class CommentCardComponent implements OnInit {
 
   @Input() comment : Comentario | undefined;
 
-  popContent: string = "asd";
-  popTitle: string = "asdasd";
+  changeText: boolean;
 
-  constructor(public maintenanceService: MaintenanceService) { }
+  constructor(public maintenanceService: MaintenanceService) {
+    this.changeText = false;
+   }
 
   ngOnInit(): void {
     
