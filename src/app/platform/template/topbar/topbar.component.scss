@@ -90,9 +90,12 @@
   img {
     width: 45px;
     height: auto;
-    margin-top: 5px;
     margin-right: 10px;
   }
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   font-weight: 700;
 }
 
