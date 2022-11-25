@@ -4,8 +4,9 @@
         <div class="col col-sm-auto">
             <p class="name">{{comment?.usuario}}</p>
         </div>
-        <div class="col col-sm-auto">
-            <p class="time">{{getDateInformation(comment?.fecha)}}</p>
+        <div (mouseover)="changeText=true" (mouseout)="changeText=false" class="col col-sm-auto">
+            <p  *ngIf="!changeText" class="time">{{getDateInformation(comment?.fecha)}}</p>
+            <p  *ngIf="changeText" class="time">{{getTime(comment?.fecha)}}</p>
         </div>
     </div>
     <div class="row body">
