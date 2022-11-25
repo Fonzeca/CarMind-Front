@@ -11,8 +11,8 @@ import { BaseComponent } from 'src/app/platform/shared/components/base.component
 import { AppRoutes } from 'src/app/routes';
 import Swal from 'sweetalert2';
 import { AddDocumentComponent } from '../shared/add-document/add-document.component';
-import { FormAssignmentComponent } from '../shared/form-assignment/form-assignment.component';
 import { EditFormVehicleComponent } from '../shared/edit-form-vehicle/edit-form-vehicle.component';
+import { FormAssignmentComponent } from '../shared/form-assignment/form-assignment.component';
 import { QrModalComponent } from '../shared/qr-modal/qr-modal.component';
 import { VehicleDocumentViewComponent } from '../shared/vehicle-document-view/vehicle-document-view.component';
 
@@ -99,6 +99,10 @@ export class VehiclePreviewComponent extends BaseComponent implements OnInit {
         title: 'Editar Vehículo',
       },
     }).afterClosed().subscribe(res=> this.getById(this.vehicle.id));
+  }
+
+  editPhoto(){
+
   }
 
   deleteVehicle() {

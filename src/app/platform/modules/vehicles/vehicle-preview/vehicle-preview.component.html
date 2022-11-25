@@ -31,6 +31,9 @@
                             <ng-container *ngIf="vehicle">
                                 <div class="contenedor">
                                     <img *ngIf="vehicle?.tipo" src="assets/images/cars/{{vehicle.tipo}}.png" class="card-img-top" alt="...">
+                                    <i id="editButton" class="fa fa-pencil  pointer mx-4 text-end px-1 justify-content-end" aria-hidden="true"></i>
+                                    <input type="file" id="file-upload"/>
+
                                 </div>
                                 <div class="card-body">
                                     <h6 class="card-text fw-700">{{ vehicle.nombre}}</h6>

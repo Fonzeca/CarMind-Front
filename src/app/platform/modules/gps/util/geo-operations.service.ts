@@ -9,7 +9,7 @@ export class GeoOperationsService {
 
   degreesOfTwoPoints(p1: google.maps.LatLng, p2: google.maps.LatLng): number {
     var radianDegrees = Math.atan2(p2.lng() - p1.lng(), p2.lat() - p1.lat());
-    var degrees = radianDegrees * 180 / Math.PI;
+    var degrees = (radianDegrees * 180) / Math.PI;
     return degrees;
   }
 

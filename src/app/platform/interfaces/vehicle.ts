@@ -29,4 +29,5 @@ export interface vehicle {
   documentos:documents[];
   kilometraje: string;
   imei: string;
+  azimuth: number;
 }
