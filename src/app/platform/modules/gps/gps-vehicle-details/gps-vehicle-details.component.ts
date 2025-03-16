@@ -402,12 +402,54 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
   }
 
   speedToColor(speed: number) {
-    if (speed < 60) {
-      return 'green';
+    if (speed < 5) {
+      return '#0020BD';
+    } else if (speed < 10) {
+      return '#102BAE';
+    } else if (speed < 15) {
+      return '#21369F';
+    } else if (speed < 20) {
+      return '#314190';
+    } else if (speed < 25) {
+      return '#424C81';
+    } else if (speed < 30) {
+      return '#525772';
+    } else if (speed < 35) {
+      return '#636263';
+    } else if (speed < 40) {
+      return '#736D54';
+    } else if (speed < 45) {
+      return '#847845';
+    } else if (speed < 50) {
+      return '#998632';
+    } else if (speed < 55) {
+      return '#B1981B';
+    } else if (speed < 60) {
+      return '#CEAC00';
+    } else if (speed < 65) {
+      return '#D29E00';
+    } else if (speed < 70) {
+      return '#D78D00';
+    } else if (speed < 75) {
+      return '#DB7F00';
+    } else if (speed < 80) {
+      return '#DF7100';
+    } else if (speed < 85) {
+      return '#E46000';
+    } else if (speed < 90) {
+      return '#E85200';
+    } else if (speed < 95) {
+      return '#EC4400';
+    } else if (speed < 100) {
+      return '#F03600';
+    } else if (speed < 105) {
+      return '#F42900';
     } else if (speed < 110) {
-      return 'orange';
+      return '#F71F00';
+    } else if (speed < 115) {
+      return '#FB1100';
     }
-    return 'red';
+    return '#FF0000';
   }
 
   drawCar(point: google.maps.LatLng, path : google.maps.LatLng[]) {

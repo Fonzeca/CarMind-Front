@@ -12,6 +12,7 @@
             <td  class="text-center" scope="col">Vehiculo</td>
             <td scope="col">Patente</td>
             <td scope="col">Motor</td>
+            <th scope="col">Ultima señal</th>
             <th scope="col"></th>
             <th scope="col"></th>
           </tr>
@@ -26,6 +27,7 @@
                 <i class="fa circle-1 mt-1"></i>
               </div>
             </td>
+            <td class="text-center p-1">{{ vehicle.dateStr }}</td>
             <td></td>
             <td class="text-center p-1">
               <div class="round pointer" (click)="detail(vehicle)">
