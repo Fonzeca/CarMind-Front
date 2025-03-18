@@ -1,8 +1,0 @@
-{
-    "diffEditor.ignoreTrimWhitespace": true,
-    "diffEditor.hideUnchangedRegions.enabled": false,
-    "diffEditor.experimental.useTrueInlineView": false,
-    "diffEditor.experimental.showEmptyDecorations": true,
-    "diffEditor.experimental.showMoves": false,
-    "diffEditor.diffAlgorithm": "advanced",
-}
