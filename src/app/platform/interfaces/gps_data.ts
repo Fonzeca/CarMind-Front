@@ -11,6 +11,8 @@ export interface VehiclesImeisRequest {
 
 export interface VehicleState extends vehicle, Position {
   engine_status: boolean;
+  date: string;
+  dateStr: string;
 }
 
 export interface gps_data extends Position{
