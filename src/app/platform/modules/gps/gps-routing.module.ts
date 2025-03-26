@@ -24,7 +24,7 @@ const routes: Routes = [
         component: GpsZoneDetailsComponent
       },
       {
-        path:'vehicles/details',
+        path:'vehicles/details/:id',
         component: GpsVehicleDetailsComponent
       }
     ]

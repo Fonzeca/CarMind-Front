@@ -1,8 +1,8 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { Easing, Tween, update } from "@tweenjs/tween.js";
-import { tap } from 'rxjs';
+import { catchError, tap } from 'rxjs';
 import { GpsPoint, GpsRouteData, RouteRequest, StopRoute, TravelRoute, VehicleState } from 'src/app/platform/interfaces/gps_data';
 import { GpsService } from 'src/app/platform/services/gps.service';
 import { BaseComponent } from 'src/app/platform/shared/components/base.component';
@@ -38,11 +38,11 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
   startTrip: google.maps.Marker | null = null;
   endTrip: google.maps.Marker | null = null;
 
-  readonly carIcon: google.maps.Symbol;
-  readonly stopIcon: google.maps.Icon;
-  readonly stopRedIcon: google.maps.Icon;
-  readonly startTripIcon: google.maps.Icon;
-  readonly endTripIcon: google.maps.Icon;
+  carIcon: google.maps.Symbol | null = null;
+  stopIcon: google.maps.Icon | null = null;
+  stopRedIcon: google.maps.Icon | null = null;
+  startTripIcon: google.maps.Icon | null = null;
+  endTripIcon: google.maps.Icon | null = null;
 
   travelRoutes: GpsRouteData[] = [];
   totalKms: number = 0;
@@ -50,11 +50,42 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
 
   speed: number = 0;
 
-  constructor(private router: Router, public gps_service: GpsService, private ngbDateParserFormatter: NgbDateParserFormatter, private geo_operations: GeoOperationsService) {
-    super();
+  constructor(private router: Router,
+    private route: ActivatedRoute,
+    public gps_service: GpsService,
+    private ngbDateParserFormatter: NgbDateParserFormatter,
+    private geo_operations: GeoOperationsService) {
 
+    super();
+    gps_service.isInDetails = true;
+
+    if (!this.gps_service.map) {
+      this.gps_service.onMapCreated.subscribe((response) => {
+        this.initialize();
+      });
+    } else {
+      this.initialize();
+    }
+
+  }
+
+  initialize() {
     if (this.router.getCurrentNavigation() === null || this.router.getCurrentNavigation()!.extras.state! === undefined) {
-      this.router.navigateByUrl(this.getAppRoutes.platform.gps.vehicles.route);
+      this.gps_service.getVehiclesStateByImeis({ imeis: [this.route.snapshot.params['id']] })
+        .pipe(
+          tap((response) => {
+            this.vehicle = response[0];
+            this.selectedVehicleMarker = new google.maps.Marker({
+              map: this.gps_service.map,
+              position: new google.maps.LatLng(this.vehicle!.latitud, this.vehicle!.longitud),
+            });
+          }),
+          catchError((error) => {
+            this.router.navigateByUrl(this.getAppRoutes.platform.gps.vehicles.route);
+            return error;
+          })
+        ).subscribe();
+
     } else {
       this.vehicle = this.router.getCurrentNavigation()!.extras.state!['vehicle'];
       this.selectedVehicleMarker = new google.maps.Marker({
@@ -88,9 +119,6 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
       scaledSize: new google.maps.Size(50, 50),
       url: "assets/gps/end.svg"
     }
-
-    
-
   }
 
 
