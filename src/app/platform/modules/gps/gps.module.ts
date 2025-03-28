@@ -3,9 +3,10 @@ import { Injectable, NgModule } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { OwlDateTimeIntl, OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_LOCALE } from '@danielmoncada/angular-datetime-picker';
+import { OWL_DATE_TIME_LOCALE, OwlDateTimeIntl, OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angular-datetime-picker';
 import { ColorPickerModule } from '@iplab/ngx-color-picker';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgChartsModule } from 'ng2-charts';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { GpsMapComponent } from './gps-map/gps-map.component';
 import { GpsRoutingModule } from './gps-routing.module';
@@ -92,7 +93,7 @@ export class DefaultIntl extends OwlDateTimeIntl  {
     GpsMapComponent,
     GpsVehicleListComponent,
     GpsZoneComponent,
-    GpsZoneDetailsComponent,
+    GpsZoneDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -104,6 +105,7 @@ export class DefaultIntl extends OwlDateTimeIntl  {
     ColorPickerModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
+    NgChartsModule
   ]
 })
 export class GpsModule { }

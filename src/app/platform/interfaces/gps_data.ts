@@ -40,6 +40,7 @@ export interface GpsRouteData {
   fromHour: Date;
   toHour: Date;
   duration: string;
+  data?: any;
 }
 
 export interface StopRoute extends GpsRouteData, Position {

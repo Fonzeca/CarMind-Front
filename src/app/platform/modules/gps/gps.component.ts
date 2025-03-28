@@ -5,6 +5,8 @@ import { NavigationEnd, Router } from '@angular/router';
 import { GpsService } from 'src/app/platform/services/gps.service';
 import { BaseComponent } from 'src/app/platform/shared/components/base.component';
 
+
+
 @Component({
   selector: 'app-gps',
   templateUrl: './gps.component.html',
@@ -18,12 +20,12 @@ export class GpsComponent extends BaseComponent implements OnInit {
 
   constructor(public router: Router, public gps_service: GpsService) {
     super();
-    
-    console.log(this.router.url);
 
-    if(!this.router.url.includes('vehicles/details')) {
+
+
+    if (!this.router.url.includes('vehicles/details')) {
       if (this.router.url.includes('zones')) this.vehicleViewSelected = false;
-  
+
       this.changeRoute(this.vehicleViewSelected);
     }
 
@@ -42,6 +44,8 @@ export class GpsComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
   }
 
+
+
   override ngOnDestroy(): void {
     this.changeToVehicles.unsubscribe();
   }
@@ -58,5 +62,7 @@ export class GpsComponent extends BaseComponent implements OnInit {
   isNotInDetails() {
     return !this.router.url.includes('details');
   }
+
+  
 
 }

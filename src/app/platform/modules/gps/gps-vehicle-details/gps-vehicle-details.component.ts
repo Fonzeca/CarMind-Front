@@ -2,6 +2,8 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { Easing, Tween, update } from "@tweenjs/tween.js";
+import { Chart, ChartTypeRegistry, ScaleOptionsByType } from 'chart.js';
+import { DeepPartial } from 'chart.js/types/utils';
 import { catchError, tap } from 'rxjs';
 import { GpsPoint, GpsRouteData, RouteRequest, StopRoute, TravelRoute, VehicleState } from 'src/app/platform/interfaces/gps_data';
 import { GpsService } from 'src/app/platform/services/gps.service';
@@ -48,6 +50,12 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
   totalKms: number = 0;
   totalStops: number = 0;
 
+  rawRouteData: GpsRouteData[] = [];
+
+  currentChart: Chart | null = null;
+
+  scaleCheckbox = document.getElementById('scaleCheckbox') as HTMLInputElement;
+
   speed: number = 0;
 
   constructor(private router: Router,
@@ -66,6 +74,13 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
     } else {
       this.initialize();
     }
+
+    //   <canvas baseChart width="400" height="280"
+    //   [type]="'line'"
+    //   [data]="lineChartData"
+    //   [options]="lineChartOptions"
+    //   [legend]="lineChartLegend">
+    // </canvas>
 
   }
 
@@ -124,6 +139,7 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
 
   //Esto es necesario para que cuando se haga click en el botón del menú Rastreador (botón que se encuentra fuera de este componente, se borre la ruta)
   navButtonHandler: any;
+  scaleCheckBoxHandler: any;
   dragHandler: google.maps.MapsEventListener | undefined;
 
   ngOnInit() {
@@ -131,11 +147,19 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
     this.navButtonHandler = this.clearRoute.bind(this);
     this.rastreadorButton?.addEventListener("click", this.navButtonHandler, true);
     this.dragHandler = this.gps_service.map?.addListener('dragstart', this.hideSpeed);
+
+    this.scaleCheckBoxHandler = () => {
+      this.loadChart(this.rawRouteData, this.scaleCheckbox?.checked);
+    }
+    this.scaleCheckbox?.addEventListener('change', this.scaleCheckBoxHandler, true);
+
+
   }
 
   override ngOnDestroy(): void {
     this.dragHandler?.remove();
     this.rastreadorButton?.removeEventListener('click', this.navButtonHandler)
+    this.scaleCheckbox?.removeEventListener('change', this.scaleCheckBoxHandler)
     this.gps_service.isInDetails = false;
     this.selectedVehicleMarker?.setMap(null);
   }
@@ -168,6 +192,8 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
             this.isGettingRoutes = false;
             return;
           };
+
+          this.rawRouteData = route;
 
           for (var i = 0; i < route.length; i++) {
             if ('latitud' in route[i]) {
@@ -225,6 +251,8 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
             }
           }
 
+          this.loadChart(route, this.scaleCheckbox.checked);
+
           //Centra la camara a todo la ruta
           var points: google.maps.LatLng[] = []
           this.polylines.forEach((line) => {
@@ -258,6 +286,111 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
         item.setOptions({ strokeWeight: weight })
       });
     });
+  }
+
+  loadChart(route: GpsRouteData[], scaleX: boolean) {
+    const speedData: {
+      speed: number;
+      timestamp: number;
+      latitud: number;
+      longitud: number;
+      azimuth: number;
+    }[] = [];
+
+    route.forEach((item) => {
+      if (item.data) {
+        speedData.push(...item.data.map((point: any) => ({
+          speed: point.speed,
+          timestamp: point.timestamp,
+          latitud: point.latitud,
+          longitud: point.longitud,
+          azimuth: point.azimuth
+        })));
+      }
+    });
+
+    this.showChart(speedData, scaleX);
+  }
+
+  async showChart(data: { speed: number, timestamp: number, latitud: number, longitud: number, azimuth: number }[], scaleX: boolean) {
+    this.currentChart?.destroy();
+    if (data.length <= 0) return;
+
+    await new Promise((resolve) => setTimeout(resolve, 100));
+
+    const canvasContainer = document.getElementById('chart-container') as HTMLDivElement | null;
+    if (!canvasContainer) {
+      console.error('No chart container found');
+      return;
+    }
+
+    const chartContainer = document.createElement('canvas');
+    chartContainer.id = 'chart-canvas';
+    chartContainer.height = 250;
+    chartContainer.style.width = '100%';
+
+    canvasContainer.querySelectorAll('canvas').forEach((canvas) => canvas.remove());
+    canvasContainer.appendChild(chartContainer);
+
+
+    let scales: DeepPartial<{
+      [key: string]: ScaleOptionsByType<ChartTypeRegistry['line']['scales']>;
+    }> | undefined = undefined;
+    if (scaleX) {
+      scales = {
+        x: {
+          type: 'time',
+          display: true,
+          time: {
+            unit: 'minute',
+            displayFormats: {
+              minute: 'HH:mm'
+            },
+          },
+          adapters: {
+            date: {
+              // zone: '+03:00',
+              // setZone: true
+            }
+          }
+        }
+      }
+    }
+
+
+    const chart = new Chart(chartContainer, {
+      type: 'line',
+      data: {
+        labels: data.map((item) => scaleX ? new Date(item.timestamp) : this.geo_operations.timestampToTime(item.timestamp)),
+        datasets: [
+          {
+            data: data.map((item) => item.speed),
+            label: 'Velocidad',
+            fill: true,
+            tension: 0,
+            borderColor: 'black',
+            backgroundColor: 'rgba(255,0,0,0.3)',
+            pointRadius: 0,
+
+          }
+        ]
+      },
+      options: {
+        responsive: false,
+        events: ['mousemove', 'mousedown', 'mouseup'],
+        plugins: {
+          corsair: {
+            nearCallback: (index: number) => {
+              this.drawCarDeg(new google.maps.LatLng(data[index].latitud, data[index].longitud), data[index].azimuth - 180);
+            },
+          }
+        },
+        scales: scales
+      }
+    });
+
+    this.currentChart = chart;
+
   }
 
   getDuration(fromDateString: string, toDateString: string, fromHourString: string, toHourString: string) {
@@ -500,6 +633,10 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
     var deg: number = 0;
     deg = this.geo_operations.degreesOfTwoPoints(path[0], path[1])
 
+    this.drawCarDeg(point, deg);
+  }
+
+  drawCarDeg(point: google.maps.LatLng, deg: number) {
     if (this.carMarker == null) {
       var marker: google.maps.Marker = new google.maps.Marker({
         map: this.gps_service.map,
@@ -512,6 +649,7 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
       (this.carMarker.getIcon() as google.maps.Symbol).rotation = deg;
 
     } else {
+      this.carMarker.setIcon(this.carIcon);
       (this.carMarker.getIcon() as google.maps.Symbol).rotation = deg;
       this.carMarker.setPosition(point);
     }
