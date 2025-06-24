@@ -31,7 +31,36 @@
     background-color: grey;
     margin-top: -3px;
     padding: 0px !important;
+    display: flex;
+    flex-direction: column;
   }
+
+  &__children {
+    flex: 1 1 100%;
+    background-color: grey;
+    margin-top: -3px;
+    padding: 0px !important;
+    display: flex;
+  }
+}
+
+
+.slider2 {
+  width: 100%;
+  min-height: 300px;
+  height: 300px;
+  overflow: auto;
+  background-color: #FFF;
+  border: 1px solid #CCC;
+  padding: 10px;
+  transition: all 1s;
+  // flex: 1 1 100%;
+}
+
+.slider2.close {
+  padding: 0 10px;
+  height: 0;
+  min-height: 0;
 }
 
 

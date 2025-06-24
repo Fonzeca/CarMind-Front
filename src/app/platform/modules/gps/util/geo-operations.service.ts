@@ -36,4 +36,9 @@ export class GeoOperationsService {
     var b = Math.pow(p2.lng()- p1.lng(), 2)
     return Math.sqrt(a + b);
   }
+
+  timestampToTime(timestamp: number): string {
+    return new Date(timestamp).toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit', hour12: false });
+  }
+
 }

@@ -98,11 +98,14 @@ export const AppRoutes = {
               return {
                 route:`${this.route}/vehicles`,
                 main:"vehicles",
-                get details(){
+                get details() {
                   return {
-                    route:`${this.route}/details`,
-                    main:"details"
-                  }
+                    route(id: any) {
+                      return this._route.replace(":id", id);
+                    },
+                    _route: `${this.route}/details/:id`,
+                    main: "details/:id",
+                  };
                 }
               }
             },

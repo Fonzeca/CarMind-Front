@@ -178,7 +178,10 @@ export class GpsVehicleListComponent extends BaseComponent implements OnInit {
         delete this.markers[imei]
       }
     }
-    this.router.navigate([this.getAppRoutes.platform.gps.vehicles.details.route], {state:{vehicle: vehicle}})
+    // this.router.navigate([this.getAppRoutes.platform.gps.vehicles.details.route(vehicle.imei)], {state:{vehicle: vehicle}})
+    const url = '/'.concat(this.getAppRoutes.platform.gps.vehicles.details.route(vehicle.imei));
+  
+    this.router.navigateByUrl(url, {state:{vehicle: vehicle}});
   }
 
   
