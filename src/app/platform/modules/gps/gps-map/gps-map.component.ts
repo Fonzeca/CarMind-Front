@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Loader } from '@googlemaps/js-api-loader';
 import { GpsService } from 'src/app/platform/services/gps.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-gps-map',
@@ -17,7 +18,7 @@ export class GpsMapComponent implements OnInit {
   ngOnInit(): void {
     let loader = new Loader({
       //TODO: NO MOSTRAR APIKEY
-      apiKey: 'AIzaSyB_3WVXG9Z0a8mxS4Q8pEFjvjHpGmm9uEU',
+      apiKey: environment.mapsApiKey,
     });
   
     loader.load().then((response) => {
