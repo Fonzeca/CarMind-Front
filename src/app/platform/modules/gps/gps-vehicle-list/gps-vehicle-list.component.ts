@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Easing, Tween, update } from '@tweenjs/tween.js';
-import { firstValueFrom, Subscription, tap, timer } from 'rxjs';
-import { VehiclesImeisRequest, VehicleState } from 'src/app/platform/interfaces/gps_data';
+import { Subscription, firstValueFrom, tap, timer } from 'rxjs';
+import { VehicleState, VehiclesImeisRequest } from 'src/app/platform/interfaces/gps_data';
 import { vehicle } from 'src/app/platform/interfaces/vehicle';
 import { GpsService } from 'src/app/platform/services/gps.service';
 import { VehiclesService } from 'src/app/platform/services/vehicles.service';
@@ -37,7 +37,6 @@ export class GpsVehicleListComponent extends BaseComponent implements OnInit {
       this.drawVehcilePositionsEvery5Seconds = timer(0, 3000).subscribe(_ => {
         this.gps_service.getVehiclesStateByImeis(vehiclesImeisRequest).pipe(
           tap((response) => {
-            var index = 0
             if (this.drawVehcilePositionsEvery5Seconds?.closed) return;
 
             this.vehiclesStates = [];
@@ -47,10 +46,9 @@ export class GpsVehicleListComponent extends BaseComponent implements OnInit {
               if (fullDetailedVehicle){
                 fullDetailedVehicle!.nombre = vehicle.nombre;
                 fullDetailedVehicle!.patente = vehicle.patente;
-                index++
-                if(index == 1 || index == 3){
-                  fullDetailedVehicle.engine_status = true
-                }
+
+                fullDetailedVehicle!.dateStr = this.obtenerDiferenciaDeTiempo(fullDetailedVehicle!.date);
+
                 
                 this.drawVehicleMarker(fullDetailedVehicle.latitud, fullDetailedVehicle.longitud, fullDetailedVehicle.azimuth-180, vehicle.imei)
 
@@ -87,6 +85,29 @@ export class GpsVehicleListComponent extends BaseComponent implements OnInit {
     this.drawVehcilePositionsEvery5Seconds?.unsubscribe();
     for (const [_, marker] of Object.entries(this.markers)) { 
         marker.setMap(null);
+    }
+  }
+
+  obtenerDiferenciaDeTiempo(fechaPasada: string): string {
+    const fechaActual = new Date();
+    const fechaPasadaObj = new Date(fechaPasada);
+
+    fechaPasadaObj.setUTCHours(fechaPasadaObj.getUTCHours() + 3);
+    
+    const diferenciaEnMilisegundos = fechaActual.getTime() - fechaPasadaObj.getTime();
+    const segundos = Math.floor(diferenciaEnMilisegundos / 1000);
+    const minutos = Math.floor(segundos / 60);
+    const horas = Math.floor(minutos / 60);
+    const dias = Math.floor(horas / 24);
+
+    if (dias > 0) {
+        return `hace ${dias} día${dias > 1 ? 's' : ''}`;
+    } else if (horas > 0) {
+        return `hace ${horas} hora${horas > 1 ? 's' : ''}`;
+    } else if (minutos > 0) {
+        return `hace ${minutos} minuto${minutos > 1 ? 's' : ''}`;
+    } else {
+        return `hace ${segundos} segundo${segundos > 1 ? 's' : ''}`;
     }
   }
 
