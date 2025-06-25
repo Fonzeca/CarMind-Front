@@ -55,6 +55,7 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
   currentChart: Chart | null = null;
 
   scaleCheckbox = document.getElementById('scaleCheckbox') as HTMLInputElement;
+  checkMostrarGrafico = document.getElementById('checkMostrarGrafico') as HTMLInputElement;
 
   speed: number = 0;
 
@@ -140,6 +141,7 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
   //Esto es necesario para que cuando se haga click en el botón del menú Rastreador (botón que se encuentra fuera de este componente, se borre la ruta)
   navButtonHandler: any;
   scaleCheckBoxHandler: any;
+  checkMostrarGraficoHandler: any;
   dragHandler: google.maps.MapsEventListener | undefined;
 
   ngOnInit() {
@@ -152,14 +154,31 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
       this.loadChart(this.rawRouteData, this.scaleCheckbox?.checked);
     }
     this.scaleCheckbox?.addEventListener('change', this.scaleCheckBoxHandler, true);
-
-
   }
+
+  ngAfterViewInit() {
+    this.checkMostrarGrafico = document.getElementById('checkMostrarGrafico') as HTMLInputElement;
+    const el = document.getElementById('chart-container');
+    if (el) {
+      this.gps_service.setVisibilityOfSpeedGraph(el as HTMLDivElement, false);
+    }
+    this.checkMostrarGraficoHandler = () => {
+      if (this.checkMostrarGrafico.checked) {
+        this.gps_service.setVisibilityOfSpeedGraph(el as HTMLDivElement, true);
+      } else {
+        this.gps_service.setVisibilityOfSpeedGraph(el as HTMLDivElement, false);
+      }
+    }
+    this.checkMostrarGrafico?.addEventListener('change', this.checkMostrarGraficoHandler, true);
+    
+  }
+
 
   override ngOnDestroy(): void {
     this.dragHandler?.remove();
     this.rastreadorButton?.removeEventListener('click', this.navButtonHandler)
     this.scaleCheckbox?.removeEventListener('change', this.scaleCheckBoxHandler)
+    this.checkMostrarGrafico?.removeEventListener('change', this.checkMostrarGraficoHandler)
     this.gps_service.isInDetails = false;
     this.selectedVehicleMarker?.setMap(null);
   }

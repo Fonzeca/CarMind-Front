@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Easing, Tween, update } from '@tweenjs/tween.js';
 import { Subscription, firstValueFrom, tap, timer } from 'rxjs';
@@ -25,10 +25,10 @@ export class GpsVehicleListComponent extends BaseComponent implements OnInit {
 
   onMapCreatedSubscription: any;
 
+  @ViewChild('chartContainer', { static: true }) chartContainer?: ElementRef<HTMLDivElement>;
+
   constructor(public router: Router, public gps_service: GpsService, public vehicle_service: VehiclesService) {
     super();
-
-    this.hideSpeedGraph();
 
     this.getVehicles().then(([vehicles, vehiclesImeis]) => {
 
@@ -79,6 +79,11 @@ export class GpsVehicleListComponent extends BaseComponent implements OnInit {
           this.itemSelected = null;
         })
       });
+
+    const el = document.getElementById('chart-container');
+    if (el) {
+      this.gps_service.setVisibilityOfSpeedGraph(el as HTMLDivElement, false);
+    }
   }
 
   override ngOnDestroy(): void {
@@ -217,15 +222,4 @@ export class GpsVehicleListComponent extends BaseComponent implements OnInit {
 
     requestAnimationFrame(animate);
   }
-
-  hideSpeedGraph() {
-    const canvasContainer = document.getElementById('chart-container') as HTMLDivElement | null;
-    if (!canvasContainer) {
-      console.error('No chart container found');
-      return;
-    }
-    
-    canvasContainer.classList.add('');
-  }
-
 }

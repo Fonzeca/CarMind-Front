@@ -21,8 +21,8 @@
   </div>
   <div class="px-0 map-container__map">
     <app-gps-map class="map-container__children"></app-gps-map>
-    <div class="slider2" id="chart-container">
-      <input type="checkbox" name="scale-x" id="scaleCheckbox" #target2 checked> <label for="scaleCheckbox">Escalar en el tiempo</label>
+    <div class="slider2" id="chart-container" #chartContainer>
+      <input type="checkbox" name="scale-x" id="scaleCheckbox" checked> <label for="scaleCheckbox">Escalar en el tiempo</label>
       <canvas id="chart-canvas" height="280px" style="width: 100%;"></canvas>
     </div>
   </div>
