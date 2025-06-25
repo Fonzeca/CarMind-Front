@@ -15,23 +15,25 @@ import { BaseComponent } from 'src/app/platform/shared/components/base.component
 })
 export class GpsVehicleListComponent extends BaseComponent implements OnInit {
 
-  markers: { [imei: string] : google.maps.Marker; } = {};
+  markers: { [imei: string]: google.maps.Marker; } = {};
 
-  vehiclesStates!:VehicleState[];
-  drawVehcilePositionsEvery5Seconds :  Subscription | undefined;
+  vehiclesStates!: VehicleState[];
+  drawVehcilePositionsEvery5Seconds: Subscription | undefined;
 
-  itemSelected : string | null = null;
+  itemSelected: string | null = null;
   searchText = '';
 
   onMapCreatedSubscription: any;
 
-  constructor(public router:Router, public gps_service: GpsService, public vehicle_service: VehiclesService) {
+  constructor(public router: Router, public gps_service: GpsService, public vehicle_service: VehiclesService) {
     super();
-  
+
+    this.hideSpeedGraph();
+
     this.getVehicles().then(([vehicles, vehiclesImeis]) => {
-      
+
       const vehiclesImeisRequest: VehiclesImeisRequest = {
-        imeis:  vehiclesImeis as string[],
+        imeis: vehiclesImeis as string[],
       };
 
       this.drawVehcilePositionsEvery5Seconds = timer(0, 3000).subscribe(_ => {
@@ -41,31 +43,31 @@ export class GpsVehicleListComponent extends BaseComponent implements OnInit {
 
             this.vehiclesStates = [];
             (vehicles as vehicle[]).forEach((vehicle) => {
-              var fullDetailedVehicle : VehicleState = response.find(v => v.imei == vehicle.imei)!;
+              var fullDetailedVehicle: VehicleState = response.find(v => v.imei == vehicle.imei)!;
 
-              if (fullDetailedVehicle){
+              if (fullDetailedVehicle) {
                 fullDetailedVehicle!.nombre = vehicle.nombre;
                 fullDetailedVehicle!.patente = vehicle.patente;
 
                 fullDetailedVehicle!.dateStr = this.obtenerDiferenciaDeTiempo(fullDetailedVehicle!.date);
 
-                
-                this.drawVehicleMarker(fullDetailedVehicle.latitud, fullDetailedVehicle.longitud, fullDetailedVehicle.azimuth-180, vehicle.imei)
+
+                this.drawVehicleMarker(fullDetailedVehicle.latitud, fullDetailedVehicle.longitud, fullDetailedVehicle.azimuth - 180, vehicle.imei)
 
                 this.vehiclesStates.push(fullDetailedVehicle);
               }
-            });    
-            
+            });
+
           })
         ).subscribe();
       });
 
-     });
+    });
   }
 
   async getVehicles() {
-    var vehiclesResponse = await    firstValueFrom( this.vehicle_service.getAll())
-    var vehicles = vehiclesResponse.filter(v=> v.imei !== undefined);
+    var vehiclesResponse = await firstValueFrom(this.vehicle_service.getAll())
+    var vehicles = vehiclesResponse.filter(v => v.imei !== undefined);
     var vehiclesImeis: string[] = vehicles.map((vehicle) => vehicle.imei);
     return [vehicles, vehiclesImeis];
   }
@@ -73,7 +75,7 @@ export class GpsVehicleListComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
     this.onMapCreatedSubscription = this.gps_service.onMapCreated
       .subscribe(isMapCreated => {
-        if ( isMapCreated) this.gps_service.map!.addListener('dragstart', () => {
+        if (isMapCreated) this.gps_service.map!.addListener('dragstart', () => {
           this.itemSelected = null;
         })
       });
@@ -83,8 +85,8 @@ export class GpsVehicleListComponent extends BaseComponent implements OnInit {
     this.onMapCreatedSubscription.unsubscribe();
     this.gps_service.map?.unbind('dragstart');
     this.drawVehcilePositionsEvery5Seconds?.unsubscribe();
-    for (const [_, marker] of Object.entries(this.markers)) { 
-        marker.setMap(null);
+    for (const [_, marker] of Object.entries(this.markers)) {
+      marker.setMap(null);
     }
   }
 
@@ -93,7 +95,7 @@ export class GpsVehicleListComponent extends BaseComponent implements OnInit {
     const fechaPasadaObj = new Date(fechaPasada);
 
     fechaPasadaObj.setUTCHours(fechaPasadaObj.getUTCHours() + 3);
-    
+
     const diferenciaEnMilisegundos = fechaActual.getTime() - fechaPasadaObj.getTime();
     const segundos = Math.floor(diferenciaEnMilisegundos / 1000);
     const minutos = Math.floor(segundos / 60);
@@ -101,49 +103,49 @@ export class GpsVehicleListComponent extends BaseComponent implements OnInit {
     const dias = Math.floor(horas / 24);
 
     if (dias > 0) {
-        return `hace ${dias} día${dias > 1 ? 's' : ''}`;
+      return `hace ${dias} día${dias > 1 ? 's' : ''}`;
     } else if (horas > 0) {
-        return `hace ${horas} hora${horas > 1 ? 's' : ''}`;
+      return `hace ${horas} hora${horas > 1 ? 's' : ''}`;
     } else if (minutos > 0) {
-        return `hace ${minutos} minuto${minutos > 1 ? 's' : ''}`;
+      return `hace ${minutos} minuto${minutos > 1 ? 's' : ''}`;
     } else {
-        return `hace ${segundos} segundo${segundos > 1 ? 's' : ''}`;
+      return `hace ${segundos} segundo${segundos > 1 ? 's' : ''}`;
     }
   }
 
-  drawVehicleMarker(latitud:number, longitud:number, azimuth:number, imei:string){
+  drawVehicleMarker(latitud: number, longitud: number, azimuth: number, imei: string) {
 
     var finalPosition = {
       lat: latitud,
       lng: longitud,
       azimuth: azimuth
-    }; 
-    
-    if(imei in this.markers){
+    };
+
+    if (imei in this.markers) {
       var currentPosition = {
         lat: this.markers[imei].getPosition()!.lat(),
         lng: this.markers[imei].getPosition()!.lng(),
         azimuth: (this.markers[imei].getIcon() as google.maps.Symbol).rotation
       }
-      new Tween( currentPosition)
-        .to({lat: latitud, lng: longitud, azimuth: azimuth}, 2000)
+      new Tween(currentPosition)
+        .to({ lat: latitud, lng: longitud, azimuth: azimuth }, 2000)
         .easing(Easing.Linear.None)
         .onUpdate(() => {
-          if(this.markers[imei] !== undefined){
-            this.markers[imei].setPosition({lat: currentPosition.lat, lng: currentPosition.lng});
+          if (this.markers[imei] !== undefined) {
+            this.markers[imei].setPosition({ lat: currentPosition.lat, lng: currentPosition.lng });
             (this.markers[imei].getIcon() as google.maps.Symbol).rotation = currentPosition.azimuth
-          } 
-      }).start();
-    } 
+          }
+        }).start();
+    }
     else {
 
-      if(this.gps_service.isInDetails) return;
+      if (this.gps_service.isInDetails) return;
 
-      (async() => {
-        while(this.gps_service.map === undefined)
-            await new Promise(resolve => setTimeout(resolve, 1000));
+      (async () => {
+        while (this.gps_service.map === undefined)
+          await new Promise(resolve => setTimeout(resolve, 1000));
 
-        var marker :  google.maps.Marker = new google.maps.Marker({
+        var marker: google.maps.Marker = new google.maps.Marker({
           map: this.gps_service.map,
           position: finalPosition,
           icon: {
@@ -152,61 +154,61 @@ export class GpsVehicleListComponent extends BaseComponent implements OnInit {
             fillColor: "#000853",
             fillOpacity: 1,
             strokeWeight: 1,
-            anchor : new google.maps.Point(8150,9600),
+            anchor: new google.maps.Point(8150, 9600),
             rotation: azimuth
           }
         });
-    
+
         google.maps.event.addListener(marker, 'click', this.moveCameraToVehicle.bind(this, latitud, longitud));
 
-        google.maps.event.addListener(marker, 'click', () =>  this.itemSelected = imei);
-    
-        this.markers[imei] = marker
-    
+        google.maps.event.addListener(marker, 'click', () => this.itemSelected = imei);
 
-    })();
-      
+        this.markers[imei] = marker
+
+
+      })();
+
     }
   }
 
 
-  detail(vehicle: VehicleState){
+  detail(vehicle: VehicleState) {
     this.gps_service.isInDetails = true;
-    for (const [imei, marker] of Object.entries(this.markers)) { 
-      if(imei !== vehicle.imei){
+    for (const [imei, marker] of Object.entries(this.markers)) {
+      if (imei !== vehicle.imei) {
         marker.setMap(null);
         delete this.markers[imei]
       }
     }
     // this.router.navigate([this.getAppRoutes.platform.gps.vehicles.details.route(vehicle.imei)], {state:{vehicle: vehicle}})
     const url = '/'.concat(this.getAppRoutes.platform.gps.vehicles.details.route(vehicle.imei));
-  
-    this.router.navigateByUrl(url, {state:{vehicle: vehicle}});
+
+    this.router.navigateByUrl(url, { state: { vehicle: vehicle } });
   }
 
-  
-  selectVehicle(imei : string){
+
+  selectVehicle(imei: string) {
     this.itemSelected = imei;
   }
 
-  moveCameraToVehicle(latitud: number, longitud:number){
+  moveCameraToVehicle(latitud: number, longitud: number) {
     var cameraOptions = {
       tilt: this.gps_service.map?.getTilt(),
       zoom: this.gps_service.map?.getZoom(),
       heading: this.gps_service.map?.getHeading(),
-      lat:this.gps_service.map?.getCenter()!.lat()!,
+      lat: this.gps_service.map?.getCenter()!.lat()!,
       lng: this.gps_service.map?.getCenter()!.lng()!,
     }
 
     new Tween(cameraOptions)
-    .to({lat: latitud, lng: longitud, zoom: 17, tilt: 0, heading: 0}, 3000)
-    .easing(Easing.Quintic.InOut)
-    .onComplete(()=>{
-      this.drawVehcilePositionsEvery5Seconds?.add()
-    })
-    .onUpdate(() => {
-      this.gps_service.map?.moveCamera({tilt: cameraOptions.tilt, heading: cameraOptions.heading, zoom: cameraOptions.zoom, center:  {lat: cameraOptions.lat, lng: cameraOptions.lng}});
-    }).start();
+      .to({ lat: latitud, lng: longitud, zoom: 17, tilt: 0, heading: 0 }, 3000)
+      .easing(Easing.Quintic.InOut)
+      .onComplete(() => {
+        this.drawVehcilePositionsEvery5Seconds?.add()
+      })
+      .onUpdate(() => {
+        this.gps_service.map?.moveCamera({ tilt: cameraOptions.tilt, heading: cameraOptions.heading, zoom: cameraOptions.zoom, center: { lat: cameraOptions.lat, lng: cameraOptions.lng } });
+      }).start();
 
     function animate(time: number) {
       requestAnimationFrame(animate);
@@ -214,6 +216,16 @@ export class GpsVehicleListComponent extends BaseComponent implements OnInit {
     }
 
     requestAnimationFrame(animate);
-}
+  }
+
+  hideSpeedGraph() {
+    const canvasContainer = document.getElementById('chart-container') as HTMLDivElement | null;
+    if (!canvasContainer) {
+      console.error('No chart container found');
+      return;
+    }
+    
+    canvasContainer.classList.add('');
+  }
 
 }

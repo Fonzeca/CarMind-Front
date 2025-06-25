@@ -41,7 +41,7 @@
     <input  class="form-control" [owlDateTime]="dt1" [selectMode]="'range'" [owlDateTimeTrigger]="dt1" placeholder="Seleccione la fecha" [(ngModel)]="dateTimeRange">
     <owl-date-time (afterPickerClosed)="dateTimeRangeClosed()"  #dt1></owl-date-time>
   </div>
-  <div class="row mt-2 mb-4">
+  <div class="row mt-2">
     <p *ngIf="dateHaveErrors" class="dateError" style="font-size: 0.8rem">
       Las fechas ingresadas son inválidas
     </p>
@@ -53,6 +53,14 @@
         <div class="spinner-border" role="status">
         </div>
       </div>
+    </div>
+  </div>
+  <div class="row px-3">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="" id="checkMostrarGrafico">
+      <label class="form-check-label" for="checkMostrarGrafico">
+        Mostrar gráfico
+      </label>
     </div>
   </div>
   <hr />
