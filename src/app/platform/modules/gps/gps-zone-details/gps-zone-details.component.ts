@@ -1,5 +1,4 @@
-import { LEADING_TRIVIA_CHARS } from '@angular/compiler/src/render3/view/template';
-import { Component, Input, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { ColorPickerControl } from '@iplab/ngx-color-picker';
@@ -68,21 +67,26 @@ export class GpsZoneDetailsComponent extends BaseComponent implements OnInit {
       this.getAllVehicles();
     } 
     else{
-      this.zoneName = this.router.getCurrentNavigation()!.extras.state!['zone'].nombre;
-      this.zoneId = this.router.getCurrentNavigation()!.extras.state!['zone'].id;
-      this.zoneColor = this.router.getCurrentNavigation()!.extras.state!['zone'].color_linea;
-      this.zoneColor = this.router.getCurrentNavigation()!.extras.state!['zone'].color_relleno;
-      this.avisarEntrada = this.router.getCurrentNavigation()!.extras.state!['zone'].avisar_entrada;
-      this.avisarSalida = this.router.getCurrentNavigation()!.extras.state!['zone'].avisar_salida;
+      const zoneData = this.gps_service.getZoneById(this.router.getCurrentNavigation()!.extras.state!['zoneId']);
+      if (!zoneData) {
+        this.router.navigate([this.getAppRoutes.platform.gps.zones.route]);
+        return;
+      }
+      this.zoneName = zoneData.nombre;
+      this.zoneId = zoneData.id;
+      this.zoneColor = zoneData.color_linea;
+      this.zoneColor = zoneData.color_relleno;
+      this.avisarEntrada = zoneData.avisar_entrada;
+      this.avisarSalida = zoneData.avisar_salida;
 
       //Proceso para pasar los puntos de un string a el objeto de tipo LatLng necesario para dibujar la zona posteriormente
-      var splittedPoints : string[] = this.router.getCurrentNavigation()!.extras.state!['zone'].puntos.split('; ')
+      var splittedPoints : string[] = zoneData.puntos.split('; ')
       this.zoneCoords =  splittedPoints.map((point : any) => {
         var splittedPoint : string[] = point.split(',');
         return new google.maps.LatLng(+splittedPoint[0], +splittedPoint[1]);
       }) 
       //Marcar los checkbox de los vehículos que tiene esta zona
-      var selectedVehicles : number[] = this.router.getCurrentNavigation()!.extras.state!['zone'].imeis
+      var selectedVehicles : number[] = zoneData.imeis;
       this.getAllVehicles().then(() => {
         selectedVehicles.forEach((imei: number) => {
           var vehicle = this.vehicles.find((v : any) => v.vehicle.imei === imei);

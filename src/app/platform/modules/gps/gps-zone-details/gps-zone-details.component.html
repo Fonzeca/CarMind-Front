@@ -1,86 +1,93 @@
 <div class="m-2">
-        <h4 class="mt-2 text-dark"> <i (click)='goToAllZones()' class="fa fa-arrow-left px-2 pointer" aria-hidden="true"></i>  Zona</h4>
-        <div class="container">
-            <div class="child-div">
-                <h5 class="mt-2 text-dark">Nombre:</h5>
-            </div>
-            <div class="child-div">
-                <p class="mt-2 text-dark">{{zoneName}}</p>
-            </div>
+  <h4 class="mt-2 text-dark"> <i (click)='goToAllZones()' class="px-2 fa fa-arrow-left pointer" aria-hidden="true"></i>
+    Zona</h4>
+  <div class="container">
+    <div class="child-div">
+      <h5 class="mt-2 text-dark">Nombre:</h5>
+    </div>
+    <div class="child-div">
+      <p class="mt-2 text-dark">{{zoneName}}</p>
+    </div>
+  </div>
+  <hr class="mt-1 solid">
+  <h5 class="text-secondary">Puntos</h5>
+  <div *ngIf="isAddingPoints || isEditingPoints">
+    <p class="mt-2 text-dark">Inserte entre 3 y 30 puntos en el mapa...</p>
+    <button id="addZoneButton" (click)="finishCreatingZone()"
+      class="truncate btn btn-success m-btn-success m-btn w-100">Finalizar</button>
+  </div>
+  <div *ngIf="!isAddingPoints">
+    <div *ngIf="!isEditingPoints" class="mt-1 card">
+      <div class="p-0 card-body">
+        <table class="table m-0">
+          <tbody>
+            <tr>
+              <td scope="col">{{this.zone!.getPath().getLength()}} puntos</td>
+              <td class="text-end">
+                <i id="deleteButton" class="mx-2 fa fa-trash pointer actions" aria-hidden="true"
+                  (click)="deltePointsFromZone()"></i>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div *ngIf="!isEditingPoints">
+      <hr class="solid">
+      <h5 class="mb-3 text-secondary">Personalizar</h5>
+      <div class="container">
+        <div class="child-div">
+          <p>Color:</p>
         </div>
-        <hr class="solid mt-1">
-        <h5 class="text-secondary">Puntos</h5>
-        <div *ngIf="isAddingPoints || isEditingPoints">
-            <p class="mt-2 text-dark">Inserte entre 3 y 30 puntos en el mapa...</p>
-            <button id="addZoneButton" (click)="finishCreatingZone()" class="btn btn-success m-btn-success m-btn w-100 truncate">Finalizar</button>
+        <div [ngStyle]="{ background: zoneColor }" class="overlay" (click)="boxColorClicked($event)"></div>
+        <github-picker class="github-picker2" [(color)]="zoneColor" *ngIf="isColorPickerVisible"
+          [control]="colorControl"></github-picker>
+      </div>
+      <hr class="mt-1 solid">
+      <h5 class="mb-3 text-secondary">Notificaciones</h5>
+      <div class="container">
+        <div class="child-div">
+          <p>Cuando entra:</p>
         </div>
-        <div *ngIf="!isAddingPoints">
-            <div *ngIf="!isEditingPoints" class="card mt-1">
-                <div class="card-body p-0">
-                    <table class="table m-0">
-                        <tbody>
-                        <tr>
-                            <td scope="col">{{this.zone!.getPath().getLength()}} puntos</td>
-                            <td class="text-end">
-                                <i id="deleteButton" class="fa fa-trash pointer mx-2 actions" aria-hidden="true" (click)="deltePointsFromZone()"></i>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div  *ngIf="!isEditingPoints">
-              <hr class="solid">
-              <h5 class="text-secondary mb-3">Personalizar</h5>
-              <div class="container">
-                  <div class="child-div">
-                    <p>Color:</p>
+        <mat-slide-toggle [color]="color" [checked]="avisarEntrada" (change)="changeAvisarEntrada()">
+        </mat-slide-toggle>
+      </div>
+      <div class="container">
+        <div class="child-div">
+          <p>Cuando sale:</p>
+        </div>
+        <mat-slide-toggle [color]="color" [checked]="avisarSalida" (change)="changeAvisarSalida()">
+        </mat-slide-toggle>
+      </div>
+      <p class="mt-2 text-dark">Aplica a:</p>
+      <div class="mt-1 card">
+        <div class="p-0 card-body">
+          <div class="overflow-list">
+            <table class="table m-0">
+              <tbody>
+                <tr>
+                  <td class="text-center" scope="col"> <input type="checkbox" [(ngModel)]="selectedAll"
+                      (change)="selectAll();" /></td>
+                  <td class="text-center" scope="col">Vehículo</td>
+                  <td class="text-center" scope="col">Patente</td>
+                </tr>
+                <tr *ngFor="let vehicle of vehicles">
+                  <div class="px-3 text-center">
+                    <input class="pointer" type="checkbox" [(ngModel)]="vehicle.selected"
+                      (change)="checkIfAllSelected()" />
                   </div>
-                  <div [ngStyle]="{ background: zoneColor }" class="overlay" (click)="boxColorClicked($event)"></div>
-                  <github-picker class="github-picker2" [(color)]="zoneColor" *ngIf="isColorPickerVisible" [control]="colorControl"></github-picker>
-              </div>
-              <hr class="solid mt-1">
-              <h5 class="text-secondary mb-3">Notificaciones</h5>
-              <div class="container">
-                  <div class="child-div">
-                    <p>Cuando entra:</p>
-                  </div>
-                  <mat-slide-toggle [color]="color" [checked]="avisarEntrada" (change)="changeAvisarEntrada()">
-                  </mat-slide-toggle>
-              </div>
-              <div class="container">
-                  <div class="child-div">
-                    <p>Cuando sale:</p>
-                  </div>
-                  <mat-slide-toggle [color]="color"  [checked]="avisarSalida"(change)="changeAvisarSalida()">
-                  </mat-slide-toggle>
-              </div>
-              <p class="mt-2 text-dark">Aplica a:</p>
-              <div class="card mt-1">
-                <div class="card-body p-0">
-                    <div class="overflow-list">
-                    <table class="table m-0">
-                      <tbody>
-                        <tr >
-                          <td  class="text-center" scope="col"> <input type="checkbox" [(ngModel)]="selectedAll" (change)="selectAll();"/></td>
-                          <td  class="text-center" scope="col">Vehículo</td>
-                          <td class="text-center" scope="col">Patente</td>
-                        </tr>
-                        <tr *ngFor="let vehicle of vehicles" >
-                          <div class="text-center px-3">
-                            <input  class="pointer" type="checkbox" [(ngModel)]="vehicle.selected" (change)="checkIfAllSelected()"/>
-                          </div>
-                          <td class="text-center p-1">{{ vehicle.vehicle.nombre }}</td>
-                          <td class="text-center p-1">{{ vehicle.vehicle.patente }}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xs-10 mt-4 mb-4">
-                  <button id="addZoneButton" (click)="finishCreatingZone()" class="btn btn-success m-btn-success m-btn w-100 truncate">Finalizar</button>
-              </div>
-            </div>
-            </div>
+                  <td class="p-1 text-center">{{ vehicle.vehicle.nombre }}</td>
+                  <td class="p-1 text-center">{{ vehicle.vehicle.patente }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="mt-4 mb-4 col-xs-10">
+        <button id="addZoneButton" (click)="finishCreatingZone()"
+          class="truncate btn btn-success m-btn-success m-btn w-100">Finalizar</button>
+      </div>
+    </div>
+  </div>
 </div>

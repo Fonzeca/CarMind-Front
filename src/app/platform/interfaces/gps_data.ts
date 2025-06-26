@@ -63,6 +63,8 @@ export interface ZoneView{
   avisar_entrada: boolean;
   avisar_salida: boolean;
   isHidden: boolean;
+
+  zonePolygon?: google.maps.Polygon;
 }
 
 export interface ZoneRequest{

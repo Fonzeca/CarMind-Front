@@ -5,9 +5,10 @@
   .backColor{
     background-color: #eee;
   }
-  .backColor-selected{
-    color: #eee;
-    background-color: #0078ff;
+
+  .backColor-selected > * {
+    color: #eee !important;
+    background-color: #0078ff !important;
   }
 
   .input-group{

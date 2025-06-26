@@ -6,6 +6,7 @@ import { Chart, ChartTypeRegistry, ScaleOptionsByType } from 'chart.js';
 import { DeepPartial } from 'chart.js/types/utils';
 import { catchError, tap } from 'rxjs';
 import { GpsPoint, GpsRouteData, RouteRequest, StopRoute, TravelRoute, VehicleState } from 'src/app/platform/interfaces/gps_data';
+import { AuthService } from 'src/app/platform/services/auth.service';
 import { GpsService } from 'src/app/platform/services/gps.service';
 import { BaseComponent } from 'src/app/platform/shared/components/base.component';
 import { GeoOperationsService } from '../util/geo-operations.service';
@@ -56,6 +57,7 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
 
   scaleCheckbox = document.getElementById('scaleCheckbox') as HTMLInputElement;
   checkMostrarGrafico = document.getElementById('checkMostrarGrafico') as HTMLInputElement;
+  checkMostrarZonas = document.getElementById('checkMostrarZonas') as HTMLInputElement;
 
   speed: number = 0;
 
@@ -63,7 +65,8 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
     private route: ActivatedRoute,
     public gps_service: GpsService,
     private ngbDateParserFormatter: NgbDateParserFormatter,
-    private geo_operations: GeoOperationsService) {
+    private geo_operations: GeoOperationsService,
+    private auth: AuthService) {
 
     super();
     gps_service.isInDetails = true;
@@ -71,6 +74,12 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
     if (!this.gps_service.map) {
       this.gps_service.onMapCreated.subscribe((response) => {
         this.initialize();
+      });
+
+      this.gps_service.fetchZones(this.auth).then(() => { 
+        this.gps_service.setVisibilityOfZones(false);
+      }).catch((error) => {
+        console.error('Error fetching zones:', error)
       });
     } else {
       this.initialize();
@@ -142,6 +151,7 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
   navButtonHandler: any;
   scaleCheckBoxHandler: any;
   checkMostrarGraficoHandler: any;
+  checkMostrarZonasHandler: any;
   dragHandler: google.maps.MapsEventListener | undefined;
 
   ngOnInit() {
@@ -170,7 +180,19 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
       }
     }
     this.checkMostrarGrafico?.addEventListener('change', this.checkMostrarGraficoHandler, true);
-    
+
+    // Mostrar zonas
+    this.checkMostrarZonas = document.getElementById('checkMostrarZonas') as HTMLInputElement;
+    this.checkMostrarZonasHandler = () => {
+      if (this.checkMostrarZonas.checked) {
+        this.gps_service.setVisibilityOfZones(true);
+      } else {
+        this.gps_service.setVisibilityOfZones(false);
+      }
+    }
+    this.checkMostrarZonas?.addEventListener('change', this.checkMostrarZonasHandler, true);
+
+
   }
 
 
@@ -179,6 +201,7 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
     this.rastreadorButton?.removeEventListener('click', this.navButtonHandler)
     this.scaleCheckbox?.removeEventListener('change', this.scaleCheckBoxHandler)
     this.checkMostrarGrafico?.removeEventListener('change', this.checkMostrarGraficoHandler)
+    this.checkMostrarZonas?.removeEventListener('change', this.checkMostrarZonasHandler)
     this.gps_service.isInDetails = false;
     this.selectedVehicleMarker?.setMap(null);
   }
@@ -807,7 +830,6 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
       this.dateHaveErrors = true;
       return;
     }
-
     var dateFrom: string = this.dateTimeRange![0].toISOString().substring(0, 10);
     var timeFrom: string = this.dateTimeRange![0].toTimeString().substring(0, 8);
 

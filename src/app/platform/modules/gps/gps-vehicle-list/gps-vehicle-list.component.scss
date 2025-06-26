@@ -5,7 +5,7 @@
   .backColor{
     background-color: #eee;
   }
-  .backColor-selected{
+  .backColor-selected > * {
     color: #eee;
     background-color: #0078FF;
   }

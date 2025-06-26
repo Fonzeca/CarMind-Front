@@ -1,14 +1,14 @@
-<div class="form-group has-feedback mt-4">
-    <div class=" col-lg-5 col-xs-10  mb-4">
-        <button id="addZoneButton" class="btn btn-success m-btn-success m-btn w-100 truncate" (click)="addZone('zoneName')">Añadir zona</button>
+<div class="mt-4 form-group has-feedback">
+    <div class="mb-4 col-lg-5 col-xs-10">
+        <button id="addZoneButton" class="truncate btn btn-success m-btn-success m-btn w-100" (click)="addZone('zoneName')">Añadir zona</button>
     </div>
     <div class="d-flex justify-content-end">
       <i class="fa fa-search form-control-feedback"></i>
     </div>
     <input [(ngModel)]="searchText" type="text" class="form-control" placeholder="Buscar zonas.." />
   </div>
-  <div class="card mt-5">
-    <div class="card-body p-0">
+  <div class="mt-5 card">
+    <div class="p-0 card-body">
         <div class="overflow-list">
         <table class="table m-0">
           <tbody>
@@ -18,11 +18,11 @@
             </tr>
 
             <tr [ngClass]="{'backColor-selected' : zone.id == itemSelected, 'backColor' : zone.id != itemSelected}" *ngFor="let zone of zones | filter: searchText" (click)="moveCameraToZone(zone); selectZone(zone.id)">
-              <td class="text-center p-1">{{ zone.nombre }}</td>
+              <td class="p-1 text-center">{{ zone.nombre }}</td>
               <td class="text-center">
-                  <img  (click)='hideZone(zone.id)' class="pointer mx-2 eye" [src]="zone.isHidden ? 'assets/icons/eye-slash.png' : ( zone.id != itemSelected ? 'assets/icons/eye-blue.png' : 'assets/icons/eye-white.png')" alt="">
-                  <i id="editButton" [ngClass]="{'actions-selected' : zone.id == itemSelected, 'actions' : zone.id != itemSelected}" class="fa fa-pencil pointer mx-2" (click)="editZone(zone)" aria-hidden="true"></i>
-                  <i id="deleteButton" [ngClass]="{'actions-selected' : zone.id == itemSelected, 'actions' : zone.id != itemSelected}" class="fa fa-trash pointer mx-2" (click)="deleteZone(zone)" aria-hidden="true"></i>
+                  <img (click)='hideZone(zone.id)' class="mx-2 pointer eye" [src]="zone.isHidden ? 'assets/icons/eye-slash.png' : ( zone.id != itemSelected ? 'assets/icons/eye-blue.png' : 'assets/icons/eye-white.png')" alt="">
+                  <i id="editButton" [ngClass]="{'actions-selected' : zone.id == itemSelected, 'actions' : zone.id != itemSelected}" class="mx-2 fa fa-pencil pointer" (click)="editZone(zone)" aria-hidden="true"></i>
+                  <i id="deleteButton" [ngClass]="{'actions-selected' : zone.id == itemSelected, 'actions' : zone.id != itemSelected}" class="mx-2 fa fa-trash pointer" (click)="deleteZone(zone)" aria-hidden="true"></i>
               </td>
             </tr>
             <tr *ngIf="editing_id==='zoneName'">
