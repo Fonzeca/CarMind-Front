@@ -84,6 +84,8 @@ export class GpsVehicleListComponent extends BaseComponent implements OnInit {
     if (el) {
       this.gps_service.setVisibilityOfSpeedGraph(el as HTMLDivElement, false);
     }
+
+    this.gps_service.setVisibilityOfZones(false);
   }
 
   override ngOnDestroy(): void {
