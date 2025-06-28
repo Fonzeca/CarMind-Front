@@ -71,19 +71,7 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
     super();
     gps_service.isInDetails = true;
 
-    if (!this.gps_service.map) {
-      this.gps_service.onMapCreated.subscribe((response) => {
-        this.initialize();
-      });
 
-      this.gps_service.fetchZones(this.auth).then(() => { 
-        this.gps_service.setVisibilityOfZones(false);
-      }).catch((error) => {
-        console.error('Error fetching zones:', error)
-      });
-    } else {
-      this.initialize();
-    }
 
     //   <canvas baseChart width="400" height="280"
     //   [type]="'line'"
@@ -164,6 +152,20 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
       this.loadChart(this.rawRouteData, this.scaleCheckbox?.checked);
     }
     this.scaleCheckbox?.addEventListener('change', this.scaleCheckBoxHandler, true);
+
+    if (!this.gps_service.map) {
+      this.gps_service.onMapCreated.subscribe((response) => {
+        this.initialize();
+      });
+    } else {
+      this.initialize();
+    }
+
+    this.gps_service.fetchZones(this.auth).then(() => {
+      this.gps_service.setVisibilityOfZones(false);
+    }).catch((error) => {
+      console.error('Error fetching zones:', error)
+    });
   }
 
   ngAfterViewInit() {
