@@ -33,6 +33,7 @@ export class GpsZoneDetailsComponent extends BaseComponent implements OnInit {
   zoneId: number | undefined;
   zoneColor : string = "#ff0000";
   zoneCoords : google.maps.LatLng[] = [];
+  velocidadMaxima: number | undefined;
 
   color: ThemePalette = 'primary';
 
@@ -78,6 +79,7 @@ export class GpsZoneDetailsComponent extends BaseComponent implements OnInit {
       this.zoneColor = zoneData.color_relleno;
       this.avisarEntrada = zoneData.avisar_entrada;
       this.avisarSalida = zoneData.avisar_salida;
+      this.velocidadMaxima = zoneData.velocidad_maxima;
 
       //Proceso para pasar los puntos de un string a el objeto de tipo LatLng necesario para dibujar la zona posteriormente
       var splittedPoints : string[] = zoneData.puntos.split('; ')
@@ -219,7 +221,8 @@ export class GpsZoneDetailsComponent extends BaseComponent implements OnInit {
         empresa_id: +this.auth.user!.empresa,
         imeis: vehiclesImeis,
         avisar_entrada: this.avisarEntrada,
-        avisar_salida: this.avisarSalida
+        avisar_salida: this.avisarSalida,
+        velocidad_maxima: this.velocidadMaxima
       } 
 
       //Actualizar la zona o crearla, dependiendo de si se viene de la pantalla de crear o de editar

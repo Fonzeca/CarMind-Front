@@ -63,6 +63,7 @@ export interface ZoneView{
   avisar_entrada: boolean;
   avisar_salida: boolean;
   isHidden: boolean;
+  velocidad_maxima?: number;
 
   zonePolygon?: google.maps.Polygon;
 }
@@ -76,4 +77,5 @@ export interface ZoneRequest{
   imeis: string[];
   avisar_entrada: boolean;
   avisar_salida: boolean;
+  velocidad_maxima?: number;
 }

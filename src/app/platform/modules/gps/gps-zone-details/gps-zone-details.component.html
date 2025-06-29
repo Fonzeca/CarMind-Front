@@ -35,6 +35,13 @@
     <div *ngIf="!isEditingPoints">
       <hr class="solid">
       <h5 class="mb-3 text-secondary">Personalizar</h5>
+      <!-- Input de tipo numero -->
+       <div class="container">
+        <div class="child-div">
+          <p>Velocidad maxima:</p>
+        </div>
+        <input id="nameInput" type="number" [(ngModel)]="velocidadMaxima" class="input-control" placeholder="Velocidad maxima">
+      </div>
       <div class="container">
         <div class="child-div">
           <p>Color:</p>

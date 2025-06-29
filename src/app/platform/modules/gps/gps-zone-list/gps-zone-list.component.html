@@ -13,16 +13,18 @@
         <table class="table m-0">
           <tbody>
             <tr >
-              <td  class="text-center" scope="col">Nombre</td>
+              <td class="text-center" scope="col">Nombre</td>
+              <td class="text-center" scope="col">Vel. max</td>
               <td class="text-center" scope="col">Acciones</td>
             </tr>
 
             <tr [ngClass]="{'backColor-selected' : zone.id == itemSelected, 'backColor' : zone.id != itemSelected}" *ngFor="let zone of zones | filter: searchText" (click)="moveCameraToZone(zone); selectZone(zone.id)">
               <td class="p-1 text-center">{{ zone.nombre }}</td>
+              <td class="p-1 text-center">{{ zone.velocidad_maxima }}</td>
               <td class="text-center">
-                  <img (click)='hideZone(zone.id)' class="mx-2 pointer eye" [src]="zone.isHidden ? 'assets/icons/eye-slash.png' : ( zone.id != itemSelected ? 'assets/icons/eye-blue.png' : 'assets/icons/eye-white.png')" alt="">
-                  <i id="editButton" [ngClass]="{'actions-selected' : zone.id == itemSelected, 'actions' : zone.id != itemSelected}" class="mx-2 fa fa-pencil pointer" (click)="editZone(zone)" aria-hidden="true"></i>
-                  <i id="deleteButton" [ngClass]="{'actions-selected' : zone.id == itemSelected, 'actions' : zone.id != itemSelected}" class="mx-2 fa fa-trash pointer" (click)="deleteZone(zone)" aria-hidden="true"></i>
+                  <img (click)='hideZone(zone.id)' class="pointer eye" [src]="zone.isHidden ? 'assets/icons/eye-slash.png' : ( zone.id != itemSelected ? 'assets/icons/eye-blue.png' : 'assets/icons/eye-white.png')" alt="">
+                  <i id="editButton" [ngClass]="{'actions-selected' : zone.id == itemSelected, 'actions' : zone.id != itemSelected}" class="fa fa-pencil pointer" (click)="editZone(zone)" aria-hidden="true"></i>
+                  <i id="deleteButton" [ngClass]="{'actions-selected' : zone.id == itemSelected, 'actions' : zone.id != itemSelected}" class="fa fa-trash pointer" (click)="deleteZone(zone)" aria-hidden="true"></i>
               </td>
             </tr>
             <tr *ngIf="editing_id==='zoneName'">
