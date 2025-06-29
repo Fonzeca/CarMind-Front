@@ -19,7 +19,7 @@ import { GeoOperationsService } from '../util/geo-operations.service';
 export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit {
 
 
-  selectedVehicleMarker: google.maps.Marker | undefined;
+  selectedVehicleMarker: google.maps.marker.AdvancedMarkerElement | undefined;
 
   dateTimeRange: Date[] | undefined;
   dateTimeFrom: string = '';
@@ -91,10 +91,12 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
         .pipe(
           tap((response) => {
             this.vehicle = response[0];
-            this.selectedVehicleMarker = new google.maps.Marker({
+            this.selectedVehicleMarker = new google.maps.marker.AdvancedMarkerElement({
               map: this.gps_service.map,
               position: new google.maps.LatLng(this.vehicle!.latitud, this.vehicle!.longitud),
+              content: this.carIcon
             });
+            this.setDegToIconCar(this.vehicle!.azimuth);
           }),
           catchError((error) => {
             this.router.navigateByUrl(this.getAppRoutes.platform.gps.vehicles.route);
@@ -104,10 +106,12 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
 
     } else {
       this.vehicle = this.router.getCurrentNavigation()!.extras.state!['vehicle'];
-      this.selectedVehicleMarker = new google.maps.Marker({
+      this.selectedVehicleMarker = new google.maps.marker.AdvancedMarkerElement({
         map: this.gps_service.map,
         position: new google.maps.LatLng(this.vehicle!.latitud, this.vehicle!.longitud),
+        content: this.carIcon
       });
+      this.setDegToIconCar(this.vehicle!.azimuth);
     }
 
     this.carIcon = document.createElement('img');
@@ -243,7 +247,9 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
     this.checkMostrarGrafico?.removeEventListener('change', this.checkMostrarGraficoHandler)
     this.checkMostrarZonas?.removeEventListener('change', this.checkMostrarZonasHandler)
     this.gps_service.isInDetails = false;
-    this.selectedVehicleMarker?.setMap(null);
+    if (this.selectedVehicleMarker) {
+      this.selectedVehicleMarker.map = null;
+    }
   }
 
 
@@ -257,7 +263,9 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
 
     if (this.dateTimeFrom.length <= 0 || this.dateTimeTo.length <= 0) return;
 
-    this.selectedVehicleMarker?.setMap(null);
+    if (this.selectedVehicleMarker) {
+      this.selectedVehicleMarker.map = null;
+    }
 
     const routeRequest: RouteRequest = {
       imei: this.vehicle!.imei,
@@ -741,16 +749,11 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
         content: this.carIcon,
       });
 
-      if (this.carIcon) {
-        // this.carIcon.style.transform = `rotate(${deg}deg)`;
-        this.carIcon.style.transform = `translate(0%, 50%) rotate(${deg}deg)`;
-      }
+      this.setDegToIconCar(deg);
 
     } else {
-      if (this.carIcon) {
-        // this.carIcon.style.transform = `rotate(${deg}deg)`;
-        this.carIcon.style.transform = `translate(0%, 50%) rotate(${deg}deg)`;
-      }
+      this.setDegToIconCar(deg);
+      
 
       this.carMarker.position = point;
     }
@@ -1019,6 +1022,11 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
       clearTimeout(timeout);
       timeout = setTimeout(() => func.apply(this, args), wait);
     }) as T;
+  }
+
+  private setDegToIconCar(deg: number) {
+    if (!this.carIcon) return;
+    this.carIcon.style.transform = `translate(0%, 50%) rotate(${deg}deg)`;
   }
 
 }
