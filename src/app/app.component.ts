@@ -12,3 +12,4 @@ export class AppComponent {
   }
   title = 'app-vehiculo';
 }
+/// <reference types="@types/google.maps" />

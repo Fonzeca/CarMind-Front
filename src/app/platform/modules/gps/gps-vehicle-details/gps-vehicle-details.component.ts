@@ -5,7 +5,7 @@ import { Easing, Tween, update } from "@tweenjs/tween.js";
 import { Chart, ChartTypeRegistry, ScaleOptionsByType } from 'chart.js';
 import { DeepPartial } from 'chart.js/types/utils';
 import { catchError, tap } from 'rxjs';
-import { GpsPoint, GpsRouteData, RouteRequest, StopRoute, TravelRoute, VehicleState } from 'src/app/platform/interfaces/gps_data';
+import { GpsPoint, GpsRouteData, RouteRequest, VehicleState } from 'src/app/platform/interfaces/gps_data';
 import { AuthService } from 'src/app/platform/services/auth.service';
 import { GpsService } from 'src/app/platform/services/gps.service';
 import { BaseComponent } from 'src/app/platform/shared/components/base.component';
@@ -27,25 +27,27 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
   dateHaveErrors: boolean = false;
   isGettingRoutes: boolean = false;
 
-  rastreadorButton = document.getElementById('rastreadorIcon');
+  // DOM Elements - cached for performance
+  private rastreadorButton: HTMLElement | null = null;
+  private scaleCheckbox: HTMLInputElement | null = null;
+  private checkMostrarGrafico: HTMLInputElement | null = null;
+  private checkMostrarZonas: HTMLInputElement | null = null;
+  private speedCartel: HTMLElement | null = null;
 
   isAnimate: boolean = false;
   itemSelected: number | null = null;
 
   vehicle: VehicleState | undefined;
   polylines: google.maps.Polyline[] = [];
-  markers: google.maps.Marker[] = [];
+  markers: google.maps.marker.AdvancedMarkerElement[] = [];
 
   // directionalMarkers: google.maps.Marker[] = [];
-  carMarker: google.maps.Marker | null = null;
-  startTrip: google.maps.Marker | null = null;
-  endTrip: google.maps.Marker | null = null;
+  carMarker: google.maps.marker.AdvancedMarkerElement | null = null;
+  startTrip: google.maps.marker.AdvancedMarkerElement | null = null;
+  endTrip: google.maps.marker.AdvancedMarkerElement | null = null;
 
-  carIcon: google.maps.Symbol | null = null;
-  stopIcon: google.maps.Icon | null = null;
-  stopRedIcon: google.maps.Icon | null = null;
-  startTripIcon: google.maps.Icon | null = null;
-  endTripIcon: google.maps.Icon | null = null;
+  carIcon: HTMLImageElement | null = null;
+
 
   travelRoutes: GpsRouteData[] = [];
   totalKms: number = 0;
@@ -55,11 +57,12 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
 
   currentChart: Chart | null = null;
 
-  scaleCheckbox = document.getElementById('scaleCheckbox') as HTMLInputElement;
-  checkMostrarGrafico = document.getElementById('checkMostrarGrafico') as HTMLInputElement;
-  checkMostrarZonas = document.getElementById('checkMostrarZonas') as HTMLInputElement;
-
   speed: number = 0;
+
+  // Performance optimizations
+  private speedColorMap: Map<number, string> = new Map();
+  private latLngPool: google.maps.LatLng[] = [];
+  private poolIndex: number = 0;
 
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -106,32 +109,20 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
         position: new google.maps.LatLng(this.vehicle!.latitud, this.vehicle!.longitud),
       });
     }
-    this.carIcon = {
-      path: "M7775 25473 c-1939 -78 -3650 -642 -4760 -1569 -619 -518 -985 -1108 -1102 -1779 -16 -93 -17 -272 -20 -2525 l-3 -2426 -408 -163 c-653 -262 -1029 -418 -1147 -477 -128 -63 -231 -137 -286 -206 l-39 -50 0 -412 0 -412 33 4 c17 2 440 54 939 116 l908 112 3 -6151 c2 -5704 4 -6157 19 -6251 78 -466 234 -822 528 -1204 98 -127 396 -424 545 -541 818 -649 2023 -1126 3470 -1374 886 -152 1689 -190 2500 -119 1022 89 2074 328 2915 664 934 372 1631 853 2059 1420 260 345 405 681 488 1130 17 90 18 436 20 6258 l3 6162 33 0 c17 -1 439 -52 937 -114 498 -62 908 -111 913 -109 4 2 7 185 7 407 l0 403 -28 39 c-39 53 -109 116 -179 160 -115 74 -347 174 -1285 550 l-398 159 0 2378 c0 1598 -3 2410 -11 2475 -89 821 -620 1579 -1535 2191 -1007 674 -2363 1104 -3864 1226 -382 30 -905 42 -1255 28z m965 -7313 c915 -54 1884 -232 2908 -535 331 -98 996 -317 1014 -334 4 -3 -87 -265 -203 -581 -116 -316 -368 -1007 -561 -1535 -192 -528 -351 -962 -353 -963 -2 -2 -183 12 -402 32 -508 46 -832 70 -1258 95 -698 41 -868 46 -1720 46 -534 0 -938 -5 -1110 -13 -672 -32 -1241 -71 -1923 -133 -189 -17 -345 -29 -346 -27 -2 1 -183 498 -404 1103 -221 605 -473 1296 -561 1535 -87 239 -156 438 -152 442 9 10 694 237 926 307 1507 453 2857 636 4145 561z m-5453 -2920 c607 -972 1039 -1871 1188 -2473 73 -298 68 -196 72 -1400 l4 -1088 -33 6 c-42 7 -1496 165 -1520 165 -17 0 -18 91 -18 2632 l0 2633 83 -125 c46 -69 147 -226 224 -350z m10066 -4781 c-5 -4 -348 -43 -763 -88 -415 -45 -768 -84 -783 -87 l-28 -6 4 1079 c3 1055 4 1080 25 1190 80 416 251 877 543 1463 238 476 570 1050 878 1515 l126 190 3 -2624 c1 -1444 -1 -2628 -5 -2632z m-8803 -2487 l0 -1667 -641 -745 -640 -745 -49 -9 c-109 -20 -170 11 -216 109 l-24 50 0 2318 c0 1274 1 2318 3 2319 2 1 1301 34 1475 36 l92 2 0 -1668z m8160 1648 c322 -6 600 -13 618 -16 l32 -5 -2 -2318 -3 -2317 -30 -59 c-44 -85 -69 -100 -166 -100 -71 0 -81 2 -104 26 -14 14 -307 351 -650 750 l-624 724 -1 1669 0 1669 173 -6 c94 -4 435 -12 757 -17z m-7192 -4290 c737 -143 1606 -244 2343 -271 771 -29 1781 59 2818 246 l246 45 26 -28 c15 -15 332 -391 705 -837 373 -445 763 -911 866 -1034 l189 -225 -93 -59 c-1428 -919 -3087 -1410 -4638 -1374 -1290 31 -2532 381 -3725 1050 -259 145 -625 371 -625 386 0 6 41 55 1088 1304 377 449 688 817 691 817 3 0 52 -9 109 -20z",
-      scale: .0015,
-      fillColor: "#000853",
-      fillOpacity: 1,
-      strokeWeight: 1,
-      anchor: new google.maps.Point(8150, 9600),
-      rotation: 0
-    };
 
-    this.stopIcon = {
-      scaledSize: new google.maps.Size(20, 20),
-      url: "assets/gps/stop.svg"
-    }
-    this.stopRedIcon = {
-      scaledSize: new google.maps.Size(30, 30),
-      url: "assets/gps/stop-red.svg"
-    }
-    this.startTripIcon = {
-      scaledSize: new google.maps.Size(50, 50),
-      url: "assets/gps/start.svg"
-    }
-    this.endTripIcon = {
-      scaledSize: new google.maps.Size(50, 50),
-      url: "assets/gps/end.svg"
-    }
+    this.carIcon = document.createElement('img');
+    this.carIcon.src = 'assets/gps/car.svg';
+    this.carIcon.style.height = '48px';
+    this.carIcon.style.width = '43px';
+
+
+    // const testMarker = new google.maps.marker.AdvancedMarkerElement({
+    //   map: this.gps_service.map,
+    //   position: new google.maps.LatLng(-48.143622, -67.652320),
+    //   content: this.carIcon
+    // });
+
+
   }
 
 
@@ -144,18 +135,14 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
 
   ngOnInit() {
     this.clearRoute();
-    this.navButtonHandler = this.clearRoute.bind(this);
-    this.rastreadorButton?.addEventListener("click", this.navButtonHandler, true);
-    this.dragHandler = this.gps_service.map?.addListener('dragstart', this.hideSpeed);
-
-    this.scaleCheckBoxHandler = () => {
-      this.loadChart(this.rawRouteData, this.scaleCheckbox?.checked);
-    }
-    this.scaleCheckbox?.addEventListener('change', this.scaleCheckBoxHandler, true);
+    this.initializeDOMElements();
+    this.initializeSpeedColorMap();
 
     if (!this.gps_service.map) {
       this.gps_service.onMapCreated.subscribe((response) => {
         this.initialize();
+
+        this.setupEventListeners();
       });
     } else {
       this.initialize();
@@ -168,6 +155,59 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
     });
   }
 
+  private initializeDOMElements(): void {
+    this.rastreadorButton = document.getElementById('rastreadorIcon');
+    this.scaleCheckbox = document.getElementById('scaleCheckbox') as HTMLInputElement;
+    this.checkMostrarGrafico = document.getElementById('checkMostrarGrafico') as HTMLInputElement;
+    this.checkMostrarZonas = document.getElementById('checkMostrarZonas') as HTMLInputElement;
+    this.speedCartel = document.getElementById('speedCartel');
+  }
+
+  private initializeSpeedColorMap(): void {
+    // Pre-populate speed color map for better performance
+    const speedRanges = [
+      { max: 5, color: '#0020BD' },
+      { max: 10, color: '#102BAE' },
+      { max: 15, color: '#21369F' },
+      { max: 20, color: '#314190' },
+      { max: 25, color: '#424C81' },
+      { max: 30, color: '#525572' },
+      { max: 35, color: '#636263' },
+      { max: 40, color: '#736D54' },
+      { max: 45, color: '#847845' },
+      { max: 50, color: '#998632' },
+      { max: 55, color: '#B1981B' },
+      { max: 60, color: '#CEAC00' },
+      { max: 65, color: '#D29E00' },
+      { max: 70, color: '#D78D00' },
+      { max: 75, color: '#DB7F00' },
+      { max: 80, color: '#DF7100' },
+      { max: 85, color: '#E46000' },
+      { max: 90, color: '#E85200' },
+      { max: 95, color: '#EC4400' },
+      { max: 100, color: '#F03600' },
+      { max: 105, color: '#F42900' },
+      { max: 110, color: '#F71F00' },
+      { max: 115, color: '#FB1100' }
+    ];
+
+    for (let speed = 0; speed <= 200; speed++) {
+      const range = speedRanges.find(r => speed < r.max);
+      this.speedColorMap.set(speed, range ? range.color : '#FF0000');
+    }
+  }
+
+  private setupEventListeners(): void {
+    this.navButtonHandler = this.clearRoute.bind(this);
+    this.rastreadorButton?.addEventListener("click", this.navButtonHandler, true);
+    this.dragHandler = this.gps_service.map?.addListener('dragstart', this.hideSpeed.bind(this));
+
+    this.scaleCheckBoxHandler = () => {
+      this.loadChart(this.rawRouteData, this.scaleCheckbox?.checked || false);
+    }
+    this.scaleCheckbox?.addEventListener('change', this.scaleCheckBoxHandler, true);
+  }
+
   ngAfterViewInit() {
     this.checkMostrarGrafico = document.getElementById('checkMostrarGrafico') as HTMLInputElement;
     const el = document.getElementById('chart-container');
@@ -175,7 +215,7 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
       this.gps_service.setVisibilityOfSpeedGraph(el as HTMLDivElement, false);
     }
     this.checkMostrarGraficoHandler = () => {
-      if (this.checkMostrarGrafico.checked) {
+      if (this.checkMostrarGrafico?.checked) {
         this.gps_service.setVisibilityOfSpeedGraph(el as HTMLDivElement, true);
       } else {
         this.gps_service.setVisibilityOfSpeedGraph(el as HTMLDivElement, false);
@@ -186,15 +226,13 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
     // Mostrar zonas
     this.checkMostrarZonas = document.getElementById('checkMostrarZonas') as HTMLInputElement;
     this.checkMostrarZonasHandler = () => {
-      if (this.checkMostrarZonas.checked) {
+      if (this.checkMostrarZonas?.checked) {
         this.gps_service.setVisibilityOfZones(true);
       } else {
         this.gps_service.setVisibilityOfZones(false);
       }
     }
     this.checkMostrarZonas?.addEventListener('change', this.checkMostrarZonasHandler, true);
-
-
   }
 
 
@@ -230,7 +268,7 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
     this.gps_service
       .getRouteByImei(routeRequest)
       .pipe(
-        tap((route) => {
+        tap((route: GpsRouteData[]) => {
 
           if (route.length <= 0) {
             this.isGettingRoutes = false;
@@ -240,62 +278,88 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
           this.rawRouteData = route;
 
           for (var i = 0; i < route.length; i++) {
-            if ('latitud' in route[i]) {
-              let stopRoute: StopRoute = route[i] as StopRoute;
+            let currentRoute = route[i];
+            if (currentRoute.type === 'Parada') {
+              // Si es una parada, no se dibuja la ruta
+
+              if (!currentRoute.latitud || !currentRoute.longitud) {
+                console.warn(`Ruta con ID ${currentRoute.id} no tiene latitud o longitud definida.`);
+                continue;
+              }
 
               this.totalStops += 1;
 
-              var polyLinePoints: google.maps.LatLng[] = [];
+              const startAndEndPoints: google.maps.LatLng[] = [];
 
               //Enlazo el ultimo punto de la ruta anterior
               if (i >= 1) {
-                var previousRoute = route[i - 1] as TravelRoute;
-                polyLinePoints.push(new google.maps.LatLng({ lat: previousRoute.data[previousRoute.data.length - 1].latitud, lng: previousRoute.data[previousRoute.data.length - 1].longitud }));
+                const previousRoute = route[i - 1];
+                if (previousRoute.type === 'Viaje' && previousRoute.data) {
+                  startAndEndPoints.push(new google.maps.LatLng({
+                    lat: previousRoute.data[previousRoute.data.length - 1].latitud,
+                    lng: previousRoute.data[previousRoute.data.length - 1].longitud
+                  }));
+                }
               }
 
               //Seteo el punto de parada
-              polyLinePoints.push(new google.maps.LatLng({ lat: stopRoute.latitud, lng: stopRoute.longitud }));
+              startAndEndPoints.push(new google.maps.LatLng({
+                lat: currentRoute.latitud,
+                lng: currentRoute.longitud
+              }));
 
               //Enlazo el primer punto del viaje siguiente
               if (i + 1 < route.length) {
-                var nextRoute = route[i + 1] as TravelRoute;
-                polyLinePoints.push(new google.maps.LatLng({ lat: nextRoute.data[0].latitud, lng: nextRoute.data[0].longitud }));
+                const nextRoute = route[i + 1];
+                if (nextRoute.type === 'Viaje' && nextRoute.data) {
+                  startAndEndPoints.push(new google.maps.LatLng({
+                    lat: nextRoute.data[0].latitud,
+                    lng: nextRoute.data[0].longitud
+                  }));
+                }
               }
 
               //Obtengo la cantidad de tiempo que se quedo en la parada y la seteo en la parada
-              stopRoute.duration = this.getDuration(stopRoute.fromDate.toString(), stopRoute.toDate.toString(), stopRoute.fromHour.toString(), stopRoute.toHour.toString());
+              currentRoute.duration = this.getDuration(currentRoute.fromDate.toString(), currentRoute.toDate.toString(), currentRoute.fromHour.toString(), currentRoute.toHour.toString());
 
               //Agrego la parada para que se renderice en la lista
-              this.travelRoutes.push(stopRoute);
+              this.travelRoutes.push(currentRoute);
 
               if (i != 0) {
                 //Dibujo una marca para que se sepa que es una parada
-                this.drawRouteMarker(stopRoute.latitud, stopRoute.longitud, this.stopIcon, stopRoute);
+                this.drawRouteMarker(currentRoute.latitud, currentRoute.longitud, this.createIcons('stop'), currentRoute);
               }
 
               //Dibujo las lineas correspondientes a la parada
-              this.drawRoutePolyline(polyLinePoints, 'green', -1)
-            }
-            else {
-              let travelRoute: TravelRoute = route[i] as TravelRoute;
+              this.drawRoutePolyline(startAndEndPoints, 'green', -1)
+
+            } else {
+              if (!currentRoute.data || currentRoute.data.length <= 0) {
+                console.warn(`Ruta con ID ${currentRoute.id} no tiene datos.`);
+                continue;
+              }
 
               //Obtenemos la duracion del viaje y la seteo en el objeto viaje
-              travelRoute.duration = this.getDuration(travelRoute.fromDate.toString(), travelRoute.toDate.toString(), travelRoute.fromHour.toString(), travelRoute.toHour.toString());
+              currentRoute.duration = this.getDuration(currentRoute.fromDate.toString(), currentRoute.toDate.toString(), currentRoute.fromHour.toString(), currentRoute.toHour.toString());
 
               //Acumulador de total de kilometros recorridos
-              this.totalKms += travelRoute.km;
+              if (currentRoute.km) {
+                this.totalKms += currentRoute.km;
+              }
 
               //Agrego el viaje para que se renderice en la lista
-              this.travelRoutes.push(travelRoute);
+              this.travelRoutes.push(currentRoute);
 
 
               // this.drawRouteMarker(travelRoute.data[0].latitud, travelRoute.data[0].longitud);
 
-              this.drawRoutePolylines(travelRoute.data, travelRoute.id);
+              this.drawRoutePolylines(currentRoute.data, currentRoute.id);
             }
+
+
           }
 
-          this.loadChart(route, this.scaleCheckbox.checked);
+          this.loadChart(route, this.scaleCheckbox?.checked || false);
 
           //Centra la camara a todo la ruta
           var points: google.maps.LatLng[] = []
@@ -307,29 +371,32 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
           //Se dibuja las banderas de inicio y fin
           this.drawStartAndEndOfTrip()
 
-          this.gps_service.map?.addListener('dragstart', () => {
+          // Debounced event handler for better performance
+          const debouncedDragHandler = this.debounce(() => {
             this.itemSelected = null;
             this.polylines.forEach((item) => {
               item.setOptions({ strokeOpacity: 1 });
             })
 
             this.markers.forEach(marker => {
-              if (marker === this.startTrip || marker === this.startTrip) return;
-
-              marker.setIcon(this.stopIcon);
+              if (marker === this.startTrip || marker === this.endTrip) return;
+              marker.content = this.createIcons('stop');
             });
-          })
+          }, 100);
+
+          this.gps_service.map?.addListener('dragstart', debouncedDragHandler);
           this.isGettingRoutes = false;
         })
       ).subscribe();
 
-    this.gps_service.map?.addListener("zoom_changed", () => {
+    this.gps_service.map?.addListener("zoom_changed", this.debounce(() => {
       var weight = this.gps_service.map?.getZoom()! > 15 ? 8 : 5;
 
+      // Batch update polyline styles
       this.polylines.forEach((item) => {
         item.setOptions({ strokeWeight: weight })
       });
-    });
+    }, 150));
   }
 
   loadChart(route: GpsRouteData[], scaleX: boolean) {
@@ -425,7 +492,7 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
         plugins: {
           corsair: {
             nearCallback: (index: number) => {
-              this.drawCarDeg(new google.maps.LatLng(data[index].latitud, data[index].longitud), data[index].azimuth - 180);
+              this.drawCarDeg(new google.maps.LatLng(data[index].latitud, data[index].longitud), data[index].azimuth);
             },
           }
         },
@@ -446,21 +513,25 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
     return diffHrs.toString() + "hs " + diffMins.toString() + "min";
   }
 
-  drawRouteMarker(latitud: number, longitud: number, icon: google.maps.Icon | null, stopLog: GpsRouteData | null = null) {
+  drawRouteMarker(latitud: number, longitud: number, icon: HTMLElement | null, stopLog: GpsRouteData | null = null) {
 
-    var marker: google.maps.Marker = new google.maps.Marker({
+    var marker: google.maps.marker.AdvancedMarkerElement = new google.maps.marker.AdvancedMarkerElement({
       map: this.gps_service.map,
       position: {
         lat: latitud,
         lng: longitud,
       },
+      gmpClickable: true,
     });
-    if (icon != null) marker.setIcon(icon);
+    if (icon != null) marker.content = icon;
     this.markers.push(marker);
 
-    marker.addListener('click', () => {
+    const clickHandler = () => {
       if (stopLog != null) this.selectTravelOrStop(stopLog)
-    })
+    }
+
+    marker.addListener('click', clickHandler)
+    marker.content?.addEventListener('click', clickHandler);
   }
 
   // setDirectionOfPath(points: google.maps.LatLng[]) {
@@ -542,22 +613,44 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
     this.polylines.push(singlePolyline);
   }
 
+  // Optimized LatLng creation with object pooling
+  private getLatLng(lat: number, lng: number): google.maps.LatLng {
+    if (this.poolIndex < this.latLngPool.length) {
+      const latLng = this.latLngPool[this.poolIndex];
+      // Reset the LatLng object with new coordinates
+      (latLng as any).lat = () => lat;
+      (latLng as any).lng = () => lng;
+      this.poolIndex++;
+      return latLng;
+    } else {
+      const newLatLng = new google.maps.LatLng(lat, lng);
+      this.latLngPool.push(newLatLng);
+      this.poolIndex++;
+      return newLatLng;
+    }
+  }
+
+  private resetLatLngPool(): void {
+    this.poolIndex = 0;
+  }
+
   drawRoutePolylines(points: GpsPoint[], id: number) {
     if (points.length > 0) {
+      // this.resetLatLngPool();
       var polyLinePoints: google.maps.LatLng[] = [];
       var speed: number = 0;
       var color: string = 'black';
       var previousColor: string = 'black';
       var previousLat = 0;
       var previousLng = 0;
+
       for (var i = 0; i < points.length; i++) {
         if (previousLat == points[i].latitud && previousLng == points[i].longitud) continue;
 
         speed = points[i].speed;
-        color = this.speedToColor(speed);
+        color = this.speedToColorOptimized(speed);
 
-
-        polyLinePoints.push(new google.maps.LatLng({ lat: points[i].latitud, lng: points[i].longitud }));
+        polyLinePoints.push(this.getLatLng(points[i].latitud, points[i].longitud));
 
         if (polyLinePoints.length >= 2 || color != previousColor || i + 1 == points.length) {
 
@@ -568,7 +661,7 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
           }
 
           polyLinePoints = [];
-          polyLinePoints.push(new google.maps.LatLng({ lat: points[i].latitud, lng: points[i].longitud }));
+          polyLinePoints.push(this.getLatLng(points[i].latitud, points[i].longitud));
         }
         previousColor = color;
         previousLat = points[i].latitud;
@@ -577,16 +670,22 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
     }
   }
 
+  // Optimized speed to color function using memoization
+  speedToColorOptimized(speed: number): string {
+    const roundedSpeed = Math.floor(speed);
+    return this.speedColorMap.get(roundedSpeed) || '#FF0000';
+  }
+
   drawStartAndEndOfTrip() {
     var startPosition: google.maps.LatLng | null = null;
     var endPosition: google.maps.LatLng | null = null;
     if (this.startTrip != null) {
-      this.startTrip.setMap(null)
-      this.startTrip = null
+      this.startTrip.map = null;
+      this.startTrip = null;
     }
     if (this.endTrip != null) {
-      this.endTrip.setMap(null)
-      this.endTrip = null
+      this.endTrip.map = null;
+      this.endTrip = null;
     }
 
     if (this.polylines.length >= 2) {
@@ -598,24 +697,24 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
     }
 
     if (startPosition != null && endPosition != null) {
-      var startmarker: google.maps.Marker = new google.maps.Marker({
+      var startmarker: google.maps.marker.AdvancedMarkerElement = new google.maps.marker.AdvancedMarkerElement({
         map: this.gps_service.map,
         position: {
           lat: startPosition.lat(),
           lng: startPosition.lng(),
         },
       });
-      startmarker.setIcon(this.startTripIcon);
+      startmarker.content = this.createIcons('start');
       this.startTrip = startmarker;
 
-      var endMarker: google.maps.Marker = new google.maps.Marker({
+      var endMarker: google.maps.marker.AdvancedMarkerElement = new google.maps.marker.AdvancedMarkerElement({
         map: this.gps_service.map,
         position: {
           lat: endPosition.lat(),
           lng: endPosition.lng(),
         },
       });
-      endMarker.setIcon(this.endTripIcon);
+      endMarker.content = this.createIcons('end');
       this.endTrip = endMarker;
     }
 
@@ -623,54 +722,8 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
   }
 
   speedToColor(speed: number) {
-    if (speed < 5) {
-      return '#0020BD';
-    } else if (speed < 10) {
-      return '#102BAE';
-    } else if (speed < 15) {
-      return '#21369F';
-    } else if (speed < 20) {
-      return '#314190';
-    } else if (speed < 25) {
-      return '#424C81';
-    } else if (speed < 30) {
-      return '#525772';
-    } else if (speed < 35) {
-      return '#636263';
-    } else if (speed < 40) {
-      return '#736D54';
-    } else if (speed < 45) {
-      return '#847845';
-    } else if (speed < 50) {
-      return '#998632';
-    } else if (speed < 55) {
-      return '#B1981B';
-    } else if (speed < 60) {
-      return '#CEAC00';
-    } else if (speed < 65) {
-      return '#D29E00';
-    } else if (speed < 70) {
-      return '#D78D00';
-    } else if (speed < 75) {
-      return '#DB7F00';
-    } else if (speed < 80) {
-      return '#DF7100';
-    } else if (speed < 85) {
-      return '#E46000';
-    } else if (speed < 90) {
-      return '#E85200';
-    } else if (speed < 95) {
-      return '#EC4400';
-    } else if (speed < 100) {
-      return '#F03600';
-    } else if (speed < 105) {
-      return '#F42900';
-    } else if (speed < 110) {
-      return '#F71F00';
-    } else if (speed < 115) {
-      return '#FB1100';
-    }
-    return '#FF0000';
+    // Use the optimized version
+    return this.speedToColorOptimized(speed);
   }
 
   drawCar(point: google.maps.LatLng, path: google.maps.LatLng[]) {
@@ -682,20 +735,24 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
 
   drawCarDeg(point: google.maps.LatLng, deg: number) {
     if (this.carMarker == null) {
-      var marker: google.maps.Marker = new google.maps.Marker({
+      this.carMarker = new google.maps.marker.AdvancedMarkerElement({
         map: this.gps_service.map,
         position: point,
+        content: this.carIcon,
       });
 
-      marker.setIcon(this.carIcon);
-      this.carMarker = marker;
-
-      (this.carMarker.getIcon() as google.maps.Symbol).rotation = deg;
+      if (this.carIcon) {
+        // this.carIcon.style.transform = `rotate(${deg}deg)`;
+        this.carIcon.style.transform = `translate(0%, 50%) rotate(${deg}deg)`;
+      }
 
     } else {
-      this.carMarker.setIcon(this.carIcon);
-      (this.carMarker.getIcon() as google.maps.Symbol).rotation = deg;
-      this.carMarker.setPosition(point);
+      if (this.carIcon) {
+        // this.carIcon.style.transform = `rotate(${deg}deg)`;
+        this.carIcon.style.transform = `translate(0%, 50%) rotate(${deg}deg)`;
+      }
+
+      this.carMarker.position = point;
     }
   }
 
@@ -709,18 +766,20 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
     const screenY = domEvent.clientY + yOffset;
     this.speed = speed;
 
-    const speedCartel =
-      document.getElementById('speedCartel')!;
-    speedCartel.style.display = 'block';
-    speedCartel.style.left = screenX + 'px';
-    speedCartel.style.top = screenY + 'px';
-    speedCartel.innerHTML = speed + ' km/h';
+    // Use cached DOM element
+    if (this.speedCartel) {
+      this.speedCartel.style.display = 'block';
+      this.speedCartel.style.left = screenX + 'px';
+      this.speedCartel.style.top = screenY + 'px';
+      this.speedCartel.innerHTML = speed + ' km/h';
+    }
   }
 
   hideSpeed() {
-    const speedCartel =
-      document.getElementById('speedCartel')!;
-    speedCartel.style.display = 'none';
+
+    if (this.speedCartel) {
+      this.speedCartel.style.display = 'none';
+    }
   }
 
 
@@ -731,37 +790,49 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
     this.gps_service.map!.fitBounds(bounds);
   }
 
-  selectTravelOrStop(travelOrStopRoute: GpsRouteData) {
+  selectTravelOrStop(route: GpsRouteData) {
 
 
-    this.itemSelected = travelOrStopRoute.id;
+    this.itemSelected = route.id;
     // this.mylist.find((item)=>{
     //   if(item.nativeElement.id == travelRoute.id){
     //     item.nativeElement.scrollIntoView();
     //   }
     //   return false
     // })
-    if ((<TravelRoute>travelOrStopRoute).data !== undefined) {
-      this.resaltarRuta(travelOrStopRoute as TravelRoute);
-      this.moveCamera(travelOrStopRoute as TravelRoute);
+    if (route.type === 'Viaje') {
+      this.resaltarRuta(route);
+      this.moveCamera(route);
     } else {
-      var stopRoute: StopRoute = travelOrStopRoute as StopRoute;
-      this.moveCamera(travelOrStopRoute);
+      this.moveCamera(route);
 
       this.markers.forEach(marker => {
         if (marker === this.startTrip || marker === this.startTrip) return;
 
-        if (marker.getPosition()!.lat() == stopRoute.latitud && marker.getPosition()!.lng() == stopRoute.longitud) {
-          marker.setIcon(this.stopRedIcon);
+
+        // Check if marker.position.lat is a function or a variable
+        let lat: number | undefined;
+        let lng: number | undefined;
+        if (marker.position === null || marker.position === undefined) return;
+        if (typeof marker.position.lat === 'function' && typeof marker.position.lng === 'function') {
+          lat = marker.position.lat();
+          lng = marker.position.lng();
         } else {
-          marker.setIcon(this.stopIcon);
+          lat = marker.position.lat as number;
+          lng = marker.position.lng as number;
+        }
+        // Check if the marker position matches the route's latitud and longitud
+        if (lat == route.latitud && lng == route.longitud) {
+          marker.content = this.createIcons('stopRed');
+        } else {
+          marker.content = this.createIcons('stop');
         }
       });
     }
   }
 
 
-  resaltarRuta(travelRoute: TravelRoute) {
+  resaltarRuta(travelRoute: GpsRouteData) {
     this.polylines.forEach((item) => {
       item.setOptions({ strokeOpacity: 1 })
       if (item.get("id") == travelRoute.id) {
@@ -771,16 +842,24 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
     })
   }
 
-  moveCamera(travelRoute: GpsRouteData) {
-    if ('latitud' in travelRoute) {
+  moveCamera(route: GpsRouteData) {
+    if (route.type === 'Parada') {
+      if (!route.latitud || !route.longitud) {
+        console.warn(`Ruta con ID ${route.id} no tiene latitud o longitud definida.`);
+        return;
+      }
 
-      var latitud: number = (travelRoute as StopRoute).latitud;
-      var longitud: number = (travelRoute as StopRoute).longitud;
+      const latitud: number = route.latitud;
+      const longitud: number = route.longitud;
 
       this.moveCameraToMarker(latitud, longitud);
     } else {
+      if (!route.data || route.data.length <= 0) {
+        console.warn(`Ruta con ID ${route.id} no tiene datos.`);
+        return;
+      }
 
-      var positions: GpsPoint[] = (travelRoute as TravelRoute).data;
+      const positions: GpsPoint[] = route.data;
 
       this.moveCameraToRoute(positions.map(p => new google.maps.LatLng(p.latitud, p.longitud)));
     }
@@ -860,27 +939,86 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
 
   clearCarMarker() {
     if (this.carMarker != null) {
-      this.carMarker.setMap(null);
+      this.carMarker.map = null;
       this.carMarker = null;
     }
   }
 
   clearRoute() {
     this.clearCarMarker();
-    this.markers.forEach(marker => marker.setMap(null));
-    this.polylines.forEach(polyline => polyline.setMap(null));
-    // this.directionalMarkers.forEach(marker => marker.setMap(null));
-    // this.directionalMarkers = [];
+
+    // Batch DOM operations for better performance
+    const markersToRemove = [...this.markers];
+    const polylinesToRemove = [...this.polylines];
+
+    // Clear markers in batch
+    markersToRemove.forEach(marker => marker.map = null);
+
+    // Clear polylines in batch
+    polylinesToRemove.forEach(polyline => polyline.setMap(null));
+
+    // Clear trip markers
     if (this.endTrip != null) {
-      this.endTrip.setMap(null)
+      this.endTrip.map = null;
       this.endTrip = null;
     }
     if (this.startTrip != null) {
-      this.startTrip.setMap(null)
+      this.startTrip.map = null;
       this.startTrip = null;
     }
+
+    // Reset arrays
     this.polylines = [];
     this.markers = [];
+
+    // Reset LatLng pool for reuse
+    this.resetLatLngPool();
+  }
+
+  private createIcons(type: "stop" | "stopRed" | "start" | "end") {
+
+    switch (type) {
+      case "stop":
+
+        const stopImg = document.createElement('img');
+        stopImg.src = 'assets/gps/stop.svg';
+        stopImg.style.height = '20px';
+        stopImg.style.width = '20px';
+
+
+        return stopImg;
+      case "stopRed":
+        const stopRedImg = document.createElement('img');
+        stopRedImg.src = 'assets/gps/stop-red.svg';
+        stopRedImg.style.height = '30px';
+        stopRedImg.style.width = '30px';
+
+        return stopRedImg;
+      case "start":
+        const startTripImg = document.createElement('img');
+        startTripImg.src = 'assets/gps/start.svg';
+        startTripImg.style.height = '50px';
+        startTripImg.style.width = '50px';
+
+        return startTripImg;
+      case "end":
+        const endTripImg = document.createElement('img');
+        endTripImg.src = 'assets/gps/end.svg';
+        endTripImg.style.height = '50px';
+        endTripImg.style.width = '50px';
+
+        return endTripImg;
+    }
+
+  }
+
+  // Debouncing utility
+  private debounce<T extends (...args: any[]) => any>(func: T, wait: number): T {
+    let timeout: any;
+    return ((...args: any[]) => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func.apply(this, args), wait);
+    }) as T;
   }
 
 }

@@ -1,12 +1,12 @@
 import { vehicle } from "./vehicle";
 
-export interface Position{
+export interface Position {
   latitud: number;
   longitud: number;
 }
 
 export interface VehiclesImeisRequest {
-    imeis: string[];
+  imeis: string[];
 }
 
 export interface VehicleState extends vehicle, Position {
@@ -15,15 +15,18 @@ export interface VehicleState extends vehicle, Position {
   dateStr: string;
 }
 
-export interface gps_data extends Position{
-    imei: string;
-    speed: number;
-    date: string;
-  }
-
-export interface GpsPoint extends Position {
-  azimuth: number;
+export interface gps_data extends Position {
+  imei: string;
   speed: number;
+  date: string;
+}
+
+export interface GpsPoint {
+  azimuth: number;
+  latitud: number;
+  longitud: number;
+  speed: number;
+  timestamp: string;
 }
 
 export interface RouteRequest {
@@ -33,26 +36,20 @@ export interface RouteRequest {
 }
 
 export interface GpsRouteData {
-  id : number;
-  type: string;
+  id: number;
+  type: "Parada" | "Viaje";
   fromDate: Date;
   toDate: Date;
   fromHour: Date;
   toHour: Date;
   duration: string;
-  data?: any;
+  latitud?: number;
+  longitud?: number;
+  km?: number;
+  data?: GpsPoint[];
 }
 
-export interface StopRoute extends GpsRouteData, Position {
-}
-
-
-export interface TravelRoute extends GpsRouteData {
-  km: number;
-  data: GpsPoint[];
-}
-
-export interface ZoneView{
+export interface ZoneView {
   id: number;
   empresa_id: string;
   color_linea: string;
@@ -68,7 +65,7 @@ export interface ZoneView{
   zonePolygon?: google.maps.Polygon;
 }
 
-export interface ZoneRequest{
+export interface ZoneRequest {
   empresa_id: number;
   color_linea: string;
   color_relleno: string;

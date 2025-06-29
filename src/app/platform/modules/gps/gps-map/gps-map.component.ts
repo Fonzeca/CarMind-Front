@@ -12,33 +12,40 @@ export class GpsMapComponent implements OnInit {
 
   title = 'google-maps';
 
-  constructor(public gps_service: GpsService) {}
+  constructor(public gps_service: GpsService) { }
 
 
   ngOnInit(): void {
-    let loader = new Loader({
-      //TODO: NO MOSTRAR APIKEY
+    const loader = new Loader({
       apiKey: environment.mapsApiKey,
     });
-  
-    loader.load().then((response) => {
-      const location = {
+
+    const mapOptions = {
+      center: {
         lat: -48.404479,
         lng: -69.651008,
-      };
-  
-      this.gps_service.map = new google.maps.Map(document.getElementById('map')!, {
-        center: location,
-        zoom: 6,
-        mapId: 'aa99da66fc3150b',
-        minZoom: 5
+      },
+      zoom: 6,
+      mapId: 'aa99da66fc3150b',
+      minZoom: 5,
+      mapTypeId: 'satellite',
+
+    } as google.maps.MapOptions;
+
+    Promise.all([
+      loader.importLibrary('maps'),
+      loader.importLibrary('marker'),
+    ])
+      .then(([{ Map }, { AdvancedMarkerElement }]) => {
+        this.gps_service.map = new Map(document.getElementById("map")!, mapOptions);
+      })
+      .catch((e) => {
+        // do something
+      })
+      .then(() => {
+        this.gps_service.onMapCreated.emit(true);
       });
 
-      
-  
-    }).then(_=>{
-      this.gps_service.onMapCreated.emit(true);
-    });
   }
 
 

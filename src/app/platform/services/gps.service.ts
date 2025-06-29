@@ -69,6 +69,14 @@ export class GpsService extends ApiService {
     return this.zones.find(z => z.id === id);
   }
 
+  getAllZones(): ZoneView[] {
+    if (this.zones.length === 0) {
+      console.warn('No zones available. Please fetch zones first.');
+      return [];
+    }
+    return this.zones;
+  }
+
   setVisibilityOfSpeedGraph(element: HTMLDivElement | null, visible: boolean) {
     if (!element) {
       console.error('No chart container element passed');
