@@ -1,5 +1,5 @@
 <div class="row clase-padre map-container">
-  <div class="map-container__content">
+  <div class="map-container__content" id="map-container-content">
     <div *ngIf="isNotInDetails()">
       <h4 class="mt-2 text-dark">GPS tracker</h4>
       <div class="row2 justify-content-start">
@@ -18,6 +18,9 @@
       </div>
     </div>
     <router-outlet></router-outlet>
+  </div>
+  <div class="flecha_close" id="flecha_close" (click)="toggleMap()">
+    <i class="pi pi-chevron-left" style="font-size: 24px;"></i>
   </div>
   <div class="px-0 map-container__map">
     <app-gps-map class="map-container__children"></app-gps-map>

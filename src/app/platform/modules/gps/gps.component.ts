@@ -63,6 +63,24 @@ export class GpsComponent extends BaseComponent implements OnInit {
     return !this.router.url.includes('details');
   }
 
-  
+  toggleMap() {
+    const mapContainer = document.getElementById('map-container-content');
+    const flechaClose = document.getElementById('flecha_close');
+
+    // If the mapContainer is not found, do nothing
+    if (!mapContainer || !flechaClose) {
+      return;
+    }
+
+    // Toggle the class 'close' on the mapContainer
+    mapContainer.classList.toggle('close'); 
+
+    //Togle the icon of the flecha_close
+    if (mapContainer.classList.contains('close')) {
+      flechaClose.innerHTML = '<i class="pi pi-chevron-right" style="font-size: 24px;"></i>';
+    } else {
+      flechaClose.innerHTML = '<i class="pi pi-chevron-left" style="font-size: 24px;"></i>';
+    }
+  }
 
 }
