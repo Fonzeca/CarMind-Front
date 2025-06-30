@@ -26,7 +26,7 @@ export interface GpsPoint {
   latitud: number;
   longitud: number;
   speed: number;
-  timestamp: string;
+  timestamp: number;
 }
 
 export interface RouteRequest {

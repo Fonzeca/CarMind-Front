@@ -74,7 +74,11 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
     super();
     gps_service.isInDetails = true;
 
+    if (this.router.getCurrentNavigation() === null || this.router.getCurrentNavigation()!.extras.state! === undefined) {
 
+    } else {
+      this.vehicle = this.router.getCurrentNavigation()!.extras.state!['vehicle'];
+    }
 
     //   <canvas baseChart width="400" height="280"
     //   [type]="'line'"
@@ -86,11 +90,12 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
   }
 
   initialize() {
-    if (this.router.getCurrentNavigation() === null || this.router.getCurrentNavigation()!.extras.state! === undefined) {
+    if (!this.vehicle) {
       this.gps_service.getVehiclesStateByImeis({ imeis: [this.route.snapshot.params['id']] })
         .pipe(
           tap((response) => {
             this.vehicle = response[0];
+            //TODO: obtener los datos del nombre por algun otro lado, ya que el nombre no viene en el objeto vehicle
             this.selectedVehicleMarker = new google.maps.marker.AdvancedMarkerElement({
               map: this.gps_service.map,
               position: new google.maps.LatLng(this.vehicle!.latitud, this.vehicle!.longitud),
@@ -105,7 +110,6 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
         ).subscribe();
 
     } else {
-      this.vehicle = this.router.getCurrentNavigation()!.extras.state!['vehicle'];
       this.selectedVehicleMarker = new google.maps.marker.AdvancedMarkerElement({
         map: this.gps_service.map,
         position: new google.maps.LatLng(this.vehicle!.latitud, this.vehicle!.longitud),
@@ -145,7 +149,6 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
     if (!this.gps_service.map) {
       this.gps_service.onMapCreated.subscribe((response) => {
         this.initialize();
-
         this.setupEventListeners();
       });
     } else {
@@ -346,6 +349,9 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
                 console.warn(`Ruta con ID ${currentRoute.id} no tiene datos.`);
                 continue;
               }
+              
+              // Limpiamos los datos de la ruta por si hay anomalias de velocidad
+              currentRoute.data = this.geo_operations.cleanUpRouteBySpeedAnomaly(currentRoute.data);
 
               //Obtenemos la duracion del viaje y la seteo en el objeto viaje
               currentRoute.duration = this.getDuration(currentRoute.fromDate.toString(), currentRoute.toDate.toString(), currentRoute.fromHour.toString(), currentRoute.toHour.toString());
@@ -363,8 +369,6 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
 
               this.drawRoutePolylines(currentRoute.data, currentRoute.id);
             }
-
-
           }
 
           this.loadChart(route, this.scaleCheckbox?.checked || false);
@@ -760,7 +764,6 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
   }
 
   drawSpeed(speed: number, event: google.maps.PolyMouseEvent) {
-    console.log(speed);
     const domEvent: MouseEvent = event.domEvent as MouseEvent;
     const xOffset = window.pageXOffset + 30;
     const yOffset = window.pageYOffset - 20;
