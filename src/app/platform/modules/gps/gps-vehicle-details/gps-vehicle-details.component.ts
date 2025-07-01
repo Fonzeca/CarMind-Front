@@ -143,12 +143,12 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
 
   ngOnInit() {
     this.clearRoute();
-    this.initializeDOMElements();
     this.initializeSpeedColorMap();
 
     if (!this.gps_service.map) {
       this.gps_service.onMapCreated.subscribe((response) => {
         this.initialize();
+        this.initializeDOMElements();
         this.setupEventListeners();
       });
     } else {
@@ -351,7 +351,7 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
               }
               
               // Limpiamos los datos de la ruta por si hay anomalias de velocidad
-              currentRoute.data = this.geo_operations.cleanUpRouteBySpeedAnomaly(currentRoute.data);
+              // currentRoute.data = this.geo_operations.cleanUpRouteBySpeedAnomaly(currentRoute.data);
 
               //Obtenemos la duracion del viaje y la seteo en el objeto viaje
               currentRoute.duration = this.getDuration(currentRoute.fromDate.toString(), currentRoute.toDate.toString(), currentRoute.fromHour.toString(), currentRoute.toHour.toString());
