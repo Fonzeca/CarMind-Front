@@ -153,6 +153,8 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
       });
     } else {
       this.initialize();
+      this.initializeDOMElements();
+      this.setupEventListeners();
     }
 
     this.gps_service.fetchZones(this.auth).then(() => {
