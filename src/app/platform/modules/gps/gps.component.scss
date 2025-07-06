@@ -52,6 +52,10 @@
     transition: width 0.3s ease-in-out;
     overflow: auto;
 
+    @media (max-width: 600px) {
+      max-width: 250px;
+    }
+
     // if have this class, and 'close' class, then width is 0px
     &.close {
       width: 0px !important;
