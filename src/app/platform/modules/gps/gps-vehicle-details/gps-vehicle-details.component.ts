@@ -7,6 +7,7 @@ import { DeepPartial } from 'chart.js/types/utils';
 import { catchError, tap } from 'rxjs';
 import { GpsPoint, GpsRouteData, RouteRequest, VehicleState } from 'src/app/platform/interfaces/gps_data';
 import { AuthService } from 'src/app/platform/services/auth.service';
+import { SweetAlertService } from 'src/app/platform/services/core/sweetAlert.service';
 import { GpsService } from 'src/app/platform/services/gps.service';
 import { BaseComponent } from 'src/app/platform/shared/components/base.component';
 import { GeoOperationsService } from '../util/geo-operations.service';
@@ -69,7 +70,8 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
     public gps_service: GpsService,
     private ngbDateParserFormatter: NgbDateParserFormatter,
     private geo_operations: GeoOperationsService,
-    private auth: AuthService) {
+    private auth: AuthService,
+    private sweetAlert: SweetAlertService) {
 
     super();
     gps_service.isInDetails = true;
@@ -351,7 +353,7 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
                 console.warn(`Ruta con ID ${currentRoute.id} no tiene datos.`);
                 continue;
               }
-              
+
               // Limpiamos los datos de la ruta por si hay anomalias de velocidad
               // currentRoute.data = this.geo_operations.cleanUpRouteBySpeedAnomaly(currentRoute.data);
 
@@ -759,7 +761,7 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
 
     } else {
       this.setDegToIconCar(deg);
-      
+
 
       this.carMarker.position = point;
     }
@@ -871,6 +873,46 @@ export class GpsVehicleDetailsComponent extends BaseComponent implements OnInit 
 
       this.moveCameraToRoute(positions.map(p => new google.maps.LatLng(p.latitud, p.longitud)));
     }
+  }
+
+  generateReport() {
+    const imei = this.vehicle?.imei;
+
+    // Extraer los unixms desde los dates en dateTimeRange
+    let from = 0;
+    let to = 0;
+    if (this.dateTimeRange && this.dateTimeRange.length === 2) {
+      from = this.dateTimeRange[0].getTime();
+      to = this.dateTimeRange[1].getTime();
+    }
+
+    if (!imei || !from || !to) {
+      this.sweetAlert.alertError('Debe seleccionar un vehículo y un rango de fechas.');
+      return;
+    }
+
+    const empresaId = Number(this.auth.user?.empresa);
+    if (!empresaId) {
+      this.sweetAlert.alertError('El ID de la empresa no es válido.');
+      return;
+    }
+
+    // Mostrar modal de carga
+    this.sweetAlert.showLoading('Generando reporte, por favor espere...');
+
+    this.gps_service.generateReport(imei, from, to, empresaId).subscribe({
+      next: (response) => {
+        // Cerrar modal de carga y mostrar éxito
+        this.sweetAlert.closeLoading();
+        this.sweetAlert.alertSuccess('Reporte generado exitosamente.');
+      },
+      error: (error) => {
+        // Cerrar modal de carga y mostrar error
+        this.sweetAlert.closeLoading();
+        this.sweetAlert.alertError('Error al generar el reporte');
+        console.error(error);
+      }
+    });
   }
 
   moveCameraToMarker(latitud: number, longitud: number) {

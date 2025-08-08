@@ -42,8 +42,8 @@ export class ApiService {
     return this.request(this.http.get<any>(this.apiURL+url, header))
   }
 
-  public post(url:string, data:any){
-    return this.request(this.http.post(this.apiURL+url, data));
+  public post(url:string, data:any, options?:any){
+    return this.request(this.http.post(this.apiURL+url, data, options));
   }
 
   public put(url:string, data:any){

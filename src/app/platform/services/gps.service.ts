@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { firstValueFrom, Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { gps_data, GpsRouteData, RouteRequest, VehiclesImeisRequest, VehicleState, ZoneRequest, ZoneView } from '../interfaces/gps_data';
 import { AuthService } from './auth.service';
 import { ApiService } from './core/api.service';
@@ -75,6 +76,25 @@ export class GpsService extends ApiService {
       return [];
     }
     return this.zones;
+  }
+
+  generateReport(imei: string, fromDate: number, toDate: number, empresa_id: number): Observable<any> {
+    const url = endpoints.trackin.generateSummaryReport;
+    const body = { imei, fromDate, toDate, empresa_id };
+
+    return this.post(url, body, { responseType: 'blob' as 'json' }).pipe(
+      tap((response: any) => {
+        const blob = new Blob([response], { type: 'text/csv' });
+        const urlBlob = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = urlBlob;
+        a.download = 'report.csv';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(urlBlob);
+      })
+    );
   }
 
   setVisibilityOfSpeedGraph(element: HTMLDivElement | null, visible: boolean) {

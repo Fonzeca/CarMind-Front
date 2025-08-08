@@ -63,6 +63,7 @@ const endpoints = {
     create_zone: "/trackin/createZone",
     edit_zone_by_id: "/trackin/editZoneById",
     delete_zone: "/trackin/deleteZoneById",
+    generateSummaryReport: "/trackin/getSummaryRoutesAndZones"
   }
 };
 export default endpoints;

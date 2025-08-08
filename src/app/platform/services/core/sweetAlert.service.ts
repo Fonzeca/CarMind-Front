@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 
 
 @Injectable({
@@ -37,5 +37,22 @@ export class SweetAlertService {
       icon: 'warning',
       timer: 4000,
     });
+  }
+
+  showLoading(message: string = 'Cargando...') {
+    return Swal.fire({
+      title: message,
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      allowEnterKey: false,
+      showConfirmButton: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
+  }
+
+  closeLoading() {
+    Swal.close();
   }
 }
